@@ -1,0 +1,12 @@
+[
+    {
+        "prompt": "A beautiful European apartment interior in Paris or London with classic white column radiators, period windows, hardwood floors, warm lighting, lifestyle photography",
+        "filename": "article-european-style.png",
+        "aspect_ratio": "4:3"
+    },
+    {
+        "prompt": "Professional quality certification process, CE marking documentation, laboratory testing equipment, official certification stamps, corporate documentation photography",
+        "filename": "article-certifications.png",
+        "aspect_ratio": "4:3"
+    }
+]

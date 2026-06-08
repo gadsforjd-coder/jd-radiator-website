@@ -1,0 +1,22 @@
+[
+    {
+        "prompt": "Modern corporate office reception area of a manufacturing company, clean design, company branding, professional business photography",
+        "filename": "contact-office.png",
+        "aspect_ratio": "16:9"
+    },
+    {
+        "prompt": "An elegant designer steel radiator with artistic welded joint pattern in a contemporary loft apartment, vertical tall radiator, matte white finish, interior design photography",
+        "filename": "category-designer.png",
+        "aspect_ratio": "1:1"
+    },
+    {
+        "prompt": "A classic white 3-column steel radiator installed in a traditional European hallway, period architecture, warm ambient lighting, product photography",
+        "filename": "category-column.png",
+        "aspect_ratio": "1:1"
+    },
+    {
+        "prompt": "A modern chrome heated towel rail radiator in a luxury marble bathroom, fluffy white towels hanging, spa atmosphere, interior photography",
+        "filename": "category-towel.png",
+        "aspect_ratio": "1:1"
+    }
+]

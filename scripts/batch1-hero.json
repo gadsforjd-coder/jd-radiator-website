@@ -1,0 +1,22 @@
+[
+    {
+        "prompt": "A panoramic view of a modern luxury apartment with elegant white steel radiators under floor-to-ceiling windows, warm golden hour lighting, premium interior design, cinematic photography",
+        "filename": "hero-banner.png",
+        "aspect_ratio": "21:9"
+    },
+    {
+        "prompt": "Interior of a modern radiator manufacturing factory, robotic welding arms, automated production line, steel panels, industrial photography, clean and organized, blue safety lighting",
+        "filename": "hero-manufacturing.png",
+        "aspect_ratio": "16:9"
+    },
+    {
+        "prompt": "Aerial view of a large modern manufacturing facility, 45000 square meters, industrial park, organized buildings, professional corporate photography",
+        "filename": "about-factory-aerial.png",
+        "aspect_ratio": "16:9"
+    },
+    {
+        "prompt": "Quality control testing in a radiator factory, pressure testing equipment, engineer checking gauges, professional industrial photography",
+        "filename": "about-quality-testing.png",
+        "aspect_ratio": "16:9"
+    }
+]

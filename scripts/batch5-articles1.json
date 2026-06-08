@@ -1,0 +1,22 @@
+[
+    {
+        "prompt": "Side by side comparison of a steel panel radiator and a copper-aluminum bimetal radiator cross-section, technical cutaway view, engineering illustration style, clean background",
+        "filename": "article-steel-vs-bimetal.png",
+        "aspect_ratio": "4:3"
+    },
+    {
+        "prompt": "Workers in a modern radiator factory, automated welding line, quality inspection, team collaboration, industrial documentary photography",
+        "filename": "article-factory-story.png",
+        "aspect_ratio": "4:3"
+    },
+    {
+        "prompt": "A bright summer renovation scene, an installer fitting a white radiator under a window in a partially decorated room, tools visible, natural daylight, documentary photography",
+        "filename": "article-summer-renovation.png",
+        "aspect_ratio": "4:3"
+    },
+    {
+        "prompt": "An architect reviewing floor plans with heating layout markings, radiator placement diagrams on blueprints, professional workspace, engineering photography",
+        "filename": "article-heat-calculation.png",
+        "aspect_ratio": "4:3"
+    }
+]

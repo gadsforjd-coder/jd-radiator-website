@@ -1,0 +1,17 @@
+[
+    {
+        "prompt": "Close-up of steel surface treatment process, acid washing and phosphating tanks in a factory, chemical processing line, industrial macro photography",
+        "filename": "article-surface-treatment.png",
+        "aspect_ratio": "4:3"
+    },
+    {
+        "prompt": "Split image concept: left side shows a large apartment building with central heating pipes, right side shows a modern home with a wall-hung gas boiler, comparison illustration",
+        "filename": "article-central-vs-independent.png",
+        "aspect_ratio": "4:3"
+    },
+    {
+        "prompt": "Professional HVAC technician installing a white steel radiator, copper pipes, pipe wrench and tools, clean installation work, documentary photography",
+        "filename": "article-installation.png",
+        "aspect_ratio": "4:3"
+    }
+]

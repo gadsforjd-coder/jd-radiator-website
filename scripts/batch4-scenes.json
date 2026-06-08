@@ -1,0 +1,22 @@
+[
+    {
+        "prompt": "A luxury bathroom with a chrome heated towel radiator, marble tiles, rainfall shower, warm steam, spa-like atmosphere, interior photography",
+        "filename": "scene-bathroom.png",
+        "aspect_ratio": "16:9"
+    },
+    {
+        "prompt": "A modern office space with white steel panel radiators along the window wall, workstations, natural daylight, professional corporate interior photography",
+        "filename": "scene-office.png",
+        "aspect_ratio": "16:9"
+    },
+    {
+        "prompt": "An upscale hotel lobby with designer vertical radiators as architectural features, elegant marble floor, warm ambient lighting, hospitality interior photography",
+        "filename": "scene-hotel-lobby.png",
+        "aspect_ratio": "16:9"
+    },
+    {
+        "prompt": "Multiple different styles of steel radiators displayed in a showroom, various sizes and designs, professional product display, clean white background, comparison photography",
+        "filename": "article-brand-comparison.png",
+        "aspect_ratio": "4:3"
+    }
+]

@@ -1,0 +1,170 @@
+{
+  "generated": "2026-06-02",
+  "model": "kling-v1",
+  "total_images": 25,
+  "total_units_used": 26,
+  "categories": {
+    "hero_and_general": [
+      {
+        "filename": "hero-banner.png",
+        "aspect_ratio": "16:9",
+        "intended_use": "Website hero banner - luxury apartment with radiators",
+        "prompt": "A panoramic view of a modern luxury apartment with elegant white steel radiators under floor-to-ceiling windows, warm golden hour lighting, premium interior design, cinematic photography"
+      },
+      {
+        "filename": "hero-manufacturing.png",
+        "aspect_ratio": "16:9",
+        "intended_use": "Manufacturing page hero - factory interior",
+        "prompt": "Interior of a modern radiator manufacturing factory, robotic welding arms, automated production line, steel panels, industrial photography, clean and organized, blue safety lighting"
+      },
+      {
+        "filename": "about-factory-aerial.png",
+        "aspect_ratio": "16:9",
+        "intended_use": "About page - aerial factory view",
+        "prompt": "Aerial view of a large modern manufacturing facility, 45000 square meters, industrial park, organized buildings, professional corporate photography"
+      },
+      {
+        "filename": "about-quality-testing.png",
+        "aspect_ratio": "16:9",
+        "intended_use": "About page - quality control section",
+        "prompt": "Quality control testing in a radiator factory, pressure testing equipment, engineer checking gauges, professional industrial photography"
+      },
+      {
+        "filename": "contact-office.png",
+        "aspect_ratio": "16:9",
+        "intended_use": "Contact page - corporate office",
+        "prompt": "Modern corporate office reception area of a manufacturing company, clean design, company branding, professional business photography"
+      }
+    ],
+    "product_categories": [
+      {
+        "filename": "category-designer.png",
+        "aspect_ratio": "1:1",
+        "intended_use": "Designer radiator product category thumbnail",
+        "prompt": "An elegant designer steel radiator with artistic welded joint pattern in a contemporary loft apartment, vertical tall radiator, matte white finish, interior design photography"
+      },
+      {
+        "filename": "category-column.png",
+        "aspect_ratio": "1:1",
+        "intended_use": "Column radiator product category thumbnail",
+        "prompt": "A classic white 3-column steel radiator installed in a traditional European hallway, period architecture, warm ambient lighting, product photography"
+      },
+      {
+        "filename": "category-towel.png",
+        "aspect_ratio": "1:1",
+        "intended_use": "Towel radiator product category thumbnail",
+        "prompt": "A modern chrome heated towel rail radiator in a luxury marble bathroom, fluffy white towels hanging, spa atmosphere, interior photography"
+      },
+      {
+        "filename": "category-bimetal.png",
+        "aspect_ratio": "1:1",
+        "intended_use": "Bimetal radiator product category thumbnail",
+        "prompt": "A copper-aluminum bimetal radiator in a modern minimalist bedroom, sectional design, warm tones, cozy atmosphere, product showcase photography"
+      },
+      {
+        "filename": "category-panel.png",
+        "aspect_ratio": "1:1",
+        "intended_use": "Panel radiator product category thumbnail",
+        "prompt": "A sleek white steel panel radiator (Type 22, double panel) under a window in a bright modern kitchen, clean lines, Scandinavian design, product photography"
+      }
+    ],
+    "room_scenes": [
+      {
+        "filename": "scene-living-room.png",
+        "aspect_ratio": "16:9",
+        "intended_use": "Living room application showcase",
+        "prompt": "A spacious modern living room with a white steel panel radiator under a large window, comfortable sofa, warm winter scene outside, cozy interior, professional photography"
+      },
+      {
+        "filename": "scene-bedroom.png",
+        "aspect_ratio": "16:9",
+        "intended_use": "Bedroom application showcase",
+        "prompt": "A cozy master bedroom with a white column radiator, soft warm lighting, winter evening, comfortable bedding, Scandinavian interior design photography"
+      },
+      {
+        "filename": "scene-bathroom.png",
+        "aspect_ratio": "16:9",
+        "intended_use": "Bathroom application showcase",
+        "prompt": "A luxury bathroom with a chrome heated towel radiator, marble tiles, rainfall shower, warm steam, spa-like atmosphere, interior photography"
+      },
+      {
+        "filename": "scene-office.png",
+        "aspect_ratio": "16:9",
+        "intended_use": "Office application showcase",
+        "prompt": "A modern office space with white steel panel radiators along the window wall, workstations, natural daylight, professional corporate interior photography"
+      },
+      {
+        "filename": "scene-hotel-lobby.png",
+        "aspect_ratio": "16:9",
+        "intended_use": "Hotel/hospitality application showcase",
+        "prompt": "An upscale hotel lobby with designer vertical radiators as architectural features, elegant marble floor, warm ambient lighting, hospitality interior photography"
+      }
+    ],
+    "article_illustrations": [
+      {
+        "filename": "article-brand-comparison.png",
+        "aspect_ratio": "4:3",
+        "intended_use": "Article: Brand comparison guide",
+        "prompt": "Multiple different styles of steel radiators displayed in a showroom, various sizes and designs, professional product display, clean white background, comparison photography"
+      },
+      {
+        "filename": "article-steel-vs-bimetal.png",
+        "aspect_ratio": "4:3",
+        "intended_use": "Article: Steel vs bimetal radiator comparison",
+        "prompt": "Side by side comparison of a steel panel radiator and a copper-aluminum bimetal radiator cross-section, technical cutaway view, engineering illustration style, clean background"
+      },
+      {
+        "filename": "article-factory-story.png",
+        "aspect_ratio": "4:3",
+        "intended_use": "Article: Factory story / behind the scenes",
+        "prompt": "Workers in a modern radiator factory, automated welding line, quality inspection, team collaboration, industrial documentary photography"
+      },
+      {
+        "filename": "article-summer-renovation.png",
+        "aspect_ratio": "4:3",
+        "intended_use": "Article: Summer renovation / installation timing",
+        "prompt": "A bright summer renovation scene, an installer fitting a white radiator under a window in a partially decorated room, tools visible, natural daylight, documentary photography"
+      },
+      {
+        "filename": "article-heat-calculation.png",
+        "aspect_ratio": "4:3",
+        "intended_use": "Article: Heat output calculation guide",
+        "prompt": "An architect reviewing floor plans with heating layout markings, radiator placement diagrams on blueprints, professional workspace, engineering photography"
+      },
+      {
+        "filename": "article-surface-treatment.png",
+        "aspect_ratio": "4:3",
+        "intended_use": "Article: Surface treatment / manufacturing process",
+        "prompt": "Close-up of steel surface treatment process, acid washing and phosphating tanks in a factory, chemical processing line, industrial macro photography"
+      },
+      {
+        "filename": "article-central-vs-independent.png",
+        "aspect_ratio": "4:3",
+        "intended_use": "Article: Central heating vs independent heating comparison",
+        "prompt": "Split image concept: left side shows a large apartment building with central heating pipes, right side shows a modern home with a wall-hung gas boiler, comparison illustration"
+      },
+      {
+        "filename": "article-installation.png",
+        "aspect_ratio": "4:3",
+        "intended_use": "Article: Radiator installation guide",
+        "prompt": "Professional HVAC technician installing a white steel radiator, copper pipes, pipe wrench and tools, clean installation work, documentary photography"
+      },
+      {
+        "filename": "article-european-style.png",
+        "aspect_ratio": "4:3",
+        "intended_use": "Article: European heating style / design inspiration",
+        "prompt": "A beautiful European apartment interior in Paris or London with classic white column radiators, period windows, hardwood floors, warm lighting, lifestyle photography"
+      },
+      {
+        "filename": "article-certifications.png",
+        "aspect_ratio": "4:3",
+        "intended_use": "Article: Quality certifications and standards",
+        "prompt": "Professional quality certification process, CE marking documentation, laboratory testing equipment, official certification stamps, corporate documentation photography"
+      }
+    ]
+  },
+  "notes": {
+    "original_hero_banner": "Originally specified as 21:9 but Kling API v1 does not support that ratio; generated as 16:9 instead",
+    "units_note": "26 units used (25 images + 1 failed 21:9 attempt that was retried as 16:9)"
+  }
+}

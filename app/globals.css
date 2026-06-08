@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+:root {
+  --jd-red: #e60012;
+  --jd-orange: #f39800;
+  --jd-dark: #0a0a0a;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: Arial, "Helvetica Neue", sans-serif; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+@keyframes pulse-marker {
+  0%, 100% { transform: scale(1); opacity: 0.7; box-shadow: 0 0 0 0 rgba(230, 0, 18, 0.5); }
+  50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 12px 4px rgba(230, 0, 18, 0.3); }
+}
+
+@keyframes dash-flow {
+  to { stroke-dashoffset: -20; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  animation: fadeUp 0.8s ease-out both;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-pulse-marker {
+  animation: pulse-marker 2s ease-in-out infinite;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+.animate-dash-flow {
+  animation: dash-flow 1s linear infinite;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s ease-out both;
+}
+
+.animate-fade-in-up-1 { animation-delay: 0.1s; }
+.animate-fade-in-up-2 { animation-delay: 0.2s; }
+.animate-fade-in-up-3 { animation-delay: 0.3s; }
+.animate-fade-in-up-4 { animation-delay: 0.4s; }
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.glass-card:hover {
+  border-color: rgba(230, 0, 18, 0.25);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.tech-card {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+@keyframes flow-line {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+
+.animate-flow-line {
+  animation: flow-line 3s ease-in-out infinite;
+}
+
+.product-card-hover:hover {
+  box-shadow: 0 0 30px rgba(230, 0, 18, 0.25), inset 0 0 0 1px rgba(230, 0, 18, 0.4);
+}
+
+.product-card-hover:hover img {
+  transform: scale(1.1);
+}
+

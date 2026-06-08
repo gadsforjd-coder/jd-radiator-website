@@ -1,0 +1,22 @@
+[
+    {
+        "prompt": "A copper-aluminum bimetal radiator in a modern minimalist bedroom, sectional design, warm tones, cozy atmosphere, product showcase photography",
+        "filename": "category-bimetal.png",
+        "aspect_ratio": "1:1"
+    },
+    {
+        "prompt": "A sleek white steel panel radiator (Type 22, double panel) under a window in a bright modern kitchen, clean lines, Scandinavian design, product photography",
+        "filename": "category-panel.png",
+        "aspect_ratio": "1:1"
+    },
+    {
+        "prompt": "A spacious modern living room with a white steel panel radiator under a large window, comfortable sofa, warm winter scene outside, cozy interior, professional photography",
+        "filename": "scene-living-room.png",
+        "aspect_ratio": "16:9"
+    },
+    {
+        "prompt": "A cozy master bedroom with a white column radiator, soft warm lighting, winter evening, comfortable bedding, Scandinavian interior design photography",
+        "filename": "scene-bedroom.png",
+        "aspect_ratio": "16:9"
+    }
+]
