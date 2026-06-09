@@ -1,5 +1,30 @@
+import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
+import { locales } from "@/lib/i18n";
+import { BASE_URL } from "@/lib/constants";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  return {
+    title: "Contact Jiuding — Get a Radiator Quote",
+    description:
+      "Contact Jiuding Radiator for OEM/ODM inquiries, product quotes, and export cooperation. Email kevin@jdradiator.com or fill in the contact form.",
+    alternates: {
+      canonical: `${BASE_URL}/${lang}/contact`,
+      languages: Object.fromEntries(locales.map((l) => [l, `${BASE_URL}/${l}/contact`])),
+    },
+    openGraph: {
+      title: "Contact Jiuding Radiator",
+      description: "Get a quote for steel radiators, OEM production, and export cooperation.",
+      url: `${BASE_URL}/${lang}/contact`,
+    },
+  };
+}
 
 export default async function ContactPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;

@@ -1,6 +1,26 @@
+import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
+import { locales } from "@/lib/i18n";
+import { BASE_URL } from "@/lib/constants";
 import Image from "next/image";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  return {
+    title: "Business Partnerships — OEM, Distribution & Export Cooperation",
+    description:
+      "Partner with Jiuding Radiator: OEM/ODM radiator manufacturing, regional distribution, project supply, and export cooperation for distributors and contractors worldwide.",
+    alternates: {
+      canonical: `${BASE_URL}/${lang}/collaborate`,
+      languages: Object.fromEntries(locales.map((l) => [l, `${BASE_URL}/${l}/collaborate`])),
+    },
+  };
+}
 
 const cards = [
   { key: "export", icon: "🌍" },

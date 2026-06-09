@@ -1,5 +1,30 @@
+import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
+import { locales } from "@/lib/i18n";
+import { BASE_URL } from "@/lib/constants";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  return {
+    title: "About Jiuding — Engineering Warmth Since 2002",
+    description:
+      "Founded in 2002 in Tianjin, China. 45,000㎡ factory, 4 million sections/year, 42 patents, CE/EN442/UKCA certified. Trusted OEM partner for radiator distributors in 80+ countries.",
+    alternates: {
+      canonical: `${BASE_URL}/${lang}/about`,
+      languages: Object.fromEntries(locales.map((l) => [l, `${BASE_URL}/${l}/about`])),
+    },
+    openGraph: {
+      title: "About Jiuding Radiator — Factory & History",
+      description: "45,000㎡ factory, 4 million sections/year, CE/EN442/UKCA certified. OEM radiator manufacturing since 2002.",
+      url: `${BASE_URL}/${lang}/about`,
+    },
+  };
+}
 
 export default async function AboutPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;

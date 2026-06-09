@@ -1,7 +1,9 @@
+import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
 import { products, getProductBySlug, getProductImages, categoryLabels } from "@/lib/products";
 import type { Locale } from "@/lib/i18n";
 import { locales } from "@/lib/i18n";
+import { BASE_URL, SITE_NAME } from "@/lib/constants";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -17,6 +19,63 @@ export function generateStaticParams() {
   return params;
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string; slug: string }>;
+}): Promise<Metadata> {
+  const { lang, slug } = await params;
+  const product = getProductBySlug(slug);
+  if (!product) return {};
+  const labels = categoryLabels[lang] || categoryLabels.en;
+  const categoryName = labels[product.category] || product.category;
+  const title = `${product.model} ${product.subtitle} — ${categoryName}`;
+  const description = `${product.model} ${product.subtitle}. Heat output ${product.specs.heatRange}, heights ${product.specs.heights}. CE/EN442-certified ${categoryName.toLowerCase()} by ${SITE_NAME}. Custom colors and OEM available.`;
+  const images = getProductImages(slug);
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${BASE_URL}/${lang}/products/${slug}`,
+      languages: Object.fromEntries(
+        locales.map((l) => [l, `${BASE_URL}/${l}/products/${slug}`])
+      ),
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${BASE_URL}/${lang}/products/${slug}`,
+      images: images.length > 0 ? [{ url: images[0], alt: `${product.model} ${categoryName}` }] : undefined,
+    },
+  };
+}
+
+function ProductJsonLd({ product, lang }: { product: NonNullable<ReturnType<typeof getProductBySlug>>; lang: string }) {
+  const labels = categoryLabels[lang] || categoryLabels.en;
+  const images = getProductImages(product.slug);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: `${product.model} ${product.subtitle}`,
+    description: `${labels[product.category]} by ${SITE_NAME}. Heat output ${product.specs.heatRange}, pressure rating ${product.specs.pressure}. Available in ${product.specs.colors}.`,
+    brand: { "@type": "Brand", name: SITE_NAME },
+    manufacturer: {
+      "@type": "Organization",
+      name: "Tianjin Jiuding Yangguang HVAC Co., Ltd.",
+    },
+    image: images.length > 0 ? images.map((i) => `${BASE_URL}${i}`) : undefined,
+    material: product.specs.material,
+    url: `${BASE_URL}/${lang}/products/${product.slug}`,
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
 export default async function ProductDetailPage({ params }: { params: Promise<{ lang: string; slug: string }> }) {
   const { lang, slug } = await params;
   const locale = lang as Locale;
@@ -28,6 +87,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const images = getProductImages(slug);
 
   return (
+    <>
+    <ProductJsonLd product={product} lang={locale} />
     <div className="py-24 px-6 lg:px-14">
       <Link href={`/${locale}/products`} className="text-[var(--jd-red)] font-bold text-sm hover:underline">{d.products.backToProducts}</Link>
 
@@ -72,5 +133,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         </div>
       </div>
     </div>
+    </>
   );
 }

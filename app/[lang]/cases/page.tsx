@@ -1,7 +1,27 @@
+import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
+import { locales } from "@/lib/i18n";
+import { BASE_URL } from "@/lib/constants";
 import Link from "next/link";
 import Image from "next/image";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  return {
+    title: "Project References — Residential, Hotel & Commercial Installations",
+    description:
+      "Jiuding radiators installed in projects across Europe, Central Asia, and the Middle East. Apartments, hotels, offices, and large-scale construction references.",
+    alternates: {
+      canonical: `${BASE_URL}/${lang}/cases`,
+      languages: Object.fromEntries(locales.map((l) => [l, `${BASE_URL}/${l}/cases`])),
+    },
+  };
+}
 
 const categoryImages = [
   { key: "residential", src: "/assets/ai-images/scene-living-room.png" },

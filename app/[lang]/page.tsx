@@ -1,8 +1,56 @@
+import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
+import { locales } from "@/lib/i18n";
+import { BASE_URL } from "@/lib/constants";
 import Link from "next/link";
 import Image from "next/image";
 import TechBreakdown from "./TechBreakdown";
+
+const metaByLocale: Record<string, { title: string; description: string }> = {
+  en: {
+    title: "Jiuding Radiator | Steel Radiator Manufacturer & OEM Partner",
+    description:
+      "CE/EN442-certified steel radiator manufacturer since 2002. Designer, column, panel radiators and heated towel rails. OEM/ODM for 80+ countries. Get a quote today.",
+  },
+  ru: {
+    title: "Jiuding Radiator | Производитель стальных радиаторов и OEM-партнёр",
+    description:
+      "Сертифицированный CE/EN442 производитель стальных радиаторов с 2002 года. Дизайнерские, колончатые, панельные радиаторы и полотенцесушители. OEM/ODM в 80+ стран.",
+  },
+  mn: {
+    title: "Jiuding Radiator | Ган радиатор үйлдвэрлэгч ба OEM түнш",
+    description:
+      "2002 оноос хойш CE/EN442 гэрчилгээтэй ган радиатор үйлдвэрлэгч. Дизайнер, баганат, хавтгай радиатор, алчуур хатаагч. 80+ оронд OEM/ODM.",
+  },
+  es: {
+    title: "Jiuding Radiator | Fabricante de Radiadores de Acero y Socio OEM",
+    description:
+      "Fabricante de radiadores de acero certificado CE/EN442 desde 2002. Radiadores de diseño, columna, panel y toalleros calefactados. OEM/ODM para más de 80 países.",
+  },
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  const meta = metaByLocale[lang] || metaByLocale.en;
+  return {
+    title: { absolute: meta.title },
+    description: meta.description,
+    alternates: {
+      canonical: `${BASE_URL}/${lang}`,
+      languages: Object.fromEntries(locales.map((l) => [l, `${BASE_URL}/${l}`])),
+    },
+    openGraph: {
+      title: meta.title,
+      description: meta.description,
+      url: `${BASE_URL}/${lang}`,
+    },
+  };
+}
 
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;

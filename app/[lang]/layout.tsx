@@ -1,6 +1,7 @@
 import "../globals.css";
 import { locales, type Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dictionary";
+import { BASE_URL, SITE_NAME } from "@/lib/constants";
 import Link from "next/link";
 import Image from "next/image";
 import { LangSwitcher } from "./LangSwitcher";
@@ -8,6 +9,36 @@ import { LangSwitcher } from "./LangSwitcher";
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Tianjin Jiuding Yangguang HVAC Co., Ltd.",
+  alternateName: [SITE_NAME, "九鼎散热器", "JIUDING"],
+  url: BASE_URL,
+  logo: `${BASE_URL}/assets/logo.png`,
+  foundingDate: "2002",
+  description:
+    "CE/EN442-certified manufacturer of steel panel radiators, designer radiators, column radiators and heated towel rails. 45,000㎡ factory, 4 million sections/year capacity, exporting to 80+ countries.",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "No.9, Wuwei Road, Economic Development Zone",
+    addressLocality: "Ninghe District, Tianjin",
+    addressCountry: "CN",
+  },
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      email: "kevin@jdradiator.com",
+      contactType: "sales",
+      availableLanguage: ["English", "Chinese", "Russian"],
+    },
+  ],
+  sameAs: [
+    "https://www.linkedin.com/company/tianjin-jiuding-sunshine-radiator-co-ltd/",
+    "https://www.instagram.com/jiudingradiator/",
+  ],
+};
 
 export default async function LangLayout({
   children,
@@ -22,6 +53,12 @@ export default async function LangLayout({
 
   return (
     <html lang={locale}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+      </head>
       <body className="text-[var(--jd-dark)] bg-white overflow-x-hidden">
         {/* Header */}
         <header className="h-[96px] fixed top-0 left-0 right-0 bg-black/70 backdrop-blur-xl flex items-center justify-between px-6 lg:px-14 z-50 border-b border-white/10">

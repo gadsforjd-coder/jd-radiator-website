@@ -1,5 +1,25 @@
+import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
+import { locales } from "@/lib/i18n";
+import { BASE_URL } from "@/lib/constants";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  return {
+    title: "Downloads — Product Catalogs & Technical Specifications",
+    description:
+      "Download Jiuding Radiator product catalogs, technical datasheets, installation guides, and CE/EN442 certification documents.",
+    alternates: {
+      canonical: `${BASE_URL}/${lang}/downloads`,
+      languages: Object.fromEntries(locales.map((l) => [l, `${BASE_URL}/${l}/downloads`])),
+    },
+  };
+}
 
 export default async function DownloadsPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
