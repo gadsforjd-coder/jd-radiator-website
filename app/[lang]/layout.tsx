@@ -60,7 +60,7 @@ export default async function LangLayout({
         />
         <script
           defer
-          src="/ua/script.js"
+          src="/tracker.js"
           data-website-id="f0fab079-cec6-4102-967d-f2ab1efe8745"
         />
       </head>
