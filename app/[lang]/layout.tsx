@@ -58,6 +58,11 @@ export default async function LangLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
+        <script
+          defer
+          src="/ua/script.js"
+          data-website-id="f0fab079-cec6-4102-967d-f2ab1efe8745"
+        />
       </head>
       <body className="text-[var(--jd-dark)] bg-white overflow-x-hidden">
         {/* Header */}
