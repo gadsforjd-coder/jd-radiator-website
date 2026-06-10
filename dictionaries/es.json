@@ -12,8 +12,8 @@
     "collaborate": "Socios"
   },
   "hero": {
-    "kicker": "Fabricación de radiadores y calefacción",
-    "title": "Calidez para espacios modernos.",
+    "kicker": "Fabricante de radiadores desde 2002",
+    "title": "Calefacción eficiente y fiable.",
     "lead": "Radiadores para hogares, hoteles, apartamentos y proyectos comerciales. Exportación a más de 80 países.",
     "cta1": "Ver Productos",
     "cta2": "Contacto"
@@ -30,7 +30,7 @@
   },
   "products": {
     "kicker": "Productos",
-    "title": "Categorías claras. Compra fácil.",
+    "title": "Descubra nuestra gama.",
     "designer": "Radiadores de Diseño",
     "designerDesc": "Calefacción para interiores premium",
     "steel": "Radiadores de Panel",
@@ -52,7 +52,7 @@
   },
   "tech": {
     "kicker": "Tecnología",
-    "title": "Estructura Avanzada",
+    "title": "Tecnología de Calefacción",
     "subtitle": "4 tecnologías clave",
     "feature1": "Transferencia Eficiente",
     "feature1Desc": "Canales optimizados distribuyen el calor de manera uniforme.",
@@ -88,7 +88,7 @@
     "constructionDesc": "Suministro a granel para promotores y contratistas."
   },
   "oemSupport": {
-    "kicker": "OEM/ODM",
+    "kicker": "Profesionales",
     "title": "Su marca. Nuestra fábrica.",
     "customSize": "Tamaño",
     "customSizeDesc": "Cualquier altura, ancho o secciones para su mercado.",
@@ -104,8 +104,8 @@
     "projectSupplyDesc": "Soporte desde la especificación hasta la entrega."
   },
   "whyChoose": {
-    "kicker": "Por Qué Jiuding",
-    "title": "Para socios globales.",
+    "kicker": "Ventajas",
+    "title": "¿Por qué elegirnos?",
     "experience": "20+ Años",
     "experienceDesc": "Dos décadas de fabricación y mejora continua.",
     "export": "Exportación Global",
@@ -118,7 +118,7 @@
     "serviceDesc": "Gestores dedicados y soporte técnico ágil."
   },
   "about": {
-    "kicker": "Sobre Jiuding",
+    "kicker": "Quiénes somos",
     "title": "Creando Calidez Desde 2002",
     "intro": "Jiuding Radiator — fabricante de radiadores de acero y diseño en Tianjin, China. 20+ años de experiencia, exportación a 80+ países. Socio OEM/ODM de confianza para distribuidores en todo el mundo.",
     "historyTitle": "Hitos",
@@ -148,7 +148,7 @@
   },
   "cases": {
     "kicker": "Proyectos",
-    "title": "Confianza en proyectos mundiales.",
+    "title": "Proyectos de referencia",
     "intro": "Desde apartamentos hasta hoteles de lujo — en proyectos por Europa, Asia Central y Oriente Medio.",
     "residential": "Residencial",
     "hotel": "Hoteles",
@@ -156,8 +156,8 @@
     "placeholder": "Casos próximamente. Contáctenos para referencias en su región."
   },
   "downloads": {
-    "kicker": "Recursos Técnicos",
-    "title": "Especificaciones, catálogos y guías.",
+    "kicker": "Descargas",
+    "title": "Documentación técnica",
     "intro": "Fichas técnicas, guías de instalación y catálogos para su proyecto.",
     "catalog": "Catálogo 2026",
     "catalogDesc": "Gama completa con dimensiones y especificaciones.",
@@ -176,7 +176,7 @@
   },
   "calculator": {
     "kicker": "Calculadora",
-    "title": "El radiador adecuado para su habitación.",
+    "title": "Encuentre su radiador",
     "intro": "Introduzca las dimensiones para calcular la potencia térmica necesaria.",
     "roomLength": "Largo (m)",
     "roomWidth": "Ancho (m)",
@@ -193,8 +193,8 @@
     "disclaimer": "Estimación orientativa. Contacte con nosotros para asesoramiento profesional."
   },
   "contact": {
-    "kicker": "Comenzar",
-    "title": "¿Listo para colaborar?",
+    "kicker": "Contacto",
+    "title": "Solicite presupuesto",
     "lead": "Envíe requisitos de producto y detalles del proyecto. Le ayudamos con selección, OEM y exportación.",
     "email": "Solicitar Precio",
     "cta2": "Contacto",
@@ -306,8 +306,8 @@
     "a10": "Contacte en kevin@jdradiator.com — perfil, mercado, volúmenes. Acuerdos exclusivos y soporte."
   },
   "collaborate": {
-    "kicker": "Colaboración",
-    "title": "Crezcamos juntos",
+    "kicker": "Profesionales",
+    "title": "Trabajemos juntos",
     "lead": "Producción OEM, distribución regional, suministro por proyecto — estamos listos.",
     "exportTitle": "Exportación",
     "exportDesc": "Radiadores a 30+ países. MOQ flexible, certificación completa (CE / UKCA / EN442).",
