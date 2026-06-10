@@ -7,7 +7,7 @@ export function middleware(request: NextRequest) {
     (l) => pathname.startsWith(`/${l}/`) || pathname === `/${l}`
   );
   if (hasLocale) return;
-  if (pathname.startsWith("/assets/") || pathname.startsWith("/favicon")) return;
+  if (pathname.startsWith("/assets/") || pathname.startsWith("/favicon") || pathname.startsWith("/api/") || pathname === "/tracker.js") return;
 
   request.nextUrl.pathname = `/${defaultLocale}${pathname}`;
   return NextResponse.redirect(request.nextUrl);
