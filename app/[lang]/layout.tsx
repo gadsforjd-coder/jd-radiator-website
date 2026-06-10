@@ -73,8 +73,10 @@ export default async function LangLayout({
             <Link href={`/${locale}`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.home}</Link>
             <Link href={`/${locale}/products`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.products}</Link>
             <Link href={`/${locale}/about`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.about}</Link>
+            <Link href={`/${locale}/credentials`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.credentials}</Link>
             <Link href={`/${locale}/cases`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.cases}</Link>
             <Link href={`/${locale}/downloads`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.downloads}</Link>
+            <Link href={`/${locale}/faq`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.faq}</Link>
             <Link href={`/${locale}/calculator`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.calculator}</Link>
             <Link href={`/${locale}/collaborate`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.collaborate}</Link>
             <Link href={`/${locale}/contact`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.contact}</Link>
@@ -98,6 +100,7 @@ export default async function LangLayout({
               <h3 className="text-white font-black text-lg mb-6">{d.footer.aboutJiuding}</h3>
               <Link href={`/${locale}/about`} className="block mb-4 text-white/55 hover:text-[var(--jd-orange)] hover:translate-x-1 transition-all">{d.footer.factory}</Link>
               <Link href={`/${locale}/cases`} className="block mb-4 text-white/55 hover:text-[var(--jd-orange)] hover:translate-x-1 transition-all">{d.footer.projects}</Link>
+              <Link href={`/${locale}/credentials`} className="block mb-4 text-white/55 hover:text-[var(--jd-orange)] hover:translate-x-1 transition-all">{d.nav.credentials}</Link>
               <Link href={`/${locale}/contact`} className="block mb-4 text-white/55 hover:text-[var(--jd-orange)] hover:translate-x-1 transition-all">{d.footer.contactUs}</Link>
               <Link href={`/${locale}/products`} className="block mb-4 text-white/55 hover:text-[var(--jd-orange)] hover:translate-x-1 transition-all">{d.footer.oemOrders}</Link>
             </div>

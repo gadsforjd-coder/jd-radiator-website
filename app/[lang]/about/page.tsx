@@ -80,6 +80,20 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
         </div>
       </section>
 
+      {/* Landmark Projects */}
+      <section className="py-24 px-6 lg:px-14 bg-gray-50">
+        <h2 className="text-3xl lg:text-5xl font-bold tracking-tight mb-6">{d.about.landmarkTitle}</h2>
+        <p className="text-gray-600 text-lg max-w-3xl mb-12">{d.about.landmarkIntro}</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[d.about.landmark1, d.about.landmark2, d.about.landmark3, d.about.landmark4, d.about.landmark5, d.about.landmark6].map((item, i) => (
+            <div key={i} className="bg-white border border-gray-200 p-7 rounded-lg">
+              <span className="text-[var(--jd-red)] font-extrabold text-sm block mb-3">0{i + 1}</span>
+              <p className="text-gray-700 font-medium">{item}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Factory placeholder */}
       <section className="py-24 px-6 lg:px-14 bg-[var(--jd-dark)] text-white">
         <h2 className="text-3xl lg:text-5xl font-bold tracking-tight mb-8">{d.about.capTitle}</h2>
