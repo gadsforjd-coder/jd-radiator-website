@@ -58,9 +58,167 @@ export const products: Product[] = [
 
 export const categoryLabels: Record<string, Record<string, string>> = {
   en: { designer: "Designer Radiator", column: "Column Radiator", towel: "Towel Radiator", bimetal: "Bimetal Radiator", panel: "Panel Radiator" },
-  ru: { designer: "Дизайнерский радиатор", column: "Колончатый радиатор", towel: "Полотенцесушитель", bimetal: "Биметаллический радиатор", panel: "Панельный радиатор" },
-  mn: { designer: "Дизайнер радиатор", column: "Баганат радиатор", towel: "Алчуур хатаагч", bimetal: "Биметалл радиатор", panel: "Хавтгай радиатор" },
-  es: { designer: "Radiador de Diseño", column: "Radiador de Columna", towel: "Toallero Calefactado", bimetal: "Radiador Bimetálico", panel: "Radiador de Panel" },
+  ru: { designer: "Дизайн-радиатор", column: "Стальной трубчатый радиатор", towel: "Полотенцесушитель", bimetal: "Медно-алюминиевый радиатор", panel: "Стальной панельный радиатор" },
+  mn: { designer: "Дизайн радиатор", column: "Баганат ган радиатор", towel: "Алчуур хатаагч", bimetal: "Зэс-хөнгөн цагаан радиатор", panel: "Ган хэвлэмэл радиатор" },
+  es: { designer: "Radiador de Diseño", column: "Radiador Tubular de Acero", towel: "Toallero Calefactado", bimetal: "Radiador de Cobre-Aluminio", panel: "Radiador de Panel de Acero" },
+};
+
+export const subtitleByLocale: Record<string, Record<string, string>> = {
+  // Designer Radiators
+  "jd25y": {
+    ru: "Однорядный / Двухрядный",
+    mn: "Нэг эгнээт / Хоёр эгнээт",
+    es: "Panel simple / doble",
+  },
+  "jd25-28": {
+    ru: "Однорядный / Двухрядный",
+    mn: "Нэг эгнээт / Хоёр эгнээт",
+    es: "Panel simple / doble",
+  },
+  "jd30f": {
+    ru: "Однорядный / Двухрядный",
+    mn: "Нэг эгнээт / Хоёр эгнээт",
+    es: "Panel simple / doble",
+  },
+  "jd30-15": {
+    ru: "Однорядный / Двухрядный",
+    mn: "Нэг эгнээт / Хоёр эгнээт",
+    es: "Panel simple / doble",
+  },
+  "jd40-12l": {
+    ru: "Однорядный / Двухрядный",
+    mn: "Нэг эгнээт / Хоёр эгнээт",
+    es: "Panel simple / doble",
+  },
+  "jd40-15": {
+    ru: "Однорядный / Двухрядный",
+    mn: "Нэг эгнээт / Хоёр эгнээт",
+    es: "Panel simple / doble",
+  },
+  "jd40": {
+    ru: "Однорядный / Двухрядный",
+    mn: "Нэг эгнээт / Хоёр эгнээт",
+    es: "Panel simple / doble",
+  },
+  "jd50-25jz": {
+    ru: "Однорядный",
+    mn: "Нэг эгнээт",
+    es: "Panel simple",
+  },
+  "jd50-25": {
+    ru: "Однорядный / Двухрядный",
+    mn: "Нэг эгнээт / Хоёр эгнээт",
+    es: "Panel simple / doble",
+  },
+  "jd50f": {
+    ru: "Однорядный / Двухрядный",
+    mn: "Нэг эгнээт / Хоёр эгнээт",
+    es: "Panel simple / doble",
+  },
+  "jd50y": {
+    ru: "Однорядный / Двухрядный",
+    mn: "Нэг эгнээт / Хоёр эгнээт",
+    es: "Panel simple / doble",
+  },
+  "jd60-15": {
+    ru: "Однорядный / Двухрядный",
+    mn: "Нэг эгнээт / Хоёр эгнээт",
+    es: "Panel simple / doble",
+  },
+  "jd60-30": {
+    ru: "Однорядный / Двухрядный",
+    mn: "Нэг эгнээт / Хоёр эгнээт",
+    es: "Panel simple / doble",
+  },
+  "jd68-12": {
+    ru: "Однорядный / Двухрядный",
+    mn: "Нэг эгнээт / Хоёр эгнээт",
+    es: "Panel simple / doble",
+  },
+  "jd70-15": {
+    ru: "Однорядный / Двухрядный",
+    mn: "Нэг эгнээт / Хоёр эгнээт",
+    es: "Panel simple / doble",
+  },
+  "jdsc": {
+    ru: "Декоративный трубчатый",
+    mn: "Чимэглэлийн баганат",
+    es: "Columna decorativa",
+  },
+  // Column Radiators
+  "jdgz2": {
+    ru: "2-колонный стальной радиатор",
+    mn: "2 баганат ган радиатор",
+    es: "Radiador de acero de 2 columnas",
+  },
+  "jdgz3": {
+    ru: "3-колонный стальной радиатор",
+    mn: "3 баганат ган радиатор",
+    es: "Radiador de acero de 3 columnas",
+  },
+  "jdgz4": {
+    ru: "4-колонный стальной радиатор",
+    mn: "4 баганат ган радиатор",
+    es: "Radiador de acero de 4 columnas",
+  },
+  // Towel Radiators
+  "jd30slf": {
+    ru: "Водяной полотенцесушитель с плоской трубой",
+    mn: "Хавтгай хоолойт алчуур хатаагч",
+    es: "Toallero de tubo plano",
+  },
+  "jdwy-c": {
+    ru: "Полотенцесушитель с изогнутым профилем",
+    mn: "Нугалсан хоолойт алчуур хатаагч",
+    es: "Toallero de tubo curvado",
+  },
+  "jdwy-s": {
+    ru: "Полотенцесушитель с прямым профилем",
+    mn: "Шулуун хоолойт алчуур хатаагч",
+    es: "Toallero de tubo recto",
+  },
+  "jd60-15df": {
+    ru: "Дизайн-полотенцесушитель",
+    mn: "Дизайн алчуур хатаагч",
+    es: "Toallero de diseño",
+  },
+  // Bimetal Radiators
+  "jd75-75tl": {
+    ru: "Медно-алюминиевый радиатор",
+    mn: "Зэс-хөнгөн цагаан радиатор",
+    es: "Radiador de cobre-aluminio",
+  },
+  "jd132-60tl": {
+    ru: "Медно-алюминиевый радиатор",
+    mn: "Зэс-хөнгөн цагаан радиатор",
+    es: "Radiador de cobre-aluminio",
+  },
+  "jd80-80": {
+    ru: "Медно-алюминиевый радиатор",
+    mn: "Зэс-хөнгөн цагаан радиатор",
+    es: "Radiador de cobre-aluminio",
+  },
+  // Panel Radiators
+  "jd-11k": {
+    ru: "Тип 11 — одна панель, один конвектор",
+    mn: "Төрөл 11 — нэг хавтан, нэг конвектор",
+    es: "Tipo 11 — panel simple, convector simple",
+  },
+  "jd-22k": {
+    ru: "Тип 22 — две панели, два конвектора",
+    mn: "Төрөл 22 — хоёр хавтан, хоёр конвектор",
+    es: "Tipo 22 — panel doble, convector doble",
+  },
+  "jd-23k": {
+    ru: "Тип 23 — две панели, три конвектора",
+    mn: "Төрөл 23 — хоёр хавтан, гурван конвектор",
+    es: "Tipo 23 — panel doble, triple convector",
+  },
+  "jd-33k": {
+    ru: "Тип 33 — три панели, три конвектора",
+    mn: "Төрөл 33 — гурван хавтан, гурван конвектор",
+    es: "Tipo 33 — panel triple, triple convector",
+  },
 };
 
 export const productImages: Record<string, string[]> = {
@@ -83,6 +241,13 @@ export const productImages: Record<string, string[]> = {
 
 export function getProductImages(slug: string): string[] {
   return productImages[slug] || [];
+}
+
+export function getLocalizedSubtitle(slug: string, locale: string): string {
+  const product = products.find((p) => p.slug === slug);
+  if (!product) return "";
+  if (locale === "en") return product.subtitle;
+  return subtitleByLocale[slug]?.[locale] ?? product.subtitle;
 }
 
 export function getProductBySlug(slug: string): Product | undefined {

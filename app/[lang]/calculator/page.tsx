@@ -10,13 +10,52 @@ const dicts: Record<string, Promise<Record<string, Record<string, string>>>> = {
   es: import("@/dictionaries/es.json").then((m) => m.default as never),
 };
 
+const recommendedProductNames: Record<string, Record<string, string>> = {
+  "designer-vertical": {
+    en: "Designer Vertical Radiator",
+    ru: "Вертикальный дизайн-радиатор",
+    mn: "Босоо дизайн радиатор",
+    es: "Radiador vertical de diseño",
+  },
+  "steel-column": {
+    en: "Steel Column Radiator",
+    ru: "Стальной трубчатый радиатор",
+    mn: "Баганат ган радиатор",
+    es: "Radiador tubular de acero",
+  },
+  "panel-22": {
+    en: "Steel Plate Radiator (Type 22)",
+    ru: "Стальной панельный радиатор (Тип 22)",
+    mn: "Ган хэвлэмэл радиатор (Төрөл 22)",
+    es: "Radiador de panel de acero (Tipo 22)",
+  },
+  "panel-11": {
+    en: "Steel Plate Radiator (Type 11)",
+    ru: "Стальной панельный радиатор (Тип 11)",
+    mn: "Ган хэвлэмэл радиатор (Төрөл 11)",
+    es: "Radiador de panel de acero (Tipo 11)",
+  },
+  "towel-rail": {
+    en: "Heated Towel Rail",
+    ru: "Водяной полотенцесушитель",
+    mn: "Усан алчуур хатаагч",
+    es: "Toallero calefactado",
+  },
+  "bathroom": {
+    en: "Bathroom Backbasket Radiator",
+    ru: "Радиатор для ванной комнаты",
+    mn: "Угаалгын өрөөний радиатор",
+    es: "Radiador para baño",
+  },
+};
+
 const recommendedProducts = [
-  { name: "Designer Vertical Radiator", output: 2400, slug: "designer-vertical-radiator" },
-  { name: "Steel Column Radiator", output: 2000, slug: "steel-column-radiator" },
-  { name: "Steel Plate Radiator (Type 22)", output: 3000, slug: "steel-plate-radiator" },
-  { name: "Steel Plate Radiator (Type 11)", output: 1500, slug: "steel-plate-radiator" },
-  { name: "Heated Towel Rail", output: 800, slug: "heated-towel-rail" },
-  { name: "Bathroom Backbasket Radiator", output: 900, slug: "bathroom-backbasket-radiator" },
+  { key: "designer-vertical", output: 2400, slug: "designer-vertical-radiator" },
+  { key: "steel-column", output: 2000, slug: "steel-column-radiator" },
+  { key: "panel-22", output: 3000, slug: "steel-plate-radiator" },
+  { key: "panel-11", output: 1500, slug: "steel-plate-radiator" },
+  { key: "towel-rail", output: 800, slug: "heated-towel-rail" },
+  { key: "bathroom", output: 900, slug: "bathroom-backbasket-radiator" },
 ];
 
 export default function CalculatorPage({ params }: { params: Promise<{ lang: string }> }) {
@@ -101,8 +140,8 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
               <h3 className="text-xl font-bold mb-4">{t.recommended}</h3>
               <div className="grid gap-3">
                 {matches.map((p) => (
-                  <a key={p.slug + p.output} href={`/${locale}/products/${p.slug}`} className="flex justify-between items-center p-4 border border-gray-200 hover:border-[var(--jd-orange)] transition-colors">
-                    <span className="font-semibold">{p.name}</span>
+                  <a key={p.key + p.output} href={`/${locale}/products/${p.slug}`} className="flex justify-between items-center p-4 border border-gray-200 hover:border-[var(--jd-orange)] transition-colors">
+                    <span className="font-semibold">{recommendedProductNames[p.key]?.[locale] ?? recommendedProductNames[p.key]?.en ?? p.key}</span>
                     <span className="text-[var(--jd-red)] font-bold">{p.output} W</span>
                   </a>
                 ))}

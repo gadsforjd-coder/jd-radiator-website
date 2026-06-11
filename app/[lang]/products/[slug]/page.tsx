@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
-import { products, getProductBySlug, getProductImages, categoryLabels } from "@/lib/products";
+import { products, getProductBySlug, getProductImages, categoryLabels, getLocalizedSubtitle } from "@/lib/products";
 import type { Locale } from "@/lib/i18n";
 import { locales } from "@/lib/i18n";
 import { BASE_URL, SITE_NAME } from "@/lib/constants";
@@ -29,8 +29,9 @@ export async function generateMetadata({
   if (!product) return {};
   const labels = categoryLabels[lang] || categoryLabels.en;
   const categoryName = labels[product.category] || product.category;
-  const title = `${product.model} ${product.subtitle} — ${categoryName}`;
-  const description = `${product.model} ${product.subtitle}. Heat output ${product.specs.heatRange}, heights ${product.specs.heights}. CE/EN442-certified ${categoryName.toLowerCase()} by ${SITE_NAME}. Custom colors and OEM available.`;
+  const localizedSubtitle = getLocalizedSubtitle(slug, lang);
+  const title = `${product.model} ${localizedSubtitle} — ${categoryName}`;
+  const description = `${product.model} ${localizedSubtitle}. Heat output ${product.specs.heatRange}, heights ${product.specs.heights}. CE/EN442-certified ${categoryName.toLowerCase()} by ${SITE_NAME}. Custom colors and OEM available.`;
   const images = getProductImages(slug);
 
   return {
@@ -57,7 +58,7 @@ function ProductJsonLd({ product, lang }: { product: NonNullable<ReturnType<type
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: `${product.model} ${product.subtitle}`,
+    name: `${product.model} ${getLocalizedSubtitle(product.slug, lang)}`,
     description: `${labels[product.category]} by ${SITE_NAME}. Heat output ${product.specs.heatRange}, pressure rating ${product.specs.pressure}. Available in ${product.specs.colors}.`,
     brand: { "@type": "Brand", name: SITE_NAME },
     manufacturer: {
@@ -104,7 +105,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         <div>
           <p className="text-[var(--jd-red)] uppercase tracking-[0.2em] font-extrabold text-sm mb-1">{labels[product.category]}</p>
           <h1 className="text-3xl lg:text-5xl font-bold tracking-tight mb-2">{product.model}</h1>
-          <p className="text-gray-500 text-lg mb-8">{product.subtitle}</p>
+          <p className="text-gray-500 text-lg mb-8">{getLocalizedSubtitle(product.slug, locale)}</p>
 
           <h2 className="text-xl font-bold mb-4 border-b pb-2">{d.products.specifications}</h2>
           <table className="w-full text-left">
