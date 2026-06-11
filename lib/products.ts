@@ -250,6 +250,31 @@ export function getLocalizedSubtitle(slug: string, locale: string): string {
   return subtitleByLocale[slug]?.[locale] ?? product.subtitle;
 }
 
+/**
+ * Approximate center distance (межосевое расстояние) from the available
+ * heights — standard convention for tubular/column radiators is roughly
+ * height minus 60 mm. Returned values are marked as approximate ("≈").
+ */
+export function approxCenterDistance(heights: string): string | null {
+  const values = (heights.match(/\d+/g) || [])
+    .map(Number)
+    .filter((h) => h >= 200);
+  if (values.length === 0) return null;
+  return `≈ ${values.map((h) => h - 60).join(" / ")} mm`;
+}
+
+/**
+ * Test (pressure-test) rating derived from the working pressure:
+ * 1.5 × working pressure, per factory pressure-test practice.
+ */
+export function testPressureFrom(pressure: string): string | null {
+  const m = pressure.match(/([\d.]+)\s*MPa/);
+  if (!m) return null;
+  const mpa = parseFloat(m[1]) * 1.5;
+  const bar = Math.round(mpa * 10);
+  return `${mpa.toFixed(1)} MPa (${bar} bar)`;
+}
+
 export function getProductBySlug(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);
 }

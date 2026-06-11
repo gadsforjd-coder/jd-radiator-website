@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
-import { products, getProductBySlug, getProductImages, categoryLabels, getLocalizedSubtitle } from "@/lib/products";
+import { products, getProductBySlug, getProductImages, categoryLabels, getLocalizedSubtitle, approxCenterDistance, testPressureFrom } from "@/lib/products";
 import type { Locale } from "@/lib/i18n";
 import { locales } from "@/lib/i18n";
 import { BASE_URL, SITE_NAME } from "@/lib/constants";
@@ -87,6 +87,27 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const labels = categoryLabels[locale] || categoryLabels.en;
   const images = getProductImages(slug);
 
+  // RU market expects technical parameters first: center distance,
+  // working/test pressure and heat output near the top of the page.
+  const centerDistance = approxCenterDistance(product.specs.heights);
+  const testPressure = testPressureFrom(product.specs.pressure);
+  const keySpecRows = [
+    centerDistance ? { label: d.products.centerDistance, value: centerDistance } : null,
+    { label: d.products.pressure, value: product.specs.pressure },
+    testPressure ? { label: d.products.testPressure, value: testPressure } : null,
+    { label: d.products.heatOutput + " (EN442 ΔT=50°)", value: product.specs.heatRange },
+  ].filter((r): r is { label: string; value: string } => r !== null);
+
+  const specRows = [
+    { label: d.products.profile, value: product.specs.profile },
+    { label: d.products.dimensions, value: product.specs.heights },
+    { label: d.products.heatOutput + " (EN442 ΔT=50°)", value: product.specs.heatRange },
+    { label: d.products.pressure, value: product.specs.pressure },
+    { label: d.products.material, value: product.specs.material },
+    { label: d.products.colors, value: product.specs.colors },
+    { label: d.products.finish, value: product.specs.finish },
+  ];
+
   return (
     <>
     <ProductJsonLd product={product} lang={locale} />
@@ -107,18 +128,34 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           <h1 className="text-3xl lg:text-5xl font-bold tracking-tight mb-2">{product.model}</h1>
           <p className="text-gray-500 text-lg mb-8">{getLocalizedSubtitle(product.slug, locale)}</p>
 
+          {/* RU market: technical parameters first — key spec table near the top */}
+          {locale === "ru" && keySpecRows.length > 0 && (
+            <div className="mb-8">
+              <h2 className="text-xl font-bold mb-4 border-b pb-2">{d.products.keySpecs}</h2>
+              <table className="w-full text-left">
+                <tbody>
+                  {keySpecRows.map((row) => (
+                    <tr key={row.label} className="border-b border-gray-100">
+                      <td className="py-3 pr-4 font-semibold text-gray-700 w-1/3">{row.label}</td>
+                      <td className="py-3 text-gray-500">{row.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {/* Market-specific trust block (MN: market presence; ES: compliance/design/ESG; RU: durability) */}
+          <div className={`border-l-4 border-[var(--jd-red)] bg-gray-50 px-5 py-4 rounded-r ${locale === "ru" ? "mb-8" : "mb-8 -mt-2"}`}>
+            <p className="font-bold text-gray-900 mb-1">{d.products.marketTitle}</p>
+            <p className="text-sm text-gray-600 leading-relaxed">{d.products.marketLine1}</p>
+            <p className="text-sm text-gray-600 leading-relaxed">{d.products.marketLine2}</p>
+          </div>
+
           <h2 className="text-xl font-bold mb-4 border-b pb-2">{d.products.specifications}</h2>
           <table className="w-full text-left">
             <tbody>
-              {[
-                { label: "Profile", value: product.specs.profile },
-                { label: d.products.dimensions, value: product.specs.heights },
-                { label: d.products.heatOutput + " (EN442 ΔT=50°)", value: product.specs.heatRange },
-                { label: d.products.pressure, value: product.specs.pressure },
-                { label: d.products.material, value: product.specs.material },
-                { label: d.products.colors, value: product.specs.colors },
-                { label: "Finish", value: product.specs.finish },
-              ].map((row) => (
+              {specRows.map((row) => (
                 <tr key={row.label} className="border-b border-gray-100">
                   <td className="py-3 pr-4 font-semibold text-gray-700 w-1/3">{row.label}</td>
                   <td className="py-3 text-gray-500">{row.value}</td>

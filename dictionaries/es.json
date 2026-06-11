@@ -48,7 +48,15 @@
     "colors": "Colores",
     "download": "Descargar Ficha",
     "inquiry": "Enviar Consulta",
-    "backToProducts": "← Volver a Productos"
+    "backToProducts": "← Volver a Productos",
+    "profile": "Perfil",
+    "finish": "Acabado",
+    "keySpecs": "Datos clave",
+    "centerDistance": "Distancia entre ejes",
+    "testPressure": "Presión de prueba",
+    "marketTitle": "Eficiencia y diseño europeo",
+    "marketLine1": "Certificado CE / EN 442: eficiencia energética y amplia gama de colores RAL y acabados.",
+    "marketLine2": "Fabricación responsable: plantilla con un 40% de mujeres."
   },
   "tech": {
     "kicker": "Tecnología",

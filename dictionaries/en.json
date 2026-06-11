@@ -48,7 +48,15 @@
     "colors": "Available Colors",
     "download": "Download Spec Sheet",
     "inquiry": "Send Inquiry",
-    "backToProducts": "← Back to Products"
+    "backToProducts": "← Back to Products",
+    "profile": "Profile",
+    "finish": "Finish",
+    "keySpecs": "Key Specifications",
+    "centerDistance": "Center distance",
+    "testPressure": "Test pressure",
+    "marketTitle": "Export-ready manufacturing",
+    "marketLine1": "CE/EN442-certified production, exporting to 80+ countries since 2002.",
+    "marketLine2": "OEM/ODM support: custom sizes, colors and packaging."
   },
   "tech": {
     "kicker": "Core Technology",
