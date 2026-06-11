@@ -38,6 +38,7 @@ const pages = [
   ["/products", "monthly", "0.8"],
   ["/cases", "monthly", "0.8"],
   ["/downloads", "monthly", "0.8"],
+  ["/documents", "monthly", "0.8"],
   ["/calculator", "monthly", "0.8"],
   ["/collaborate", "monthly", "0.8"],
   ["/contact", "monthly", "0.8"],

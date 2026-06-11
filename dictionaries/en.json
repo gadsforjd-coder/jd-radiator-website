@@ -6,6 +6,7 @@
     "credentials": "Credentials",
     "cases": "Projects",
     "downloads": "Downloads",
+    "documents": "Documents",
     "calculator": "Calculator",
     "faq": "FAQ",
     "contact": "Contact",
@@ -143,7 +144,15 @@
     "catalogTitle": "Jiuding Product Catalog",
     "en442Title": "EN 442 Test Report — {model}",
     "cprTitle": "CPR Certificate of Constancy of Performance — {model}",
-    "pdfLabel": "PDF"
+    "pdfLabel": "PDF",
+    "kicker": "Documentation",
+    "title": "Technical documentation center.",
+    "intro": "Product catalogs, CE/EN 442 test reports and CPR certificates of constancy of performance — everything engineers, specifiers and distributors need to qualify Jiuding as a supplier.",
+    "sectionCatalog": "Product Catalog",
+    "sectionEn442": "CE / EN 442 Test Reports",
+    "sectionCpr": "CPR Declarations of Performance",
+    "metaTitle": "Documents — Catalogs, EN 442 Test Reports & CPR Certificates",
+    "metaDescription": "Download Jiuding Radiator technical documentation: product catalog, CE/EN 442 test reports and EU CPR (305/2011) certificates of constancy of performance."
   },
   "calculator": {
     "kicker": "Heat Calculator",

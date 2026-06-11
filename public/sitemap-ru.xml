@@ -51,6 +51,16 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://jdradiator.com/ru/documents</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jdradiator.com/en/documents"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://jdradiator.com/ru/documents"/>
+    <xhtml:link rel="alternate" hreflang="mn" href="https://jdradiator.com/mn/documents"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://jdradiator.com/es/documents"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://jdradiator.com/en/documents"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://jdradiator.com/ru/calculator</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://jdradiator.com/en/calculator"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://jdradiator.com/ru/calculator"/>

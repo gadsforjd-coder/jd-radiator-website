@@ -6,6 +6,7 @@
     "credentials": "Certificados",
     "cases": "Proyectos",
     "downloads": "Descargas",
+    "documents": "Documentación",
     "calculator": "Cálculo",
     "faq": "FAQ",
     "contact": "Contacto",
@@ -189,7 +190,15 @@
     "catalogTitle": "Catálogo de productos Jiuding",
     "en442Title": "Informe de ensayo EN 442 — {model}",
     "cprTitle": "Certificado de constancia de prestaciones (CPR) — {model}",
-    "pdfLabel": "PDF"
+    "pdfLabel": "PDF",
+    "kicker": "Documentación",
+    "title": "Centro de documentación técnica.",
+    "intro": "Catálogos de producto, informes de ensayo CE/EN 442 y certificados de constancia de prestaciones (CPR): todo lo que ingenieros, prescriptores y distribuidores necesitan para homologar a Jiuding como proveedor.",
+    "sectionCatalog": "Catálogo de productos",
+    "sectionEn442": "Informes de ensayo CE / EN 442",
+    "sectionCpr": "Certificados CPR (constancia de prestaciones)",
+    "metaTitle": "Documentación — catálogos, informes EN 442 y certificados CPR",
+    "metaDescription": "Documentación técnica de Jiuding Radiator: catálogo de productos, informes de ensayo CE/EN 442 y certificados de constancia de prestaciones CPR (Reglamento UE 305/2011)."
   },
   "calculator": {
     "kicker": "Cálculo de potencia",
