@@ -138,6 +138,13 @@
     "comingSoon": "PDF available soon — contact us for advance copies.",
     "downloadBtn": "Download PDF"
   },
+  "documents": {
+    "blockTitle": "Downloads",
+    "catalogTitle": "Jiuding Product Catalog",
+    "en442Title": "EN 442 Test Report — {model}",
+    "cprTitle": "CPR Certificate of Constancy of Performance — {model}",
+    "pdfLabel": "PDF"
+  },
   "calculator": {
     "kicker": "Heat Calculator",
     "title": "Find the right radiator for your room.",

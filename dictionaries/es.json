@@ -184,6 +184,13 @@
     "comingSoon": "PDF próximamente — contáctenos para copias anticipadas.",
     "downloadBtn": "Descargar PDF"
   },
+  "documents": {
+    "blockTitle": "Descargas",
+    "catalogTitle": "Catálogo de productos Jiuding",
+    "en442Title": "Informe de ensayo EN 442 — {model}",
+    "cprTitle": "Certificado de constancia de prestaciones (CPR) — {model}",
+    "pdfLabel": "PDF"
+  },
   "calculator": {
     "kicker": "Cálculo de potencia",
     "title": "Seleccione el radiador adecuado para su estancia",

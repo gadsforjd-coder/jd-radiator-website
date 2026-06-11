@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
 import { products, getProductBySlug, getProductImages, categoryLabels, getLocalizedSubtitle, approxCenterDistance, testPressureFrom, localizeSpecValue, heatedAreaFrom, heatOutputAtDt30 } from "@/lib/products";
+import { getDocumentsForProduct, formatDocTitle, type SiteDocument } from "@/lib/documents";
 import type { Locale } from "@/lib/i18n";
 import { locales, languageAlternates } from "@/lib/i18n";
 import { BASE_URL, SITE_NAME } from "@/lib/constants";
@@ -122,6 +123,12 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const heatOutputDt30 = locale === "en" || locale === "es" ? heatOutputAtDt30(product.specs.heatRange) : null;
   const heatedArea = locale === "mn" ? heatedAreaFrom(product.specs.heatRange) : null;
 
+  const productDocs = getDocumentsForProduct(slug);
+  const docTitle = (doc: SiteDocument) =>
+    doc.type === "catalog"
+      ? d.documents.catalogTitle
+      : formatDocTitle(doc.type === "en442" ? d.documents.en442Title : d.documents.cprTitle, doc.model);
+
   const specRows = [
     { label: d.products.profile, value: product.specs.profile },
     { label: d.products.dimensions, value: product.specs.heights },
@@ -190,6 +197,23 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               ))}
             </tbody>
           </table>
+
+          {/* Downloads: catalog + CE/EN442 + CPR documents matching this model */}
+          {productDocs.length > 0 && (
+            <div className="mt-8">
+              <h2 className="text-xl font-bold mb-4 border-b pb-2">{d.documents.blockTitle}</h2>
+              <ul className="space-y-3">
+                {productDocs.map((doc) => (
+                  <li key={doc.id}>
+                    <a href={doc.href} target="_blank" rel="noopener" className="group flex items-center gap-3 text-gray-700 hover:text-[var(--jd-red)] transition-colors">
+                      <span className="shrink-0 w-10 h-10 bg-[var(--jd-red)]/10 text-[var(--jd-red)] rounded flex items-center justify-center font-extrabold text-xs">{d.documents.pdfLabel}</span>
+                      <span className="font-semibold group-hover:underline">{docTitle(doc)}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div className="flex gap-4 mt-8 flex-wrap">
             <Link href={`/${locale}/contact`} className="inline-flex h-12 items-center px-6 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-red-700 transition-colors">{d.products.inquiry}</Link>

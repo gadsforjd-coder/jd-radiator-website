@@ -184,6 +184,13 @@
     "comingSoon": "PDF удахгүй — урьдчилан авахыг хүсвэл холбогдоно уу.",
     "downloadBtn": "PDF татах"
   },
+  "documents": {
+    "blockTitle": "Татаж авах",
+    "catalogTitle": "Jiuding бүтээгдэхүүний каталог",
+    "en442Title": "EN 442 туршилтын тайлан — {model}",
+    "cprTitle": "CPR гэрчилгээ (EU 305/2011) — {model}",
+    "pdfLabel": "PDF"
+  },
   "calculator": {
     "kicker": "Дулааны тооцоо",
     "title": "Өрөөний талбайгаар радиатор сонгох",

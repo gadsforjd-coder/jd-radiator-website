@@ -138,6 +138,13 @@
     "comingSoon": "PDF скоро — свяжитесь для предварительных копий.",
     "downloadBtn": "Скачать PDF"
   },
+  "documents": {
+    "blockTitle": "Документация",
+    "catalogTitle": "Каталог продукции Jiuding",
+    "en442Title": "Протокол испытаний EN 442 — {model}",
+    "cprTitle": "Сертификат постоянства характеристик CPR — {model}",
+    "pdfLabel": "PDF"
+  },
   "calculator": {
     "kicker": "Расчёт теплоотдачи",
     "title": "Подбор радиатора по площади помещения",
