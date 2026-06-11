@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
-import { products, getProductBySlug, getProductImages, categoryLabels, getLocalizedSubtitle, approxCenterDistance, testPressureFrom, localizeSpecValue } from "@/lib/products";
+import { products, getProductBySlug, getProductImages, categoryLabels, getLocalizedSubtitle, approxCenterDistance, testPressureFrom, localizeSpecValue, heatedAreaFrom, heatOutputAtDt30 } from "@/lib/products";
 import type { Locale } from "@/lib/i18n";
 import { locales, languageAlternates } from "@/lib/i18n";
 import { BASE_URL, SITE_NAME } from "@/lib/constants";
@@ -116,15 +116,23 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     { label: d.products.heatOutput + " (EN442 ΔT=50°)", value: product.specs.heatRange },
   ].filter((r): r is { label: string; value: string } => r !== null);
 
+  // ES/EN markets (EN 442 convention, see Baxi): low-temperature ΔT=30
+  // output alongside ΔT=50. MN market (see Aqua Therm): heated area at
+  // the local 150 W/m² design basis — the buyer's decision language.
+  const heatOutputDt30 = locale === "en" || locale === "es" ? heatOutputAtDt30(product.specs.heatRange) : null;
+  const heatedArea = locale === "mn" ? heatedAreaFrom(product.specs.heatRange) : null;
+
   const specRows = [
     { label: d.products.profile, value: product.specs.profile },
     { label: d.products.dimensions, value: product.specs.heights },
     { label: d.products.heatOutput + " (EN442 ΔT=50°)", value: product.specs.heatRange },
+    heatOutputDt30 ? { label: d.products.heatOutput + " (EN442 ΔT=30°)", value: heatOutputDt30 } : null,
+    heatedArea ? { label: d.products.heatedArea, value: heatedArea } : null,
     { label: d.products.pressure, value: product.specs.pressure },
     { label: d.products.material, value: product.specs.material },
     { label: d.products.colors, value: product.specs.colors },
     { label: d.products.finish, value: product.specs.finish },
-  ];
+  ].filter((r): r is { label: string; value: string } => r !== null);
 
   return (
     <>

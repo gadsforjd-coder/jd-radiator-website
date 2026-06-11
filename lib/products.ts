@@ -277,20 +277,26 @@ export function testPressureFrom(pressure: string): string | null {
 
 /**
  * Localize measurement units in spec values.
- * RU/MN use Cyrillic units (мм/Вт/бар/МПа — shared Russian/Mongolian
+ * RU/MN use Cyrillic units (мм/Вт/МПа — shared Russian/Mongolian
  * convention); ES keeps SI symbols (mm/W/bar) and only localizes the
- * per-section prefix. RU additionally uses decimal commas before МПа.
+ * per-section prefix. RU shows pressure as МПа + атм (Rifar passports
+ * use МПа, KZTO uses атм — dual units cover both conventions) and uses
+ * decimal commas; MN keeps бар and uses decimal commas before м².
  */
 export function localizeSpecValue(value: string, locale: string): string {
   if (locale === "ru" || locale === "mn") {
     let v = value
       .replace(/\bmm\b/g, "мм")
       .replace(/\bW\b/g, "Вт")
-      .replace(/\bbar\b/g, "бар")
+      .replace(/\bbar\b/g, locale === "ru" ? "атм" : "бар")
       .replace(/\bMPa\b/g, "МПа")
+      .replace(/\bm²/g, "м²")
       .replace(/Per section:/g, locale === "ru" ? "На секцию:" : "Секц тутамд:");
     if (locale === "ru") {
       v = v.replace(/(\d)\.(\d+)(\s*МПа)/g, "$1,$2$3");
+    }
+    if (v.includes("м²")) {
+      v = v.replace(/(\d)\.(\d+)/g, "$1,$2");
     }
     return v;
   }
@@ -298,6 +304,44 @@ export function localizeSpecValue(value: string, locale: string): string {
     return value.replace(/Per section:/g, "Por elemento:");
   }
   return value;
+}
+
+/** Formats a heated-area figure: whole м² above 2, one decimal below. */
+function formatArea(a: number): string {
+  return a >= 2 ? String(Math.round(a)) : a.toFixed(1);
+}
+
+/**
+ * Heated area (Халаах талбай) derived from the heat-output range at the
+ * Mongolian design basis of 150 W/m² (severe-climate sizing convention
+ * used by the local market — see Aqua Therm). Keeps the "Per section:"
+ * prefix when the source range is per section; localizeSpecValue()
+ * translates prefix and units.
+ */
+export function heatedAreaFrom(heatRange: string): string | null {
+  const nums = (heatRange.match(/\d+(?:\.\d+)?/g) || []).map(Number);
+  if (nums.length === 0) return null;
+  const min = Math.min(...nums) / 150;
+  const max = Math.max(...nums) / 150;
+  const prefix = /Per section:/.test(heatRange) ? "Per section: " : "";
+  const range = min === max ? formatArea(max) : `${formatArea(min)}–${formatArea(max)}`;
+  return `${prefix}≈ ${range} m²`;
+}
+
+/**
+ * Heat output converted from the EN 442 ΔT=50 rating to ΔT=30 using the
+ * standard radiator characteristic equation Φ30 = Φ50 × (30/50)^n with
+ * n = 1.3 (typical exponent for steel radiators). Values are approximate
+ * ("≈") — ES/EN markets expect a low-temperature figure alongside ΔT=50.
+ */
+export function heatOutputAtDt30(heatRange: string): string | null {
+  const factor = Math.pow(30 / 50, 1.3); // ≈ 0.515
+  const nums = (heatRange.match(/\d+(?:\.\d+)?/g) || []).map(Number);
+  if (nums.length === 0) return null;
+  const conv = nums.map((n) => Math.round(n * factor));
+  const prefix = /Per section:/.test(heatRange) ? "Per section: " : "";
+  const range = conv.length > 1 ? `${Math.min(...conv)}–${Math.max(...conv)}` : String(conv[0]);
+  return `${prefix}≈ ${range} W`;
 }
 
 export function getProductBySlug(slug: string): Product | undefined {
