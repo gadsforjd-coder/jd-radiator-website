@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
-import { locales } from "@/lib/i18n";
+import { locales, languageAlternates } from "@/lib/i18n";
 import { BASE_URL } from "@/lib/constants";
 
 export async function generateMetadata({
@@ -16,7 +16,7 @@ export async function generateMetadata({
       "Contact Jiuding Radiator for OEM/ODM inquiries, product quotes, and export cooperation. Email kevin@jdradiator.com or fill in the contact form.",
     alternates: {
       canonical: `${BASE_URL}/${lang}/contact`,
-      languages: Object.fromEntries(locales.map((l) => [l, `${BASE_URL}/${l}/contact`])),
+      languages: languageAlternates("/contact"),
     },
     openGraph: {
       title: "Contact Jiuding Radiator",

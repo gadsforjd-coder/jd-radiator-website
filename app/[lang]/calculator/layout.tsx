@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { locales } from "@/lib/i18n";
+import { languageAlternates } from "@/lib/i18n";
 import { BASE_URL } from "@/lib/constants";
 
 export async function generateMetadata({
@@ -14,9 +14,7 @@ export async function generateMetadata({
       "Calculate the required heat output for your room based on dimensions, insulation, and window count. Get matched with the right Jiuding radiator model.",
     alternates: {
       canonical: `${BASE_URL}/${lang}/calculator`,
-      languages: Object.fromEntries(
-        locales.map((l) => [l, `${BASE_URL}/${l}/calculator`])
-      ),
+      languages: languageAlternates("/calculator"),
     },
   };
 }

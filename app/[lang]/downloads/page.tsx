@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
-import { locales } from "@/lib/i18n";
+import { locales, languageAlternates } from "@/lib/i18n";
 import { BASE_URL } from "@/lib/constants";
 
 export async function generateMetadata({
@@ -16,7 +16,7 @@ export async function generateMetadata({
       "Download Jiuding Radiator product catalogs, technical datasheets, installation guides, and CE/EN442 certification documents.",
     alternates: {
       canonical: `${BASE_URL}/${lang}/downloads`,
-      languages: Object.fromEntries(locales.map((l) => [l, `${BASE_URL}/${l}/downloads`])),
+      languages: languageAlternates("/downloads"),
     },
   };
 }

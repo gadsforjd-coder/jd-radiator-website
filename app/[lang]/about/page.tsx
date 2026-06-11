@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
-import { locales } from "@/lib/i18n";
+import { locales, languageAlternates } from "@/lib/i18n";
 import { BASE_URL } from "@/lib/constants";
 
 export async function generateMetadata({
@@ -16,7 +16,7 @@ export async function generateMetadata({
       "Founded in 2002 in Tianjin, China. 45,000㎡ factory, 4 million sections/year, 42 patents, CE/EN442/UKCA certified. Trusted OEM partner for radiator distributors in 80+ countries.",
     alternates: {
       canonical: `${BASE_URL}/${lang}/about`,
-      languages: Object.fromEntries(locales.map((l) => [l, `${BASE_URL}/${l}/about`])),
+      languages: languageAlternates("/about"),
     },
     openGraph: {
       title: "About Jiuding Radiator — Factory & History",

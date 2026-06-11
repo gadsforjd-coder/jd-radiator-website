@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
 import { products, getProductBySlug, getProductImages, categoryLabels, getLocalizedSubtitle, approxCenterDistance, testPressureFrom, localizeSpecValue } from "@/lib/products";
 import type { Locale } from "@/lib/i18n";
-import { locales } from "@/lib/i18n";
+import { locales, languageAlternates } from "@/lib/i18n";
 import { BASE_URL, SITE_NAME } from "@/lib/constants";
 import Link from "next/link";
 import Image from "next/image";
@@ -39,9 +39,7 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `${BASE_URL}/${lang}/products/${slug}`,
-      languages: Object.fromEntries(
-        locales.map((l) => [l, `${BASE_URL}/${l}/products/${slug}`])
-      ),
+      languages: languageAlternates(`/products/${slug}`),
     },
     openGraph: {
       title,
@@ -68,6 +66,26 @@ function ProductJsonLd({ product, lang }: { product: NonNullable<ReturnType<type
     image: images.length > 0 ? images.map((i) => `${BASE_URL}${i}`) : undefined,
     material: product.specs.material,
     url: `${BASE_URL}/${lang}/products/${product.slug}`,
+    inLanguage: lang,
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
+function BreadcrumbJsonLd({ lang, model, slug, homeName, productsName }: { lang: string; model: string; slug: string; homeName: string; productsName: string }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    inLanguage: lang,
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: homeName, item: `${BASE_URL}/${lang}` },
+      { "@type": "ListItem", position: 2, name: productsName, item: `${BASE_URL}/${lang}/products` },
+      { "@type": "ListItem", position: 3, name: model, item: `${BASE_URL}/${lang}/products/${slug}` },
+    ],
   };
   return (
     <script
@@ -111,6 +129,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   return (
     <>
     <ProductJsonLd product={product} lang={locale} />
+    <BreadcrumbJsonLd lang={locale} model={product.model} slug={product.slug} homeName={d.nav.home} productsName={d.nav.products} />
     <div className="py-24 px-6 lg:px-14">
       <Link href={`/${locale}/products`} className="text-[var(--jd-red)] font-bold text-sm hover:underline">{d.products.backToProducts}</Link>
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
 import { products, categoryLabels, productImages, getLocalizedSubtitle, localizeSpecValue } from "@/lib/products";
 import type { Locale } from "@/lib/i18n";
-import { locales } from "@/lib/i18n";
+import { locales, languageAlternates } from "@/lib/i18n";
 import { BASE_URL } from "@/lib/constants";
 import Link from "next/link";
 import Image from "next/image";
@@ -19,7 +19,7 @@ export async function generateMetadata({
       "Browse 30+ models across 5 categories: designer radiators, steel column radiators, panel radiators, copper-aluminium bimetal radiators, and heated towel rails. CE/EN442 certified, custom RAL colors.",
     alternates: {
       canonical: `${BASE_URL}/${lang}/products`,
-      languages: Object.fromEntries(locales.map((l) => [l, `${BASE_URL}/${l}/products`])),
+      languages: languageAlternates("/products"),
     },
     openGraph: {
       title: "Jiuding Radiator Product Range",

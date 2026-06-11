@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
-import { locales } from "@/lib/i18n";
+import { locales, languageAlternates } from "@/lib/i18n";
 import { BASE_URL } from "@/lib/constants";
 
 export async function generateMetadata({
@@ -16,7 +16,7 @@ export async function generateMetadata({
       "Frequently asked questions about Jiuding radiators: certifications, production capacity, OEM/ODM services, MOQ, export markets, lead times, and distributor partnerships.",
     alternates: {
       canonical: `${BASE_URL}/${lang}/faq`,
-      languages: Object.fromEntries(locales.map((l) => [l, `${BASE_URL}/${l}/faq`])),
+      languages: languageAlternates("/faq"),
     },
     openGraph: {
       title: "FAQ — Jiuding Radiator",
@@ -47,6 +47,7 @@ export default async function FaqPage({ params }: { params: Promise<{ lang: stri
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    inLanguage: locale,
     mainEntity: faqs.map((item) => ({
       "@type": "Question",
       name: item.q,

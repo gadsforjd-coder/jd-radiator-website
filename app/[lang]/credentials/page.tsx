@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
-import { locales } from "@/lib/i18n";
+import { locales, languageAlternates } from "@/lib/i18n";
 import { BASE_URL } from "@/lib/constants";
 
 export async function generateMetadata({
@@ -16,7 +16,7 @@ export async function generateMetadata({
       "Jiuding radiators hold CE EN 442, UKCA (BSRIA-tested) certifications, 42 national patents, and 12 registered trademarks. Verified quality credentials for global partners.",
     alternates: {
       canonical: `${BASE_URL}/${lang}/credentials`,
-      languages: Object.fromEntries(locales.map((l) => [l, `${BASE_URL}/${l}/credentials`])),
+      languages: languageAlternates("/credentials"),
     },
     openGraph: {
       title: "Credentials — CE, UKCA, Patents & Trademarks | Jiuding Radiator",

@@ -10,9 +10,10 @@ export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
 
-const organizationJsonLd = {
+const organizationJsonLd = (locale: Locale) => ({
   "@context": "https://schema.org",
   "@type": "Organization",
+  inLanguage: locale,
   name: "Tianjin Jiuding Yangguang HVAC Co., Ltd.",
   alternateName: [SITE_NAME, "九鼎散热器", "JIUDING"],
   url: BASE_URL,
@@ -38,7 +39,19 @@ const organizationJsonLd = {
     "https://www.linkedin.com/company/tianjin-jiuding-sunshine-radiator-co-ltd/",
     "https://www.instagram.com/jiudingradiator/",
   ],
-};
+});
+
+const websiteJsonLd = (locale: Locale) => ({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE_NAME,
+  url: `${BASE_URL}/${locale}`,
+  inLanguage: locale,
+  publisher: {
+    "@type": "Organization",
+    name: "Tianjin Jiuding Yangguang HVAC Co., Ltd.",
+  },
+});
 
 export default async function LangLayout({
   children,
@@ -56,7 +69,11 @@ export default async function LangLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd(locale)) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd(locale)) }}
         />
         <script
           defer

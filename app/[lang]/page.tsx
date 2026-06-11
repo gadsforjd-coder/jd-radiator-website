@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
-import { locales } from "@/lib/i18n";
+import { locales, languageAlternates } from "@/lib/i18n";
 import { BASE_URL } from "@/lib/constants";
 import Link from "next/link";
 import Image from "next/image";
@@ -42,7 +42,7 @@ export async function generateMetadata({
     description: meta.description,
     alternates: {
       canonical: `${BASE_URL}/${lang}`,
-      languages: Object.fromEntries(locales.map((l) => [l, `${BASE_URL}/${l}`])),
+      languages: languageAlternates(""),
     },
     openGraph: {
       title: meta.title,
