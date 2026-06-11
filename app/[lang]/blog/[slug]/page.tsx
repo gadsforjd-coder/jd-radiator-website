@@ -7,6 +7,30 @@ import { BASE_URL, SITE_NAME } from "@/lib/constants";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+/**
+ * Body paragraphs support two lightweight conventions:
+ *  - a paragraph starting with "## " is rendered as an <h2> subheading;
+ *  - inline markdown-style links "[text](/lang/path)" become <Link>s.
+ */
+function InlineText({ text }: { text: string }) {
+  const parts = text.split(/(\[[^\]]+\]\([^)\s]+\))/g);
+  return (
+    <>
+      {parts.map((part, i) => {
+        const m = part.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
+        if (m) {
+          return (
+            <Link key={i} href={m[2]} className="text-[var(--jd-red)] font-semibold hover:underline">
+              {m[1]}
+            </Link>
+          );
+        }
+        return <span key={i}>{part}</span>;
+      })}
+    </>
+  );
+}
+
 export function generateStaticParams() {
   const params: { lang: string; slug: string }[] = [];
   for (const lang of locales) {
@@ -87,9 +111,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ lang:
           <time dateTime={post.date} className="block text-sm text-gray-400 font-semibold mt-8">{formatPostDate(post.date, locale)}</time>
           <h1 className="text-3xl lg:text-5xl font-bold leading-tight tracking-tight mt-3">{c.title}</h1>
           <div className="mt-10">
-            {c.body.map((paragraph, i) => (
-              <p key={i} className="text-lg text-gray-600 leading-relaxed mb-6">{paragraph}</p>
-            ))}
+            {c.body.map((paragraph, i) =>
+              paragraph.startsWith("## ") ? (
+                <h2 key={i} className="text-2xl font-bold tracking-tight mt-12 mb-5">{paragraph.slice(3)}</h2>
+              ) : (
+                <p key={i} className="text-lg text-gray-600 leading-relaxed mb-6"><InlineText text={paragraph} /></p>
+              )
+            )}
           </div>
           <div className="flex gap-4 mt-12 flex-wrap">
             <Link href={`/${locale}/credentials`} className="inline-flex h-12 items-center px-6 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-red-700 transition-colors">{d.nav.credentials}</Link>

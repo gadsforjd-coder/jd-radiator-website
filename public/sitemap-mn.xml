@@ -430,4 +430,64 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://jdradiator.com/mn/blog/radiator-cold-at-bottom</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jdradiator.com/en/blog/radiator-cold-at-bottom"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://jdradiator.com/ru/blog/radiator-cold-at-bottom"/>
+    <xhtml:link rel="alternate" hreflang="mn" href="https://jdradiator.com/mn/blog/radiator-cold-at-bottom"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://jdradiator.com/es/blog/radiator-cold-at-bottom"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://jdradiator.com/en/blog/radiator-cold-at-bottom"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://jdradiator.com/mn/blog/radiator-working-and-test-pressure</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jdradiator.com/en/blog/radiator-working-and-test-pressure"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://jdradiator.com/ru/blog/radiator-working-and-test-pressure"/>
+    <xhtml:link rel="alternate" hreflang="mn" href="https://jdradiator.com/mn/blog/radiator-working-and-test-pressure"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://jdradiator.com/es/blog/radiator-working-and-test-pressure"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://jdradiator.com/en/blog/radiator-working-and-test-pressure"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://jdradiator.com/mn/blog/low-temperature-radiators-heat-pumps</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jdradiator.com/en/blog/low-temperature-radiators-heat-pumps"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://jdradiator.com/ru/blog/low-temperature-radiators-heat-pumps"/>
+    <xhtml:link rel="alternate" hreflang="mn" href="https://jdradiator.com/mn/blog/low-temperature-radiators-heat-pumps"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://jdradiator.com/es/blog/low-temperature-radiators-heat-pumps"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://jdradiator.com/en/blog/low-temperature-radiators-heat-pumps"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://jdradiator.com/mn/blog/calculate-radiator-output-per-room</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jdradiator.com/en/blog/calculate-radiator-output-per-room"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://jdradiator.com/ru/blog/calculate-radiator-output-per-room"/>
+    <xhtml:link rel="alternate" hreflang="mn" href="https://jdradiator.com/mn/blog/calculate-radiator-output-per-room"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://jdradiator.com/es/blog/calculate-radiator-output-per-room"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://jdradiator.com/en/blog/calculate-radiator-output-per-room"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://jdradiator.com/mn/blog/understanding-en442-dt50-dt30</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jdradiator.com/en/blog/understanding-en442-dt50-dt30"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://jdradiator.com/ru/blog/understanding-en442-dt50-dt30"/>
+    <xhtml:link rel="alternate" hreflang="mn" href="https://jdradiator.com/mn/blog/understanding-en442-dt50-dt30"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://jdradiator.com/es/blog/understanding-en442-dt50-dt30"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://jdradiator.com/en/blog/understanding-en442-dt50-dt30"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://jdradiator.com/mn/blog/steel-radiators-extreme-cold-mongolia</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jdradiator.com/en/blog/steel-radiators-extreme-cold-mongolia"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://jdradiator.com/ru/blog/steel-radiators-extreme-cold-mongolia"/>
+    <xhtml:link rel="alternate" hreflang="mn" href="https://jdradiator.com/mn/blog/steel-radiators-extreme-cold-mongolia"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://jdradiator.com/es/blog/steel-radiators-extreme-cold-mongolia"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://jdradiator.com/en/blog/steel-radiators-extreme-cold-mongolia"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
