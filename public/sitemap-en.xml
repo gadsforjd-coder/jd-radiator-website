@@ -101,6 +101,16 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://jdradiator.com/en/blog</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jdradiator.com/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://jdradiator.com/ru/blog"/>
+    <xhtml:link rel="alternate" hreflang="mn" href="https://jdradiator.com/mn/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://jdradiator.com/es/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://jdradiator.com/en/blog"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://jdradiator.com/en/products/jd25y</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://jdradiator.com/en/products/jd25y"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://jdradiator.com/ru/products/jd25y"/>
@@ -399,5 +409,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://jdradiator.com/en/products/jd-33k"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jdradiator.com/en/blog/credentials-and-faq-pages</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jdradiator.com/en/blog/credentials-and-faq-pages"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://jdradiator.com/ru/blog/credentials-and-faq-pages"/>
+    <xhtml:link rel="alternate" hreflang="mn" href="https://jdradiator.com/mn/blog/credentials-and-faq-pages"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://jdradiator.com/es/blog/credentials-and-faq-pages"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://jdradiator.com/en/blog/credentials-and-faq-pages"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>

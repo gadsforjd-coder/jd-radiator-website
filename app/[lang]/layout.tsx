@@ -99,6 +99,7 @@ export default async function LangLayout({
             <Link href={`/${locale}/cases`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.cases}</Link>
             <Link href={`/${locale}/downloads`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.downloads}</Link>
             <Link href={`/${locale}/faq`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.faq}</Link>
+            <Link href={`/${locale}/blog`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.blog}</Link>
             <Link href={`/${locale}/calculator`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.calculator}</Link>
             <Link href={`/${locale}/collaborate`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.collaborate}</Link>
             <Link href={`/${locale}/contact`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.contact}</Link>

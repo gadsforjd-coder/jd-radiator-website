@@ -9,7 +9,8 @@
     "calculator": "Calculator",
     "faq": "FAQ",
     "contact": "Contact",
-    "collaborate": "Collaborate"
+    "collaborate": "Collaborate",
+    "blog": "Blog"
   },
   "hero": {
     "kicker": "Global Radiator Manufacturing & Heating Solutions",
@@ -339,6 +340,13 @@
     "formInterestOther": "Other",
     "formMessage": "Tell us about your needs...",
     "formSubmit": "Send Inquiry"
+  },
+  "blog": {
+    "kicker": "Blog",
+    "title": "News & Updates",
+    "intro": "Company news, product updates and export market insights from Jiuding Radiator.",
+    "readMore": "Read more",
+    "back": "← Back to Blog"
   },
   "lang": {
     "en": "EN",

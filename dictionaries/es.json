@@ -9,7 +9,8 @@
     "calculator": "Cálculo",
     "faq": "FAQ",
     "contact": "Contacto",
-    "collaborate": "Socios"
+    "collaborate": "Socios",
+    "blog": "Blog"
   },
   "hero": {
     "kicker": "Fabricante de radiadores de acero desde 2002",
@@ -339,6 +340,13 @@
     "formInterestOther": "Otro",
     "formMessage": "Cuéntenos sus necesidades...",
     "formSubmit": "Enviar"
+  },
+  "blog": {
+    "kicker": "Blog",
+    "title": "Noticias y novedades",
+    "intro": "Noticias de la empresa, novedades de producto e información para socios.",
+    "readMore": "Leer más",
+    "back": "← Volver al blog"
   },
   "lang": {
     "en": "EN",
