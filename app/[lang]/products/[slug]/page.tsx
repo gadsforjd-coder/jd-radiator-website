@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
-import { products, getProductBySlug, getProductImages, categoryLabels, getLocalizedSubtitle, approxCenterDistance, testPressureFrom } from "@/lib/products";
+import { products, getProductBySlug, getProductImages, categoryLabels, getLocalizedSubtitle, approxCenterDistance, testPressureFrom, localizeSpecValue } from "@/lib/products";
 import type { Locale } from "@/lib/i18n";
 import { locales } from "@/lib/i18n";
 import { BASE_URL, SITE_NAME } from "@/lib/constants";
@@ -137,7 +137,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                   {keySpecRows.map((row) => (
                     <tr key={row.label} className="border-b border-gray-100">
                       <td className="py-3 pr-4 font-semibold text-gray-700 w-1/3">{row.label}</td>
-                      <td className="py-3 text-gray-500">{row.value}</td>
+                      <td className="py-3 text-gray-500">{localizeSpecValue(row.value, locale)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -158,7 +158,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               {specRows.map((row) => (
                 <tr key={row.label} className="border-b border-gray-100">
                   <td className="py-3 pr-4 font-semibold text-gray-700 w-1/3">{row.label}</td>
-                  <td className="py-3 text-gray-500">{row.value}</td>
+                  <td className="py-3 text-gray-500">{localizeSpecValue(row.value, locale)}</td>
                 </tr>
               ))}
             </tbody>

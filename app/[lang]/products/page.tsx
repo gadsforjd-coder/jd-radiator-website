@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
-import { products, categoryLabels, productImages, getLocalizedSubtitle } from "@/lib/products";
+import { products, categoryLabels, productImages, getLocalizedSubtitle, localizeSpecValue } from "@/lib/products";
 import type { Locale } from "@/lib/i18n";
 import { locales } from "@/lib/i18n";
 import { BASE_URL } from "@/lib/constants";
@@ -73,7 +73,7 @@ export default async function ProductsPage({ params }: { params: Promise<{ lang:
                     <div className="p-4">
                       <h3 className="font-bold group-hover:text-[var(--jd-orange)] transition-colors">{p.model}</h3>
                       <p className="text-gray-500 text-xs mt-1">{getLocalizedSubtitle(p.slug, locale)}</p>
-                      <p className="text-[var(--jd-red)] text-xs mt-1 font-semibold">{p.specs.heatRange}</p>
+                      <p className="text-[var(--jd-red)] text-xs mt-1 font-semibold">{localizeSpecValue(p.specs.heatRange, locale)}</p>
                     </div>
                   </Link>
                 );

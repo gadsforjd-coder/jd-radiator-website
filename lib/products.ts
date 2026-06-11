@@ -275,6 +275,31 @@ export function testPressureFrom(pressure: string): string | null {
   return `${mpa.toFixed(1)} MPa (${bar} bar)`;
 }
 
+/**
+ * Localize measurement units in spec values.
+ * RU/MN use Cyrillic units (мм/Вт/бар/МПа — shared Russian/Mongolian
+ * convention); ES keeps SI symbols (mm/W/bar) and only localizes the
+ * per-section prefix. RU additionally uses decimal commas before МПа.
+ */
+export function localizeSpecValue(value: string, locale: string): string {
+  if (locale === "ru" || locale === "mn") {
+    let v = value
+      .replace(/\bmm\b/g, "мм")
+      .replace(/\bW\b/g, "Вт")
+      .replace(/\bbar\b/g, "бар")
+      .replace(/\bMPa\b/g, "МПа")
+      .replace(/Per section:/g, locale === "ru" ? "На секцию:" : "Секц тутамд:");
+    if (locale === "ru") {
+      v = v.replace(/(\d)\.(\d+)(\s*МПа)/g, "$1,$2$3");
+    }
+    return v;
+  }
+  if (locale === "es") {
+    return value.replace(/Per section:/g, "Por elemento:");
+  }
+  return value;
+}
+
 export function getProductBySlug(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);
 }
