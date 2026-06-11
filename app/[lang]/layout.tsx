@@ -84,26 +84,22 @@ export default async function LangLayout({
       <body className="text-[var(--jd-dark)] bg-white overflow-x-hidden">
         {/* Header */}
         <header className="h-[96px] fixed top-0 left-0 right-0 bg-black/70 backdrop-blur-xl flex items-center justify-between px-6 lg:px-14 z-50 border-b border-white/10">
-          <Link href={`/${locale}`} className="flex items-center gap-3">
-            <Image src="/assets/logo.png" alt="Jiuding" width={120} height={120} className="object-contain" />
+          <Link href={`/${locale}`} className="flex items-center gap-2 shrink-0">
+            <Image src="/assets/logo.png" alt="Jiuding" width={64} height={64} className="object-contain" />
             <div>
-              <b className="text-xl tracking-wider text-white">JIUDING</b>
-              <span className="block text-[var(--jd-orange)] text-xs tracking-[0.35em] mt-1">RADIATOR</span>
+              <b className="text-lg tracking-wider text-white whitespace-nowrap">JIUDING</b>
+              <span className="block text-[var(--jd-orange)] text-[10px] tracking-[0.35em] mt-0.5 whitespace-nowrap">RADIATOR</span>
             </div>
           </Link>
-          <nav className="hidden lg:flex gap-8 font-semibold text-white/70">
-            <Link href={`/${locale}`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.home}</Link>
-            <Link href={`/${locale}/products`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.products}</Link>
-            <Link href={`/${locale}/about`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.about}</Link>
-            <Link href={`/${locale}/credentials`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.credentials}</Link>
-            <Link href={`/${locale}/cases`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.cases}</Link>
-            <Link href={`/${locale}/downloads`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.downloads}</Link>
-            <Link href={`/${locale}/documents`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.documents}</Link>
-            <Link href={`/${locale}/faq`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.faq}</Link>
-            <Link href={`/${locale}/blog`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.blog}</Link>
-            <Link href={`/${locale}/calculator`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.calculator}</Link>
-            <Link href={`/${locale}/collaborate`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.collaborate}</Link>
-            <Link href={`/${locale}/contact`} className="hover:text-[var(--jd-red)] transition-colors">{d.nav.contact}</Link>
+          <nav className="hidden lg:flex gap-5 xl:gap-7 font-semibold text-sm xl:text-base text-white/70">
+            <Link href={`/${locale}/products`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.products}</Link>
+            <Link href={`/${locale}/about`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.about}</Link>
+            <Link href={`/${locale}/credentials`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.credentials}</Link>
+            <Link href={`/${locale}/cases`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.cases}</Link>
+            <Link href={`/${locale}/documents`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.documents}</Link>
+            <Link href={`/${locale}/faq`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.faq}</Link>
+            <Link href={`/${locale}/blog`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.blog}</Link>
+            <Link href={`/${locale}/contact`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.contact}</Link>
           </nav>
           <LangSwitcher current={locale} />
         </header>
@@ -118,7 +114,8 @@ export default async function LangLayout({
               <Link href={`/${locale}/contact`} className="block mb-4 text-white/55 hover:text-[var(--jd-orange)] hover:translate-x-1 transition-all">{d.footer.quote}</Link>
               <Link href={`/${locale}/products`} className="block mb-4 text-white/55 hover:text-[var(--jd-orange)] hover:translate-x-1 transition-all">{d.footer.productCenter}</Link>
               <Link href={`/${locale}/calculator`} className="block mb-4 text-white/55 hover:text-[var(--jd-orange)] hover:translate-x-1 transition-all">{d.footer.thermalTech}</Link>
-              <Link href={`/${locale}/downloads`} className="block mb-4 text-white/55 hover:text-[var(--jd-orange)] hover:translate-x-1 transition-all">{d.footer.mfg}</Link>
+              <Link href={`/${locale}/documents`} className="block mb-4 text-white/55 hover:text-[var(--jd-orange)] hover:translate-x-1 transition-all">{d.footer.mfg}</Link>
+              <Link href={`/${locale}/collaborate`} className="block mb-4 text-white/55 hover:text-[var(--jd-orange)] hover:translate-x-1 transition-all">{d.nav.collaborate}</Link>
             </div>
             <div>
               <h3 className="text-white font-black text-lg mb-6">{d.footer.aboutJiuding}</h3>

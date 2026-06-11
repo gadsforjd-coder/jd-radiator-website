@@ -41,16 +41,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jdradiator.com/en/downloads</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://jdradiator.com/en/downloads"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://jdradiator.com/ru/downloads"/>
-    <xhtml:link rel="alternate" hreflang="mn" href="https://jdradiator.com/mn/downloads"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://jdradiator.com/es/downloads"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://jdradiator.com/en/downloads"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://jdradiator.com/en/documents</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://jdradiator.com/en/documents"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://jdradiator.com/ru/documents"/>

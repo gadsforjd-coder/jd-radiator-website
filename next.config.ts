@@ -10,6 +10,12 @@ const nextConfig: NextConfig = {
         destination: "https://jdradiator.com/:path*",
         permanent: true,
       },
+      // Legacy downloads page superseded by the documents center
+      {
+        source: "/:lang(en|ru|mn|es)/downloads",
+        destination: "/:lang/documents",
+        permanent: true,
+      },
     ];
   },
 };
