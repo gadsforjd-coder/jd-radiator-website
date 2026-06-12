@@ -5,6 +5,7 @@ import { BASE_URL, SITE_NAME } from "@/lib/constants";
 import Link from "next/link";
 import Image from "next/image";
 import { LangSwitcher } from "./LangSwitcher";
+import { ContactWidget } from "./ContactWidget";
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -158,6 +159,8 @@ export default async function LangLayout({
             <span>{d.footer.social}</span>
           </div>
         </footer>
+
+        <ContactWidget locale={locale} t={d.contactWidget} />
       </body>
     </html>
   );

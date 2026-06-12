@@ -370,5 +370,12 @@
     "ru": "RU",
     "mn": "MN",
     "es": "ES"
+  },
+  "contactWidget": {
+    "tab": "Contact Us",
+    "title": "Get in touch",
+    "emailLabel": "Sales team",
+    "quoteButton": "Request a Quote",
+    "note": "We reply within 24 hours."
   }
 }

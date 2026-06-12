@@ -370,5 +370,12 @@
     "ru": "RU",
     "mn": "MN",
     "es": "ES"
+  },
+  "contactWidget": {
+    "tab": "Contáctenos",
+    "title": "Póngase en contacto",
+    "emailLabel": "Equipo de ventas",
+    "quoteButton": "Solicitar cotización",
+    "note": "Respondemos en un plazo de 24 horas."
   }
 }
