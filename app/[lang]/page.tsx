@@ -59,44 +59,45 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
   return (
     <>
-      {/* Hero — full-bleed dark */}
-      <section className="relative min-h-screen -mt-[96px] pt-[96px] flex items-center overflow-hidden bg-black">
+      {/* Hero — full-bleed photo with warm scrim behind the text only */}
+      <section className="relative min-h-screen -mt-[96px] pt-[96px] flex items-center overflow-hidden bg-[#FFF7ED]">
         <Image
           src="/assets/ai-images/hero-banner.png"
           alt=""
           fill
-          className="object-cover opacity-35"
+          className="object-cover"
           priority
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#1C1310] to-transparent" />
-        <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-[var(--jd-red)]/8 rounded-full blur-[140px]" />
+        {/* Warm scrim concentrated on the left text column, fading to a clear photo */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#431407]/80 via-[#431407]/35 to-transparent" />
+        {/* Blend the hero bottom into the light page instead of black */}
+        <div className="absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-t from-[#FFF7ED] to-transparent" />
 
         <div className="relative z-10 px-6 lg:px-14 w-full pb-40">
           <div className="animate-in max-w-3xl">
-            <p className="text-[var(--jd-red)] uppercase tracking-[0.3em] font-extrabold text-sm mb-6">{d.hero.kicker}</p>
-            <h1 className="text-5xl lg:text-7xl xl:text-8xl font-black leading-[0.95] tracking-tight text-white">{d.hero.title}</h1>
-            <p className="text-xl text-white/55 leading-relaxed mt-7 max-w-2xl">{d.hero.lead}</p>
+            <p className="text-orange-300 uppercase tracking-[0.3em] font-extrabold text-sm mb-6">{d.hero.kicker}</p>
+            <h1 className="text-5xl lg:text-7xl xl:text-8xl font-black leading-[0.95] tracking-tight text-white [text-shadow:0_2px_24px_rgba(67,20,7,0.45)]">{d.hero.title}</h1>
+            <p className="text-xl text-white/90 leading-relaxed mt-7 max-w-2xl [text-shadow:0_1px_12px_rgba(67,20,7,0.5)]">{d.hero.lead}</p>
             <div className="flex gap-4 mt-10 flex-wrap">
               <Link href={`/${locale}/products`} className="inline-flex h-14 items-center px-8 bg-[var(--jd-red)] text-white font-extrabold rounded-sm hover:bg-orange-700 transition-all hover:shadow-[0_0_30px_rgba(234,88,12,0.4)]">{d.hero.cta1}</Link>
-              <Link href={`/${locale}/contact`} className="inline-flex h-14 items-center px-8 border border-white/25 text-white font-extrabold rounded-sm hover:border-white/50 transition-all">{d.hero.cta2}</Link>
+              <Link href={`/${locale}/contact`} className="inline-flex h-14 items-center px-8 border border-white/60 bg-white/10 backdrop-blur-sm text-white font-extrabold rounded-sm hover:border-white hover:bg-white/20 transition-all">{d.hero.cta2}</Link>
             </div>
           </div>
         </div>
 
-        {/* Stats strip at bottom */}
+        {/* Stats strip at bottom — light bar */}
         <div className="absolute bottom-0 left-0 right-0 z-10">
-          <div className="grid grid-cols-2 lg:grid-cols-4 border-t border-white/10 bg-black/50 backdrop-blur-xl">
+          <div className="grid grid-cols-2 lg:grid-cols-4 border-t border-[#F1E7DC] bg-white/90 backdrop-blur-xl">
             {[
               { num: d.stats.years, label: d.stats.yearsLabel },
               { num: d.stats.markets, label: d.stats.marketsLabel },
               { num: d.stats.oem, label: d.stats.oemLabel },
               { num: d.stats.quality, label: d.stats.qualityLabel },
             ].map((s) => (
-              <div key={s.num} className="py-7 px-9 border-r border-white/10 last:border-r-0">
+              <div key={s.num} className="py-7 px-9 border-r border-[#F1E7DC] last:border-r-0">
                 <strong className="block text-3xl lg:text-4xl text-[var(--jd-red)] font-black mb-1">{s.num}</strong>
-                <span className="text-white/45 text-sm">{s.label}</span>
+                <span className="text-[#64748B] text-sm">{s.label}</span>
               </div>
             ))}
           </div>
@@ -119,16 +120,15 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             <Link
               key={p.slug}
               href={`/${locale}/products/${p.slug}`}
-              className={`group relative min-h-[420px] overflow-hidden rounded-sm product-card-hover transition-all duration-500 ${p.featured ? "ring-1 ring-[var(--jd-red)]/40 shadow-[0_0_30px_rgba(234,88,12,0.15)]" : ""}`}
+              className={`group relative flex flex-col overflow-hidden rounded-lg bg-white border border-[#F1E7DC] shadow-[0_4px_16px_rgba(30,41,59,0.05)] product-card-hover transition-all duration-500 ${p.featured ? "ring-1 ring-[var(--jd-red)]/40 shadow-[0_0_30px_rgba(234,88,12,0.15)]" : ""}`}
             >
-              <Image src={p.img} alt={p.title} fill className="object-cover transition-transform duration-700" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
-              <div className="absolute top-5 left-6">
-                <span className="text-[var(--jd-red)] font-black text-3xl opacity-40">{p.num}</span>
+              <div className="relative h-[260px] overflow-hidden">
+                <Image src={p.img} alt={p.title} fill className="object-cover transition-transform duration-700" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw" />
+                <span className="absolute top-4 left-5 text-white font-black text-3xl opacity-80 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">{p.num}</span>
               </div>
-              <div className="absolute bottom-0 left-0 right-0 p-7">
-                <h3 className="text-2xl font-bold mb-2 text-white group-hover:text-[var(--jd-orange)] transition-colors">{p.title}</h3>
-                <p className="text-white/70 text-sm leading-relaxed">{p.desc}</p>
+              <div className="p-6 flex-1">
+                <h3 className="text-xl font-bold mb-2 text-[#1E293B] group-hover:text-[var(--jd-red)] transition-colors">{p.title}</h3>
+                <p className="text-[#64748B] text-sm leading-relaxed">{p.desc}</p>
               </div>
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-[var(--jd-red)] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
             </Link>
@@ -173,45 +173,64 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             { title: d.applications.commercial, desc: d.applications.commercialDesc, img: "/assets/ai-images/scene-office.png" },
             { title: d.applications.construction, desc: d.applications.constructionDesc, img: "/assets/ai-images/scene-panel-kitchen.png" },
           ].map((a) => (
-            <Link key={a.title} href={`/${locale}/cases`} className="relative rounded-lg overflow-hidden group h-[240px] block">
-              <Image
-                src={a.img}
-                alt={a.title}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent group-hover:from-[var(--jd-red)]/80 group-hover:via-black/60 transition-all duration-500" />
-              <div className="absolute inset-0 ring-1 ring-[#1E293B]/[0.08] rounded-lg group-hover:ring-[var(--jd-red)]/40 transition-all duration-300" />
-              <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
-                <h3 className="text-xl font-bold text-white mb-1.5">{a.title}</h3>
-                <p className="text-white/70 text-sm leading-relaxed group-hover:text-white/85 transition-colors">{a.desc}</p>
+            <Link key={a.title} href={`/${locale}/cases`} className="group flex flex-col rounded-lg overflow-hidden bg-white border border-[#F1E7DC] shadow-[0_4px_16px_rgba(30,41,59,0.05)] hover:shadow-[0_10px_30px_rgba(234,88,12,0.14)] hover:border-[var(--jd-red)]/35 transition-all duration-300">
+              <div className="relative h-[190px] overflow-hidden">
+                <Image
+                  src={a.img}
+                  alt={a.title}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="text-white text-sm font-medium bg-[var(--jd-red)]/90 px-3 py-1 rounded-full">View Gallery →</span>
+                </div>
               </div>
-              <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span className="text-white/80 text-sm font-medium bg-[var(--jd-red)]/80 px-3 py-1 rounded-full">View Gallery →</span>
+              <div className="p-6 flex-1">
+                <h3 className="text-xl font-bold text-[#1E293B] mb-1.5 group-hover:text-[var(--jd-red)] transition-colors">{a.title}</h3>
+                <p className="text-[#64748B] text-sm leading-relaxed">{a.desc}</p>
               </div>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* Manufacturing — full-width factory background */}
-      <section className="relative min-h-[620px] flex items-end overflow-hidden">
-        <Image
-          src="/assets/ai-images/hero-manufacturing.png"
-          alt="Jiuding factory"
-          fill
-          className="object-cover"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30" />
-
-        <div className="relative z-10 w-full px-6 lg:px-14 pb-16 pt-40">
+      {/* Manufacturing — light section with white-framed factory photo cards */}
+      <section className="bg-white text-[#1E293B] py-24 px-6 lg:px-14 overflow-hidden">
+        <div className="max-w-4xl mb-14">
           <p className="text-[var(--jd-red)] uppercase tracking-[0.3em] font-extrabold text-sm mb-5">{d.manufacturing.kicker}</p>
-          <h2 className="text-4xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-12">{d.manufacturing.title}</h2>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <h2 className="text-4xl lg:text-6xl font-black leading-tight tracking-tight">{d.manufacturing.title}</h2>
+        </div>
+        <div className="grid lg:grid-cols-[1.2fr_1fr] gap-8 items-stretch">
+          {/* Factory photos in white frames */}
+          <div className="flex flex-col gap-6">
+            <div className="bg-white border border-[#F1E7DC] rounded-xl shadow-[0_8px_30px_rgba(30,41,59,0.08)] p-3 flex-1">
+              <div className="relative h-[320px] lg:h-full lg:min-h-[340px] rounded-lg overflow-hidden">
+                <Image
+                  src="/assets/ai-images/hero-manufacturing.png"
+                  alt="Jiuding factory — automated production line"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 55vw"
+                />
+              </div>
+            </div>
+            <div className="bg-white border border-[#F1E7DC] rounded-xl shadow-[0_8px_30px_rgba(30,41,59,0.08)] p-3">
+              <div className="relative h-[200px] rounded-lg overflow-hidden">
+                <Image
+                  src="/assets/ai-images/about-quality-testing.png"
+                  alt="Jiuding quality testing"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 55vw"
+                />
+              </div>
+            </div>
+          </div>
+          {/* Process steps */}
+          <div className="grid grid-cols-2 gap-4 content-stretch">
             {[d.manufacturing.welding, d.manufacturing.surface, d.manufacturing.inspection, d.manufacturing.packaging].map((m, i) => (
-              <div key={i} className="glass-card p-8 lg:p-10 rounded-sm">
+              <div key={i} className="bg-[#FFF7ED] border border-[#F1E7DC] rounded-xl p-8 lg:p-10 flex flex-col justify-between hover:border-[var(--jd-red)]/40 hover:shadow-[0_8px_24px_rgba(234,88,12,0.1)] transition-all duration-300">
                 <b className="text-[var(--jd-red)] block mb-6 text-lg font-black">0{i + 1}</b>
                 <span className="text-[#1E293B] text-xl lg:text-2xl font-semibold">{m}</span>
               </div>
