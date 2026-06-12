@@ -89,7 +89,7 @@ export default async function CollaboratePage({ params }: { params: Promise<{ la
             <option value="other">{c.formInterestOther}</option>
           </select>
           <textarea name="message" placeholder={c.formMessage} rows={5} className="w-full p-3 border border-gray-300 rounded-lg mb-5 focus:border-[var(--jd-orange)] focus:outline-none transition-colors" />
-          <button type="submit" className="w-full h-12 bg-[var(--jd-red)] text-white font-extrabold rounded-lg hover:bg-red-700 transition-colors">{c.formSubmit}</button>
+          <button type="submit" className="w-full h-12 bg-[var(--jd-red)] text-white font-extrabold rounded-lg hover:bg-orange-700 transition-colors">{c.formSubmit}</button>
         </form>
       </div>
     </div>

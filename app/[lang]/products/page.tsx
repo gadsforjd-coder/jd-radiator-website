@@ -38,7 +38,7 @@ export default async function ProductsPage({ params }: { params: Promise<{ lang:
 
   return (
     <div>
-      <div className="relative h-[280px] lg:h-[360px] overflow-hidden bg-[var(--jd-dark)]">
+      <div className="relative h-[280px] lg:h-[360px] overflow-hidden bg-[#1C1310]">
         <Image src="/assets/ai-images/stock-panel-radiator.jpg" alt="Panel radiator" fill className="object-cover opacity-40" sizes="100vw" priority />
         <div className="absolute inset-0 flex items-center px-6 lg:px-14">
           <div className="max-w-4xl">

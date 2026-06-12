@@ -83,15 +83,15 @@ export default async function LangLayout({
       </head>
       <body className="text-[var(--jd-dark)] bg-white overflow-x-hidden">
         {/* Header */}
-        <header className="h-[96px] fixed top-0 left-0 right-0 bg-black/70 backdrop-blur-xl flex items-center justify-between px-6 lg:px-14 z-50 border-b border-white/10">
+        <header className="h-[96px] fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-xl flex items-center justify-between px-6 lg:px-14 z-50 border-b border-[#F1E7DC] shadow-[0_1px_12px_rgba(30,41,59,0.05)]">
           <Link href={`/${locale}`} className="flex items-center gap-3 shrink-0">
             <Image src="/assets/logo-mark.png" alt="Jiuding" width={75} height={56} className="object-contain" />
             <div>
-              <b className="text-xl tracking-wider text-white whitespace-nowrap">JIUDING</b>
+              <b className="text-xl tracking-wider text-[#1E293B] whitespace-nowrap">JIUDING</b>
               <span className="block text-[var(--jd-orange)] text-[11px] tracking-[0.35em] mt-0.5 whitespace-nowrap">RADIATOR</span>
             </div>
           </Link>
-          <nav className="hidden lg:flex gap-5 xl:gap-7 font-semibold text-sm xl:text-base text-white/70">
+          <nav className="hidden lg:flex gap-5 xl:gap-7 font-semibold text-sm xl:text-base text-[#1E293B]/75">
             <Link href={`/${locale}/products`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.products}</Link>
             <Link href={`/${locale}/about`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.about}</Link>
             <Link href={`/${locale}/credentials`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.credentials}</Link>
@@ -107,7 +107,7 @@ export default async function LangLayout({
         <main className="pt-[96px]">{children}</main>
 
         {/* Footer */}
-        <footer className="bg-[#191919] text-gray-300 pt-18 pb-7 px-[4vw]">
+        <footer className="bg-[#1C1310] text-gray-300 pt-18 pb-7 px-[4vw]">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-14 items-start">
             <div>
               <h3 className="text-white font-black text-lg mb-6">{d.footer.support}</h3>
@@ -136,10 +136,10 @@ export default async function LangLayout({
             <div>
               <h3 className="text-white font-black text-lg mb-6">{d.footer.follow}</h3>
               <div className="flex gap-4 mb-8">
-                <a href="https://www.linkedin.com/company/tianjin-jiuding-sunshine-radiator-co-ltd/posts/?feedView=all" target="_blank" rel="noopener" className="w-[42px] h-[42px] border border-white/25 bg-white/10 text-white rounded-full inline-grid place-items-center hover:bg-[var(--jd-orange)] hover:border-[var(--jd-orange)] hover:text-[var(--jd-dark)] hover:-translate-y-1 transition-all" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/company/tianjin-jiuding-sunshine-radiator-co-ltd/posts/?feedView=all" target="_blank" rel="noopener" className="w-[42px] h-[42px] border border-white/25 bg-white/10 text-white rounded-full inline-grid place-items-center hover:bg-[var(--jd-orange)] hover:border-[var(--jd-orange)] hover:text-white hover:-translate-y-1 transition-all" aria-label="LinkedIn">
                   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.32 8.03h4.36V23H.32V8.03zM8.1 8.03h4.18v2.04h.06c.58-1.1 2-2.26 4.12-2.26 4.4 0 5.22 2.9 5.22 6.67V23h-4.36v-7.56c0-1.8-.03-4.12-2.51-4.12-2.52 0-2.91 1.97-2.91 4V23H8.1V8.03z"/></svg>
                 </a>
-                <a href="https://www.instagram.com/jiudingradiator/" target="_blank" rel="noopener" className="w-[42px] h-[42px] border border-white/25 bg-white/10 text-white rounded-full inline-grid place-items-center hover:bg-[var(--jd-orange)] hover:border-[var(--jd-orange)] hover:text-[var(--jd-dark)] hover:-translate-y-1 transition-all" aria-label="Instagram">
+                <a href="https://www.instagram.com/jiudingradiator/" target="_blank" rel="noopener" className="w-[42px] h-[42px] border border-white/25 bg-white/10 text-white rounded-full inline-grid place-items-center hover:bg-[var(--jd-orange)] hover:border-[var(--jd-orange)] hover:text-white hover:-translate-y-1 transition-all" aria-label="Instagram">
                   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.8A4.2 4.2 0 1 1 12 16.2 4.2 4.2 0 0 1 12 7.8zm0 2A2.2 2.2 0 1 0 12 14.2 2.2 2.2 0 0 0 12 9.8zM17.6 6.4a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg>
                 </a>
                 <a href="https://wa.me/8617742252991" target="_blank" rel="noopener" className="w-[42px] h-[42px] border border-white/25 bg-white/10 text-white rounded-full inline-grid place-items-center hover:bg-[#25D366] hover:border-[#25D366] hover:text-white hover:-translate-y-1 transition-all" aria-label="WhatsApp">

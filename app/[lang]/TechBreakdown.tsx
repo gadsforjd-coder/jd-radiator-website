@@ -50,15 +50,15 @@ export default function TechBreakdown({ kicker, title, subtitle, features, stats
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-28 lg:py-36 px-6 lg:px-14 bg-[#080808] overflow-hidden">
+    <section ref={sectionRef} className="relative py-28 lg:py-36 px-6 lg:px-14 bg-[#FFF7ED] overflow-hidden">
       {/* Ambient background */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[var(--jd-red)]/[0.04] rounded-full blur-[200px]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[var(--jd-red)]/[0.06] rounded-full blur-[200px]" />
 
       {/* Header */}
       <div className="relative z-10 text-center mb-20">
         <p className={`text-[var(--jd-red)] uppercase tracking-[0.3em] font-extrabold text-sm mb-5 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>{kicker}</p>
-        <h2 className={`text-4xl lg:text-6xl font-black text-white leading-tight tracking-tight transition-all duration-700 delay-100 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>{title}</h2>
-        <p className={`text-white/40 text-xl mt-4 max-w-2xl mx-auto transition-all duration-700 delay-200 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>{subtitle}</p>
+        <h2 className={`text-4xl lg:text-6xl font-black text-[#1E293B] leading-tight tracking-tight transition-all duration-700 delay-100 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>{title}</h2>
+        <p className={`text-[#64748B] text-xl mt-4 max-w-2xl mx-auto transition-all duration-700 delay-200 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>{subtitle}</p>
       </div>
 
       {/* Main layout: product image center + feature cards */}
@@ -72,7 +72,7 @@ export default function TechBreakdown({ kicker, title, subtitle, features, stats
                 className={`group relative p-6 rounded-2xl border transition-all duration-500 cursor-pointer ${
                   hovered === i
                     ? "border-[var(--jd-red)]/40 bg-[var(--jd-red)]/[0.06]"
-                    : "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] hover:bg-white/[0.04]"
+                    : "border-[#F1E7DC] bg-white shadow-[0_4px_16px_rgba(30,41,59,0.05)] hover:border-[var(--jd-orange)]/40"
                 } ${visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}
                 style={{ transitionDelay: visible ? `${400 + i * 150}ms` : "0ms" }}
                 onMouseEnter={() => setHovered(i)}
@@ -80,16 +80,16 @@ export default function TechBreakdown({ kicker, title, subtitle, features, stats
               >
                 <div className="flex items-start gap-4 lg:flex-row-reverse lg:text-right">
                   <div className={`shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                    hovered === i ? "bg-[var(--jd-red)] text-white" : "bg-white/[0.06] text-white/40"
+                    hovered === i ? "bg-[var(--jd-red)] text-white" : "bg-[#FFF7ED] text-[#64748B]"
                   }`}>
                     {featureIcons[i]}
                   </div>
                   <div className="flex-1">
                     <span className={`text-[10px] font-bold tracking-[0.2em] uppercase mb-2 block transition-colors duration-300 ${
-                      hovered === i ? "text-[var(--jd-red)]" : "text-white/25"
+                      hovered === i ? "text-[var(--jd-red)]" : "text-[#94A3B8]"
                     }`}>{f.num}</span>
-                    <h3 className="text-white font-bold text-lg mb-1.5">{f.title}</h3>
-                    <p className="text-white/40 text-sm leading-relaxed">{f.desc}</p>
+                    <h3 className="text-[#1E293B] font-bold text-lg mb-1.5">{f.title}</h3>
+                    <p className="text-[#64748B] text-sm leading-relaxed">{f.desc}</p>
                   </div>
                 </div>
                 {/* Active indicator line */}
@@ -106,13 +106,13 @@ export default function TechBreakdown({ kicker, title, subtitle, features, stats
             <div className={`absolute -inset-12 rounded-full transition-opacity duration-1000 ${
               hovered !== null ? "opacity-100" : "opacity-60"
             }`} style={{
-              background: "radial-gradient(ellipse at center, rgba(230,0,18,0.12) 0%, rgba(230,0,18,0.04) 40%, transparent 70%)"
+              background: "radial-gradient(ellipse at center, rgba(234,88,12,0.12) 0%, rgba(234,88,12,0.04) 40%, transparent 70%)"
             }} />
 
             {/* Product container */}
             <div className="relative w-[280px] h-[400px] lg:w-[340px] lg:h-[480px] mx-auto">
               {/* Subtle ring */}
-              <div className="absolute -inset-3 rounded-2xl border border-white/[0.04]" />
+              <div className="absolute -inset-3 rounded-2xl border border-[#1E293B]/[0.06]" />
 
               {/* The actual product photo */}
               <div className="relative w-full h-full rounded-xl overflow-hidden">
@@ -127,8 +127,8 @@ export default function TechBreakdown({ kicker, title, subtitle, features, stats
                   priority
                 />
                 {/* Very subtle bottom fade for blending */}
-                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#080808] to-transparent" />
-                <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-[#080808]/60 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#FFF7ED] to-transparent" />
+                <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-[#FFF7ED]/60 to-transparent" />
               </div>
 
               {/* Floating hotspot indicators on the image */}
@@ -159,7 +159,7 @@ export default function TechBreakdown({ kicker, title, subtitle, features, stats
                 className={`group relative p-6 rounded-2xl border transition-all duration-500 cursor-pointer ${
                   hovered === i + 2
                     ? "border-[var(--jd-red)]/40 bg-[var(--jd-red)]/[0.06]"
-                    : "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] hover:bg-white/[0.04]"
+                    : "border-[#F1E7DC] bg-white shadow-[0_4px_16px_rgba(30,41,59,0.05)] hover:border-[var(--jd-orange)]/40"
                 } ${visible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}
                 style={{ transitionDelay: visible ? `${400 + (i + 2) * 150}ms` : "0ms" }}
                 onMouseEnter={() => setHovered(i + 2)}
@@ -167,16 +167,16 @@ export default function TechBreakdown({ kicker, title, subtitle, features, stats
               >
                 <div className="flex items-start gap-4">
                   <div className={`shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                    hovered === i + 2 ? "bg-[var(--jd-red)] text-white" : "bg-white/[0.06] text-white/40"
+                    hovered === i + 2 ? "bg-[var(--jd-red)] text-white" : "bg-[#FFF7ED] text-[#64748B]"
                   }`}>
                     {featureIcons[i + 2]}
                   </div>
                   <div className="flex-1">
                     <span className={`text-[10px] font-bold tracking-[0.2em] uppercase mb-2 block transition-colors duration-300 ${
-                      hovered === i + 2 ? "text-[var(--jd-red)]" : "text-white/25"
+                      hovered === i + 2 ? "text-[var(--jd-red)]" : "text-[#94A3B8]"
                     }`}>{f.num}</span>
-                    <h3 className="text-white font-bold text-lg mb-1.5">{f.title}</h3>
-                    <p className="text-white/40 text-sm leading-relaxed">{f.desc}</p>
+                    <h3 className="text-[#1E293B] font-bold text-lg mb-1.5">{f.title}</h3>
+                    <p className="text-[#64748B] text-sm leading-relaxed">{f.desc}</p>
                   </div>
                 </div>
                 {/* Active indicator line */}
@@ -192,11 +192,11 @@ export default function TechBreakdown({ kicker, title, subtitle, features, stats
       {/* Stats bar */}
       {stats && stats.length > 0 && (
         <div className={`relative z-10 max-w-5xl mx-auto mt-24 transition-all duration-700 delay-[800ms] ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <div className="grid grid-cols-2 lg:grid-cols-4 border border-white/[0.06] rounded-2xl bg-white/[0.02] backdrop-blur-sm">
+          <div className="grid grid-cols-2 lg:grid-cols-4 border border-[#F1E7DC] rounded-2xl bg-white shadow-[0_4px_20px_rgba(30,41,59,0.05)]">
             {stats.map((s, i) => (
-              <div key={i} className={`py-7 px-8 text-center ${i < stats.length - 1 ? "lg:border-r border-white/[0.06]" : ""} ${i < 2 ? "border-b lg:border-b-0 border-white/[0.06]" : ""}`}>
+              <div key={i} className={`py-7 px-8 text-center ${i < stats.length - 1 ? "lg:border-r border-[#F1E7DC]" : ""} ${i < 2 ? "border-b lg:border-b-0 border-[#F1E7DC]" : ""}`}>
                 <strong className="block text-2xl lg:text-3xl text-[var(--jd-red)] font-black">{s.value}</strong>
-                <span className="text-white/40 text-xs mt-1.5 block tracking-wide">{s.label}</span>
+                <span className="text-[#64748B] text-xs mt-1.5 block tracking-wide">{s.label}</span>
               </div>
             ))}
           </div>

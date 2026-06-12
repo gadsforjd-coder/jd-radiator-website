@@ -50,7 +50,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
   return (
     <div>
       {/* Hero */}
-      <section className="py-24 px-6 lg:px-14 bg-gray-50">
+      <section className="py-24 px-6 lg:px-14 bg-[#FFF7ED]">
         <p className="text-[var(--jd-red)] uppercase tracking-[0.2em] font-extrabold text-sm mb-5">{d.about.kicker}</p>
         <h1 className="text-4xl lg:text-6xl font-bold leading-tight tracking-tight max-w-3xl">{d.about.title}</h1>
         <p className="text-xl text-gray-500 leading-relaxed mt-7 max-w-3xl">{d.about.intro}</p>
@@ -81,7 +81,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
       </section>
 
       {/* Landmark Projects */}
-      <section className="py-24 px-6 lg:px-14 bg-gray-50">
+      <section className="py-24 px-6 lg:px-14 bg-[#FFF7ED]">
         <h2 className="text-3xl lg:text-5xl font-bold tracking-tight mb-6">{d.about.landmarkTitle}</h2>
         <p className="text-gray-600 text-lg max-w-3xl mb-12">{d.about.landmarkIntro}</p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -95,13 +95,13 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
       </section>
 
       {/* Factory placeholder */}
-      <section className="py-24 px-6 lg:px-14 bg-[var(--jd-dark)] text-white">
+      <section className="py-24 px-6 lg:px-14 bg-[#FFF7ED] text-[#1E293B]">
         <h2 className="text-3xl lg:text-5xl font-bold tracking-tight mb-8">{d.about.capTitle}</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           {capabilities.map((c) => (
-            <div key={c.label} className="bg-[#1b1b1b] p-8 border border-white/10">
+            <div key={c.label} className="bg-white p-8 border border-[#F1E7DC] shadow-[0_4px_16px_rgba(30,41,59,0.05)]">
               <strong className="block text-4xl text-[var(--jd-orange)] mb-3">{c.value}</strong>
-              <span className="text-gray-400">{c.label}</span>
+              <span className="text-[#64748B]">{c.label}</span>
             </div>
           ))}
         </div>

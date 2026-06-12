@@ -216,7 +216,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           )}
 
           <div className="flex gap-4 mt-8 flex-wrap">
-            <Link href={`/${locale}/contact`} className="inline-flex h-12 items-center px-6 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-red-700 transition-colors">{d.products.inquiry}</Link>
+            <Link href={`/${locale}/contact`} className="inline-flex h-12 items-center px-6 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-orange-700 transition-colors">{d.products.inquiry}</Link>
             <Link href={`/${locale}/downloads`} className="inline-flex h-12 items-center px-6 bg-white border border-gray-300 font-extrabold rounded hover:border-gray-500 transition-colors">{d.products.download}</Link>
           </div>
         </div>

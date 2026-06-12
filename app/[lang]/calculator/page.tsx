@@ -127,15 +127,15 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
               <option value="poor">{t.insulationPoor}</option>
             </select>
           </label>
-          <button onClick={calculate} className="w-full h-12 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-red-700 transition-colors">{t.calculate}</button>
+          <button onClick={calculate} className="w-full h-12 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-orange-700 transition-colors">{t.calculate}</button>
         </div>
 
         <div>
           {result !== null && (
             <div className="animate-in">
-              <div className="bg-[var(--jd-dark)] text-white p-8 mb-8">
-                <p className="text-sm text-gray-400 mb-2">{t.result}</p>
-                <p className="text-5xl font-black text-[var(--jd-orange)]">{result.toLocaleString()} <span className="text-xl">{t.watts}</span></p>
+              <div className="bg-gradient-to-br from-[#F97316] to-[var(--jd-orange-dark)] text-white p-8 mb-8 rounded-lg">
+                <p className="text-sm text-white/80 mb-2">{t.result}</p>
+                <p className="text-5xl font-black text-white">{result.toLocaleString()} <span className="text-xl">{t.watts}</span></p>
               </div>
               <h3 className="text-xl font-bold mb-4">{t.recommended}</h3>
               <div className="grid gap-3">

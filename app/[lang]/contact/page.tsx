@@ -50,20 +50,20 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
             <input name="country" placeholder={d.contact.formCountry} className="p-3 border border-gray-300 rounded w-full" />
           </div>
           <textarea name="message" placeholder={d.contact.formMessage} rows={5} className="w-full p-3 border border-gray-300 rounded mb-5" />
-          <button type="submit" className="w-full h-12 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-red-700 transition-colors">{d.contact.formSubmit}</button>
+          <button type="submit" className="w-full h-12 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-orange-700 transition-colors">{d.contact.formSubmit}</button>
         </form>
 
-        <div className="bg-[var(--jd-dark)] text-white p-8 lg:p-12">
-          <img src="/assets/logo.png" alt="Jiuding" className="w-32 mb-8" />
+        <div className="bg-gradient-to-br from-[#F97316] via-[var(--jd-orange)] to-[var(--jd-orange-dark)] text-white p-8 lg:p-12 rounded-lg">
+          <img src="/assets/logo.png" alt="Jiuding" className="w-32 mb-8 brightness-0 invert" />
           <h3 className="text-2xl font-bold mb-6">Jiuding Radiator</h3>
-          <div className="space-y-4 text-gray-400">
+          <div className="space-y-4 text-white/85">
             <p><strong className="text-white">Email:</strong> jd@jlsdsrq.com</p>
             <p><strong className="text-white">Location:</strong> Tianjin, China</p>
             <p><strong className="text-white">LinkedIn:</strong>{" "}
-              <a href="https://www.linkedin.com/company/tianjin-jiuding-sunshine-radiator-co-ltd/posts/?feedView=all" target="_blank" rel="noopener" className="text-[var(--jd-orange)] hover:underline">Jiuding Radiator</a>
+              <a href="https://www.linkedin.com/company/tianjin-jiuding-sunshine-radiator-co-ltd/posts/?feedView=all" target="_blank" rel="noopener" className="text-white font-semibold underline underline-offset-2 hover:opacity-80 transition-opacity">Jiuding Radiator</a>
             </p>
             <p><strong className="text-white">Instagram:</strong>{" "}
-              <a href="https://www.instagram.com/jiudingradiator/" target="_blank" rel="noopener" className="text-[var(--jd-orange)] hover:underline">@jiudingradiator</a>
+              <a href="https://www.instagram.com/jiudingradiator/" target="_blank" rel="noopener" className="text-white font-semibold underline underline-offset-2 hover:opacity-80 transition-opacity">@jiudingradiator</a>
             </p>
           </div>
         </div>

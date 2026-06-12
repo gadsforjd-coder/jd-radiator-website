@@ -56,7 +56,7 @@ export default async function CasesPage({ params }: { params: Promise<{ lang: st
 
       <div className="bg-gray-50 p-12 text-center">
         <p className="text-gray-500 text-lg mb-6">{d.cases.placeholder}</p>
-        <Link href={`/${locale}/contact`} className="inline-flex h-12 items-center px-6 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-red-700 transition-colors">{d.contact.email}</Link>
+        <Link href={`/${locale}/contact`} className="inline-flex h-12 items-center px-6 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-orange-700 transition-colors">{d.contact.email}</Link>
       </div>
     </div>
   );
