@@ -85,7 +85,7 @@ export default async function LangLayout({
         {/* Header */}
         <header className="h-[96px] fixed top-0 left-0 right-0 bg-black/70 backdrop-blur-xl flex items-center justify-between px-6 lg:px-14 z-50 border-b border-white/10">
           <Link href={`/${locale}`} className="flex items-center gap-3 shrink-0">
-            <Image src="/assets/logo-mark.png" alt="Jiuding" width={102} height={76} className="object-contain" />
+            <Image src="/assets/logo-mark.png" alt="Jiuding" width={75} height={56} className="object-contain" />
             <div>
               <b className="text-xl tracking-wider text-white whitespace-nowrap">JIUDING</b>
               <span className="block text-[var(--jd-orange)] text-[11px] tracking-[0.35em] mt-0.5 whitespace-nowrap">RADIATOR</span>
