@@ -15,7 +15,7 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const BASE_URL = "https://jdradiator.com";
-const LOCALES = ["en", "ru", "mn", "es"];
+const LOCALES = ["en", "ru", "mn", "es", "zh"];
 
 // Product slugs come straight from lib/products.ts (single source of truth).
 const productsSrc = readFileSync(join(ROOT, "lib/products.ts"), "utf8");

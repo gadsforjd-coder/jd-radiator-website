@@ -377,5 +377,13 @@
     "emailLabel": "Equipo de ventas",
     "quoteButton": "Solicitar cotización",
     "note": "Respondemos en un plazo de 24 horas."
+  },
+  "vr": {
+    "kicker": "TOUR VIRTUAL DE FÁBRICA",
+    "title": "Entra en nuestra fábrica",
+    "subtitle": "¿No puede visitarnos en persona? Realice un recorrido virtual inmersivo de 360° por nuestra planta de 45.000 m² — cuando quiera y desde donde quiera.",
+    "enter": "Entrar al tour VR",
+    "openNew": "Abrir en una ventana nueva",
+    "close": "Cerrar"
   }
 }

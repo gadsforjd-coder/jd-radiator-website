@@ -6,6 +6,8 @@ import { BASE_URL } from "@/lib/constants";
 import Link from "next/link";
 import Image from "next/image";
 import TechBreakdown from "./TechBreakdown";
+import { VRTour } from "./VRTour";
+import { vrTourUrl } from "@/lib/vr";
 
 const metaByLocale: Record<string, { title: string; description: string }> = {
   en: {
@@ -238,6 +240,9 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           </div>
         </div>
       </section>
+
+      {/* VR Factory Tour — immersive 360° walkthrough */}
+      <VRTour url={vrTourUrl(locale)} t={d.vr} />
 
       {/* OEM/ODM Support — Interactive process flow */}
       <section className="relative py-28 px-6 lg:px-14 bg-white overflow-hidden">

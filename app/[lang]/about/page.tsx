@@ -3,6 +3,8 @@ import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
 import { locales, languageAlternates } from "@/lib/i18n";
 import { BASE_URL } from "@/lib/constants";
+import { VRTour } from "../VRTour";
+import { vrTourUrl } from "@/lib/vr";
 
 export async function generateMetadata({
   params,
@@ -65,6 +67,9 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
           </div>
         ))}
       </section>
+
+      {/* VR Factory Tour */}
+      <VRTour url={vrTourUrl(locale)} t={d.vr} />
 
       {/* Timeline */}
       <section className="py-24 px-6 lg:px-14">

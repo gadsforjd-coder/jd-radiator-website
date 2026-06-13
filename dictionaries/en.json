@@ -377,5 +377,13 @@
     "emailLabel": "Sales team",
     "quoteButton": "Request a Quote",
     "note": "We reply within 24 hours."
+  },
+  "vr": {
+    "kicker": "VIRTUAL FACTORY TOUR",
+    "title": "Step Inside Our Factory",
+    "subtitle": "Can't visit in person? Take an immersive 360° virtual tour of our 45,000 m² production facility — anytime, from anywhere.",
+    "enter": "Enter VR Tour",
+    "openNew": "Open in new window",
+    "close": "Close"
   }
 }

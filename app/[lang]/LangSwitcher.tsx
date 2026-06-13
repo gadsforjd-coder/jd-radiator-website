@@ -10,6 +10,7 @@ const labels: Record<Locale, string> = {
   ru: "Русский",
   mn: "Монгол",
   es: "Español",
+  zh: "中文",
 };
 
 export function LangSwitcher({ current }: { current: Locale }) {

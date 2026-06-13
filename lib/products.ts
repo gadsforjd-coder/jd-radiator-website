@@ -61,6 +61,7 @@ export const categoryLabels: Record<string, Record<string, string>> = {
   ru: { designer: "Дизайн-радиатор", column: "Стальной трубчатый радиатор", towel: "Полотенцесушитель", bimetal: "Медно-алюминиевый радиатор", panel: "Стальной панельный радиатор" },
   mn: { designer: "Дизайн радиатор", column: "Баганат ган радиатор", towel: "Алчуур хатаагч", bimetal: "Зэс-хөнгөн цагаан радиатор", panel: "Ган хэвлэмэл радиатор" },
   es: { designer: "Radiador de Diseño", column: "Radiador Tubular de Acero", towel: "Toallero Calefactado", bimetal: "Radiador de Cobre-Aluminio", panel: "Radiador de Panel de Acero" },
+  zh: { designer: "设计款散热器", column: "钢柱散热器", towel: "毛巾架散热器", bimetal: "铜铝复合散热器", panel: "钢制板式散热器" },
 };
 
 export const subtitleByLocale: Record<string, Record<string, string>> = {
@@ -69,155 +70,185 @@ export const subtitleByLocale: Record<string, Record<string, string>> = {
     ru: "Однорядный / Двухрядный",
     mn: "Нэг эгнээт / Хоёр эгнээт",
     es: "Panel simple / doble",
+    zh: "单排 / 双排",
   },
   "jd25-28": {
     ru: "Однорядный / Двухрядный",
     mn: "Нэг эгнээт / Хоёр эгнээт",
     es: "Panel simple / doble",
+    zh: "单排 / 双排",
   },
   "jd30f": {
     ru: "Однорядный / Двухрядный",
     mn: "Нэг эгнээт / Хоёр эгнээт",
     es: "Panel simple / doble",
+    zh: "单排 / 双排",
   },
   "jd30-15": {
     ru: "Однорядный / Двухрядный",
     mn: "Нэг эгнээт / Хоёр эгнээт",
     es: "Panel simple / doble",
+    zh: "单排 / 双排",
   },
   "jd40-12l": {
     ru: "Однорядный / Двухрядный",
     mn: "Нэг эгнээт / Хоёр эгнээт",
     es: "Panel simple / doble",
+    zh: "单排 / 双排",
   },
   "jd40-15": {
     ru: "Однорядный / Двухрядный",
     mn: "Нэг эгнээт / Хоёр эгнээт",
     es: "Panel simple / doble",
+    zh: "单排 / 双排",
   },
   "jd40": {
     ru: "Однорядный / Двухрядный",
     mn: "Нэг эгнээт / Хоёр эгнээт",
     es: "Panel simple / doble",
+    zh: "单排 / 双排",
   },
   "jd50-25jz": {
     ru: "Однорядный",
     mn: "Нэг эгнээт",
     es: "Panel simple",
+    zh: "单排",
   },
   "jd50-25": {
     ru: "Однорядный / Двухрядный",
     mn: "Нэг эгнээт / Хоёр эгнээт",
     es: "Panel simple / doble",
+    zh: "单排 / 双排",
   },
   "jd50f": {
     ru: "Однорядный / Двухрядный",
     mn: "Нэг эгнээт / Хоёр эгнээт",
     es: "Panel simple / doble",
+    zh: "单排 / 双排",
   },
   "jd50y": {
     ru: "Однорядный / Двухрядный",
     mn: "Нэг эгнээт / Хоёр эгнээт",
     es: "Panel simple / doble",
+    zh: "单排 / 双排",
   },
   "jd60-15": {
     ru: "Однорядный / Двухрядный",
     mn: "Нэг эгнээт / Хоёр эгнээт",
     es: "Panel simple / doble",
+    zh: "单排 / 双排",
   },
   "jd60-30": {
     ru: "Однорядный / Двухрядный",
     mn: "Нэг эгнээт / Хоёр эгнээт",
     es: "Panel simple / doble",
+    zh: "单排 / 双排",
   },
   "jd68-12": {
     ru: "Однорядный / Двухрядный",
     mn: "Нэг эгнээт / Хоёр эгнээт",
     es: "Panel simple / doble",
+    zh: "单排 / 双排",
   },
   "jd70-15": {
     ru: "Однорядный / Двухрядный",
     mn: "Нэг эгнээт / Хоёр эгнээт",
     es: "Panel simple / doble",
+    zh: "单排 / 双排",
   },
   "jdsc": {
     ru: "Декоративный трубчатый",
     mn: "Чимэглэлийн баганат",
     es: "Columna decorativa",
+    zh: "装饰柱式散热器",
   },
   // Column Radiators
   "jdgz2": {
     ru: "2-колонный стальной радиатор",
     mn: "2 баганат ган радиатор",
     es: "Radiador de acero de 2 columnas",
+    zh: "双柱钢制散热器",
   },
   "jdgz3": {
     ru: "3-колонный стальной радиатор",
     mn: "3 баганат ган радиатор",
     es: "Radiador de acero de 3 columnas",
+    zh: "三柱钢制散热器",
   },
   "jdgz4": {
     ru: "4-колонный стальной радиатор",
     mn: "4 баганат ган радиатор",
     es: "Radiador de acero de 4 columnas",
+    zh: "四柱钢制散热器",
   },
   // Towel Radiators
   "jd30slf": {
     ru: "Водяной полотенцесушитель с плоской трубой",
     mn: "Хавтгай хоолойт алчуур хатаагч",
     es: "Toallero de tubo plano",
+    zh: "扁管毛巾架",
   },
   "jdwy-c": {
     ru: "Полотенцесушитель с изогнутым профилем",
     mn: "Нугалсан хоолойт алчуур хатаагч",
     es: "Toallero de tubo curvado",
+    zh: "弯管毛巾架",
   },
   "jdwy-s": {
     ru: "Полотенцесушитель с прямым профилем",
     mn: "Шулуун хоолойт алчуур хатаагч",
     es: "Toallero de tubo recto",
+    zh: "直管毛巾架",
   },
   "jd60-15df": {
     ru: "Дизайн-полотенцесушитель",
     mn: "Дизайн алчуур хатаагч",
     es: "Toallero de diseño",
+    zh: "设计款毛巾架",
   },
   // Bimetal Radiators
   "jd75-75tl": {
     ru: "Медно-алюминиевый радиатор",
     mn: "Зэс-хөнгөн цагаан радиатор",
     es: "Radiador de cobre-aluminio",
+    zh: "铜铝复合散热器",
   },
   "jd132-60tl": {
     ru: "Медно-алюминиевый радиатор",
     mn: "Зэс-хөнгөн цагаан радиатор",
     es: "Radiador de cobre-aluminio",
+    zh: "铜铝复合散热器",
   },
   "jd80-80": {
     ru: "Медно-алюминиевый радиатор",
     mn: "Зэс-хөнгөн цагаан радиатор",
     es: "Radiador de cobre-aluminio",
+    zh: "铜铝复合散热器",
   },
   // Panel Radiators
   "jd-11k": {
     ru: "Тип 11 — одна панель, один конвектор",
     mn: "Төрөл 11 — нэг хавтан, нэг конвектор",
     es: "Tipo 11 — panel simple, convector simple",
+    zh: "11型 — 单面板单对流片",
   },
   "jd-22k": {
     ru: "Тип 22 — две панели, два конвектора",
     mn: "Төрөл 22 — хоёр хавтан, хоёр конвектор",
     es: "Tipo 22 — panel doble, convector doble",
+    zh: "22型 — 双面板双对流片",
   },
   "jd-23k": {
     ru: "Тип 23 — две панели, три конвектора",
     mn: "Төрөл 23 — хоёр хавтан, гурван конвектор",
     es: "Tipo 23 — panel doble, triple convector",
+    zh: "23型 — 双面板三对流片",
   },
   "jd-33k": {
     ru: "Тип 33 — три панели, три конвектора",
     mn: "Төрөл 33 — гурван хавтан, гурван конвектор",
     es: "Tipo 33 — panel triple, triple convector",
+    zh: "33型 — 三面板三对流片",
   },
 };
 

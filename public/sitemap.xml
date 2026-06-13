@@ -2,18 +2,22 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
     <loc>https://jdradiator.com/sitemap-en.xml</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-06-13</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://jdradiator.com/sitemap-ru.xml</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-06-13</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://jdradiator.com/sitemap-mn.xml</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-06-13</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://jdradiator.com/sitemap-es.xml</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-06-13</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://jdradiator.com/sitemap-zh.xml</loc>
+    <lastmod>2026-06-13</lastmod>
   </sitemap>
 </sitemapindex>

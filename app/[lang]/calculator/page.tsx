@@ -8,6 +8,7 @@ const dicts: Record<string, Promise<Record<string, Record<string, string>>>> = {
   ru: import("@/dictionaries/ru.json").then((m) => m.default as never),
   mn: import("@/dictionaries/mn.json").then((m) => m.default as never),
   es: import("@/dictionaries/es.json").then((m) => m.default as never),
+  zh: import("@/dictionaries/zh.json").then((m) => m.default as never),
 };
 
 const recommendedProductNames: Record<string, Record<string, string>> = {
@@ -16,36 +17,42 @@ const recommendedProductNames: Record<string, Record<string, string>> = {
     ru: "Вертикальный дизайн-радиатор",
     mn: "Босоо дизайн радиатор",
     es: "Radiador vertical de diseño",
+    zh: "立式设计款散热器",
   },
   "steel-column": {
     en: "Steel Column Radiator",
     ru: "Стальной трубчатый радиатор",
     mn: "Баганат ган радиатор",
     es: "Radiador tubular de acero",
+    zh: "钢柱散热器",
   },
   "panel-22": {
     en: "Steel Plate Radiator (Type 22)",
     ru: "Стальной панельный радиатор (Тип 22)",
     mn: "Ган хэвлэмэл радиатор (Төрөл 22)",
     es: "Radiador de panel de acero (Tipo 22)",
+    zh: "钢制板式散热器（22型）",
   },
   "panel-11": {
     en: "Steel Plate Radiator (Type 11)",
     ru: "Стальной панельный радиатор (Тип 11)",
     mn: "Ган хэвлэмэл радиатор (Төрөл 11)",
     es: "Radiador de panel de acero (Tipo 11)",
+    zh: "钢制板式散热器（11型）",
   },
   "towel-rail": {
     en: "Heated Towel Rail",
     ru: "Водяной полотенцесушитель",
     mn: "Усан алчуур хатаагч",
     es: "Toallero calefactado",
+    zh: "水暖毛巾架",
   },
   "bathroom": {
     en: "Bathroom Backbasket Radiator",
     ru: "Радиатор для ванной комнаты",
     mn: "Угаалгын өрөөний радиатор",
     es: "Radiador para baño",
+    zh: "卫浴背篓散热器",
   },
 };
 
