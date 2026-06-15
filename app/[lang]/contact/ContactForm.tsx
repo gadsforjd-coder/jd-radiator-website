@@ -34,15 +34,22 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
       return;
     }
 
-    fd.append("access_key", WEB3FORMS_ACCESS_KEY);
-    fd.append("subject", "New inquiry from jdradiator.com");
-    fd.append("from_name", "Jiuding Radiator Website");
+    // Web3Forms' free plan does NOT support file attachments — including a
+    // file makes the request fail. So send text fields only; file upload
+    // (5 images + 3 docs) is handled via Blob storage once configured.
+    const payload = new FormData();
+    (["name", "email", "phone", "company", "country", "message"] as const).forEach(
+      (k) => payload.append(k, (fd.get(k) as string) || ""),
+    );
+    payload.append("access_key", WEB3FORMS_ACCESS_KEY);
+    payload.append("subject", "New inquiry from jdradiator.com");
+    payload.append("from_name", "Jiuding Radiator Website");
 
     setStatus("sending");
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: fd,
+        body: payload,
       });
       const data = await res.json();
       if (data.success) {
