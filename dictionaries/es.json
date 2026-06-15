@@ -63,16 +63,16 @@
   },
   "tech": {
     "kicker": "Tecnología",
-    "title": "Construcción y calidad",
-    "subtitle": "4 ventajas tecnológicas",
-    "feature1": "Alta potencia térmica",
-    "feature1Desc": "Canales de convección optimizados para una distribución uniforme del calor en toda la estancia.",
-    "feature2": "Acero de alta resistencia",
-    "feature2Desc": "Espesor de pared desde 1,2 mm. Presión de trabajo hasta 10 bar, prueba hidráulica 1,5× antes del envío.",
-    "feature3": "Pintura en polvo",
-    "feature3Desc": "Recubrimiento multicapa resistente a arañazos. Estándar RAL 9016, personalización en cualquier color RAL.",
-    "feature4": "Flexibilidad OEM/ODM",
-    "feature4Desc": "Fabricación según especificaciones del cliente: medidas, colores, marca y embalaje de exportación."
+    "title": "Radiadores de panel de acero avanzados",
+    "subtitle": "Cuatro tecnologías clave para eficiencia y durabilidad",
+    "feature1": "Prueba de presión 13 bar",
+    "feature1Desc": "Cada unidad se prueba a 1,5× la presión de trabajo (13 bar), 30 minutos sin fugas — seguridad de presión verificada.",
+    "feature2": "Aletas en U invertida y elevadas",
+    "feature2Desc": "Aletas de convección en U invertida con diseño elevado amplían la superficie de calor y mejoran la convección — calienta antes, mayor rendimiento.",
+    "feature3": "Rejilla superior en forma de gota",
+    "feature3Desc": "Una rejilla superior en forma de gota permite un flujo de aire suave, un aspecto limpio y menos acumulación de polvo.",
+    "feature4": "Decapado y fosfatado",
+    "feature4Desc": "Los cuerpos de acero se decapan y fosfatan antes del recubrimiento para una fuerte adherencia y anticorrosión profunda — sin descascarillado ni óxido."
   },
   "manufacturing": {
     "kicker": "Fabricación",

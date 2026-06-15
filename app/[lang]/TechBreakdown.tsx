@@ -109,45 +109,29 @@ export default function TechBreakdown({ kicker, title, subtitle, features, stats
               background: "radial-gradient(ellipse at center, rgba(234,88,12,0.12) 0%, rgba(234,88,12,0.04) 40%, transparent 70%)"
             }} />
 
-            {/* Product container */}
-            <div className="relative w-[280px] h-[400px] lg:w-[340px] lg:h-[480px] mx-auto">
+            {/* Product card — real 22K steel panel radiator (the hero product) */}
+            <div className="relative w-[320px] sm:w-[380px] lg:w-[460px] mx-auto">
               {/* Subtle ring */}
-              <div className="absolute -inset-3 rounded-2xl border border-[#1E293B]/[0.06]" />
+              <div className="absolute -inset-3 rounded-3xl border border-[#1E293B]/[0.06]" />
 
-              {/* The actual product photo */}
-              <div className="relative w-full h-full rounded-xl overflow-hidden">
+              {/* White showcase card so the panel reads cleanly as the hero */}
+              <div className="relative w-full aspect-[3/2] rounded-2xl overflow-hidden bg-white border border-[#F1E7DC] shadow-[0_10px_40px_rgba(30,41,59,0.10)]">
                 <Image
-                  src="/assets/products/jdgz3/hero.jpg"
-                  alt="JD Column Radiator"
+                  src="/assets/products/jd-22k/hero.jpg"
+                  alt="JD 22K Steel Panel Radiator"
                   fill
-                  className={`object-cover transition-all duration-700 ${
-                    hovered !== null ? "scale-105 brightness-110" : "scale-100 brightness-100"
+                  className={`object-contain p-6 transition-all duration-700 ${
+                    hovered !== null ? "scale-[1.03] brightness-105" : "scale-100 brightness-100"
                   }`}
-                  sizes="340px"
+                  sizes="460px"
                   priority
                 />
-                {/* Very subtle bottom fade for blending */}
-                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#FFF7ED] to-transparent" />
-                <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-[#FFF7ED]/60 to-transparent" />
               </div>
 
-              {/* Floating hotspot indicators on the image */}
-              {[
-                { top: "18%", x: "20%", side: "left" as const, idx: 0 },
-                { top: "18%", x: "15%", side: "right" as const, idx: 1 },
-                { top: "65%", x: "22%", side: "left" as const, idx: 2 },
-                { top: "65%", x: "18%", side: "right" as const, idx: 3 },
-              ].map((pos) => (
-                <div
-                  key={pos.idx}
-                  className={`absolute w-3 h-3 rounded-full transition-all duration-300 ${
-                    hovered === pos.idx
-                      ? "bg-white scale-150 shadow-[0_0_12px_rgba(255,255,255,0.6)]"
-                      : "bg-[var(--jd-red)]/60 scale-100 animate-pulse"
-                  }`}
-                  style={{ top: pos.top, [pos.side]: pos.x }}
-                />
-              ))}
+              {/* Model chip */}
+              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-[var(--jd-red)] text-white text-xs font-black shadow-lg whitespace-nowrap">
+                JD 22K · Steel Panel
+              </div>
             </div>
           </div>
 

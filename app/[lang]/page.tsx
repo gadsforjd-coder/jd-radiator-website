@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import TechBreakdown from "./TechBreakdown";
 import ProofMarquee from "./ProofMarquee";
+import CertMarquee from "./CertMarquee";
 import { VRTour } from "./VRTour";
 import { vrTourUrl } from "@/lib/vr";
 
@@ -302,19 +303,28 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </div>
       </section>
 
-      {/* Certifications — compact trust strip (full detail on the Credentials page) */}
-      <section className="py-10 px-6 lg:px-14 bg-[#FFF7ED] border-y border-[#F1E7DC]">
-        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-5 lg:gap-8">
-          <p className="text-[var(--jd-red)] uppercase tracking-[0.25em] font-extrabold text-xs shrink-0">{d.certs.kicker}</p>
-          <div className="flex flex-wrap items-center justify-center gap-2.5 flex-1">
+      {/* Certifications — scrolling strip of real certificate scans (CE / CPR · EN 442) */}
+      <section className="py-12 lg:py-16 bg-[#FFF7ED] border-y border-[#F1E7DC] overflow-hidden">
+        <div className="text-center mb-8 px-6">
+          <p className="text-[var(--jd-red)] uppercase tracking-[0.25em] font-extrabold text-xs mb-2">{d.certs.kicker}</p>
+          <div className="flex flex-wrap items-center justify-center gap-2.5">
             {["CE", "EN 442", "ISO 9001", "UKCA", `1.5× ${d.certs.pressure}`].map((c) => (
-              <span key={c} className="inline-flex items-center px-4 py-2 rounded-full bg-white border border-[#F1E7DC] shadow-[0_2px_8px_rgba(30,41,59,0.04)] text-[var(--jd-red)] font-black text-sm">{c}</span>
+              <span key={c} className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white border border-[#F1E7DC] text-[var(--jd-red)] font-black text-xs">{c}</span>
             ))}
           </div>
-          <Link href={`/${locale}/credentials`} className="shrink-0 inline-flex items-center gap-1.5 text-[#1E293B] font-bold text-sm hover:text-[var(--jd-red)] transition-colors">
-            {d.certs.kicker} <span aria-hidden>→</span>
-          </Link>
         </div>
+        <CertMarquee
+          viewAllLabel={d.certs.kicker}
+          viewAllHref={`/${locale}/credentials`}
+          certs={[
+            { img: "/assets/certs/img/cpr-certificate-2693-0023-jdwy-ch-22y-1.jpg", pdf: "/assets/certs/cpr-certificate-2693-0023-jdwy-ch-22y.pdf", label: "CPR · EN 442 — JDWY-CH 22Y" },
+            { img: "/assets/certs/img/cpr-certificate-2693-0019-jddh-d-5025-1.jpg", pdf: "/assets/certs/cpr-certificate-2693-0019-jddh-d-5025.pdf", label: "CPR · EN 442 — JDDH-D 5025" },
+            { img: "/assets/certs/img/cpr-certificate-2693-0020-jddh-s-5025-1.jpg", pdf: "/assets/certs/cpr-certificate-2693-0020-jddh-s-5025.pdf", label: "CPR · EN 442 — JDDH-S 5025" },
+            { img: "/assets/certs/img/cpr-certificate-2693-0021-jddh-d-7015-1.jpg", pdf: "/assets/certs/cpr-certificate-2693-0021-jddh-d-7015.pdf", label: "CPR · EN 442 — JDDH-D 7015" },
+            { img: "/assets/certs/img/cpr-certificate-2693-0022-jddh-s-7015-1.jpg", pdf: "/assets/certs/cpr-certificate-2693-0022-jddh-s-7015.pdf", label: "CPR · EN 442 — JDDH-S 7015" },
+            { img: "/assets/certs/img/cpr-certificate-2693-0024-jdwy-dhe-6015-1.jpg", pdf: "/assets/certs/cpr-certificate-2693-0024-jdwy-dhe-6015.pdf", label: "CPR · EN 442 — JDWY-DHE 6015" },
+          ]}
+        />
       </section>
 
       {/* Why Choose Jiuding — Bold numbered reasons */}
