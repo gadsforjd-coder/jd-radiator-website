@@ -231,7 +231,9 @@
     "formMessage": "Project details, product requirements, quantities...",
     "formSubmit": "Send Inquiry",
     "formPhone": "Phone / WhatsApp",
-    "formImage": "Attach an image (optional)",
+    "formImage": "Attach images — up to 5 (optional)",
+    "formDocs": "Attach documents — PDF / Word / Excel, up to 3 (optional)",
+    "formTooLarge": "Total file size exceeds 10MB — please remove or compress some files.",
     "formSending": "Sending…",
     "formError": "Something went wrong — please email us directly.",
     "formSuccess": "Thank you! We will reply within 24 hours."

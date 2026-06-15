@@ -3,58 +3,106 @@
 import { useState } from "react";
 import type { Dictionary } from "@/lib/dictionary";
 
-// Web3Forms access key — submissions (incl. image attachment) are delivered to
-// the sales inbox configured on the key (lunan@jdradiator.com). Set via the
-// NEXT_PUBLIC_WEB3FORMS_KEY env var on Vercel; the key is public by design.
-// Until a key is configured the form gracefully falls back to a mailto link.
-const WEB3FORMS_ACCESS_KEY =
-  process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "aab15b9b-845a-4bc0-9dff-351868dc34c2";
-const FALLBACK_EMAIL = "lunan@jdradiator.com";
+// FormSubmit delivers the inquiry + file attachments to this inbox (free, no
+// API key). First submission triggers a one-time activation email that must be
+// confirmed. AJAX endpoint returns JSON. 10MB total attachment limit.
+const FORMSUBMIT_ENDPOINT = "https://formsubmit.co/ajax/lunan@jdradiator.com";
+const MAX_IMAGES = 5;
+const MAX_DOCS = 3;
+const MAX_TOTAL_BYTES = 9.5 * 1024 * 1024;
+const DOC_ACCEPT = ".pdf,.doc,.docx,.xls,.xlsx";
 
-type Status = "idle" | "sending" | "success" | "error";
+type Status = "idle" | "sending" | "success" | "error" | "toolarge";
+
+// Resize/compress an image to a web-friendly JPEG to stay within the size cap.
+async function compressImage(file: File): Promise<File> {
+  if (!file.type.startsWith("image/")) return file;
+  try {
+    const bitmap = await createImageBitmap(file);
+    const maxDim = 1920;
+    let { width, height } = bitmap;
+    if (width > maxDim || height > maxDim) {
+      const scale = maxDim / Math.max(width, height);
+      width = Math.round(width * scale);
+      height = Math.round(height * scale);
+    }
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return file;
+    ctx.drawImage(bitmap, 0, 0, width, height);
+    const blob: Blob | null = await new Promise((r) => canvas.toBlob(r, "image/jpeg", 0.82));
+    if (!blob) return file;
+    return new File([blob], file.name.replace(/\.[^.]+$/, "") + ".jpg", { type: "image/jpeg" });
+  } catch {
+    return file;
+  }
+}
+
+function fmtSize(bytes: number) {
+  return bytes < 1024 * 1024
+    ? `${Math.round(bytes / 1024)} KB`
+    : `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+}
 
 export function ContactForm({ t }: { t: Dictionary["contact"] }) {
   const [status, setStatus] = useState<Status>("idle");
+  const [images, setImages] = useState<File[]>([]);
+  const [docs, setDocs] = useState<File[]>([]);
+
+  async function onAddImages(e: React.ChangeEvent<HTMLInputElement>) {
+    const picked = Array.from(e.target.files ?? []);
+    e.target.value = "";
+    if (!picked.length) return;
+    const compressed = await Promise.all(picked.map(compressImage));
+    setImages((prev) => [...prev, ...compressed].slice(0, MAX_IMAGES));
+  }
+
+  function onAddDocs(e: React.ChangeEvent<HTMLInputElement>) {
+    const picked = Array.from(e.target.files ?? []);
+    e.target.value = "";
+    if (!picked.length) return;
+    setDocs((prev) => [...prev, ...picked].slice(0, MAX_DOCS));
+  }
+
+  const removeImage = (i: number) => setImages((p) => p.filter((_, idx) => idx !== i));
+  const removeDoc = (i: number) => setDocs((p) => p.filter((_, idx) => idx !== i));
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
-    const fd = new FormData(form);
+    const raw = new FormData(form);
 
-    // No backend key configured yet → open the visitor's mail client
-    // pre-filled (text only; attachments need the form backend).
-    if (!WEB3FORMS_ACCESS_KEY) {
-      const g = (k: string) => (fd.get(k) as string) || "";
-      const body =
-        `Name: ${g("name")}\nEmail: ${g("email")}\nPhone: ${g("phone")}\n` +
-        `Company: ${g("company")}\nCountry: ${g("country")}\n\n${g("message")}`;
-      window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent(
-        "Website inquiry — " + g("name"),
-      )}&body=${encodeURIComponent(body)}`;
+    const totalBytes = [...images, ...docs].reduce((s, f) => s + f.size, 0);
+    if (totalBytes > MAX_TOTAL_BYTES) {
+      setStatus("toolarge");
       return;
     }
 
-    // Web3Forms' free plan does NOT support file attachments — including a
-    // file makes the request fail. So send text fields only; file upload
-    // (5 images + 3 docs) is handled via Blob storage once configured.
-    const payload = new FormData();
-    (["name", "email", "phone", "company", "country", "message"] as const).forEach(
-      (k) => payload.append(k, (fd.get(k) as string) || ""),
+    const fd = new FormData();
+    (["name", "email", "phone", "company", "country", "message"] as const).forEach((k) =>
+      fd.append(k, (raw.get(k) as string) || ""),
     );
-    payload.append("access_key", WEB3FORMS_ACCESS_KEY);
-    payload.append("subject", "New inquiry from jdradiator.com");
-    payload.append("from_name", "Jiuding Radiator Website");
+    fd.append("_subject", "官网询盘 / Website inquiry — " + ((raw.get("name") as string) || ""));
+    fd.append("_template", "table");
+    fd.append("_captcha", "false");
+    images.forEach((f, i) => fd.append(`图片${i + 1}`, f, f.name));
+    docs.forEach((f, i) => fd.append(`文档${i + 1}`, f, f.name));
 
     setStatus("sending");
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch(FORMSUBMIT_ENDPOINT, {
         method: "POST",
-        body: payload,
+        headers: { Accept: "application/json" },
+        body: fd,
       });
-      const data = await res.json();
-      if (data.success) {
+      const data = await res.json().catch(() => null);
+      if (res.ok && (!data || data.success === "true" || data.success === true)) {
         setStatus("success");
         form.reset();
+        setImages([]);
+        setDocs([]);
       } else {
         setStatus("error");
       }
@@ -71,6 +119,25 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
     );
   }
 
+  const fileChip = (f: File, onRemove: () => void) => (
+    <li
+      key={f.name + f.size}
+      className="flex items-center justify-between gap-2 bg-white border border-gray-200 rounded px-3 py-2 text-sm"
+    >
+      <span className="truncate text-gray-700">
+        {f.name} <span className="text-gray-400">· {fmtSize(f.size)}</span>
+      </span>
+      <button
+        type="button"
+        onClick={onRemove}
+        aria-label="Remove"
+        className="shrink-0 w-6 h-6 flex items-center justify-center rounded-full text-gray-500 hover:bg-red-50 hover:text-red-600 transition-colors text-lg leading-none"
+      >
+        &times;
+      </button>
+    </li>
+  );
+
   return (
     <form onSubmit={onSubmit} className="bg-gray-50 p-8 lg:p-12">
       <div className="grid grid-cols-2 gap-5 mb-5">
@@ -84,15 +151,35 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
       <input name="country" placeholder={t.formCountry} className="p-3 border border-gray-300 rounded w-full mb-5" />
       <textarea name="message" placeholder={t.formMessage} rows={5} className="w-full p-3 border border-gray-300 rounded mb-5" />
 
-      <label className="block mb-5">
+      {/* Images */}
+      <div className="mb-5">
         <span className="block text-sm text-gray-500 mb-2">{t.formImage}</span>
-        <input
-          name="image"
-          type="file"
-          accept="image/*"
-          className="block w-full text-sm text-gray-600 file:mr-4 file:py-2.5 file:px-4 file:rounded file:border-0 file:text-sm file:font-bold file:bg-[var(--jd-red)]/10 file:text-[var(--jd-red)] hover:file:bg-[var(--jd-red)]/20 cursor-pointer"
-        />
-      </label>
+        {images.length > 0 && <ul className="space-y-2 mb-2">{images.map((f, i) => fileChip(f, () => removeImage(i)))}</ul>}
+        {images.length < MAX_IMAGES && (
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={onAddImages}
+            className="block w-full text-sm text-gray-600 file:mr-4 file:py-2.5 file:px-4 file:rounded file:border-0 file:text-sm file:font-bold file:bg-[var(--jd-red)]/10 file:text-[var(--jd-red)] hover:file:bg-[var(--jd-red)]/20 cursor-pointer"
+          />
+        )}
+      </div>
+
+      {/* Documents */}
+      <div className="mb-5">
+        <span className="block text-sm text-gray-500 mb-2">{t.formDocs}</span>
+        {docs.length > 0 && <ul className="space-y-2 mb-2">{docs.map((f, i) => fileChip(f, () => removeDoc(i)))}</ul>}
+        {docs.length < MAX_DOCS && (
+          <input
+            type="file"
+            accept={DOC_ACCEPT}
+            multiple
+            onChange={onAddDocs}
+            className="block w-full text-sm text-gray-600 file:mr-4 file:py-2.5 file:px-4 file:rounded file:border-0 file:text-sm file:font-bold file:bg-[var(--jd-red)]/10 file:text-[var(--jd-red)] hover:file:bg-[var(--jd-red)]/20 cursor-pointer"
+          />
+        )}
+      </div>
 
       <button
         type="submit"
@@ -102,6 +189,7 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
         {status === "sending" ? t.formSending : t.formSubmit}
       </button>
       {status === "error" && <p className="text-red-600 text-sm mt-3 text-center">{t.formError}</p>}
+      {status === "toolarge" && <p className="text-red-600 text-sm mt-3 text-center">{t.formTooLarge}</p>}
     </form>
   );
 }

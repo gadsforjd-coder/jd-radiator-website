@@ -231,7 +231,9 @@
     "formMessage": "项目详情、产品需求、数量……",
     "formSubmit": "发送询盘",
     "formPhone": "电话 / WhatsApp",
-    "formImage": "上传图片（可选）",
+    "formImage": "上传图片 — 最多5张（可选）",
+    "formDocs": "上传文档 — PDF / Word / Excel，最多3份（可选）",
+    "formTooLarge": "文件总大小超过 10MB，请删除或压缩部分文件后再发送。",
     "formSending": "提交中…",
     "formError": "提交失败，请直接邮件联系我们。",
     "formSuccess": "感谢您！我们将在 24 小时内回复。"

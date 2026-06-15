@@ -231,7 +231,9 @@
     "formMessage": "Proyecto, productos, cantidades...",
     "formSubmit": "Enviar Consulta",
     "formPhone": "Teléfono / WhatsApp",
-    "formImage": "Adjuntar imagen (opcional)",
+    "formImage": "Adjuntar imágenes — hasta 5 (opcional)",
+    "formDocs": "Documentos — PDF / Word / Excel, hasta 3 (opcional)",
+    "formTooLarge": "El tamaño total supera los 10 MB: elimine algunos archivos.",
     "formSending": "Enviando…",
     "formError": "Algo salió mal: escríbanos directamente.",
     "formSuccess": "¡Gracias! Responderemos en 24 horas."
