@@ -1,4 +1,5 @@
-export const locales = ["en", "ru", "mn", "es", "zh"] as const;
+// Display / language-selector order: English - Chinese - Russian - Mongolian - Spanish
+export const locales = ["en", "zh", "ru", "mn", "es"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "en";
 

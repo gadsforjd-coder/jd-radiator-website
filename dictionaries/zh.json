@@ -230,6 +230,10 @@
     "formCountry": "国家/地区",
     "formMessage": "项目详情、产品需求、数量……",
     "formSubmit": "发送询盘",
+    "formPhone": "电话 / WhatsApp",
+    "formImage": "上传图片（可选）",
+    "formSending": "提交中…",
+    "formError": "提交失败，请直接邮件联系我们。",
     "formSuccess": "感谢您！我们将在 24 小时内回复。"
   },
   "footer": {
@@ -375,6 +379,9 @@
     "tab": "联系我们",
     "title": "保持联系",
     "emailLabel": "销售团队",
+    "phoneLabel": "电话 / 微信",
+    "whatsappLabel": "WhatsApp",
+    "officeLabel": "办公室",
     "quoteButton": "索取报价",
     "note": "我们将在 24 小时内回复。"
   },

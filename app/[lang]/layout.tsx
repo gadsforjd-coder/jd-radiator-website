@@ -31,7 +31,8 @@ const organizationJsonLd = (locale: Locale) => ({
   contactPoint: [
     {
       "@type": "ContactPoint",
-      email: "kevin@jdradiator.com",
+      email: "lunan@jdradiator.com",
+      telephone: "+86-22-69189950",
       contactType: "sales",
       availableLanguage: ["English", "Chinese", "Russian"],
     },

@@ -230,6 +230,10 @@
     "formCountry": "Country",
     "formMessage": "Project details, product requirements, quantities...",
     "formSubmit": "Send Inquiry",
+    "formPhone": "Phone / WhatsApp",
+    "formImage": "Attach an image (optional)",
+    "formSending": "Sending…",
+    "formError": "Something went wrong — please email us directly.",
     "formSuccess": "Thank you! We will reply within 24 hours."
   },
   "footer": {
@@ -375,6 +379,9 @@
     "tab": "Contact Us",
     "title": "Get in touch",
     "emailLabel": "Sales team",
+    "phoneLabel": "Phone / WeChat",
+    "whatsappLabel": "WhatsApp",
+    "officeLabel": "Office",
     "quoteButton": "Request a Quote",
     "note": "We reply within 24 hours."
   },

@@ -230,6 +230,10 @@
     "formCountry": "Улс",
     "formMessage": "Төсөл, бүтээгдэхүүн, тоо хэмжээ...",
     "formSubmit": "Лавлагаа илгээх",
+    "formPhone": "Утас / WhatsApp",
+    "formImage": "Зураг хавсаргах (заавал биш)",
+    "formSending": "Илгээж байна…",
+    "formError": "Алдаа гарлаа — бидэн рүү шууд имэйл бичнэ үү.",
     "formSuccess": "Баярлалаа! 24 цагийн дотор хариу өгнө."
   },
   "footer": {
@@ -375,6 +379,9 @@
     "tab": "Холбоо барих",
     "title": "Бидэнтэй холбогдоорой",
     "emailLabel": "Борлуулалтын баг",
+    "phoneLabel": "Утас / WeChat",
+    "whatsappLabel": "WhatsApp",
+    "officeLabel": "Оффис",
     "quoteButton": "Үнийн санал авах",
     "note": "Бид 24 цагийн дотор хариу өгнө."
   },

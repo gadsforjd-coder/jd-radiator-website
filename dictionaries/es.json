@@ -230,6 +230,10 @@
     "formCountry": "País",
     "formMessage": "Proyecto, productos, cantidades...",
     "formSubmit": "Enviar Consulta",
+    "formPhone": "Teléfono / WhatsApp",
+    "formImage": "Adjuntar imagen (opcional)",
+    "formSending": "Enviando…",
+    "formError": "Algo salió mal: escríbanos directamente.",
     "formSuccess": "¡Gracias! Responderemos en 24 horas."
   },
   "footer": {
@@ -375,6 +379,9 @@
     "tab": "Contáctenos",
     "title": "Póngase en contacto",
     "emailLabel": "Equipo de ventas",
+    "phoneLabel": "Teléfono / WeChat",
+    "whatsappLabel": "WhatsApp",
+    "officeLabel": "Oficina",
     "quoteButton": "Solicitar cotización",
     "note": "Respondemos en un plazo de 24 horas."
   },
