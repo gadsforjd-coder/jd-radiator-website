@@ -117,10 +117,10 @@ export default function TechBreakdown({ kicker, title, subtitle, features, stats
               {/* White showcase card so the panel reads cleanly as the hero */}
               <div className="relative w-full aspect-[3/2] rounded-2xl overflow-hidden bg-white border border-[#F1E7DC] shadow-[0_10px_40px_rgba(30,41,59,0.10)]">
                 <Image
-                  src="/assets/products/jd-22k/hero.jpg"
+                  src="/assets/products/jd-22k/render.jpg"
                   alt="JD 22K Steel Panel Radiator"
                   fill
-                  className={`object-contain p-6 transition-all duration-700 ${
+                  className={`object-contain p-4 transition-all duration-700 ${
                     hovered !== null ? "scale-[1.03] brightness-105" : "scale-100 brightness-100"
                   }`}
                   sizes="460px"
