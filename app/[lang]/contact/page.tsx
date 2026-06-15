@@ -43,10 +43,19 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
       <div className="grid lg:grid-cols-2 gap-12">
         <ContactForm t={d.contact} />
 
-        <div className="bg-gradient-to-br from-[#F97316] via-[var(--jd-orange)] to-[var(--jd-orange-dark)] text-white p-8 lg:p-12 rounded-lg">
-          <img src="/assets/logo.png" alt="Jiuding" className="w-32 mb-8 brightness-0 invert" />
-          <h3 className="text-2xl font-bold mb-6">Jiuding Radiator</h3>
-          <div className="space-y-4 text-white/85">
+        <div className="relative overflow-hidden bg-gradient-to-br from-[#F97316] via-[var(--jd-orange)] to-[var(--jd-orange-dark)] text-white p-8 lg:p-12 rounded-lg">
+          {/* Oversized semi-transparent logo watermark */}
+          <img
+            src="/assets/logo-mark.png"
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none select-none absolute -bottom-10 -right-10 w-80 lg:w-[26rem] opacity-[0.08] brightness-0 invert"
+          />
+
+          <div className="relative z-10">
+            <img src="/assets/logo.png" alt="Jiuding" className="w-44 lg:w-52 mb-8 brightness-0 invert" />
+            <h3 className="text-2xl font-bold mb-6">Jiuding Radiator</h3>
+            <div className="space-y-4 text-white/85">
             <p><strong className="text-white">Email:</strong>{" "}
               <a href="mailto:lunan@jdradiator.com" className="font-semibold underline underline-offset-2 hover:opacity-80 transition-opacity">lunan@jdradiator.com</a>
             </p>
@@ -72,6 +81,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
             </svg>
             WhatsApp: +86 177 4225 2991
           </a>
+          </div>
         </div>
       </div>
     </div>
