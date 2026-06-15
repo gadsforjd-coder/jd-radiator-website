@@ -30,16 +30,21 @@ const SALES = [
 const OFFICE_TEL = "+862269189950";
 const OFFICE_TEL_LABEL = "022-6918 9950";
 
-const ADDR_EN = encodeURIComponent("No.9 Wuwei Road, Ninghe District, Tianjin, China");
-const ADDR_ZH = encodeURIComponent("天津市宁河区经济开发区五纬路9号 九鼎散热器");
-// Open the factory location in whichever map the visitor prefers. Chinese
-// providers get the Chinese address (resolves far better there); Google gets
-// the English one. China-friendly so it works regardless of region.
+// Factory coordinates in each provider's required datum (WGS84 → GCJ02 → BD09
+// converted from the GPS point). Using coordinate markers via each provider's
+// official URI service — these have proper mobile/H5 fallback, unlike the plain
+// web-search URLs which stall on "open app" / blank pages on phones.
+const NAME_ZH = encodeURIComponent("九鼎散热器");
+const ADDR_TXT = encodeURIComponent("天津市宁河区经济开发区五纬路9号");
 const MAP_LINKS = [
-  { label: "Google", href: `https://www.google.com/maps/search/?api=1&query=${ADDR_EN}` },
-  { label: "高德", href: `https://www.amap.com/search?query=${ADDR_ZH}` },
-  { label: "百度", href: `https://map.baidu.com/search/${ADDR_ZH}` },
-  { label: "腾讯", href: `https://apis.map.qq.com/uri/v1/search?keyword=${ADDR_ZH}&referer=jdradiator` },
+  // Google — WGS84 lat,lng
+  { label: "Google", href: `https://www.google.com/maps/search/?api=1&query=39.299700,117.808800` },
+  // 高德 — GCJ02 position lng,lat (callnative=0 keeps it in the browser)
+  { label: "高德", href: `https://uri.amap.com/marker?position=117.815042,39.300743&name=${NAME_ZH}&src=jdradiator&coordinate=gaode&callnative=0` },
+  // 百度 — BD09 location lat,lng, html output
+  { label: "百度", href: `https://api.map.baidu.com/marker?location=39.306835,117.821511&title=${NAME_ZH}&content=${ADDR_TXT}&output=html&coord_type=bd09ll&src=jdradiator` },
+  // 腾讯 — GCJ02 coord lat,lng marker
+  { label: "腾讯", href: `https://apis.map.qq.com/uri/v1/marker?marker=coord:39.300743,117.815042;title:${NAME_ZH};addr:${ADDR_TXT}&referer=jdradiator` },
 ];
 
 export type ContactWidgetStrings = {

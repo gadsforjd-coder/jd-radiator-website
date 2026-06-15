@@ -6,8 +6,26 @@ import { BASE_URL } from "@/lib/constants";
 import Link from "next/link";
 import Image from "next/image";
 import TechBreakdown from "./TechBreakdown";
+import ProofMarquee from "./ProofMarquee";
 import { VRTour } from "./VRTour";
 import { vrTourUrl } from "@/lib/vr";
+
+// Small line icons paired with the homepage stat metrics.
+const ICON = "w-5 h-5";
+const STAT_ICONS = {
+  experience: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className={ICON}><circle cx="12" cy="8" r="6" /><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" /></svg>
+  ),
+  markets: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className={ICON}><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
+  ),
+  oem: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className={ICON}><path d="m12 2 9 5-9 5-9-5 9-5zM3 12l9 5 9-5M3 17l9 5 9-5" /></svg>
+  ),
+  quality: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className={ICON}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="m9 12 2 2 4-4" /></svg>
+  ),
+};
 
 const metaByLocale: Record<string, { title: string; description: string }> = {
   en: {
@@ -88,18 +106,21 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           </div>
         </div>
 
-        {/* Stats strip at bottom — light bar */}
+        {/* Stats strip at bottom — light bar, each metric paired with an icon */}
         <div className="absolute bottom-0 left-0 right-0 z-10">
           <div className="grid grid-cols-2 lg:grid-cols-4 border-t border-[#F1E7DC] bg-white/90 backdrop-blur-xl">
             {[
-              { num: d.stats.years, label: d.stats.yearsLabel },
-              { num: d.stats.markets, label: d.stats.marketsLabel },
-              { num: d.stats.oem, label: d.stats.oemLabel },
-              { num: d.stats.quality, label: d.stats.qualityLabel },
+              { num: d.stats.years, label: d.stats.yearsLabel, icon: STAT_ICONS.experience },
+              { num: d.stats.markets, label: d.stats.marketsLabel, icon: STAT_ICONS.markets },
+              { num: d.stats.oem, label: d.stats.oemLabel, icon: STAT_ICONS.oem },
+              { num: d.stats.quality, label: d.stats.qualityLabel, icon: STAT_ICONS.quality },
             ].map((s) => (
-              <div key={s.num} className="py-7 px-9 border-r border-[#F1E7DC] last:border-r-0">
-                <strong className="block text-3xl lg:text-4xl text-[var(--jd-red)] font-black mb-1">{s.num}</strong>
-                <span className="text-[#64748B] text-sm">{s.label}</span>
+              <div key={s.num} className="py-6 px-7 lg:px-9 border-r border-[#F1E7DC] last:border-r-0 flex items-center gap-3.5">
+                <span className="shrink-0 w-11 h-11 rounded-xl bg-[var(--jd-red)]/10 text-[var(--jd-red)] flex items-center justify-center">{s.icon}</span>
+                <div>
+                  <strong className="block text-2xl lg:text-3xl text-[var(--jd-red)] font-black leading-none mb-1">{s.num}</strong>
+                  <span className="text-[#64748B] text-xs lg:text-sm">{s.label}</span>
+                </div>
               </div>
             ))}
           </div>
@@ -114,19 +135,19 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
           {[
-            { title: d.products.designer, desc: d.products.designerDesc, slug: "jd25y", img: "/assets/ai-images/category-designer.png", num: "01", featured: true },
-            { title: d.products.steel, desc: d.products.steelDesc, slug: "jdgz2", img: "/assets/ai-images/category-column.png", num: "02", featured: false },
-            { title: d.products.towel, desc: d.products.towelDesc, slug: "jd30slf", img: "/assets/ai-images/category-towel.png", num: "03", featured: false },
-            { title: d.products.oem, desc: d.products.oemDesc, slug: "jd-22k", img: "/assets/ai-images/category-panel.png", num: "04", featured: false },
+            { title: d.products.designer, desc: d.products.designerDesc, slug: "jd25y", img: "/assets/products/jd25y/hero.jpg", num: "01", featured: true },
+            { title: d.products.steel, desc: d.products.steelDesc, slug: "jd-22k", img: "/assets/products/jd-22k/hero.jpg", num: "02", featured: false },
+            { title: d.products.towel, desc: d.products.towelDesc, slug: "jdwy-s", img: "/assets/products/jdwy-s/hero.jpg", num: "03", featured: false },
+            { title: d.products.oem, desc: d.products.oemDesc, slug: "jdgz3", img: "/assets/products/jdgz3/hero.jpg", num: "04", featured: false },
           ].map((p) => (
             <Link
               key={p.slug}
               href={`/${locale}/products/${p.slug}`}
               className={`group relative flex flex-col overflow-hidden rounded-lg bg-white border border-[#F1E7DC] shadow-[0_4px_16px_rgba(30,41,59,0.05)] product-card-hover transition-all duration-500 ${p.featured ? "ring-1 ring-[var(--jd-red)]/40 shadow-[0_0_30px_rgba(234,88,12,0.15)]" : ""}`}
             >
-              <div className="relative h-[260px] overflow-hidden">
-                <Image src={p.img} alt={p.title} fill className="object-cover transition-transform duration-700" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw" />
-                <span className="absolute top-4 left-5 text-white font-black text-3xl opacity-80 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">{p.num}</span>
+              <div className="relative h-[260px] overflow-hidden bg-gradient-to-b from-[#FFF7ED] to-white">
+                <Image src={p.img} alt={p.title} fill className="object-contain p-5 transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw" />
+                <span className="absolute top-4 left-5 text-[var(--jd-red)]/80 font-black text-3xl">{p.num}</span>
               </div>
               <div className="p-6 flex-1">
                 <h3 className="text-xl font-bold mb-2 text-[#1E293B] group-hover:text-[var(--jd-red)] transition-colors">{p.title}</h3>
@@ -152,11 +173,18 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           { title: d.tech.feature3, desc: d.tech.feature3Desc, num: "03" },
           { title: d.tech.feature4, desc: d.tech.feature4Desc, num: "04" },
         ]}
-        stats={[
-          { value: d.stats.years, label: d.stats.yearsLabel },
-          { value: d.stats.markets, label: d.stats.marketsLabel },
-          { value: "ISO 9001", label: d.stats.qualityLabel },
-          { value: "24/7", label: "Global Support" },
+      />
+
+      {/* Rolling proof strip — production, capability & certification photos
+          (replaces the old static numbers that duplicated the hero stats) */}
+      <ProofMarquee
+        items={[
+          { src: "/assets/ai-images/about-factory-aerial.png", label: `${d.stats.years} ${d.stats.yearsLabel}` },
+          { src: "/assets/ai-images/hero-manufacturing.png", label: d.manufacturing.welding },
+          { src: "/assets/ai-images/article-surface-treatment.png", label: d.manufacturing.surface },
+          { src: "/assets/ai-images/about-quality-testing.png", label: d.manufacturing.inspection },
+          { src: "/assets/ai-images/article-factory-story.png", label: `${d.stats.markets} ${d.stats.marketsLabel}` },
+          { src: "/assets/ai-images/article-certifications.png", label: d.certs.kicker },
         ]}
       />
 
@@ -203,41 +231,29 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           <p className="text-[var(--jd-red)] uppercase tracking-[0.3em] font-extrabold text-sm mb-5">{d.manufacturing.kicker}</p>
           <h2 className="text-4xl lg:text-6xl font-black leading-tight tracking-tight">{d.manufacturing.title}</h2>
         </div>
-        <div className="grid lg:grid-cols-[1.2fr_1fr] gap-8 items-stretch">
-          {/* Factory photos in white frames */}
-          <div className="flex flex-col gap-6">
-            <div className="bg-white border border-[#F1E7DC] rounded-xl shadow-[0_8px_30px_rgba(30,41,59,0.08)] p-3 flex-1">
-              <div className="relative h-[320px] lg:h-full lg:min-h-[340px] rounded-lg overflow-hidden">
-                <Image
-                  src="/assets/ai-images/hero-manufacturing.png"
-                  alt="Jiuding factory — automated production line"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 55vw"
-                />
+        {/* Each manufacturing step shown with its own photo */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
+          {[
+            { label: d.manufacturing.welding, img: "/assets/ai-images/hero-manufacturing.png" },
+            { label: d.manufacturing.surface, img: "/assets/ai-images/article-surface-treatment.png" },
+            { label: d.manufacturing.inspection, img: "/assets/ai-images/about-quality-testing.png" },
+            { label: d.manufacturing.packaging, img: "/assets/ai-images/about-factory-aerial.png" },
+          ].map((m, i) => (
+            <div key={i} className="group relative aspect-[4/5] rounded-xl overflow-hidden border border-[#F1E7DC] shadow-[0_4px_16px_rgba(30,41,59,0.06)] hover:shadow-[0_12px_30px_rgba(234,88,12,0.16)] transition-all duration-300">
+              <Image
+                src={m.img}
+                alt={m.label}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                sizes="(max-width: 768px) 50vw, 25vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1220]/85 via-[#0B1220]/25 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-5">
+                <b className="block text-white/60 text-sm font-black mb-1">0{i + 1}</b>
+                <span className="text-white text-lg lg:text-xl font-semibold leading-tight">{m.label}</span>
               </div>
             </div>
-            <div className="bg-white border border-[#F1E7DC] rounded-xl shadow-[0_8px_30px_rgba(30,41,59,0.08)] p-3">
-              <div className="relative h-[200px] rounded-lg overflow-hidden">
-                <Image
-                  src="/assets/ai-images/about-quality-testing.png"
-                  alt="Jiuding quality testing"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 55vw"
-                />
-              </div>
-            </div>
-          </div>
-          {/* Process steps */}
-          <div className="grid grid-cols-2 gap-4 content-stretch">
-            {[d.manufacturing.welding, d.manufacturing.surface, d.manufacturing.inspection, d.manufacturing.packaging].map((m, i) => (
-              <div key={i} className="bg-[#FFF7ED] border border-[#F1E7DC] rounded-xl p-8 lg:p-10 flex flex-col justify-between hover:border-[var(--jd-red)]/40 hover:shadow-[0_8px_24px_rgba(234,88,12,0.1)] transition-all duration-300">
-                <b className="text-[var(--jd-red)] block mb-6 text-lg font-black">0{i + 1}</b>
-                <span className="text-[#1E293B] text-xl lg:text-2xl font-semibold">{m}</span>
-              </div>
-            ))}
-          </div>
+          ))}
         </div>
       </section>
 
@@ -286,36 +302,18 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </div>
       </section>
 
-      {/* Certifications — Badge showcase with glowing rings */}
-      <section className="py-28 px-6 lg:px-14 bg-[#FFF7ED] overflow-hidden">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <p className="text-[var(--jd-red)] uppercase tracking-[0.3em] font-extrabold text-sm mb-5">{d.certs.kicker}</p>
-          <h2 className="text-4xl lg:text-6xl font-black text-[#1E293B] leading-tight tracking-tight">{d.certs.title}</h2>
-        </div>
-        <div className="flex flex-wrap justify-center gap-8 lg:gap-16 max-w-5xl mx-auto">
-          {[
-            { title: d.certs.ce, desc: d.certs.ceDesc, icon: "CE", color: "from-orange-500/20 to-amber-500/10" },
-            { title: d.certs.en442, desc: d.certs.en442Desc, icon: "EN 442", color: "from-orange-600/20 to-orange-400/10" },
-            { title: d.certs.iso, desc: d.certs.isoDesc, icon: "ISO", color: "from-amber-500/20 to-orange-500/10" },
-            { title: d.certs.pressure, desc: d.certs.pressureDesc, icon: "1.5×", color: "from-orange-400/20 to-amber-600/10" },
-          ].map((c) => (
-            <div key={c.icon} className="group flex flex-col items-center text-center w-[180px]">
-              <div className="relative w-32 h-32 mb-6">
-                {/* Outer spinning ring */}
-                <div className="absolute inset-0 rounded-full border-2 border-dashed border-[var(--jd-red)]/20 group-hover:border-[var(--jd-red)]/50 animate-spin-slow transition-colors duration-500" />
-                {/* Inner ring */}
-                <div className="absolute inset-2 rounded-full border border-[#F1E7DC] group-hover:border-[var(--jd-red)]/40 transition-all duration-500" />
-                {/* Glow background */}
-                <div className={`absolute inset-3 rounded-full bg-gradient-radial ${c.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                {/* Badge content */}
-                <div className="absolute inset-3 rounded-full bg-white shadow-[0_4px_16px_rgba(30,41,59,0.06)] flex items-center justify-center group-hover:shadow-[0_0_40px_rgba(234,88,12,0.2)]">
-                  <span className="text-[var(--jd-red)] text-2xl font-black tracking-tight">{c.icon}</span>
-                </div>
-              </div>
-              <h3 className="text-base font-bold text-[#1E293B] mb-2 group-hover:text-[var(--jd-red)] transition-colors">{c.title}</h3>
-              <p className="text-[#64748B] text-xs leading-relaxed">{c.desc}</p>
-            </div>
-          ))}
+      {/* Certifications — compact trust strip (full detail on the Credentials page) */}
+      <section className="py-10 px-6 lg:px-14 bg-[#FFF7ED] border-y border-[#F1E7DC]">
+        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-5 lg:gap-8">
+          <p className="text-[var(--jd-red)] uppercase tracking-[0.25em] font-extrabold text-xs shrink-0">{d.certs.kicker}</p>
+          <div className="flex flex-wrap items-center justify-center gap-2.5 flex-1">
+            {["CE", "EN 442", "ISO 9001", "UKCA", `1.5× ${d.certs.pressure}`].map((c) => (
+              <span key={c} className="inline-flex items-center px-4 py-2 rounded-full bg-white border border-[#F1E7DC] shadow-[0_2px_8px_rgba(30,41,59,0.04)] text-[var(--jd-red)] font-black text-sm">{c}</span>
+            ))}
+          </div>
+          <Link href={`/${locale}/credentials`} className="shrink-0 inline-flex items-center gap-1.5 text-[#1E293B] font-bold text-sm hover:text-[var(--jd-red)] transition-colors">
+            {d.certs.kicker} <span aria-hidden>→</span>
+          </Link>
         </div>
       </section>
 
