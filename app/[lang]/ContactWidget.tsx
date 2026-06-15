@@ -30,7 +30,6 @@ const SALES = [
 const OFFICE_TEL = "+862269189950";
 const OFFICE_TEL_LABEL = "022-6918 9950";
 
-const FACTORY_ADDRESS = "No. 9 Wuwei Road, Economic Development Zone, Ninghe District, Tianjin, China";
 const ADDR_EN = encodeURIComponent("No.9 Wuwei Road, Ninghe District, Tianjin, China");
 const ADDR_ZH = encodeURIComponent("天津市宁河区经济开发区五纬路9号 九鼎散热器");
 // Open the factory location in whichever map the visitor prefers. Chinese
@@ -52,6 +51,7 @@ export type ContactWidgetStrings = {
   officeLabel: string;
   quoteButton: string;
   note: string;
+  address: string;
 };
 
 const iconCls = "w-4 h-4 shrink-0 text-[var(--jd-orange)]";
@@ -197,7 +197,7 @@ export function ContactWidget({ locale, t }: { locale: Locale; t: ContactWidgetS
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
               <circle cx="12" cy="10" r="3" />
             </svg>
-            <span>{FACTORY_ADDRESS}</span>
+            <span>{t.address}</span>
           </div>
           <div className="grid grid-cols-2 gap-2 mt-2">
             {MAP_LINKS.map((m) => (

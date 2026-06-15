@@ -101,6 +101,10 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
       // no-cors: the request (incl. attachments) is sent to FormSubmit, but the
       // response is opaque. We stay on the page and show success optimistically.
       await fetch(FORMSUBMIT_ENDPOINT, { method: "POST", mode: "no-cors", body: fd });
+      // Track a custom "inquiry" event in Umami for the daily report count.
+      try {
+        (window as unknown as { umami?: { track: (n: string) => void } }).umami?.track("inquiry");
+      } catch {}
       setStatus("success");
       form.reset();
       setImages([]);
