@@ -30,6 +30,11 @@ const SALES = [
 const OFFICE_TEL = "+862269189950";
 const OFFICE_TEL_LABEL = "022-6918 9950";
 
+const FACTORY_ADDRESS = "No. 9 Wuwei Road, Economic Development Zone, Ninghe District, Tianjin, China";
+const MAP_QUERY = encodeURIComponent("No.9 Wuwei Road, Ninghe District, Tianjin, China");
+const MAP_LINK = `https://www.google.com/maps/search/?api=1&query=${MAP_QUERY}`;
+const MAP_EMBED = `https://maps.google.com/maps?q=${MAP_QUERY}&z=13&output=embed`;
+
 export type ContactWidgetStrings = {
   tab: string;
   title: string;
@@ -177,6 +182,27 @@ export function ContactWidget({ locale, t }: { locale: Locale; t: ContactWidgetS
             <span className="text-[11px] text-[var(--jd-muted)] uppercase tracking-wide">{t.officeLabel}:</span>
             <span>{OFFICE_TEL_LABEL}</span>
           </a>
+
+          {/* Factory address + map location */}
+          <a
+            href={MAP_LINK}
+            target="_blank"
+            rel="noopener"
+            className="flex items-start gap-2.5 mt-3 py-1 text-[13px] font-medium text-[var(--jd-dark)] hover:text-[var(--jd-orange)] transition-colors"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={iconCls}>
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+            <span>{FACTORY_ADDRESS}</span>
+          </a>
+          <iframe
+            src={MAP_EMBED}
+            title="Jiuding Radiator factory location"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="mt-2 w-full h-36 rounded-lg border border-[#F1E7DC]"
+          />
 
           <Link
             href={`/${locale}/contact`}
