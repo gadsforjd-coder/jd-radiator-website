@@ -1,18 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/lib/dictionary";
+import type { Locale } from "@/lib/i18n";
+import { BASE_URL } from "@/lib/constants";
 
-// FormSubmit delivers the inquiry + file attachments to this inbox (free, no
-// API key). First submission triggers a one-time activation email that must be
-// confirmed. AJAX endpoint returns JSON. 10MB total attachment limit.
-const FORMSUBMIT_ENDPOINT = "https://formsubmit.co/ajax/lunan@jdradiator.com";
+// FormSubmit delivers the inquiry to this inbox (free, no API key). File
+// attachments ONLY work through a real multipart/form-data submission to the
+// standard endpoint (the /ajax/ JSON endpoint silently drops attachments), so
+// we do a native form POST and let FormSubmit redirect back to `_next`.
+// First-ever submission triggers a one-time activation email. 10MB total cap.
+const FORMSUBMIT_ENDPOINT = "https://formsubmit.co/lunan@jdradiator.com";
 const MAX_IMAGES = 5;
 const MAX_DOCS = 3;
 const MAX_TOTAL_BYTES = 9.5 * 1024 * 1024;
 const DOC_ACCEPT = ".pdf,.doc,.docx,.xls,.xlsx";
 
-type Status = "idle" | "sending" | "success" | "error" | "toolarge";
+type Status = "idle" | "sending" | "toolarge" | "success";
 
 // Resize/compress an image to a web-friendly JPEG to stay within the size cap.
 async function compressImage(file: File): Promise<File> {
@@ -46,10 +50,22 @@ function fmtSize(bytes: number) {
     : `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 }
 
-export function ContactForm({ t }: { t: Dictionary["contact"] }) {
+export function ContactForm({ t, locale }: { t: Dictionary["contact"]; locale: Locale }) {
   const [status, setStatus] = useState<Status>("idle");
   const [images, setImages] = useState<File[]>([]);
   const [docs, setDocs] = useState<File[]>([]);
+  const formRef = useRef<HTMLFormElement>(null);
+  const attachRef = useRef<HTMLInputElement>(null);
+  const subjectRef = useRef<HTMLInputElement>(null);
+
+  // FormSubmit redirects back here with ?sent=1 after a successful delivery.
+  useEffect(() => {
+    try {
+      if (new URLSearchParams(window.location.search).get("sent") === "1") {
+        setStatus("success");
+      }
+    } catch {}
+  }, []);
 
   async function onAddImages(e: React.ChangeEvent<HTMLInputElement>) {
     const picked = Array.from(e.target.files ?? []);
@@ -69,10 +85,15 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
   const removeImage = (i: number) => setImages((p) => p.filter((_, idx) => idx !== i));
   const removeDoc = (i: number) => setDocs((p) => p.filter((_, idx) => idx !== i));
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const form = e.currentTarget;
-    const raw = new FormData(form);
+    const form = formRef.current;
+    if (!form) return;
+    // .submit() bypasses HTML5 validation — enforce it manually first.
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
 
     const totalBytes = [...images, ...docs].reduce((s, f) => s + f.size, 0);
     if (totalBytes > MAX_TOTAL_BYTES) {
@@ -80,35 +101,19 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
       return;
     }
 
-    const fd = new FormData();
-    (["name", "email", "phone", "company", "country", "message"] as const).forEach((k) =>
-      fd.append(k, (raw.get(k) as string) || ""),
-    );
-    fd.append("_subject", "官网询盘 / Website inquiry — " + ((raw.get("name") as string) || ""));
-    fd.append("_template", "table");
-    fd.append("_captcha", "false");
-    images.forEach((f, i) => fd.append(`图片${i + 1}`, f, f.name));
-    docs.forEach((f, i) => fd.append(`文档${i + 1}`, f, f.name));
+    // Move React-managed files into the real (hidden) file input so the native
+    // multipart POST carries them as attachments.
+    const dt = new DataTransfer();
+    [...images, ...docs].forEach((f) => dt.items.add(f));
+    if (attachRef.current) attachRef.current.files = dt.files;
+
+    const nameVal = (new FormData(form).get("name") as string) || "";
+    if (subjectRef.current) {
+      subjectRef.current.value = "官网询盘 / Website inquiry — " + nameVal;
+    }
 
     setStatus("sending");
-    try {
-      const res = await fetch(FORMSUBMIT_ENDPOINT, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: fd,
-      });
-      const data = await res.json().catch(() => null);
-      if (res.ok && (!data || data.success === "true" || data.success === true)) {
-        setStatus("success");
-        form.reset();
-        setImages([]);
-        setDocs([]);
-      } else {
-        setStatus("error");
-      }
-    } catch {
-      setStatus("error");
-    }
+    form.submit(); // native navigation → FormSubmit → redirect to _next
   }
 
   if (status === "success") {
@@ -139,7 +144,22 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
   );
 
   return (
-    <form onSubmit={onSubmit} className="bg-gray-50 p-8 lg:p-12">
+    <form
+      ref={formRef}
+      action={FORMSUBMIT_ENDPOINT}
+      method="POST"
+      encType="multipart/form-data"
+      onSubmit={onSubmit}
+      className="bg-gray-50 p-8 lg:p-12"
+    >
+      {/* FormSubmit control fields */}
+      <input type="hidden" name="_subject" ref={subjectRef} defaultValue="官网询盘 / Website inquiry" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_next" value={`${BASE_URL}/${locale}/contact?sent=1`} />
+      {/* Real attachment input — populated from React state on submit */}
+      <input type="file" name="attachment" multiple ref={attachRef} className="hidden" tabIndex={-1} aria-hidden="true" />
+
       <div className="grid grid-cols-2 gap-5 mb-5">
         <input name="name" placeholder={t.formName} required className="p-3 border border-gray-300 rounded w-full" />
         <input name="email" type="email" placeholder={t.formEmail} required className="p-3 border border-gray-300 rounded w-full" />
@@ -188,7 +208,6 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
       >
         {status === "sending" ? t.formSending : t.formSubmit}
       </button>
-      {status === "error" && <p className="text-red-600 text-sm mt-3 text-center">{t.formError}</p>}
       {status === "toolarge" && <p className="text-red-600 text-sm mt-3 text-center">{t.formTooLarge}</p>}
     </form>
   );
