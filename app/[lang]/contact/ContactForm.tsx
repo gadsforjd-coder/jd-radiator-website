@@ -91,7 +91,10 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
     fd.append("_subject", "官网询盘 / Website inquiry — " + ((raw.get("name") as string) || ""));
     fd.append("_template", "table");
     fd.append("_captcha", "false");
-    [...images, ...docs].forEach((f) => fd.append("attachment", f, f.name));
+    // Each file needs a UNIQUE field name — FormSubmit keeps only the last file
+    // when several share one name, so reusing "attachment" drops all but one.
+    images.forEach((f, i) => fd.append(`image${i + 1}`, f, f.name));
+    docs.forEach((f, i) => fd.append(`document${i + 1}`, f, f.name));
 
     setStatus("sending");
     try {
