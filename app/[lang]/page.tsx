@@ -79,7 +79,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         <div className="relative z-10 px-6 lg:px-14 w-full pb-40">
           <div className="animate-in max-w-3xl">
             <p className="text-orange-300 uppercase tracking-[0.3em] font-extrabold text-sm mb-6">{d.hero.kicker}</p>
-            <h1 className="text-5xl lg:text-7xl xl:text-8xl font-black leading-[0.95] tracking-tight text-white [text-shadow:0_2px_24px_rgba(67,20,7,0.45)]">{d.hero.title}</h1>
+            <h1 className="text-5xl lg:text-7xl xl:text-8xl font-black leading-[0.95] tracking-tight text-white whitespace-pre-line [text-shadow:0_2px_24px_rgba(67,20,7,0.45)]">{d.hero.title}</h1>
             <p className="text-xl text-white/90 leading-relaxed mt-7 max-w-2xl [text-shadow:0_1px_12px_rgba(67,20,7,0.5)]">{d.hero.lead}</p>
             <div className="flex gap-4 mt-10 flex-wrap">
               <Link href={`/${locale}/products`} className="inline-flex h-14 items-center px-8 bg-[var(--jd-red)] text-white font-extrabold rounded-sm hover:bg-orange-700 transition-all hover:shadow-[0_0_30px_rgba(234,88,12,0.4)]">{d.hero.cta1}</Link>
