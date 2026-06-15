@@ -7,7 +7,8 @@ import type { Dictionary } from "@/lib/dictionary";
 // the sales inbox configured on the key (lunan@jdradiator.com). Set via the
 // NEXT_PUBLIC_WEB3FORMS_KEY env var on Vercel; the key is public by design.
 // Until a key is configured the form gracefully falls back to a mailto link.
-const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "";
+const WEB3FORMS_ACCESS_KEY =
+  process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "aab15b9b-845a-4bc0-9dff-351868dc34c2";
 const FALLBACK_EMAIL = "lunan@jdradiator.com";
 
 type Status = "idle" | "sending" | "success" | "error";
