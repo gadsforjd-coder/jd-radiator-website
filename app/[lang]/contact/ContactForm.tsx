@@ -1,22 +1,22 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import type { Dictionary } from "@/lib/dictionary";
-import type { Locale } from "@/lib/i18n";
-import { BASE_URL } from "@/lib/constants";
 
-// FormSubmit delivers the inquiry to this inbox (free, no API key). File
-// attachments ONLY work through a real multipart/form-data submission to the
-// standard endpoint (the /ajax/ JSON endpoint silently drops attachments), so
-// we do a native form POST and let FormSubmit redirect back to `_next`.
-// First-ever submission triggers a one-time activation email. 10MB total cap.
+// FormSubmit delivers the inquiry + attachments to this inbox (free, no API
+// key). We POST multipart/form-data to the STANDARD endpoint (the only one that
+// processes file attachments) using fetch with mode:"no-cors", so the visitor
+// NEVER leaves the site — we show an inline success message instead of being
+// redirected to FormSubmit's "Thanks" page. The response is opaque (can't be
+// read cross-origin), so success is shown optimistically once the request is
+// sent. The inbox must be activated once (one-time "Activate Form" email).
 const FORMSUBMIT_ENDPOINT = "https://formsubmit.co/lunan@jdradiator.com";
 const MAX_IMAGES = 5;
 const MAX_DOCS = 3;
 const MAX_TOTAL_BYTES = 9.5 * 1024 * 1024;
 const DOC_ACCEPT = ".pdf,.doc,.docx,.xls,.xlsx";
 
-type Status = "idle" | "sending" | "toolarge" | "success";
+type Status = "idle" | "sending" | "error" | "toolarge" | "success";
 
 // Resize/compress an image to a web-friendly JPEG to stay within the size cap.
 async function compressImage(file: File): Promise<File> {
@@ -50,22 +50,10 @@ function fmtSize(bytes: number) {
     : `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 }
 
-export function ContactForm({ t, locale }: { t: Dictionary["contact"]; locale: Locale }) {
+export function ContactForm({ t }: { t: Dictionary["contact"] }) {
   const [status, setStatus] = useState<Status>("idle");
   const [images, setImages] = useState<File[]>([]);
   const [docs, setDocs] = useState<File[]>([]);
-  const formRef = useRef<HTMLFormElement>(null);
-  const attachRef = useRef<HTMLInputElement>(null);
-  const subjectRef = useRef<HTMLInputElement>(null);
-
-  // FormSubmit redirects back here with ?sent=1 after a successful delivery.
-  useEffect(() => {
-    try {
-      if (new URLSearchParams(window.location.search).get("sent") === "1") {
-        setStatus("success");
-      }
-    } catch {}
-  }, []);
 
   async function onAddImages(e: React.ChangeEvent<HTMLInputElement>) {
     const picked = Array.from(e.target.files ?? []);
@@ -85,15 +73,10 @@ export function ContactForm({ t, locale }: { t: Dictionary["contact"]; locale: L
   const removeImage = (i: number) => setImages((p) => p.filter((_, idx) => idx !== i));
   const removeDoc = (i: number) => setDocs((p) => p.filter((_, idx) => idx !== i));
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const form = formRef.current;
-    if (!form) return;
-    // .submit() bypasses HTML5 validation — enforce it manually first.
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
+    const form = e.currentTarget;
+    const raw = new FormData(form);
 
     const totalBytes = [...images, ...docs].reduce((s, f) => s + f.size, 0);
     if (totalBytes > MAX_TOTAL_BYTES) {
@@ -101,19 +84,27 @@ export function ContactForm({ t, locale }: { t: Dictionary["contact"]; locale: L
       return;
     }
 
-    // Move React-managed files into the real (hidden) file input so the native
-    // multipart POST carries them as attachments.
-    const dt = new DataTransfer();
-    [...images, ...docs].forEach((f) => dt.items.add(f));
-    if (attachRef.current) attachRef.current.files = dt.files;
-
-    const nameVal = (new FormData(form).get("name") as string) || "";
-    if (subjectRef.current) {
-      subjectRef.current.value = "官网询盘 / Website inquiry — " + nameVal;
-    }
+    const fd = new FormData();
+    (["name", "email", "phone", "company", "country", "message"] as const).forEach((k) =>
+      fd.append(k, (raw.get(k) as string) || ""),
+    );
+    fd.append("_subject", "官网询盘 / Website inquiry — " + ((raw.get("name") as string) || ""));
+    fd.append("_template", "table");
+    fd.append("_captcha", "false");
+    [...images, ...docs].forEach((f) => fd.append("attachment", f, f.name));
 
     setStatus("sending");
-    form.submit(); // native navigation → FormSubmit → redirect to _next
+    try {
+      // no-cors: the request (incl. attachments) is sent to FormSubmit, but the
+      // response is opaque. We stay on the page and show success optimistically.
+      await fetch(FORMSUBMIT_ENDPOINT, { method: "POST", mode: "no-cors", body: fd });
+      setStatus("success");
+      form.reset();
+      setImages([]);
+      setDocs([]);
+    } catch {
+      setStatus("error");
+    }
   }
 
   if (status === "success") {
@@ -144,22 +135,7 @@ export function ContactForm({ t, locale }: { t: Dictionary["contact"]; locale: L
   );
 
   return (
-    <form
-      ref={formRef}
-      action={FORMSUBMIT_ENDPOINT}
-      method="POST"
-      encType="multipart/form-data"
-      onSubmit={onSubmit}
-      className="bg-gray-50 p-8 lg:p-12"
-    >
-      {/* FormSubmit control fields */}
-      <input type="hidden" name="_subject" ref={subjectRef} defaultValue="官网询盘 / Website inquiry" />
-      <input type="hidden" name="_template" value="table" />
-      <input type="hidden" name="_captcha" value="false" />
-      <input type="hidden" name="_next" value={`${BASE_URL}/${locale}/contact?sent=1`} />
-      {/* Real attachment input — populated from React state on submit */}
-      <input type="file" name="attachment" multiple ref={attachRef} className="hidden" tabIndex={-1} aria-hidden="true" />
-
+    <form onSubmit={onSubmit} className="bg-gray-50 p-8 lg:p-12">
       <div className="grid grid-cols-2 gap-5 mb-5">
         <input name="name" placeholder={t.formName} required className="p-3 border border-gray-300 rounded w-full" />
         <input name="email" type="email" placeholder={t.formEmail} required className="p-3 border border-gray-300 rounded w-full" />
@@ -208,6 +184,7 @@ export function ContactForm({ t, locale }: { t: Dictionary["contact"]; locale: L
       >
         {status === "sending" ? t.formSending : t.formSubmit}
       </button>
+      {status === "error" && <p className="text-red-600 text-sm mt-3 text-center">{t.formError}</p>}
       {status === "toolarge" && <p className="text-red-600 text-sm mt-3 text-center">{t.formTooLarge}</p>}
     </form>
   );

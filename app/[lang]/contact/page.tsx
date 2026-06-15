@@ -41,7 +41,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
       </div>
 
       <div className="grid lg:grid-cols-2 gap-12">
-        <ContactForm t={d.contact} locale={locale} />
+        <ContactForm t={d.contact} />
 
         <div className="relative overflow-hidden bg-gradient-to-br from-[#F97316] via-[var(--jd-orange)] to-[var(--jd-orange-dark)] text-white p-8 lg:p-12 rounded-lg">
           {/* Oversized semi-transparent logo watermark */}
