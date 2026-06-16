@@ -1,6 +1,10 @@
-const UMAMI_HOST =
-  process.env.UMAMI_HOST ||
-  "https://nut-tender-smallest-void.trycloudflare.com";
+// Umami collector behind an ephemeral Cloudflare quick-tunnel. The trycloudflare
+// URL rotates every time cloudflared restarts, so it is kept in source (not a
+// Vercel env var) and auto-reconciled by ~/zylos/umami/reconcile-umami-host.sh,
+// which rewrites this line and pushes when the tunnel URL changes. Hardcoded so a
+// stale Vercel UMAMI_HOST env var can't silently override it (that caused the
+// 2026-06-12 analytics outage). Keep the assignment on a single line for the script.
+const UMAMI_HOST = "https://poly-counsel-send-julie.trycloudflare.com";
 
 export async function POST(request: Request) {
   const body = await request.text();
