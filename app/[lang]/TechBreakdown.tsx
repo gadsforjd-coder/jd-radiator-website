@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 
 interface Feature {
   title: string;
@@ -32,6 +31,18 @@ const featureIcons = [
   // Custom Spec — cog
   <svg key="3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /></svg>,
 ];
+
+// Exploded-diagram layers. `f` maps each part to the matching feature card index
+// (0:pressure-test → front water panel, 1:fins, 2:top grille, 3:coating → back panel),
+// so hovering a part highlights its card and vice-versa (shared `hovered` state).
+type ExLayer = { id: string; f: number; name: string; y: number; w: number; h: number; type: "grille" | "panel" | "fins"; dx: number };
+const EXPLODE_LAYERS: ExLayer[] = [
+  { id: "grille", f: 2, name: "顶部滴形格栅", y: 28, w: 236, h: 30, type: "grille", dx: 28 },
+  { id: "front", f: 0, name: "前水道面板", y: 118, w: 268, h: 60, type: "panel", dx: 12 },
+  { id: "fins", f: 1, name: "倒 U 型对流翅片", y: 216, w: 288, h: 72, type: "fins", dx: -4 },
+  { id: "back", f: 3, name: "后水道面板", y: 332, w: 268, h: 60, type: "panel", dx: -20 },
+];
+const EX_CX = 170;
 
 export default function TechBreakdown({ kicker, title, subtitle, features, stats }: TechBreakdownProps) {
   const [hovered, setHovered] = useState<number | null>(null);
@@ -100,37 +111,64 @@ export default function TechBreakdown({ kicker, title, subtitle, features, stats
             ))}
           </div>
 
-          {/* Center product image */}
+          {/* Center: interactive exploded structure diagram.
+              Hover a part → it highlights AND the matching feature card lights up (and vice-versa). */}
           <div className={`relative order-first lg:order-none transition-all duration-1000 delay-300 ${visible ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}>
-            {/* Glow behind product */}
+            {/* Glow behind */}
             <div className={`absolute -inset-12 rounded-full transition-opacity duration-1000 ${
               hovered !== null ? "opacity-100" : "opacity-60"
             }`} style={{
               background: "radial-gradient(ellipse at center, rgba(234,88,12,0.12) 0%, rgba(234,88,12,0.04) 40%, transparent 70%)"
             }} />
 
-            {/* Product card — real 22K steel panel radiator (the hero product) */}
-            <div className="relative w-[320px] sm:w-[380px] lg:w-[460px] mx-auto">
-              {/* Subtle ring */}
-              <div className="absolute -inset-3 rounded-3xl border border-[#1E293B]/[0.06]" />
+            <div className="relative w-[300px] sm:w-[360px] lg:w-[420px] mx-auto">
+              <svg viewBox="0 0 340 470" className="w-full h-auto overflow-visible" role="img" aria-label="JD 22K 22型钢制板式散热器 爆炸结构图">
+                {/* assembly axis */}
+                <line x1="186" y1="34" x2="150" y2="408" stroke="#E5D3C0" strokeWidth="2" strokeDasharray="5 7" />
+                {EXPLODE_LAYERS.map((L) => {
+                  const x = EX_CX - L.w / 2 + L.dx;
+                  const active = hovered === L.f;
+                  const dim = hovered !== null && !active;
+                  return (
+                    <g
+                      key={L.id}
+                      className="cursor-pointer"
+                      style={{ transition: "transform .3s, opacity .3s", transformBox: "fill-box", transformOrigin: "center", transform: active ? "scale(1.045)" : "scale(1)", opacity: dim ? 0.5 : 1 }}
+                      onMouseEnter={() => setHovered(L.f)}
+                      onMouseLeave={() => setHovered(null)}
+                    >
+                      {/* depth extrusion: bottom + right faces */}
+                      <polygon points={`${x + 4},${L.y + L.h} ${x + L.w},${L.y + L.h} ${x + L.w + 12},${L.y + L.h - 11} ${x + 16},${L.y + L.h - 11}`} fill={active ? "#F6C9A6" : "#EADBCB"} />
+                      <polygon points={`${x + L.w},${L.y + 4} ${x + L.w + 12},${L.y - 7} ${x + L.w + 12},${L.y + L.h - 11} ${x + L.w},${L.y + L.h}`} fill={active ? "#EBB089" : "#E0CDBA"} />
+                      {/* front face */}
+                      <rect x={x} y={L.y} width={L.w} height={L.h} rx="8" fill={active ? "#FFEDD5" : "#FFFFFF"} stroke={active ? "#EA580C" : "#E3D2C0"} strokeWidth={active ? 2.5 : 1.6} />
+                      {/* part detailing */}
+                      {L.type === "panel" && (
+                        <>
+                          {Array.from({ length: 13 }).map((_, k) => {
+                            const px = x + 12 + (k + 1) * ((L.w - 24) / 14);
+                            return <line key={k} x1={px} y1={L.y + 9} x2={px} y2={L.y + L.h - 9} stroke={active ? "#E8A06B" : "#CBB6A0"} strokeWidth="1.3" />;
+                          })}
+                          <circle cx={x + L.w + 18} cy={L.y + L.h / 2} r="6.5" fill="#fff" stroke={active ? "#EA580C" : "#CBB6A0"} strokeWidth="1.6" />
+                        </>
+                      )}
+                      {L.type === "fins" && Array.from({ length: 22 }).map((_, k) => {
+                        const gap = (L.w - 24) / 22;
+                        const px = x + 12 + k * gap;
+                        return <path key={k} d={`M${px},${L.y + L.h - 10} v-18 a4,4 0 0 1 8,0 v18`} fill="none" stroke={active ? "#D98A53" : "#B79C82"} strokeWidth="1.5" />;
+                      })}
+                      {L.type === "grille" && Array.from({ length: 24 }).map((_, k) => {
+                        const px = x + 13 + k * ((L.w - 26) / 24);
+                        return <line key={k} x1={px} y1={L.y + 7} x2={px} y2={L.y + L.h - 7} stroke={active ? "#E8A06B" : "#CBB6A0"} strokeWidth="1.4" />;
+                      })}
+                    </g>
+                  );
+                })}
+              </svg>
 
-              {/* White showcase card so the panel reads cleanly as the hero */}
-              <div className="relative w-full aspect-[3/2] rounded-2xl overflow-hidden bg-white border border-[#F1E7DC] shadow-[0_10px_40px_rgba(30,41,59,0.10)]">
-                <Image
-                  src="/assets/products/jd-22k/render.jpg"
-                  alt="JD 22K Steel Panel Radiator"
-                  fill
-                  className={`object-contain p-4 transition-all duration-700 ${
-                    hovered !== null ? "scale-[1.03] brightness-105" : "scale-100 brightness-100"
-                  }`}
-                  sizes="460px"
-                  priority
-                />
-              </div>
-
-              {/* Model chip */}
-              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-[var(--jd-red)] text-white text-xs font-black shadow-lg whitespace-nowrap">
-                JD 22K · Steel Panel
+              {/* Dynamic chip: shows the hovered part name, else a prompt */}
+              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-[var(--jd-red)] text-white text-xs font-black shadow-lg whitespace-nowrap transition-all duration-300">
+                {hovered !== null ? EXPLODE_LAYERS.find((l) => l.f === hovered)?.name ?? "JD 22K · 22型结构" : "JD 22K · 悬停查看内部结构"}
               </div>
             </div>
           </div>
