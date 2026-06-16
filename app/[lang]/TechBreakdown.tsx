@@ -33,6 +33,17 @@ const featureIcons = [
   <svg key="3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /></svg>,
 ];
 
+// Hover zones over the peel cutaway image (front panel peeled back to reveal fins).
+// Indexed to match the `features` array.
+// 0 = water channels / connector, 1 = convector fins, 2 = top grille, 3 = panel surface.
+// Positions are percentages of the image box (left/top/width/height).
+const HOTSPOTS = [
+  { left: 64, top: 64, width: 22, height: 16 }, // water channels + bottom connector/valve
+  { left: 20, top: 30, width: 30, height: 38 }, // peeled-back internal convector fins (diagonal band)
+  { left: 16, top: 24, width: 68, height: 10 }, // top edge / grille strip
+  { left: 50, top: 34, width: 38, height: 38 }, // intact ribbed front panel surface (right face)
+];
+
 export default function TechBreakdown({ kicker, title, subtitle, features, stats }: TechBreakdownProps) {
   const [hovered, setHovered] = useState<number | null>(null);
   const [visible, setVisible] = useState(false);
@@ -100,7 +111,7 @@ export default function TechBreakdown({ kicker, title, subtitle, features, stats
             ))}
           </div>
 
-          {/* Center product image */}
+          {/* Center cutaway anatomy diagram with interactive hover zones */}
           <div className={`relative order-first lg:order-none transition-all duration-1000 delay-300 ${visible ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}>
             {/* Glow behind product */}
             <div className={`absolute -inset-12 rounded-full transition-opacity duration-1000 ${
@@ -109,28 +120,53 @@ export default function TechBreakdown({ kicker, title, subtitle, features, stats
               background: "radial-gradient(ellipse at center, rgba(234,88,12,0.12) 0%, rgba(234,88,12,0.04) 40%, transparent 70%)"
             }} />
 
-            {/* Product card — real 22K steel panel radiator (the hero product) */}
             <div className="relative w-[320px] sm:w-[380px] lg:w-[460px] mx-auto">
               {/* Subtle ring */}
               <div className="absolute -inset-3 rounded-3xl border border-[#1E293B]/[0.06]" />
 
-              {/* White showcase card so the panel reads cleanly as the hero */}
-              <div className="relative w-full aspect-[3/2] rounded-2xl overflow-hidden bg-white border border-[#F1E7DC] shadow-[0_10px_40px_rgba(30,41,59,0.10)]">
+              {/* White showcase card holding the cutaway */}
+              <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white border border-[#F1E7DC] shadow-[0_10px_40px_rgba(30,41,59,0.10)]">
                 <Image
-                  src="/assets/products/jd-22k/render.jpg"
-                  alt="JD 22K Steel Panel Radiator"
+                  src="/assets/ai-images/cutaway-peel.png"
+                  alt="钢制板式散热器内部结构剖视图"
                   fill
-                  className={`object-contain p-4 transition-all duration-700 ${
-                    hovered !== null ? "scale-[1.03] brightness-105" : "scale-100 brightness-100"
-                  }`}
+                  className="object-contain p-2 select-none"
                   sizes="460px"
                   priority
                 />
+
+                {/* Soft white wash to make the active highlight pop */}
+                <div className={`absolute inset-0 bg-white transition-opacity duration-300 pointer-events-none ${hovered !== null ? "opacity-25" : "opacity-0"}`} />
+
+                {/* Interactive hover zones, indexed to the feature cards */}
+                {HOTSPOTS.map((h, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    aria-label={features[i]?.title}
+                    className="absolute z-10 cursor-pointer bg-transparent border-0 p-0"
+                    style={{ left: `${h.left}%`, top: `${h.top}%`, width: `${h.width}%`, height: `${h.height}%` }}
+                    onMouseEnter={() => setHovered(i)}
+                    onMouseLeave={() => setHovered(null)}
+                    onClick={() => setHovered(hovered === i ? null : i)}
+                  >
+                    {/* Highlight box for the active zone */}
+                    <span className={`absolute inset-0 rounded-lg border-2 transition-all duration-300 ${
+                      hovered === i
+                        ? "border-[var(--jd-red)] bg-[var(--jd-red)]/10 shadow-[0_0_24px_rgba(234,88,12,0.35)] opacity-100 scale-100"
+                        : "border-transparent opacity-0 scale-95"
+                    }`} />
+                    {/* Number badge on the active zone */}
+                    <span className={`absolute -top-2 -left-2 w-6 h-6 rounded-full bg-[var(--jd-red)] text-white text-[11px] font-black flex items-center justify-center shadow transition-all duration-300 ${
+                      hovered === i ? "opacity-100 scale-100" : "opacity-0 scale-50"
+                    }`}>{i + 1}</span>
+                  </button>
+                ))}
               </div>
 
-              {/* Model chip */}
+              {/* Caption chip */}
               <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-[var(--jd-red)] text-white text-xs font-black shadow-lg whitespace-nowrap">
-                JD 22K · Steel Panel
+                钢制板式 · 内部结构剖视
               </div>
             </div>
           </div>

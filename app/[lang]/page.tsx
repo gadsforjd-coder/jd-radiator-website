@@ -86,7 +86,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           src="/assets/ai-images/hero-banner.png"
           alt=""
           fill
-          className="object-cover"
+          // mirrored so the radiator sits on the right, clear of the left-aligned headline
+          className="object-cover -scale-x-100"
           priority
           sizes="100vw"
         />
