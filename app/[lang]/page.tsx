@@ -137,10 +137,10 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
           {[
-            { title: d.products.designer, desc: d.products.designerDesc, slug: "jd25y", img: "/assets/products/jd25y/hero.jpg", num: "01", featured: true },
-            { title: d.products.steel, desc: d.products.steelDesc, slug: "jd-22k", img: "/assets/products/jd-22k/hero.jpg", num: "02", featured: false },
-            { title: d.products.towel, desc: d.products.towelDesc, slug: "jdwy-s", img: "/assets/products/jdwy-s/hero.jpg", num: "03", featured: false },
-            { title: d.products.oem, desc: d.products.oemDesc, slug: "jdgz3", img: "/assets/products/jdgz3/hero.jpg", num: "04", featured: false },
+            { title: d.products.designer, desc: d.products.designerDesc, slug: "jd25y", img: "/assets/products/jd25y/gallery-3.jpg", num: "01", featured: true },
+            { title: d.products.steel, desc: d.products.steelDesc, slug: "jd-22k", img: "/assets/products/jd-22k/gallery-1.jpg", num: "02", featured: false },
+            { title: d.products.towel, desc: d.products.towelDesc, slug: "jdwy-s", img: "/assets/products/jdwy-s/scene-1.jpg", num: "03", featured: false },
+            { title: d.products.oem, desc: d.products.oemDesc, slug: "jdgz3", img: "/assets/products/jdgz3/gallery-1.jpg", num: "04", featured: false },
           ].map((p) => (
             <Link
               key={p.slug}

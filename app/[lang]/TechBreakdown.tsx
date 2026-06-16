@@ -39,8 +39,8 @@ const featureIcons = [
 // Positions are percentages of the image box (left/top/width/height).
 const HOTSPOTS = [
   { left: 64, top: 64, width: 22, height: 16 }, // water channels + bottom connector/valve
-  { left: 20, top: 30, width: 30, height: 38 }, // peeled-back internal convector fins (diagonal band)
-  { left: 16, top: 24, width: 68, height: 10 }, // top edge / grille strip
+  { left: 33, top: 36, width: 24, height: 30 }, // peeled-back internal convector fins (diagonal staircase band)
+  { left: 34, top: 7, width: 46, height: 9 },   // top edge / grille cap strip
   { left: 50, top: 34, width: 38, height: 38 }, // intact ribbed front panel surface (right face)
 ];
 
