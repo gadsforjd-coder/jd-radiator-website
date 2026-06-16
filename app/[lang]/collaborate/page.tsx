@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageSeo } from "@/lib/seo";
 import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
 import { locales, languageAlternates } from "@/lib/i18n";
@@ -11,10 +12,10 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
+  const meta = pageSeo("collaborate", lang);
   return {
-    title: "Business Partnerships — OEM, Distribution & Export Cooperation",
-    description:
-      "Partner with Jiuding Radiator: OEM/ODM radiator manufacturing, regional distribution, project supply, and export cooperation for distributors and contractors worldwide.",
+    title: meta.title,
+    description: meta.description,
     alternates: {
       canonical: `${BASE_URL}/${lang}/collaborate`,
       languages: languageAlternates("/collaborate"),

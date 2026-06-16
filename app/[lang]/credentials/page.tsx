@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageSeo } from "@/lib/seo";
 import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
 import { locales, languageAlternates } from "@/lib/i18n";
@@ -10,17 +11,17 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
+  const meta = pageSeo("credentials", lang);
   return {
-    title: "Credentials — CE, UKCA, Patents & Trademarks | Jiuding Radiator",
-    description:
-      "Jiuding radiators hold CE EN 442, UKCA (BSRIA-tested) certifications, 42 national patents, and 12 registered trademarks. Verified quality credentials for global partners.",
+    title: meta.title,
+    description: meta.description,
     alternates: {
       canonical: `${BASE_URL}/${lang}/credentials`,
       languages: languageAlternates("/credentials"),
     },
     openGraph: {
-      title: "Credentials — CE, UKCA, Patents & Trademarks | Jiuding Radiator",
-      description: "CE EN 442, UKCA BSRIA-tested certifications, 42 national patents, 12 registered trademarks. Verified quality from Tianjin Jiuding.",
+      title: meta.title,
+      description: meta.description,
       url: `${BASE_URL}/${lang}/credentials`,
     },
   };

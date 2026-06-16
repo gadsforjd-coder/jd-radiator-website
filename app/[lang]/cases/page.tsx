@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageSeo } from "@/lib/seo";
 import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
 import { locales, languageAlternates } from "@/lib/i18n";
@@ -12,10 +13,10 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
+  const meta = pageSeo("cases", lang);
   return {
-    title: "Project References — Residential, Hotel & Commercial Installations",
-    description:
-      "Jiuding radiators installed in projects across Europe, Central Asia, and the Middle East. Apartments, hotels, offices, and large-scale construction references.",
+    title: meta.title,
+    description: meta.description,
     alternates: {
       canonical: `${BASE_URL}/${lang}/cases`,
       languages: languageAlternates("/cases"),

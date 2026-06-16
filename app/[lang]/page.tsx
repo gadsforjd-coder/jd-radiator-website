@@ -34,6 +34,11 @@ const metaByLocale: Record<string, { title: string; description: string }> = {
     description:
       "CE/EN442-certified steel radiator manufacturer since 2002. Designer, column, panel radiators and heated towel rails. OEM/ODM for 80+ countries. Get a quote today.",
   },
+  zh: {
+    title: "Jiuding Radiator | 钢制散热器制造商与OEM合作伙伴",
+    description:
+      "2002年成立的CE/EN442认证钢制散热器制造商。设计款、柱式、板式散热器及电热毛巾架，面向80多个国家提供OEM/ODM，立即获取报价。",
+  },
   ru: {
     title: "Jiuding Radiator | Производитель стальных радиаторов и OEM-партнёр",
     description:

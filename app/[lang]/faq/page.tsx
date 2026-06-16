@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageSeo } from "@/lib/seo";
 import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
 import { locales, languageAlternates } from "@/lib/i18n";
@@ -10,17 +11,17 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
+  const meta = pageSeo("faq", lang);
   return {
-    title: "FAQ — Jiuding Radiator | Certifications, OEM, Export & More",
-    description:
-      "Frequently asked questions about Jiuding radiators: certifications, production capacity, OEM/ODM services, MOQ, export markets, lead times, and distributor partnerships.",
+    title: meta.title,
+    description: meta.description,
     alternates: {
       canonical: `${BASE_URL}/${lang}/faq`,
       languages: languageAlternates("/faq"),
     },
     openGraph: {
-      title: "FAQ — Jiuding Radiator",
-      description: "Answers to common questions about Jiuding radiators: certifications, OEM services, production capacity, and global export.",
+      title: meta.title,
+      description: meta.description,
       url: `${BASE_URL}/${lang}/faq`,
     },
   };

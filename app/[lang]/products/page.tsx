@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageSeo } from "@/lib/seo";
 import { getDictionary } from "@/lib/dictionary";
 import { products, categoryLabels, productImages, getLocalizedSubtitle, localizeSpecValue } from "@/lib/products";
 import type { Locale } from "@/lib/i18n";
@@ -13,17 +14,17 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
+  const meta = pageSeo("products", lang);
   return {
-    title: "Products — Steel Radiators, Designer Radiators & Towel Rails",
-    description:
-      "Browse 30+ models across 5 categories: designer radiators, steel column radiators, panel radiators, copper-aluminium bimetal radiators, and heated towel rails. CE/EN442 certified, custom RAL colors.",
+    title: meta.title,
+    description: meta.description,
     alternates: {
       canonical: `${BASE_URL}/${lang}/products`,
       languages: languageAlternates("/products"),
     },
     openGraph: {
-      title: "Jiuding Radiator Product Range",
-      description: "30+ models, 5 categories. Designer, column, panel, bimetal radiators and towel rails. Custom colors & OEM.",
+      title: meta.title,
+      description: meta.description,
       url: `${BASE_URL}/${lang}/products`,
     },
   };
