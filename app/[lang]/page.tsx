@@ -91,22 +91,22 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           src="/assets/ai-images/hero-banner.png"
           alt=""
           fill
-          // mirrored so the radiator sits on the right, clear of the left-aligned headline
-          className="object-cover -scale-x-100"
+          // natural orientation: radiator sits on the left, clear of the right-aligned headline
+          className="object-cover"
           priority
           sizes="100vw"
         />
-        {/* Warm scrim concentrated on the left text column, fading to a clear photo */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#431407]/80 via-[#431407]/35 to-transparent" />
+        {/* Warm scrim concentrated on the right text column, fading to a clear photo */}
+        <div className="absolute inset-0 bg-gradient-to-l from-[#431407]/80 via-[#431407]/35 to-transparent" />
         {/* Blend the hero bottom into the light page instead of black */}
         <div className="absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-t from-[#FFF7ED] to-transparent" />
 
-        <div className="relative z-10 px-6 lg:px-14 w-full pb-40">
-          <div className="animate-in max-w-3xl">
+        <div className="relative z-10 px-6 lg:px-14 w-full pb-40 flex justify-end">
+          <div className="animate-in max-w-3xl text-right">
             <p className="text-orange-300 uppercase tracking-[0.3em] font-extrabold text-sm mb-6">{d.hero.kicker}</p>
             <h1 className="text-5xl lg:text-7xl xl:text-8xl font-black leading-[0.95] tracking-tight text-white whitespace-pre-line [text-shadow:0_2px_24px_rgba(67,20,7,0.45)]">{d.hero.title}</h1>
-            <p className="text-xl text-white/90 leading-relaxed mt-7 max-w-2xl [text-shadow:0_1px_12px_rgba(67,20,7,0.5)]">{d.hero.lead}</p>
-            <div className="flex gap-4 mt-10 flex-wrap">
+            <p className="text-xl text-white/90 leading-relaxed mt-7 max-w-2xl ml-auto [text-shadow:0_1px_12px_rgba(67,20,7,0.5)]">{d.hero.lead}</p>
+            <div className="flex gap-4 mt-10 flex-wrap justify-end">
               <Link href={`/${locale}/products`} className="inline-flex h-14 items-center px-8 bg-[var(--jd-red)] text-white font-extrabold rounded-sm hover:bg-orange-700 transition-all hover:shadow-[0_0_30px_rgba(234,88,12,0.4)]">{d.hero.cta1}</Link>
               <Link href={`/${locale}/contact`} className="inline-flex h-14 items-center px-8 border border-white/60 bg-white/10 backdrop-blur-sm text-white font-extrabold rounded-sm hover:border-white hover:bg-white/20 transition-all">{d.hero.cta2}</Link>
             </div>
