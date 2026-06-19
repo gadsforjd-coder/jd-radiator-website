@@ -20,6 +20,15 @@
     "cta1": "View Products",
     "cta2": "Contact Us"
   },
+  "heroSlides": {
+    "steelColumn": {
+      "kicker": "Steel Column Radiators",
+      "title": "EU-Certified. Export Quality.",
+      "lead": "Solid steel column construction, CE (EN 442) certified and exported to 80+ markets — lasting warmth for homes and projects worldwide.",
+      "cta1": "View Products",
+      "cta2": "Contact Us"
+    }
+  },
   "stats": {
     "years": "20+",
     "yearsLabel": "Years of manufacturing experience",

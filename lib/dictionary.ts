@@ -8,7 +8,12 @@ const dictionaries = {
   zh: () => import("../dictionaries/zh.json").then((m) => m.default),
 };
 
-export type Dictionary = Awaited<ReturnType<(typeof dictionaries)["en"]>>;
+// The English dictionary is the canonical shape. `heroSlides` is optional so
+// locales that have not yet been given the extra hero-carousel slides (e.g. zh)
+// still satisfy the type; the homepage guards against its absence at runtime.
+type EnDictionary = Awaited<ReturnType<(typeof dictionaries)["en"]>>;
+export type Dictionary = Omit<EnDictionary, "heroSlides"> &
+  Partial<Pick<EnDictionary, "heroSlides">>;
 
 export async function getDictionary(locale: Locale): Promise<Dictionary> {
   return dictionaries[locale]();

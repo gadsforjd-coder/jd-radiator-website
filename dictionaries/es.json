@@ -20,6 +20,15 @@
     "cta1": "Ver Productos",
     "cta2": "Contacto"
   },
+  "heroSlides": {
+    "steelColumn": {
+      "kicker": "Radiadores de columna de acero",
+      "title": "Certificado UE. Calidad de exportación.",
+      "lead": "Construcción sólida de columna de acero, certificada CE (EN 442) y exportada a más de 80 mercados: calor duradero para hogares y proyectos en todo el mundo.",
+      "cta1": "Ver Productos",
+      "cta2": "Contacto"
+    }
+  },
   "stats": {
     "years": "20+",
     "yearsLabel": "Años de experiencia",
