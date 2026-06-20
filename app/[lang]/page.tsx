@@ -314,7 +314,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         <div className="text-center mb-8 px-6">
           <p className="text-[var(--jd-red)] uppercase tracking-[0.25em] font-extrabold text-xs mb-2">{d.certs.kicker}</p>
           <div className="flex flex-wrap items-center justify-center gap-2.5">
-            {["CE", "EN 442", "ISO 9001", "UKCA", `1.5× ${d.certs.pressure}`].map((c) => (
+            {["CE", "EN 442", "ISO 9001", "ISO 14001", "UKCA", `1.5× ${d.certs.pressure}`].map((c) => (
               <span key={c} className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white border border-[#F1E7DC] text-[var(--jd-red)] font-black text-xs">{c}</span>
             ))}
           </div>

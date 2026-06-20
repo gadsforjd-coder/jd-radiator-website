@@ -60,7 +60,7 @@ export default async function CredentialsPage({ params }: { params: Promise<{ la
         name: "What certifications do Jiuding radiators hold?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Jiuding radiators are CE-certified under EN 442 (EU CPR 305/2011), tested by HEATEST s.r.o. (NB 2693). Both steel panel and column radiators are covered. UKCA compliance is validated by BSRIA (UK).",
+          text: "Jiuding radiators are CE-certified under EN 442 (EU CPR 305/2011), tested by HEATEST s.r.o. (NB 2693). Both steel panel and column radiators are covered. UKCA compliance is validated by BSRIA (UK). Jiuding also holds ISO 9001 (quality management) and ISO 14001 (environmental management) certifications.",
         },
       },
       {
