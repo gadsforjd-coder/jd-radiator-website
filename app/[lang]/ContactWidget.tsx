@@ -103,7 +103,7 @@ export function ContactWidget({ locale, t }: { locale: Locale; t: ContactWidgetS
         onClick={() => toggle(!open)}
         aria-expanded={open}
         aria-label={t.tab}
-        className={`fixed right-0 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center gap-2.5 bg-[var(--jd-orange)] text-white px-2.5 py-5 rounded-l-xl shadow-[0_4px_20px_rgba(234,88,12,0.35)] hover:bg-[var(--jd-orange-dark)] transition-all duration-300 ${
+        className={`fixed right-0 top-1/2 -translate-y-1/2 z-[60] flex flex-col items-center gap-2.5 bg-[var(--jd-orange)] text-white px-2.5 py-5 rounded-l-xl shadow-[0_4px_20px_rgba(234,88,12,0.35)] hover:bg-[var(--jd-orange-dark)] transition-all duration-300 ${
           open ? "translate-x-full opacity-0 pointer-events-none" : ""
         }`}
       >
@@ -121,7 +121,7 @@ export function ContactWidget({ locale, t }: { locale: Locale; t: ContactWidgetS
         role="dialog"
         aria-label={t.title}
         aria-hidden={!open}
-        className={`fixed right-0 top-1/2 -translate-y-1/2 z-40 w-[340px] max-w-[88vw] max-h-[88vh] overflow-y-auto bg-white rounded-l-2xl shadow-2xl border border-r-0 border-[#F1E7DC] transition-transform duration-300 ease-out ${
+        className={`fixed right-0 top-1/2 -translate-y-1/2 z-[60] w-[340px] max-w-[88vw] max-h-[88vh] overflow-y-auto bg-white rounded-l-2xl shadow-2xl border border-r-0 border-[#F1E7DC] transition-transform duration-300 ease-out ${
           open ? "translate-x-0" : "translate-x-[110%] pointer-events-none"
         }`}
       >
