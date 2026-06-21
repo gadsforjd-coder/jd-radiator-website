@@ -15,16 +15,23 @@
   },
   "hero": {
     "kicker": "Global Radiator Manufacturing & Heating Solutions",
-    "title": "Build warmth for modern spaces.",
-    "lead": "Global radiator manufacturing & heating solutions for homes, hotels, apartments and commercial projects.",
+    "title": "Warm Homes, One Winter at a Time",
+    "lead": "Professional Quality · Global Heating Solutions",
     "cta1": "View Products",
     "cta2": "Contact Us"
   },
   "heroSlides": {
     "steelColumn": {
       "kicker": "Steel Column Radiators",
-      "title": "EU-Certified. Export Quality.",
-      "lead": "Solid steel column construction, CE (EN 442) certified and exported to 80+ markets — lasting warmth for homes and projects worldwide.",
+      "title": "European Certified · Export Grade",
+      "lead": "Solid steel column, CE (EN 442) certified",
+      "cta1": "View Products",
+      "cta2": "Contact Us"
+    },
+    "panel": {
+      "kicker": "Panel Radiators",
+      "title": "Modern Warmth · Panel Perfected",
+      "lead": "Minimal Design · Maximum Efficiency",
       "cta1": "View Products",
       "cta2": "Contact Us"
     }

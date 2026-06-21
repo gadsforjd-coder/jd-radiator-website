@@ -102,12 +102,24 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   const steelColumn = d.heroSlides?.steelColumn;
   if (steelColumn) {
     slides.push({
-      image: "/assets/ai-images/hero-banner.png", // placeholder — replace with a steel-column hero photo later
+      image: "/assets/ai-images/hero-steel-column.png",
       kicker: steelColumn.kicker,
       title: steelColumn.title,
       lead: steelColumn.lead,
       cta1: { label: steelColumn.cta1, href: `/${locale}/products` },
       cta2: { label: steelColumn.cta2, href: `/${locale}/contact` },
+    });
+  }
+
+  const panel = d.heroSlides?.panel;
+  if (panel) {
+    slides.push({
+      image: "/assets/ai-images/hero-panel.png",
+      kicker: panel.kicker,
+      title: panel.title,
+      lead: panel.lead,
+      cta1: { label: panel.cta1, href: `/${locale}/products` },
+      cta2: { label: panel.cta2, href: `/${locale}/contact` },
     });
   }
 
