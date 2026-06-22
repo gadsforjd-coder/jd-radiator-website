@@ -131,7 +131,7 @@ export function ContactWidget({ locale, t }: { locale: Locale; t: ContactWidgetS
             type="button"
             onClick={() => toggle(false)}
             aria-label="Close"
-            className="text-2xl leading-none -mr-1 px-1 hover:opacity-70 transition-opacity"
+            className="text-2xl leading-none px-1 hover:opacity-70 transition-opacity"
           >
             &times;
           </button>
