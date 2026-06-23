@@ -114,7 +114,7 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
             <div className="relative z-10 px-6 lg:px-14 w-full pb-40 flex justify-end h-full items-center">
               <div className="animate-in max-w-3xl text-right">
                 <p className="text-orange-300 uppercase tracking-[0.3em] font-extrabold text-sm mb-6">{slide.kicker}</p>
-                <h1 className="text-5xl lg:text-7xl xl:text-8xl font-black leading-[0.95] tracking-tight text-white whitespace-pre-line [text-shadow:0_2px_24px_rgba(67,20,7,0.45)]">{slide.title}</h1>
+                <h1 className="text-5xl lg:text-7xl xl:text-8xl font-black leading-[0.95] tracking-tight text-white whitespace-pre-line text-balance [text-wrap:balance] [text-shadow:0_2px_24px_rgba(67,20,7,0.45)]">{slide.title}</h1>
                 <p className="text-xl text-white/90 leading-relaxed mt-7 max-w-2xl ml-auto [text-shadow:0_1px_12px_rgba(67,20,7,0.5)]">{slide.lead}</p>
                 {slide.advantages && slide.advantages.length > 0 && (
                   <ul className="mt-7 flex flex-col items-end gap-2.5">
