@@ -13,6 +13,12 @@ export type HeroSlide = {
   lead: string;
   cta1: CTA;
   cta2: CTA;
+  // CSS object-position for the full-bleed photo. The hero is full-screen and the
+  // slide images are 16:9, so object-cover crops on narrower (e.g. 16:10 laptop)
+  // viewports. Anchoring the focal point (e.g. "left center" when the product sits
+  // on the left) keeps the product fully visible instead of cropped off the edge.
+  // Defaults to "center".
+  focal?: string;
 };
 
 const AUTO_ADVANCE_MS = 6000;
@@ -90,8 +96,10 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
               src={slide.image}
               alt=""
               fill
-              // natural orientation: radiator sits on the left, clear of the right-aligned headline
+              // natural orientation: radiator sits on the left, clear of the right-aligned headline.
+              // focal anchors the crop so the product is never cut off on narrow viewports.
               className="object-cover"
+              style={{ objectPosition: slide.focal ?? "center" }}
               {...(i === 0 ? { preload: true } : {})}
               sizes="100vw"
             />

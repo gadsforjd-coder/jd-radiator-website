@@ -96,6 +96,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       lead: d.hero.lead,
       cta1: { label: d.hero.cta1, href: `/${locale}/products` },
       cta2: { label: d.hero.cta2, href: `/${locale}/contact` },
+      focal: "left center", // product on the left — keep it from being cropped on narrow viewports
     },
   ];
 
@@ -108,6 +109,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       lead: steelColumn.lead,
       cta1: { label: steelColumn.cta1, href: `/${locale}/products` },
       cta2: { label: steelColumn.cta2, href: `/${locale}/contact` },
+      focal: "left center", // radiator on the left — keep it from being cropped on narrow viewports
     });
   }
 
@@ -126,7 +128,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   return (
     <>
       {/* Hero — rotating full-bleed carousel with warm scrim behind the text only */}
-      <section className="relative min-h-screen -mt-[96px] pt-[96px] flex items-center overflow-hidden bg-[#FFF7ED]">
+      <section className="relative aspect-[7/4] max-h-screen min-h-[70vh] -mt-[96px] pt-[96px] flex items-center overflow-hidden bg-[#FFF7ED]">
         <HeroCarousel slides={slides} />
 
         {/* Stats strip at bottom — light bar, each metric paired with an icon */}
