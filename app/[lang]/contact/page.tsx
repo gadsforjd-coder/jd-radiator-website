@@ -66,6 +66,9 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
             <p><strong className="text-white">LinkedIn:</strong>{" "}
               <a href="https://www.linkedin.com/company/tianjin-jiuding-sunshine-radiator-co-ltd/posts/?feedView=all" target="_blank" rel="noopener" className="text-white font-semibold underline underline-offset-2 hover:opacity-80 transition-opacity">Jiuding Radiator</a>
             </p>
+            <p><strong className="text-white">Facebook:</strong>{" "}
+              <a href="https://www.facebook.com/profile.php?id=61551859532584" target="_blank" rel="noopener" className="text-white font-semibold underline underline-offset-2 hover:opacity-80 transition-opacity">Jiuding Radiator</a>
+            </p>
             <p><strong className="text-white">Instagram:</strong>{" "}
               <a href="https://www.instagram.com/jiudingradiator/" target="_blank" rel="noopener" className="text-white font-semibold underline underline-offset-2 hover:opacity-80 transition-opacity">@jiudingradiator</a>
             </p>

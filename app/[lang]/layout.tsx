@@ -40,6 +40,7 @@ const organizationJsonLd = (locale: Locale) => ({
   sameAs: [
     "https://www.linkedin.com/company/tianjin-jiuding-sunshine-radiator-co-ltd/",
     "https://www.instagram.com/jiudingradiator/",
+    "https://www.facebook.com/profile.php?id=61551859532584",
   ],
 });
 
@@ -140,6 +141,9 @@ export default async function LangLayout({
               <div className="flex gap-4 mb-8">
                 <a href="https://www.linkedin.com/company/tianjin-jiuding-sunshine-radiator-co-ltd/posts/?feedView=all" target="_blank" rel="noopener" className="w-[42px] h-[42px] border border-white/25 bg-white/10 text-white rounded-full inline-grid place-items-center hover:bg-[var(--jd-orange)] hover:border-[var(--jd-orange)] hover:text-white hover:-translate-y-1 transition-all" aria-label="LinkedIn">
                   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.32 8.03h4.36V23H.32V8.03zM8.1 8.03h4.18v2.04h.06c.58-1.1 2-2.26 4.12-2.26 4.4 0 5.22 2.9 5.22 6.67V23h-4.36v-7.56c0-1.8-.03-4.12-2.51-4.12-2.52 0-2.91 1.97-2.91 4V23H8.1V8.03z"/></svg>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61551859532584" target="_blank" rel="noopener" className="w-[42px] h-[42px] border border-white/25 bg-white/10 text-white rounded-full inline-grid place-items-center hover:bg-[#1877F2] hover:border-[#1877F2] hover:text-white hover:-translate-y-1 transition-all" aria-label="Facebook">
+                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
                 </a>
                 <a href="https://www.instagram.com/jiudingradiator/" target="_blank" rel="noopener" className="w-[42px] h-[42px] border border-white/25 bg-white/10 text-white rounded-full inline-grid place-items-center hover:bg-[var(--jd-orange)] hover:border-[var(--jd-orange)] hover:text-white hover:-translate-y-1 transition-all" aria-label="Instagram">
                   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.8A4.2 4.2 0 1 1 12 16.2 4.2 4.2 0 0 1 12 7.8zm0 2A2.2 2.2 0 1 0 12 14.2 2.2 2.2 0 0 0 12 9.8zM17.6 6.4a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg>
