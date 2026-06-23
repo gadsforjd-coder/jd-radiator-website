@@ -19,6 +19,9 @@ export type HeroSlide = {
   // on the left) keeps the product fully visible instead of cropped off the edge.
   // Defaults to "center".
   focal?: string;
+  // Optional short product-advantage points shown between the lead and the CTAs
+  // (right-aligned, code-rendered — never baked into the photo).
+  advantages?: string[];
 };
 
 const AUTO_ADVANCE_MS = 6000;
@@ -113,6 +116,16 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
                 <p className="text-orange-300 uppercase tracking-[0.3em] font-extrabold text-sm mb-6">{slide.kicker}</p>
                 <h1 className="text-5xl lg:text-7xl xl:text-8xl font-black leading-[0.95] tracking-tight text-white whitespace-pre-line [text-shadow:0_2px_24px_rgba(67,20,7,0.45)]">{slide.title}</h1>
                 <p className="text-xl text-white/90 leading-relaxed mt-7 max-w-2xl ml-auto [text-shadow:0_1px_12px_rgba(67,20,7,0.5)]">{slide.lead}</p>
+                {slide.advantages && slide.advantages.length > 0 && (
+                  <ul className="mt-7 flex flex-col items-end gap-2.5">
+                    {slide.advantages.map((adv, idx) => (
+                      <li key={idx} className="flex items-center justify-end gap-2 text-white/95 text-base lg:text-lg font-semibold [text-shadow:0_1px_10px_rgba(67,20,7,0.55)]">
+                        <span>{adv}</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 shrink-0 text-orange-300" aria-hidden><path d="M20 6 9 17l-5-5" /></svg>
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 <div className="flex gap-4 mt-10 flex-wrap justify-end">
                   <Link href={slide.cta1.href} tabIndex={active ? 0 : -1} className="inline-flex h-14 items-center px-8 bg-[var(--jd-red)] text-white font-extrabold rounded-sm hover:bg-orange-700 transition-all hover:shadow-[0_0_30px_rgba(234,88,12,0.4)]">{slide.cta1.label}</Link>
                   <Link href={slide.cta2.href} tabIndex={active ? 0 : -1} className="inline-flex h-14 items-center px-8 border border-white/60 bg-white/10 backdrop-blur-sm text-white font-extrabold rounded-sm hover:border-white hover:bg-white/20 transition-all">{slide.cta2.label}</Link>

@@ -32,6 +32,11 @@
       "kicker": "Panel Radiators",
       "title": "Modern Warmth · Panel Perfected",
       "lead": "Minimal Design · Maximum Efficiency",
+      "advantages": [
+        "Calentamiento rápido · alta eficiencia térmica",
+        "Probado a 13 bar · seguro y fiable",
+        "Fosfatado ácido · anticorrosión profunda"
+      ],
       "cta1": "Ver Productos",
       "cta2": "Contacto"
     }

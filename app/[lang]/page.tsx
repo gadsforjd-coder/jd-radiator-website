@@ -120,6 +120,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       kicker: panel.kicker,
       title: panel.title,
       lead: panel.lead,
+      advantages: panel.advantages,
       cta1: { label: panel.cta1, href: `/${locale}/products` },
       cta2: { label: panel.cta2, href: `/${locale}/contact` },
     });
