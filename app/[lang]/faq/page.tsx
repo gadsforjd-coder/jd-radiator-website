@@ -43,6 +43,15 @@ export default async function FaqPage({ params }: { params: Promise<{ lang: stri
     { q: d.faq.q8, a: d.faq.a8 },
     { q: d.faq.q9, a: d.faq.a9 },
     { q: d.faq.q10, a: d.faq.a10 },
+    { q: d.faq.q11, a: d.faq.a11 },
+    { q: d.faq.q12, a: d.faq.a12 },
+    { q: d.faq.q13, a: d.faq.a13 },
+    { q: d.faq.q14, a: d.faq.a14 },
+    { q: d.faq.q15, a: d.faq.a15 },
+    { q: d.faq.q16, a: d.faq.a16 },
+    { q: d.faq.q17, a: d.faq.a17 },
+    { q: d.faq.q18, a: d.faq.a18 },
+    { q: d.faq.q19, a: d.faq.a19 },
   ];
 
   const faqJsonLd = {

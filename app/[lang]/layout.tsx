@@ -5,6 +5,7 @@ import { BASE_URL, SITE_NAME } from "@/lib/constants";
 import Link from "next/link";
 import Image from "next/image";
 import { LangSwitcher } from "./LangSwitcher";
+import { MobileNav } from "./MobileNav";
 import { ContactWidget } from "./ContactWidget";
 
 export function generateStaticParams() {
@@ -21,7 +22,7 @@ const organizationJsonLd = (locale: Locale) => ({
   logo: `${BASE_URL}/assets/logo.png`,
   foundingDate: "2002",
   description:
-    "CE/EN442-certified manufacturer of steel panel radiators, designer radiators, column radiators and heated towel rails. 45,000㎡ factory, 4 million sections/year capacity, exporting to 80+ countries.",
+    "Tianjin Jiuding Yangguang HVAC Co., Ltd. (est. 2002) manufactures steel panel and column radiators in Tianjin, China. Holds 10 CE Declarations of Performance under EU CPR No. 305/2011 (cert. nos. 2693-CPR-0010 to 0013-2024 and 2693-CPR-0019 to 0024-2023), assessed by HEATEST s.r.o. (NB 2693) to EN 442-1:2014. ISO 9001:2015 and ISO 14001:2015 certified (valid to 2027). Exports approximately 300 containers/year to 20+ countries across Europe, Russia, and Central Asia. 6 product series, 600+ specifications. All CE-certified products: reaction-to-fire class A1; REACH SVHC-compliant (SGS No. TSNEC2000446701).",
   address: {
     "@type": "PostalAddress",
     streetAddress: "No.9, Wuwei Road, Economic Development Zone",
@@ -42,6 +43,11 @@ const organizationJsonLd = (locale: Locale) => ({
     "https://www.instagram.com/jiudingradiator/",
     "https://www.facebook.com/profile.php?id=61551859532584",
   ],
+  award: [
+    "Best Stand Design Award, Aquatherm Tashkent 2024",
+    "Official exhibitor: ISH Frankfurt 2025 (Hall 4.2, K15E) and MCE Expocomfort Milan 2026 (Stand 18 F04)",
+  ],
+  slogan: "Warm Homes, One Winter at a Time",
 });
 
 const websiteJsonLd = (locale: Locale) => ({
@@ -104,7 +110,10 @@ export default async function LangLayout({
             <Link href={`/${locale}/blog`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.blog}</Link>
             <Link href={`/${locale}/contact`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.contact}</Link>
           </nav>
-          <LangSwitcher current={locale} />
+          <div className="flex items-center gap-2.5 shrink-0">
+            <LangSwitcher current={locale} />
+            <MobileNav locale={locale} nav={d.nav} />
+          </div>
         </header>
 
         <main className="pt-[96px]">{children}</main>

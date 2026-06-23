@@ -11,27 +11,27 @@ export const PAGE_SEO: Record<string, Partial<Record<Locale, Meta>>> = {
     en: {
       title: "About Jiuding — Engineering Warmth Since 2002",
       description:
-        "Founded in 2002 in Tianjin, China. 45,000㎡ factory, 4 million sections/year, 42 patents, CE/EN442/UKCA certified. Trusted OEM partner for radiator distributors in 80+ countries.",
+        "Founded in 2002 in Tianjin, China. 45,000㎡ factory, 500,000 sets/year, 42 patents, CE/EN442/UKCA certified. Trusted OEM partner for radiator distributors in 80+ countries.",
     },
     zh: {
       title: "关于九鼎 — 2002年至今专注采暖散热",
       description:
-        "九鼎散热器2002年创立于中国天津，4.5万㎡工厂，年产400万片，42项专利，通过CE/EN442/UKCA认证，为80多个国家的散热器经销商提供可信赖的OEM代工。",
+        "九鼎散热器2002年创立于中国天津，4.5万㎡工厂，年产50万组，42项专利，通过CE/EN442/UKCA认证，为80多个国家的散热器经销商提供可信赖的OEM代工。",
     },
     ru: {
       title: "О компании Jiuding — тепло и качество с 2002 года",
       description:
-        "Основана в 2002 году в Тяньцзине, Китай. Завод 45 000 м², 4 млн секций в год, 42 патента, сертификаты CE/EN442/UKCA. Надёжный OEM-партнёр для дистрибьюторов радиаторов в более чем 80 странах.",
+        "Основана в 2002 году в Тяньцзине, Китай. Завод 45 000 м², 500 000 комплектов в год, 42 патента, сертификаты CE/EN442/UKCA. Надёжный OEM-партнёр для дистрибьюторов радиаторов в более чем 80 странах.",
     },
     mn: {
       title: "Jiuding компанийн тухай — 2002 оноос дулааныг бүтээнэ",
       description:
-        "2002 онд Хятадын Тяньжинь хотод үүсгэн байгуулагдсан. 45,000 м² үйлдвэр, жилд 4 сая секц, 42 патент, CE/EN442/UKCA гэрчилгээтэй. 80+ оронд радиаторын дистрибьютеруудын найдвартай OEM түнш.",
+        "2002 онд Хятадын Тяньжинь хотод үүсгэн байгуулагдсан. 45,000 м² үйлдвэр, жилд 500,000 иж бүрдэл, 42 патент, CE/EN442/UKCA гэрчилгээтэй. 80+ оронд радиаторын дистрибьютеруудын найдвартай OEM түнш.",
     },
     es: {
       title: "Sobre Jiuding — Generando calor desde 2002",
       description:
-        "Fundada en 2002 en Tianjin, China. Fábrica de 45.000 m², 4 millones de secciones al año, 42 patentes, certificación CE/EN442/UKCA. Socio OEM de confianza para distribuidores de radiadores en más de 80 países.",
+        "Fundada en 2002 en Tianjin, China. Fábrica de 45.000 m², 500.000 conjuntos al año, 42 patentes, certificación CE/EN442/UKCA. Socio OEM de confianza para distribuidores de radiadores en más de 80 países.",
     },
   },
   products: {

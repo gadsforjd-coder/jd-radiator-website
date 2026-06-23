@@ -136,6 +136,36 @@ export default async function CredentialsPage({ params }: { params: Promise<{ la
         </div>
       </section>
 
+      {/* About Certifications Narrative */}
+      <section className="py-24 px-6 lg:px-14 bg-white">
+        <h2 className="text-3xl lg:text-5xl font-bold tracking-tight mb-6">{d.credentials.narrativeTitle}</h2>
+        <p className="text-gray-600 text-lg max-w-3xl leading-relaxed">{d.credentials.narrativeText}</p>
+      </section>
+
+      {/* UK Conformity Note */}
+      <section className="py-24 px-6 lg:px-14 bg-gray-50">
+        <h2 className="text-3xl lg:text-5xl font-bold tracking-tight mb-6">{d.credentials.ukConformityTitle}</h2>
+        <p className="text-gray-600 text-lg max-w-3xl leading-relaxed">{d.credentials.ukConformityText}</p>
+      </section>
+
+      {/* ISO Certifications */}
+      <section className="py-24 px-6 lg:px-14 bg-white">
+        <h2 className="text-3xl lg:text-5xl font-bold tracking-tight mb-6">{d.credentials.isoTitle}</h2>
+        <p className="text-gray-600 text-lg max-w-3xl leading-relaxed">{d.credentials.isoText}</p>
+      </section>
+
+      {/* REACH / SVHC */}
+      <section className="py-24 px-6 lg:px-14 bg-gray-50">
+        <h2 className="text-3xl lg:text-5xl font-bold tracking-tight mb-6">{d.credentials.reachTitle}</h2>
+        <p className="text-gray-600 text-lg max-w-3xl leading-relaxed">{d.credentials.reachText}</p>
+      </section>
+
+      {/* Fire Class A1 */}
+      <section className="py-24 px-6 lg:px-14 bg-white">
+        <h2 className="text-3xl lg:text-5xl font-bold tracking-tight mb-6">{d.credentials.fireClassTitle}</h2>
+        <p className="text-gray-600 text-lg max-w-3xl leading-relaxed">{d.credentials.fireClassText}</p>
+      </section>
+
       {/* Patents */}
       <section className="py-24 px-6 lg:px-14 bg-white">
         <h2 className="text-3xl lg:text-5xl font-bold tracking-tight mb-6">{d.credentials.patentTitle}</h2>
