@@ -46,8 +46,6 @@ export const documents: SiteDocument[] = [
   // General product catalog — applies to the whole range. Its href is the
   // English edition by default; the documents page swaps in the locale edition.
   { id: "catalog", type: "catalog", href: CATALOG_BY_LOCALE.en },
-  // Hot-selling products brochure (English).
-  { id: "catalog-hot-selling", type: "catalog", href: `${CATALOGS}/jiuding-hot-selling-products-en.pdf`, titleKey: "hotSellingTitle" },
 
   // CE / EN 442 test reports (HEATEST s.r.o., Notified Body 2693).
   // JDDH D/S = welded designer radiators, double/single panel;
