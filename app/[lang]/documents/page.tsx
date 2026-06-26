@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
-import { getDocumentsByType, formatDocTitle, type SiteDocument } from "@/lib/documents";
+import { getDocumentsByType, catalogHref, formatDocTitle, type SiteDocument } from "@/lib/documents";
 import type { Locale } from "@/lib/i18n";
 import { languageAlternates } from "@/lib/i18n";
 import { BASE_URL } from "@/lib/constants";
@@ -27,13 +27,21 @@ export default async function DocumentsPage({ params }: { params: Promise<{ lang
   const locale = lang as Locale;
   const d = await getDictionary(locale);
 
+  const docStrings = d.documents as Record<string, string>;
   const docTitle = (doc: SiteDocument) =>
-    doc.type === "catalog"
-      ? d.documents.catalogTitle
-      : formatDocTitle(doc.type === "en442" ? d.documents.en442Title : d.documents.cprTitle, doc.model);
+    doc.titleKey
+      ? docStrings[doc.titleKey]
+      : doc.type === "catalog"
+        ? d.documents.catalogTitle
+        : formatDocTitle(doc.type === "en442" ? d.documents.en442Title : d.documents.cprTitle, doc.model);
+
+  // The main product catalog links to the edition matching the current locale.
+  const catalogDocs = getDocumentsByType("catalog").map((doc) =>
+    doc.id === "catalog" ? { ...doc, href: catalogHref(locale) } : doc,
+  );
 
   const sections: { heading: string; docs: SiteDocument[] }[] = [
-    { heading: d.documents.sectionCatalog, docs: getDocumentsByType("catalog") },
+    { heading: d.documents.sectionCatalog, docs: catalogDocs },
     { heading: d.documents.sectionEn442, docs: getDocumentsByType("en442") },
     { heading: d.documents.sectionCpr, docs: getDocumentsByType("cpr") },
   ];

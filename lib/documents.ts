@@ -17,13 +17,37 @@ export interface SiteDocument {
   model?: string;
   /** Product slugs this document applies to (certificates only). */
   slugs?: string[];
+  /** Optional dictionary key (under `documents`) overriding the default title. */
+  titleKey?: string;
 }
 
 const CERTS = "/assets/certs";
+const CATALOGS = "/catalogs";
+
+/**
+ * Localized editions of the general product catalog. The catalog card on the
+ * documents page links to the edition matching the current site language;
+ * locales without a dedicated edition (ru, es) fall back to English.
+ */
+export const CATALOG_BY_LOCALE: Record<string, string> = {
+  en: `${CATALOGS}/jiuding-catalog-en.pdf`,
+  zh: `${CATALOGS}/jiuding-catalog-zh.pdf`,
+  mn: `${CATALOGS}/jiuding-catalog-mn.pdf`,
+  ru: `${CATALOGS}/jiuding-catalog-en.pdf`,
+  es: `${CATALOGS}/jiuding-catalog-en.pdf`,
+};
+
+/** Resolve the product-catalog PDF for a given locale (English fallback). */
+export function catalogHref(locale: string): string {
+  return CATALOG_BY_LOCALE[locale] ?? CATALOG_BY_LOCALE.en;
+}
 
 export const documents: SiteDocument[] = [
-  // General product catalog — applies to the whole range.
-  { id: "catalog", type: "catalog", href: `${CERTS}/jiuding-product-catalog.pdf` },
+  // General product catalog — applies to the whole range. Its href is the
+  // English edition by default; the documents page swaps in the locale edition.
+  { id: "catalog", type: "catalog", href: CATALOG_BY_LOCALE.en },
+  // Hot-selling products brochure (English).
+  { id: "catalog-hot-selling", type: "catalog", href: `${CATALOGS}/jiuding-hot-selling-products-en.pdf`, titleKey: "hotSellingTitle" },
 
   // CE / EN 442 test reports (HEATEST s.r.o., Notified Body 2693).
   // JDDH D/S = welded designer radiators, double/single panel;
@@ -45,9 +69,9 @@ export const documents: SiteDocument[] = [
   { id: "cpr-0024-jdwy-dhe-6015", type: "cpr", href: `${CERTS}/cpr-certificate-2693-0024-jdwy-dhe-6015.pdf`, model: "JDWY DHE 6015", slugs: ["jd60-15df"] },
 ];
 
-/** Documents shown on a product detail page: model certificates + catalog. */
+/** Documents shown on a product detail page: model certificates + the main catalog. */
 export function getDocumentsForProduct(slug: string): SiteDocument[] {
-  return documents.filter((doc) => doc.type === "catalog" || doc.slugs?.includes(slug));
+  return documents.filter((doc) => doc.id === "catalog" || doc.slugs?.includes(slug));
 }
 
 export function getDocumentsByType(type: DocumentType): SiteDocument[] {

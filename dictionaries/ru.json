@@ -163,6 +163,7 @@
   "documents": {
     "blockTitle": "Документация",
     "catalogTitle": "Каталог продукции Jiuding",
+    "hotSellingTitle": "Популярные товары",
     "en442Title": "Протокол испытаний EN 442 — {model}",
     "cprTitle": "Сертификат постоянства характеристик CPR — {model}",
     "pdfLabel": "PDF",
