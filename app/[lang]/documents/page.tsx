@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
-import { getDocumentsByType, catalogHref, formatDocTitle, type SiteDocument } from "@/lib/documents";
+import { getDocumentsByType, panelCatalogHref, formatDocTitle, type SiteDocument } from "@/lib/documents";
 import type { Locale } from "@/lib/i18n";
 import { languageAlternates } from "@/lib/i18n";
 import { BASE_URL } from "@/lib/constants";
@@ -35,9 +35,10 @@ export default async function DocumentsPage({ params }: { params: Promise<{ lang
         ? d.documents.catalogTitle
         : formatDocTitle(doc.type === "en442" ? d.documents.en442Title : d.documents.cprTitle, doc.model);
 
-  // The main product catalog links to the edition matching the current locale.
+  // The panel-radiator catalog links to the edition matching the current locale;
+  // the full product catalog is a single edition shown as-is.
   const catalogDocs = getDocumentsByType("catalog").map((doc) =>
-    doc.id === "catalog" ? { ...doc, href: catalogHref(locale) } : doc,
+    doc.id === "panel-catalog" ? { ...doc, href: panelCatalogHref(locale) } : doc,
   );
 
   const sections: { heading: string; docs: SiteDocument[] }[] = [

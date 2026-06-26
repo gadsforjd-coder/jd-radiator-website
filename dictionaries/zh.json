@@ -142,6 +142,7 @@
   "documents": {
     "blockTitle": "资料下载",
     "catalogTitle": "九鼎产品目录",
+    "panelCatalogTitle": "板式散热器",
     "hotSellingTitle": "热销产品",
     "en442Title": "EN 442 检测报告 — {model}",
     "cprTitle": "CPR 性能稳定性证书 — {model}",

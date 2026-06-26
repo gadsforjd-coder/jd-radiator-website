@@ -25,27 +25,36 @@ const CERTS = "/assets/certs";
 const CATALOGS = "/catalogs";
 
 /**
- * Localized editions of the general product catalog. The catalog card on the
- * documents page links to the edition matching the current site language;
- * locales without a dedicated edition (ru, es) fall back to English.
+ * Full product catalog (all series) — a single bilingual (CN/EN) edition,
+ * shown as the "九鼎产品目录" card and on every product detail page.
  */
-export const CATALOG_BY_LOCALE: Record<string, string> = {
-  en: `${CATALOGS}/jiuding-catalog-en.pdf`,
-  zh: `${CATALOGS}/jiuding-catalog-zh.pdf`,
-  mn: `${CATALOGS}/jiuding-catalog-mn.pdf`,
-  ru: `${CATALOGS}/jiuding-catalog-en.pdf`,
-  es: `${CATALOGS}/jiuding-catalog-en.pdf`,
+const PRODUCT_CATALOG = `${CATALOGS}/jiuding-product-catalog.pdf`;
+
+/**
+ * Steel panel radiator catalog (板式散热器). Localized editions link to the
+ * edition matching the current site language; locales without a dedicated
+ * edition (ru, es) fall back to English.
+ */
+export const PANEL_CATALOG_BY_LOCALE: Record<string, string> = {
+  en: `${CATALOGS}/jiuding-panel-catalog-en.pdf`,
+  zh: `${CATALOGS}/jiuding-panel-catalog-zh.pdf`,
+  mn: `${CATALOGS}/jiuding-panel-catalog-mn.pdf`,
+  ru: `${CATALOGS}/jiuding-panel-catalog-en.pdf`,
+  es: `${CATALOGS}/jiuding-panel-catalog-en.pdf`,
 };
 
-/** Resolve the product-catalog PDF for a given locale (English fallback). */
-export function catalogHref(locale: string): string {
-  return CATALOG_BY_LOCALE[locale] ?? CATALOG_BY_LOCALE.en;
+/** Resolve the panel-radiator-catalog PDF for a given locale (English fallback). */
+export function panelCatalogHref(locale: string): string {
+  return PANEL_CATALOG_BY_LOCALE[locale] ?? PANEL_CATALOG_BY_LOCALE.en;
 }
 
 export const documents: SiteDocument[] = [
-  // General product catalog — applies to the whole range. Its href is the
-  // English edition by default; the documents page swaps in the locale edition.
-  { id: "catalog", type: "catalog", href: CATALOG_BY_LOCALE.en },
+  // Full product catalog — applies to the whole range (single edition).
+  { id: "catalog", type: "catalog", href: PRODUCT_CATALOG },
+
+  // Steel panel radiator catalog — localized editions (en/zh/mn). Its href is
+  // the English edition by default; the documents page swaps in the locale edition.
+  { id: "panel-catalog", type: "catalog", href: PANEL_CATALOG_BY_LOCALE.en, titleKey: "panelCatalogTitle" },
 
   // CE / EN 442 test reports (HEATEST s.r.o., Notified Body 2693).
   // JDDH D/S = welded designer radiators, double/single panel;
