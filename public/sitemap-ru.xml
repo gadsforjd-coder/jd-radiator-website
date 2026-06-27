@@ -419,6 +419,17 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://jdradiator.com/ru/products/jd-21k</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jdradiator.com/en/products/jd-21k"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://jdradiator.com/ru/products/jd-21k"/>
+    <xhtml:link rel="alternate" hreflang="mn" href="https://jdradiator.com/mn/products/jd-21k"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://jdradiator.com/es/products/jd-21k"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://jdradiator.com/zh/products/jd-21k"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://jdradiator.com/en/products/jd-21k"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://jdradiator.com/ru/products/jd-22k</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://jdradiator.com/en/products/jd-22k"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://jdradiator.com/ru/products/jd-22k"/>

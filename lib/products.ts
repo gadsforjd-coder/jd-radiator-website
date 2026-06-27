@@ -51,6 +51,7 @@ export const products: Product[] = [
 
   // Panel Radiators (板式系列)
   { slug: "jd-11k", category: "panel", model: "JD-11K", subtitle: "Type 11 Panel Radiator", specs: { profile: "Type 11 (single panel, single convector)", heights: "300 / 400 / 500 / 600 / 900 mm", heatRange: "400–2800 W", pressure: "1.0 MPa (10 bar)", material: "Cold-rolled steel", colors: "White RAL 9016", finish: "Powder coated" } },
+  { slug: "jd-21k", category: "panel", model: "JD-21K", subtitle: "Type 21 Panel Radiator", specs: { profile: "Type 21 (double panel, single convector)", heights: "300 / 400 / 500 / 600 / 700 mm", heatRange: "306–3694 W", pressure: "1.0 MPa (10 bar)", material: "Cold-rolled steel", colors: "White RAL 9016", finish: "Powder coated" } },
   { slug: "jd-22k", category: "panel", model: "JD-22K", subtitle: "Type 22 Panel Radiator", specs: { profile: "Type 22 (double panel, double convector)", heights: "300 / 400 / 500 / 600 / 900 mm", heatRange: "700–5200 W", pressure: "1.0 MPa (10 bar)", material: "Cold-rolled steel", colors: "White RAL 9016", finish: "Powder coated" } },
   { slug: "jd-33k", category: "panel", model: "JD-33K", subtitle: "Type 33 Panel Radiator", specs: { profile: "Type 33 (triple panel, triple convector)", heights: "300 / 400 / 500 / 600 / 900 mm", heatRange: "1100–8000 W", pressure: "1.0 MPa (10 bar)", material: "Cold-rolled steel", colors: "White RAL 9016", finish: "Powder coated" } },
 ];
@@ -230,6 +231,12 @@ export const subtitleByLocale: Record<string, Record<string, string>> = {
     mn: "Төрөл 11 — нэг хавтан, нэг конвектор",
     es: "Tipo 11 — panel simple, convector simple",
     zh: "11型 — 单面板单对流片",
+  },
+  "jd-21k": {
+    ru: "Тип 21 — две панели, один конвектор",
+    mn: "Төрөл 21 — хоёр хавтан, нэг конвектор",
+    es: "Tipo 21 — panel doble, convector simple",
+    zh: "21型 — 双面板单对流片",
   },
   "jd-22k": {
     ru: "Тип 22 — две панели, два конвектора",
