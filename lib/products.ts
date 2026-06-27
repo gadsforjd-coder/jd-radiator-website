@@ -307,6 +307,95 @@ export function testPressureFrom(pressure: string): string | null {
 }
 
 /**
+ * Translation table for the textual spec values (material / colors /
+ * finish). Keys are the exact English tokens used in the product data;
+ * "/"-separated values are translated token-by-token, whole multi-word
+ * values (materials, "Powder coated") match the full string.
+ * RU/MN are Cyrillic; these are standard HVAC trade terms but merit a
+ * native/distributor review (esp. the "Reluster" satin finish, a guess).
+ */
+const specPhrases: Record<string, Record<string, string>> = {
+  zh: {
+    "Low-carbon steel": "低碳钢",
+    "Cold-rolled steel": "冷轧钢",
+    "Copper tube + Aluminium fin": "铜管+铝翅片",
+    "White": "白色",
+    "Anthracite": "烟煤灰色",
+    "Black": "黑色",
+    "Chrome": "镀铬",
+    "Custom RAL": "定制RAL色",
+    "White RAL 9016": "白色 RAL 9016",
+    "Glossy": "亮光",
+    "Reluster": "柔光",
+    "Matte": "哑光",
+    "Powder coated": "静电粉末喷涂",
+  },
+  ru: {
+    "Low-carbon steel": "Низкоуглеродистая сталь",
+    "Cold-rolled steel": "Холоднокатаная сталь",
+    "Copper tube + Aluminium fin": "Медная труба + алюминиевое оребрение",
+    "White": "Белый",
+    "Anthracite": "Антрацит",
+    "Black": "Чёрный",
+    "Chrome": "Хром",
+    "Custom RAL": "RAL на заказ",
+    "White RAL 9016": "Белый RAL 9016",
+    "Glossy": "Глянцевый",
+    "Reluster": "Сатиновый",
+    "Matte": "Матовый",
+    "Powder coated": "Порошковая окраска",
+  },
+  mn: {
+    "Low-carbon steel": "Бага нүүрстөрөгчит ган",
+    "Cold-rolled steel": "Хүйтэн прокатын ган",
+    "Copper tube + Aluminium fin": "Зэс хоолой + хөнгөн цагаан хавтас",
+    "White": "Цагаан",
+    "Anthracite": "Антрацит",
+    "Black": "Хар",
+    "Chrome": "Хром",
+    "Custom RAL": "Захиалгат RAL",
+    "White RAL 9016": "Цагаан RAL 9016",
+    "Glossy": "Гялгар",
+    "Reluster": "Хагас гялгар",
+    "Matte": "Матт",
+    "Powder coated": "Нунтаг будгаар бүрсэн",
+  },
+  es: {
+    "Low-carbon steel": "Acero de bajo carbono",
+    "Cold-rolled steel": "Acero laminado en frío",
+    "Copper tube + Aluminium fin": "Tubo de cobre con aletas de aluminio",
+    "White": "Blanco",
+    "Anthracite": "Antracita",
+    "Black": "Negro",
+    "Chrome": "Cromado",
+    "Custom RAL": "RAL personalizado",
+    "White RAL 9016": "Blanco RAL 9016",
+    "Glossy": "Brillante",
+    "Reluster": "Satinado",
+    "Matte": "Mate",
+    "Powder coated": "Pintura en polvo",
+  },
+};
+
+/**
+ * Translate the textual spec values (material / colors / finish) into the
+ * target language. Whole-value match first (materials, "Powder coated"),
+ * else translate each "/"-separated token. Numeric/code values (heights,
+ * heat output, profile codes) contain no mapped tokens and pass through
+ * unchanged.
+ */
+export function localizeSpecText(value: string, locale: string): string {
+  if (locale === "en") return value;
+  const map = specPhrases[locale];
+  if (!map) return value;
+  if (map[value]) return map[value];
+  if (value.includes(" / ")) {
+    return value.split(" / ").map((t) => map[t] ?? t).join(" / ");
+  }
+  return value;
+}
+
+/**
  * Localize measurement units in spec values.
  * RU/MN use Cyrillic units (мм/Вт/МПа — shared Russian/Mongolian
  * convention); ES keeps SI symbols (mm/W/bar) and only localizes the
@@ -315,6 +404,8 @@ export function testPressureFrom(pressure: string): string | null {
  * decimal commas; MN keeps бар and uses decimal commas before м².
  */
 export function localizeSpecValue(value: string, locale: string): string {
+  // Translate textual values (material/colors/finish) before unit conversion.
+  value = localizeSpecText(value, locale);
   if (locale === "ru" || locale === "mn") {
     let v = value
       .replace(/\bmm\b/g, "мм")

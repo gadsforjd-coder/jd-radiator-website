@@ -46,7 +46,7 @@ export async function generateMetadata({
       title,
       description,
       url: `${BASE_URL}/${lang}/products/${slug}`,
-      images: images.length > 0 ? [{ url: images[0], alt: `${product.model} ${categoryName}` }] : undefined,
+      images: images.length > 0 ? [{ url: `${BASE_URL}${images[0]}`, alt: `${product.model} ${categoryName}` }] : undefined,
     },
   };
 }
