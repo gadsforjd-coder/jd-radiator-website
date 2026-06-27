@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
 import { products, getProductBySlug, getProductImages, categoryLabels, getLocalizedSubtitle, approxCenterDistance, testPressureFrom, localizeSpecValue, heatedAreaFrom, heatOutputAtDt30 } from "@/lib/products";
+import { getPanelSizes, panelDepth } from "@/lib/panelSizes";
 import { getDocumentsForProduct, formatDocTitle, type SiteDocument } from "@/lib/documents";
 import type { Locale } from "@/lib/i18n";
 import { locales, languageAlternates } from "@/lib/i18n";
@@ -129,9 +130,19 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       ? d.documents.catalogTitle
       : formatDocTitle(doc.type === "en442" ? d.documents.en442Title : d.documents.cprTitle, doc.model);
 
+  // Panel radiators have fixed per-size dimensions (factory data): surface the
+  // depth in the main spec table and a full size table further down.
+  const panelSizes = getPanelSizes(slug);
+  const depthMm = panelDepth[slug];
+  // RU/MN use Cyrillic unit symbols (matches localizeSpecValue convention).
+  const u = locale === "ru" || locale === "mn"
+    ? { mm: "мм", w: "Вт", kg: "кг" }
+    : { mm: "mm", w: "W", kg: "kg" };
+
   const specRows = [
     { label: d.products.profile, value: product.specs.profile },
     { label: d.products.dimensions, value: product.specs.heights },
+    depthMm ? { label: d.products.depth, value: `${depthMm} mm` } : null,
     { label: d.products.heatOutput + " (EN442 ΔT=50°)", value: product.specs.heatRange },
     heatOutputDt30 ? { label: d.products.heatOutput + " (EN442 ΔT=30°)", value: heatOutputDt30 } : null,
     heatedArea ? { label: d.products.heatedArea, value: heatedArea } : null,
@@ -197,6 +208,38 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               ))}
             </tbody>
           </table>
+
+          {/* Full per-size spec table (panel radiators with factory data) */}
+          {panelSizes.length > 0 && (
+            <div className="mt-8">
+              <h2 className="text-xl font-bold mb-4 border-b pb-2">{d.products.sizeTableTitle}</h2>
+              <div className="max-h-[420px] overflow-y-auto border border-gray-100 rounded">
+                <table className="w-full text-left text-sm">
+                  <thead className="sticky top-0 bg-gray-50">
+                    <tr>
+                      <th className="py-2 px-3 font-semibold text-gray-700">{d.products.height} ({u.mm})</th>
+                      <th className="py-2 px-3 font-semibold text-gray-700">{d.products.length} ({u.mm})</th>
+                      <th className="py-2 px-3 font-semibold text-gray-700">{d.products.depth} ({u.mm})</th>
+                      <th className="py-2 px-3 font-semibold text-gray-700">{d.products.heatOutput} ({u.w})</th>
+                      <th className="py-2 px-3 font-semibold text-gray-700">{d.products.weight} ({u.kg})</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {panelSizes.map((s) => (
+                      <tr key={`${s.h}x${s.l}`} className="border-t border-gray-100">
+                        <td className="py-2 px-3 text-gray-600">{s.h}</td>
+                        <td className="py-2 px-3 text-gray-600">{s.l}</td>
+                        <td className="py-2 px-3 text-gray-600">{s.d}</td>
+                        <td className="py-2 px-3 text-gray-600">{s.q}</td>
+                        <td className="py-2 px-3 text-gray-600">{s.w}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="text-xs text-gray-400 mt-2">{d.products.sizeTableNote}</p>
+            </div>
+          )}
 
           {/* Downloads: catalog + CE/EN442 + CPR documents matching this model */}
           {productDocs.length > 0 && (
