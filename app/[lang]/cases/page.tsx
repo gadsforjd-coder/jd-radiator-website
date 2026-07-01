@@ -35,29 +35,57 @@ export default async function CasesPage({ params }: { params: Promise<{ lang: st
   const locale = lang as Locale;
   const d = await getDictionary(locale);
 
-  const categories = [d.cases.residential, d.cases.hotel, d.cases.commercial];
+  const landmarks = [
+    d.about.landmark1,
+    d.about.landmark2,
+    d.about.landmark3,
+    d.about.landmark4,
+    d.about.landmark5,
+    d.about.landmark6,
+  ];
+  const scenarios = [d.cases.residential, d.cases.hotel, d.cases.commercial];
 
   return (
     <div className="py-24 px-6 lg:px-14">
-      <div className="max-w-4xl mb-14">
+      <div className="max-w-4xl mb-16">
         <p className="text-[var(--jd-red)] uppercase tracking-[0.2em] font-extrabold text-sm mb-5">{d.cases.kicker}</p>
         <h1 className="text-4xl lg:text-6xl font-bold leading-tight tracking-tight">{d.cases.title}</h1>
         <p className="text-xl text-gray-500 leading-relaxed mt-7">{d.cases.intro}</p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-6 mb-16">
-        {categories.map((cat, i) => (
-          <div key={cat} className="min-h-[300px] flex flex-col justify-end p-8 relative overflow-hidden rounded-xl">
-            <Image src={categoryImages[i].src} alt={cat} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-            <span className="relative z-10 text-white font-extrabold text-2xl">{cat}</span>
-          </div>
-        ))}
-      </div>
+      {/* Landmark Projects */}
+      <section className="mb-20">
+        <h2 className="text-3xl lg:text-4xl font-bold tracking-tight mb-4">{d.about.landmarkTitle}</h2>
+        <p className="text-gray-500 text-lg max-w-3xl mb-10">{d.about.landmarkIntro}</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {landmarks.map((item, i) => (
+            <div key={i} className="bg-white border border-gray-200 p-7 rounded-lg">
+              <span className="text-[var(--jd-red)] font-extrabold text-sm block mb-3">0{i + 1}</span>
+              <p className="text-gray-700 font-medium">{item}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
-      <div className="bg-gray-50 p-12 text-center">
-        <p className="text-gray-500 text-lg mb-6">{d.cases.placeholder}</p>
-        <Link href={`/${locale}/contact`} className="inline-flex h-12 items-center px-6 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-orange-700 transition-colors">{d.contact.email}</Link>
+      {/* Typical Applications */}
+      <section className="mb-16">
+        <h2 className="text-3xl lg:text-4xl font-bold tracking-tight mb-8">{d.cases.scenariosTitle}</h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          {scenarios.map((cat, i) => (
+            <div key={cat} className="min-h-[300px] flex flex-col justify-end p-8 relative overflow-hidden rounded-xl">
+              <Image src={categoryImages[i].src} alt={cat} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <span className="relative z-10 text-white font-extrabold text-2xl">{cat}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <div className="bg-gray-50 p-12 text-center rounded-xl">
+        <h2 className="text-2xl lg:text-3xl font-bold tracking-tight mb-3">{d.cases.ctaTitle}</h2>
+        <p className="text-gray-500 text-lg mb-6 max-w-2xl mx-auto">{d.cases.ctaDesc}</p>
+        <Link href={`/${locale}/contact`} className="inline-flex h-12 items-center px-6 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-orange-700 transition-colors">{d.nav.contact}</Link>
       </div>
     </div>
   );

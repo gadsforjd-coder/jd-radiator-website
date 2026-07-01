@@ -124,7 +124,10 @@
     "residential": "住宅",
     "hotel": "酒店及接待业",
     "commercial": "商业建筑",
-    "placeholder": "工程案例即将上线。如需了解您所在地区的案例，请联系我们。"
+    "placeholder": "工程案例即将上线。如需了解您所在地区的案例，请联系我们。",
+    "scenariosTitle": "典型应用场景",
+    "ctaTitle": "想了解更多项目案例？",
+    "ctaDesc": "如需了解您所在地区的项目案例、产品选型建议或报价方案，欢迎随时联系我们。"
   },
   "downloads": {
     "kicker": "技术资源",

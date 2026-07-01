@@ -6,7 +6,6 @@ import { BASE_URL } from "@/lib/constants";
 import Link from "next/link";
 import Image from "next/image";
 import TechBreakdown from "./TechBreakdown";
-import ProofMarquee from "./ProofMarquee";
 import CertMarquee from "./CertMarquee";
 import HeroCarousel, { type HeroSlide } from "./HeroCarousel";
 import { VRTour } from "./VRTour";
@@ -198,19 +197,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           { title: d.tech.feature2, desc: d.tech.feature2Desc, num: "02" },
           { title: d.tech.feature3, desc: d.tech.feature3Desc, num: "03" },
           { title: d.tech.feature4, desc: d.tech.feature4Desc, num: "04" },
-        ]}
-      />
-
-      {/* Rolling proof strip — production, capability & certification photos
-          (replaces the old static numbers that duplicated the hero stats) */}
-      <ProofMarquee
-        items={[
-          { src: "/assets/ai-images/about-factory-aerial.png", label: `${d.stats.years} ${d.stats.yearsLabel}` },
-          { src: "/assets/ai-images/hero-manufacturing.png", label: d.manufacturing.welding },
-          { src: "/assets/ai-images/article-surface-treatment.png", label: d.manufacturing.surface },
-          { src: "/assets/ai-images/about-quality-testing.png", label: d.manufacturing.inspection },
-          { src: "/assets/ai-images/article-factory-story.png", label: `${d.stats.markets} ${d.stats.marketsLabel}` },
-          { src: "/assets/ai-images/article-certifications.png", label: d.certs.kicker },
         ]}
       />
 

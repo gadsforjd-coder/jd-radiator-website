@@ -145,7 +145,10 @@
     "residential": "Residential",
     "hotel": "Hotel & Hospitality",
     "commercial": "Commercial",
-    "placeholder": "Project case studies coming soon. Contact us for references in your region."
+    "placeholder": "Project case studies coming soon. Contact us for references in your region.",
+    "scenariosTitle": "Typical Applications",
+    "ctaTitle": "Want to see more project references?",
+    "ctaDesc": "Contact us for project references in your region, product selection advice, or a tailored quote."
   },
   "downloads": {
     "kicker": "Technical Resources",

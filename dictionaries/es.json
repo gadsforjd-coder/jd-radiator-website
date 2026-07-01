@@ -191,7 +191,10 @@
     "residential": "Residencial",
     "hotel": "Hoteles",
     "commercial": "Comercial",
-    "placeholder": "Casos próximamente. Contáctenos para referencias en su región."
+    "placeholder": "Casos próximamente. Contáctenos para referencias en su región.",
+    "scenariosTitle": "Aplicaciones típicas",
+    "ctaTitle": "¿Quiere ver más casos de proyectos?",
+    "ctaDesc": "Contáctenos para conocer casos de proyectos en su región, recibir asesoramiento en la selección de productos o una cotización a medida."
   },
   "downloads": {
     "kicker": "Descargas",
