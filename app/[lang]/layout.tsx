@@ -1,6 +1,7 @@
 import "../globals.css";
 import { locales, type Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dictionary";
+import { categoryLabels } from "@/lib/products";
 import { BASE_URL, SITE_NAME } from "@/lib/constants";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,6 +12,10 @@ import { ContactWidget } from "./ContactWidget";
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
+
+// Product categories for the "产品" nav dropdown; anchors match the id on each
+// category section in app/[lang]/products/page.tsx.
+const PRODUCT_CATS = ["designer", "panel", "column", "towel", "bimetal"] as const;
 
 const organizationJsonLd = (locale: Locale) => ({
   "@context": "https://schema.org",
@@ -101,7 +106,21 @@ export default async function LangLayout({
             </div>
           </Link>
           <nav className="hidden lg:flex gap-5 xl:gap-7 font-semibold text-sm xl:text-base text-[#1E293B]/75">
-            <Link href={`/${locale}/products`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.products}</Link>
+            <div className="relative group">
+              <Link href={`/${locale}/products`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors inline-flex items-center gap-1">
+                {d.nav.products}
+                <svg className="w-3 h-3 opacity-60 transition-transform group-hover:rotate-180" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </Link>
+              <div className="absolute left-0 top-full pt-3 w-56 invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-150">
+                <div className="bg-white rounded-lg shadow-xl border border-[#F1E7DC] py-2">
+                  {PRODUCT_CATS.map((cat) => (
+                    <Link key={cat} href={`/${locale}/products#${cat}`} className="block px-4 py-2.5 text-sm text-[#1E293B]/80 hover:text-[var(--jd-red)] hover:bg-[#FFF7ED] transition-colors">
+                      {(categoryLabels[locale] ?? categoryLabels.en)[cat]}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
             <Link href={`/${locale}/about`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.about}</Link>
             <Link href={`/${locale}/credentials`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.credentials}</Link>
             <Link href={`/${locale}/cases`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.cases}</Link>

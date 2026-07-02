@@ -10,6 +10,7 @@ import CertMarquee from "./CertMarquee";
 import HeroCarousel, { type HeroSlide } from "./HeroCarousel";
 import { VRTour } from "./VRTour";
 import { vrTourUrl } from "@/lib/vr";
+import CustomerMap from "./CustomerMap";
 
 // Small line icons paired with the homepage stat metrics.
 const ICON = "w-5 h-5";
@@ -160,14 +161,14 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
           {[
-            { title: d.products.designer, desc: d.products.designerDesc, slug: "jd25y", img: "/assets/ai-images/cat-designer.png", num: "01", featured: true },
-            { title: d.products.steel, desc: d.products.steelDesc, slug: "jd-22k", img: "/assets/ai-images/cat-panel.png", num: "02", featured: false },
-            { title: d.products.towel, desc: d.products.towelDesc, slug: "jdwy-s", img: "/assets/products/jdwy-s/scene-1.jpg", num: "03", featured: false },
-            { title: d.products.oem, desc: d.products.oemDesc, slug: "jdgz3", img: "/assets/ai-images/cat-column.png", num: "04", featured: false },
+            { title: d.products.designer, desc: d.products.designerDesc, href: `/${locale}/products#designer`, img: "/assets/ai-images/cat-designer.png", num: "01", featured: true },
+            { title: d.products.steel, desc: d.products.steelDesc, href: `/${locale}/products#panel`, img: "/assets/ai-images/cat-panel.png", num: "02", featured: false },
+            { title: d.products.towel, desc: d.products.towelDesc, href: `/${locale}/products#towel`, img: "/assets/products/jdwy-s/scene-1.jpg", num: "03", featured: false },
+            { title: d.products.oem, desc: d.products.oemDesc, href: `/${locale}/contact`, img: "/assets/ai-images/cat-column.png", num: "04", featured: false },
           ].map((p) => (
             <Link
-              key={p.slug}
-              href={`/${locale}/products/${p.slug}`}
+              key={p.num}
+              href={p.href}
               className={`group relative flex flex-col overflow-hidden rounded-lg bg-white border border-[#F1E7DC] shadow-[0_4px_16px_rgba(30,41,59,0.05)] product-card-hover transition-all duration-500 ${p.featured ? "ring-1 ring-[var(--jd-red)]/40 shadow-[0_0_30px_rgba(234,88,12,0.15)]" : ""}`}
             >
               <div className="relative h-[260px] overflow-hidden bg-gradient-to-b from-[#FFF7ED] to-white">
@@ -366,6 +367,14 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           </div>
         </div>
       </section>
+
+      {/* Customer Map — global export presence */}
+      <CustomerMap
+        kicker={d.customerMap.kicker}
+        title={d.customerMap.title}
+        subtitle={d.customerMap.subtitle}
+        countries={d.customerMap.countries}
+      />
 
       {/* Contact CTA — signature orange block with white text */}
       <section className="py-24 px-6 lg:px-14 bg-[#FFF7ED]">

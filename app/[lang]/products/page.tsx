@@ -54,7 +54,7 @@ export default async function ProductsPage({ params }: { params: Promise<{ lang:
         const catProducts = products.filter((p) => p.category === cat);
         if (catProducts.length === 0) return null;
         return (
-          <div key={cat} className="mb-16">
+          <div key={cat} id={cat} className="mb-16 scroll-mt-28">
             <h2 className="text-2xl font-bold mb-6 border-b-2 border-[var(--jd-red)] pb-3 inline-block">{labels[cat]} <span className="text-gray-400 text-base font-normal ml-2">{catProducts.length} models</span></h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
               {catProducts.map((p) => {

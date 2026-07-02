@@ -455,5 +455,36 @@
     "enter": "Enter VR Tour",
     "openNew": "Open in new window",
     "close": "Close"
+  },
+  "customerMap": {
+    "kicker": "Global Reach",
+    "title": "Exporting to 30+ Countries Worldwide",
+    "subtitle": "Jiuding radiators reach partners across Europe, CIS, the Middle East, Africa and South America",
+    "countries": {
+      "GB": "United Kingdom",
+      "DE": "Germany",
+      "FR": "France",
+      "BE": "Belgium",
+      "ES": "Spain",
+      "PL": "Poland",
+      "RO": "Romania",
+      "SE": "Sweden",
+      "RU": "Russia",
+      "BY": "Belarus",
+      "UA": "Ukraine",
+      "KZ": "Kazakhstan",
+      "UZ": "Uzbekistan",
+      "KG": "Kyrgyzstan",
+      "TM": "Turkmenistan",
+      "TJ": "Tajikistan",
+      "GE": "Georgia",
+      "AM": "Armenia",
+      "AZ": "Azerbaijan",
+      "TR": "Turkey",
+      "DZ": "Algeria",
+      "LY": "Libya",
+      "AR": "Argentina",
+      "MN": "Mongolia"
+    }
   }
 }

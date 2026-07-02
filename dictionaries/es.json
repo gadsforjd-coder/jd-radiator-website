@@ -455,5 +455,36 @@
     "enter": "Entrar al tour VR",
     "openNew": "Abrir en una ventana nueva",
     "close": "Cerrar"
+  },
+  "customerMap": {
+    "kicker": "Alcance Global",
+    "title": "Exportando a más de 30 países",
+    "subtitle": "Los radiadores Jiuding llegan a socios en Europa, CEI, Oriente Medio, África y Sudamérica",
+    "countries": {
+      "GB": "Reino Unido",
+      "DE": "Alemania",
+      "FR": "Francia",
+      "BE": "Bélgica",
+      "ES": "España",
+      "PL": "Polonia",
+      "RO": "Rumanía",
+      "SE": "Suecia",
+      "RU": "Rusia",
+      "BY": "Bielorrusia",
+      "UA": "Ucrania",
+      "KZ": "Kazajistán",
+      "UZ": "Uzbekistán",
+      "KG": "Kirguistán",
+      "TM": "Turkmenistán",
+      "TJ": "Tayikistán",
+      "GE": "Georgia",
+      "AM": "Armenia",
+      "AZ": "Azerbaiyán",
+      "TR": "Turquía",
+      "DZ": "Argelia",
+      "LY": "Libia",
+      "AR": "Argentina",
+      "MN": "Mongolia"
+    }
   }
 }
