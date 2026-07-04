@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 interface Country {
   code: string;
   name: string;
@@ -44,7 +46,18 @@ const REGION_GROUPS: { key: string; label: string; codes: string[] }[] = [
   { key: "other", label: "Americas & Asia", codes: ["AR", "MN"] },
 ];
 
+// code -> region key lookup, so hovering a region can highlight its flags
+const CODE_TO_REGION: Record<string, string> = REGION_GROUPS.reduce(
+  (acc, rg) => {
+    rg.codes.forEach((c) => (acc[c] = rg.key));
+    return acc;
+  },
+  {} as Record<string, string>
+);
+
 export default function CustomerMap({ kicker, title, subtitle, countries }: CustomerMapProps) {
+  const [activeRegion, setActiveRegion] = useState<string | null>(null);
+
   return (
     <section className="bg-[#FFF7ED] text-[#1E293B] py-24 px-6 lg:px-14 overflow-hidden">
       {/* Header */}
@@ -83,35 +96,65 @@ export default function CustomerMap({ kicker, title, subtitle, countries }: Cust
             Export Markets
           </p>
 
-          {/* Region pills */}
+          {/* Region pills — hover/tap to highlight that region's countries below */}
           <div className="flex flex-wrap justify-center gap-3 mt-2">
-            {REGION_GROUPS.map((rg) => (
-              <span
-                key={rg.key}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white border border-[#F1E7DC] text-sm font-semibold text-[#1E293B]/70 shadow-sm"
-              >
-                <span className="w-2 h-2 rounded-full bg-[var(--jd-red)] shrink-0" />
-                {rg.label}
-                <span className="ml-1 text-[var(--jd-red)] font-black">{rg.codes.length}</span>
-              </span>
-            ))}
+            {REGION_GROUPS.map((rg) => {
+              const isActive = activeRegion === rg.key;
+              return (
+                <button
+                  type="button"
+                  key={rg.key}
+                  onMouseEnter={() => setActiveRegion(rg.key)}
+                  onMouseLeave={() => setActiveRegion(null)}
+                  onFocus={() => setActiveRegion(rg.key)}
+                  onBlur={() => setActiveRegion(null)}
+                  onClick={() => setActiveRegion((prev) => (prev === rg.key ? null : rg.key))}
+                  aria-pressed={isActive}
+                  className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full border text-sm font-semibold shadow-sm cursor-pointer transition-all duration-200 ${
+                    isActive
+                      ? "bg-[var(--jd-red)] border-[var(--jd-red)] text-white shadow-[0_4px_16px_rgba(234,88,12,0.28)]"
+                      : "bg-white border-[#F1E7DC] text-[#1E293B]/70 hover:border-[var(--jd-red)]/50"
+                  }`}
+                >
+                  <span
+                    className={`w-2 h-2 rounded-full shrink-0 ${isActive ? "bg-white" : "bg-[var(--jd-red)]"}`}
+                  />
+                  {rg.label}
+                  <span className={`ml-1 font-black ${isActive ? "text-white" : "text-[var(--jd-red)]"}`}>
+                    {rg.codes.length}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
 
       {/* Flag grid — all 24 countries */}
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
-        {COUNTRY_CODES.map((code) => (
-          <div
-            key={code}
-            className="group flex flex-col items-center gap-2 p-3 rounded-xl bg-white border border-[#F1E7DC] shadow-[0_2px_8px_rgba(30,41,59,0.04)] hover:border-[var(--jd-red)]/40 hover:shadow-[0_4px_20px_rgba(234,88,12,0.12)] transition-all duration-200 cursor-default"
-          >
-            <span className="text-3xl leading-none select-none">{flagEmoji(code)}</span>
-            <span className="text-xs font-semibold text-[#64748B] text-center leading-tight group-hover:text-[var(--jd-red)] transition-colors line-clamp-2">
-              {countries[code] ?? code}
-            </span>
-          </div>
-        ))}
+        {COUNTRY_CODES.map((code) => {
+          const inActiveRegion = activeRegion !== null && CODE_TO_REGION[code] === activeRegion;
+          const dimmed = activeRegion !== null && !inActiveRegion;
+          return (
+            <div
+              key={code}
+              className={`group flex flex-col items-center gap-2 p-3 rounded-xl bg-white border shadow-[0_2px_8px_rgba(30,41,59,0.04)] transition-all duration-200 cursor-default ${
+                inActiveRegion
+                  ? "border-[var(--jd-red)] shadow-[0_6px_24px_rgba(234,88,12,0.22)] -translate-y-0.5 scale-[1.03]"
+                  : "border-[#F1E7DC] hover:border-[var(--jd-red)]/40 hover:shadow-[0_4px_20px_rgba(234,88,12,0.12)]"
+              } ${dimmed ? "opacity-40" : "opacity-100"}`}
+            >
+              <span className="text-3xl leading-none select-none">{flagEmoji(code)}</span>
+              <span
+                className={`text-xs font-semibold text-center leading-tight transition-colors line-clamp-2 ${
+                  inActiveRegion ? "text-[var(--jd-red)]" : "text-[#64748B] group-hover:text-[var(--jd-red)]"
+                }`}
+              >
+                {countries[code] ?? code}
+              </span>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
