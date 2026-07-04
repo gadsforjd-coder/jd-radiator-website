@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { geoEqualEarth, geoPath } from "d3-geo";
+import { geoEqualEarth, geoPath, geoGraticule10 } from "d3-geo";
 import { feature } from "topojson-client";
 import worldData from "world-atlas/countries-110m.json";
 
@@ -52,11 +52,21 @@ const COORDS: Record<string, [number, number]> = {
   MN: [103.8, 46.9],
 };
 
+// ISO 3166-1 numeric id (matches world-atlas feature ids) -> our alpha-2 code
+const NUMERIC_TO_CODE: Record<number, string> = {
+  826: "GB", 276: "DE", 250: "FR", 56: "BE", 724: "ES", 616: "PL", 642: "RO", 752: "SE",
+  643: "RU", 112: "BY", 804: "UA", 398: "KZ", 860: "UZ", 417: "KG", 795: "TM", 762: "TJ",
+  268: "GE", 51: "AM", 31: "AZ", 792: "TR", 760: "SY", 12: "DZ", 434: "LY", 32: "AR", 496: "MN",
+};
+
+// Export hub (JIUDING, China) — origin for the trade-route arcs
+const HUB: [number, number] = [114.5, 34.5];
+
 // --- Map geometry (computed once, at module load) ---
 const MAP_W = 900;
-const MAP_H = 460;
+const MAP_H = 470;
 const projection = geoEqualEarth()
-  .scale(175)
+  .scale(178)
   .center([25, 18])
   .translate([MAP_W / 2, MAP_H / 2]);
 const pathGen = geoPath(projection);
@@ -64,9 +74,49 @@ const WORLD_FEATURES = (
   feature(worldData as any, (worldData as any).objects.countries) as any
 ).features as any[];
 const LAND_PATHS: string[] = WORLD_FEATURES.map((f) => pathGen(f) || "").filter(Boolean);
+const GRATICULE_PATH: string = pathGen(geoGraticule10()) || "";
+
+// Per-market country outline (for region highlight fills)
+const COUNTRY_SHAPES: { code: string; region: string; d: string }[] = WORLD_FEATURES.flatMap(
+  (f) => {
+    const code = NUMERIC_TO_CODE[Number(f.id)];
+    if (!code) return [];
+    const d = pathGen(f);
+    if (!d) return [];
+    return [{ code, region: CODE_TO_REGION[code], d }];
+  }
+);
+
+// Build a gently-curved trade-route arc from HUB to a destination point
+function arcPath(from: [number, number], to: [number, number]): string {
+  const [x0, y0] = from;
+  const [x1, y1] = to;
+  const mx = (x0 + x1) / 2;
+  const my = (y0 + y1) / 2;
+  const dx = x1 - x0;
+  const dy = y1 - y0;
+  const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+  // lift the control point perpendicular to the chord for a smooth curve
+  const lift = Math.min(dist * 0.22, 90);
+  const cx = mx - (dy / dist) * lift;
+  const cy = my - (dx / dist) * lift;
+  return `M ${x0} ${y0} Q ${cx} ${cy} ${x1} ${y1}`;
+}
+
+const HUB_PT = projection(HUB) as [number, number];
+const ARCS: { code: string; region: string; d: string }[] = COUNTRY_CODES.flatMap((code) => {
+  const c = COORDS[code];
+  if (!c) return [];
+  const p = projection(c);
+  if (!p) return [];
+  return [{ code, region: CODE_TO_REGION[code], d: arcPath(HUB_PT, p as [number, number]) }];
+});
 
 export default function CustomerMap({ kicker, title, subtitle, countries }: CustomerMapProps) {
   const [activeRegion, setActiveRegion] = useState<string | null>(null);
+  const [hoveredCode, setHoveredCode] = useState<string | null>(null);
+
+  const hasFocus = activeRegion !== null || hoveredCode !== null;
 
   return (
     <section className="bg-[#FFF7ED] text-[#1E293B] py-24 px-6 lg:px-14 overflow-hidden">
@@ -116,15 +166,95 @@ export default function CustomerMap({ kicker, title, subtitle, countries }: Cust
         </div>
       </div>
 
-      {/* World map — d3-geo rendered, markers light up per hovered region */}
-      <div className="relative w-full rounded-2xl overflow-hidden border border-[#F1E7DC] bg-[#EAF0F6] shadow-[0_8px_40px_rgba(30,41,59,0.07)]">
+      {/* World map — real geography, ocean + graticule, trade-route arcs, per-market markers */}
+      <div className="relative w-full rounded-2xl overflow-hidden border border-[#DCE6F0] shadow-[0_8px_40px_rgba(30,41,59,0.10)]">
         <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} style={{ width: "100%", height: "auto", display: "block" }}>
+          <defs>
+            {/* Ocean gradient */}
+            <radialGradient id="ocean" cx="46%" cy="40%" r="75%">
+              <stop offset="0%" stopColor="#EAF3FB" />
+              <stop offset="55%" stopColor="#D6E6F5" />
+              <stop offset="100%" stopColor="#BFD6EC" />
+            </radialGradient>
+            {/* Land gradient (warm neutral, classic-map feel) */}
+            <linearGradient id="land" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#F2ECDD" />
+              <stop offset="100%" stopColor="#E4DAC4" />
+            </linearGradient>
+            {/* Soft glow for active markers */}
+            <filter id="glow" x="-120%" y="-120%" width="340%" height="340%">
+              <feGaussianBlur stdDeviation="3.2" result="b" />
+              <feMerge>
+                <feMergeNode in="b" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          {/* Ocean */}
+          <rect x={0} y={0} width={MAP_W} height={MAP_H} fill="url(#ocean)" />
+
+          {/* Graticule (lat/long grid) */}
+          <path d={GRATICULE_PATH} fill="none" stroke="#9FBFDD" strokeWidth={0.5} strokeOpacity={0.4} />
+
           {/* Land */}
           <g>
             {LAND_PATHS.map((d, i) => (
-              <path key={i} d={d} fill="#B9C6D6" stroke="#FFFFFF" strokeWidth={0.5} />
+              <path key={i} d={d} fill="url(#land)" stroke="#C7B79A" strokeWidth={0.5} strokeLinejoin="round" />
             ))}
           </g>
+
+          {/* Highlighted country fills (active region or hovered market) */}
+          <g>
+            {COUNTRY_SHAPES.map((s) => {
+              const on = (activeRegion !== null && s.region === activeRegion) || hoveredCode === s.code;
+              if (!on) return null;
+              return (
+                <path
+                  key={`hl-${s.code}`}
+                  d={s.d}
+                  fill="var(--jd-red)"
+                  fillOpacity={hoveredCode === s.code ? 0.32 : 0.22}
+                  stroke="var(--jd-red)"
+                  strokeWidth={0.9}
+                  strokeOpacity={0.7}
+                  style={{ transition: "fill-opacity 0.2s ease" }}
+                />
+              );
+            })}
+          </g>
+
+          {/* Trade-route arcs from the export hub */}
+          <g fill="none" strokeLinecap="round">
+            {ARCS.map((a) => {
+              const on = (activeRegion !== null && a.region === activeRegion) || hoveredCode === a.code;
+              return (
+                <path
+                  key={`arc-${a.code}`}
+                  d={a.d}
+                  stroke="var(--jd-red)"
+                  strokeWidth={on ? 1.6 : 0.7}
+                  strokeOpacity={on ? 0.75 : hasFocus ? 0.06 : 0.16}
+                  strokeDasharray={on ? "5 5" : undefined}
+                  style={{ transition: "stroke-opacity 0.25s ease, stroke-width 0.25s ease" }}
+                >
+                  {on && (
+                    <animate attributeName="stroke-dashoffset" from="20" to="0" dur="0.9s" repeatCount="indefinite" />
+                  )}
+                </path>
+              );
+            })}
+          </g>
+
+          {/* Hub marker */}
+          <g transform={`translate(${HUB_PT[0]},${HUB_PT[1]})`}>
+            <circle r={5} fill="#B45309" stroke="#fff" strokeWidth={1.4} />
+            <circle r={9} fill="none" stroke="#B45309" strokeOpacity={0.35} strokeWidth={1}>
+              <animate attributeName="r" values="6;13;6" dur="2.4s" repeatCount="indefinite" />
+              <animate attributeName="stroke-opacity" values="0.5;0;0.5" dur="2.4s" repeatCount="indefinite" />
+            </circle>
+          </g>
+
           {/* Market markers */}
           {COUNTRY_CODES.map((code) => {
             const coords = COORDS[code];
@@ -132,42 +262,75 @@ export default function CustomerMap({ kicker, title, subtitle, countries }: Cust
             const p = projection(coords);
             if (!p) return null;
             const [x, y] = p;
-            const inActiveRegion = activeRegion !== null && CODE_TO_REGION[code] === activeRegion;
-            const dimmed = activeRegion !== null && !inActiveRegion;
-            const r = inActiveRegion ? 6 : 3.4;
-            const fill = dimmed ? "#C7B29C" : "var(--jd-red)";
-            const name = countries[code] ?? code;
+            const isHover = hoveredCode === code;
+            const inRegion = activeRegion !== null && CODE_TO_REGION[code] === activeRegion;
+            const dimmed = hasFocus && !inRegion && !isHover;
+            const lit = inRegion || isHover;
+            const r = isHover ? 6.5 : inRegion ? 5.5 : 3.6;
             return (
-              <g key={code} transform={`translate(${x},${y})`} style={{ transition: "opacity 0.2s ease" }} opacity={dimmed ? 0.45 : 1}>
-                {inActiveRegion && (
-                  <circle r={12} fill="var(--jd-red)" opacity={0.18}>
+              <g
+                key={code}
+                transform={`translate(${x},${y})`}
+                opacity={dimmed ? 0.4 : 1}
+                style={{ transition: "opacity 0.2s ease", cursor: "pointer" }}
+                onMouseEnter={() => setHoveredCode(code)}
+                onMouseLeave={() => setHoveredCode((prev) => (prev === code ? null : prev))}
+              >
+                {lit && (
+                  <circle r={12} fill="var(--jd-red)" opacity={0.16}>
                     <animate attributeName="r" values="8;15;8" dur="1.6s" repeatCount="indefinite" />
                   </circle>
                 )}
-                <circle r={r} fill={fill} stroke="#fff" strokeWidth={inActiveRegion ? 1.6 : 0.9} />
-                {inActiveRegion && (
-                  <text
-                    textAnchor="middle"
-                    y={-11}
-                    style={{
-                      fontFamily: "inherit",
-                      fontSize: 11,
-                      fontWeight: 800,
-                      fill: "#1E293B",
-                      paintOrder: "stroke",
-                      stroke: "#fff",
-                      strokeWidth: 3,
-                    }}
-                  >
-                    {name}
-                  </text>
-                )}
+                <circle
+                  r={r}
+                  fill={dimmed ? "#B9A78E" : "var(--jd-red)"}
+                  stroke="#fff"
+                  strokeWidth={lit ? 1.8 : 0.9}
+                  filter={lit ? "url(#glow)" : undefined}
+                  style={{ transition: "r 0.15s ease" }}
+                />
+                {/* invisible larger hit-area for easier hovering */}
+                <circle r={11} fill="transparent" />
               </g>
             );
           })}
+
+          {/* Single hovered tooltip (rendered last → always on top, never crowded) */}
+          {hoveredCode &&
+            (() => {
+              const p = projection(COORDS[hoveredCode]);
+              if (!p) return null;
+              const [x, y] = p;
+              const name = countries[hoveredCode] ?? hoveredCode;
+              const w = Math.max(40, name.length * 7.2 + 20);
+              const h = 22;
+              return (
+                <g transform={`translate(${x},${y})`} style={{ pointerEvents: "none" }}>
+                  <rect
+                    x={-w / 2}
+                    y={-h - 14}
+                    width={w}
+                    height={h}
+                    rx={11}
+                    fill="#1E293B"
+                    opacity={0.94}
+                  />
+                  <path d={`M -5 ${-14} L 0 ${-8} L 5 ${-14} Z`} fill="#1E293B" opacity={0.94} />
+                  <text
+                    x={0}
+                    y={-h - 14 + h / 2}
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    style={{ fontFamily: "inherit", fontSize: 12, fontWeight: 700, fill: "#fff" }}
+                  >
+                    {name}
+                  </text>
+                </g>
+              );
+            })()}
         </svg>
-        <p className="absolute bottom-3 right-4 text-xs text-[#1E293B]/40 font-medium pointer-events-none">
-          {activeRegion ? "" : "↑ Hover a region to light up its markets"}
+        <p className="absolute bottom-3 right-4 text-xs text-[#1E293B]/45 font-medium pointer-events-none">
+          {hasFocus ? "" : "↑ Hover a region, or point at any marker"}
         </p>
       </div>
     </section>
