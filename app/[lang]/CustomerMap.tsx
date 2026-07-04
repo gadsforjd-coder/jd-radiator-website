@@ -127,7 +127,7 @@ export default function CustomerMap({ kicker, title, subtitle, countries }: Cust
       </div>
 
       {/* World map — markers light up per hovered region */}
-      <div className="relative w-full rounded-2xl overflow-hidden border border-[#F1E7DC] bg-white shadow-[0_8px_40px_rgba(30,41,59,0.07)]">
+      <div className="relative w-full rounded-2xl overflow-hidden border border-[#F1E7DC] bg-[#EAF0F6] shadow-[0_8px_40px_rgba(30,41,59,0.07)]">
         <ComposableMap
           projection="geoEqualEarth"
           projectionConfig={{ scale: 175, center: [25, 18] }}
@@ -139,12 +139,12 @@ export default function CustomerMap({ kicker, title, subtitle, countries }: Cust
             <Geography
               key={i}
               geography={geo}
-              fill="#FBEFE2"
-              stroke="#F1E7DC"
+              fill="#BCC9D8"
+              stroke="#FFFFFF"
               strokeWidth={0.5}
               style={{
                 default: { outline: "none" },
-                hover: { outline: "none", fill: "#FBEFE2" },
+                hover: { outline: "none", fill: "#BCC9D8" },
                 pressed: { outline: "none" },
               }}
             />
