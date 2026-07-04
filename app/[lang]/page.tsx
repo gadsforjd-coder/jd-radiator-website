@@ -370,6 +370,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
       {/* Customer Map — global export presence */}
       <CustomerMap
+        lang={locale}
         kicker={d.customerMap.kicker}
         title={d.customerMap.title}
         subtitle={d.customerMap.subtitle}

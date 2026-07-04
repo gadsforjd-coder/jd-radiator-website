@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { geoEqualEarth, geoPath, geoGraticule10 } from "d3-geo";
 import { feature } from "topojson-client";
 import worldData from "world-atlas/countries-110m.json";
 
 interface CustomerMapProps {
+  lang?: string;
   kicker: string;
   title: string;
   subtitle: string;
@@ -51,6 +52,37 @@ const COORDS: Record<string, [number, number]> = {
   SY: [38.5, 35.0], DZ: [2.6, 28.2], LY: [17.2, 27.0], AR: [-64.0, -38.4],
   MN: [103.8, 46.9],
 };
+
+// IANA timezone per market (DST handled automatically by Intl)
+const TIMEZONES: Record<string, string> = {
+  GB: "Europe/London", DE: "Europe/Berlin", FR: "Europe/Paris", BE: "Europe/Brussels",
+  ES: "Europe/Madrid", PL: "Europe/Warsaw", RO: "Europe/Bucharest", SE: "Europe/Stockholm",
+  RU: "Europe/Moscow", BY: "Europe/Minsk", UA: "Europe/Kyiv", KZ: "Asia/Almaty",
+  UZ: "Asia/Tashkent", KG: "Asia/Bishkek", TM: "Asia/Ashgabat", TJ: "Asia/Dushanbe",
+  GE: "Asia/Tbilisi", AM: "Asia/Yerevan", AZ: "Asia/Baku", TR: "Europe/Istanbul",
+  SY: "Asia/Damascus", DZ: "Africa/Algiers", LY: "Africa/Tripoli",
+  AR: "America/Argentina/Buenos_Aires", MN: "Asia/Ulaanbaatar",
+};
+
+const BEIJING_OFFSET = 8; // UTC+8, no DST
+
+// i18n for the info-card labels
+const I18N: Record<string, { time: string; diff: string; temp: string; loading: string; sync: string; ahead: (n: number) => string; behind: (n: number) => string }> = {
+  zh: {
+    time: "当地时间", diff: "距北京", temp: "当地气温", loading: "获取中…", sync: "与北京同步",
+    ahead: (n) => `早 ${n} 小时`, behind: (n) => `晚 ${n} 小时`,
+  },
+  en: {
+    time: "Local time", diff: "vs Beijing", temp: "Temperature", loading: "loading…", sync: "same as Beijing",
+    ahead: (n) => `+${n}h ahead`, behind: (n) => `−${n}h behind`,
+  },
+  ru: {
+    time: "Местное время", diff: "к Пекину", temp: "Температура", loading: "загрузка…", sync: "как в Пекине",
+    ahead: (n) => `+${n} ч`, behind: (n) => `−${n} ч`,
+  },
+};
+
+const INTL_LOCALE: Record<string, string> = { zh: "zh-CN", en: "en-US", ru: "ru-RU", de: "de-DE", tr: "tr-TR" };
 
 // ISO 3166-1 numeric id (matches world-atlas feature ids) -> our alpha-2 code
 const NUMERIC_TO_CODE: Record<number, string> = {
@@ -112,11 +144,70 @@ const ARCS: { code: string; region: string; d: string }[] = COUNTRY_CODES.flatMa
   return [{ code, region: CODE_TO_REGION[code], d: arcPath(HUB_PT, p as [number, number]) }];
 });
 
-export default function CustomerMap({ kicker, title, subtitle, countries }: CustomerMapProps) {
+// Coordinate labels (degrees) — placed over open ocean so they don't clutter land
+const LAT_LABELS = [60, 30, 0, -30].flatMap((lat) => {
+  const p = projection([-26, lat]);
+  if (!p) return [];
+  const txt = lat === 0 ? "0°" : `${Math.abs(lat)}°${lat > 0 ? "N" : "S"}`;
+  return [{ x: p[0], y: p[1], txt }];
+});
+const LON_LABELS = [-90, -30, 30, 90, 150].flatMap((lon) => {
+  const p = projection([lon, -12]);
+  if (!p) return [];
+  const txt = lon === 0 ? "0°" : `${Math.abs(lon)}°${lon > 0 ? "E" : "W"}`;
+  return [{ x: p[0], y: p[1], txt }];
+});
+
+// UTC offset (hours) for an IANA tz at a given instant, DST-aware
+function offsetHours(tz: string, at: Date): number {
+  try {
+    const name = new Intl.DateTimeFormat("en-US", { timeZone: tz, timeZoneName: "shortOffset" })
+      .formatToParts(at)
+      .find((p) => p.type === "timeZoneName")?.value;
+    if (!name) return 0;
+    const m = name.match(/GMT([+-]?\d{1,2})(?::(\d{2}))?/);
+    if (!m) return 0;
+    const h = parseInt(m[1], 10);
+    const min = m[2] ? parseInt(m[2], 10) / 60 : 0;
+    return h + (h < 0 ? -min : min);
+  } catch {
+    return 0;
+  }
+}
+
+export default function CustomerMap({ lang = "en", kicker, title, subtitle, countries }: CustomerMapProps) {
   const [activeRegion, setActiveRegion] = useState<string | null>(null);
   const [hoveredCode, setHoveredCode] = useState<string | null>(null);
+  const [now, setNow] = useState<Date | null>(null);
+  const [weather, setWeather] = useState<Record<string, { t: number | null; loading: boolean }>>({});
 
   const hasFocus = activeRegion !== null || hoveredCode !== null;
+  const t = I18N[lang] ?? I18N.en;
+  const intlLocale = INTL_LOCALE[lang] ?? "en-US";
+
+  // Tick the clock every second while a marker is hovered
+  useEffect(() => {
+    if (!hoveredCode) return;
+    setNow(new Date());
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, [hoveredCode]);
+
+  // Fetch live temperature (Open-Meteo, no key) on first hover of each market; cache it
+  useEffect(() => {
+    if (!hoveredCode || weather[hoveredCode]) return;
+    const c = COORDS[hoveredCode];
+    if (!c) return;
+    const code = hoveredCode;
+    setWeather((w) => ({ ...w, [code]: { t: null, loading: true } }));
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${c[1]}&longitude=${c[0]}&current=temperature_2m`)
+      .then((r) => r.json())
+      .then((j) => {
+        const temp = j?.current?.temperature_2m;
+        setWeather((w) => ({ ...w, [code]: { t: typeof temp === "number" ? temp : null, loading: false } }));
+      })
+      .catch(() => setWeather((w) => ({ ...w, [code]: { t: null, loading: false } })));
+  }, [hoveredCode]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <section className="bg-[#FFF7ED] text-[#1E293B] py-24 px-6 lg:px-14 overflow-hidden">
@@ -195,7 +286,17 @@ export default function CustomerMap({ kicker, title, subtitle, countries }: Cust
           <rect x={0} y={0} width={MAP_W} height={MAP_H} fill="url(#ocean)" />
 
           {/* Graticule (lat/long grid) */}
-          <path d={GRATICULE_PATH} fill="none" stroke="#9FBFDD" strokeWidth={0.5} strokeOpacity={0.4} />
+          <path d={GRATICULE_PATH} fill="none" stroke="#8FB2D6" strokeWidth={0.55} strokeOpacity={0.5} />
+
+          {/* Coordinate degree labels */}
+          <g style={{ pointerEvents: "none" }} fill="#6E93B8" fontSize={8.5} fontWeight={600} fontFamily="inherit">
+            {LAT_LABELS.map((l, i) => (
+              <text key={`lat-${i}`} x={l.x} y={l.y} textAnchor="middle" dominantBaseline="central">{l.txt}</text>
+            ))}
+            {LON_LABELS.map((l, i) => (
+              <text key={`lon-${i}`} x={l.x} y={l.y} textAnchor="middle" dominantBaseline="central">{l.txt}</text>
+            ))}
+          </g>
 
           {/* Land */}
           <g>
@@ -295,40 +396,73 @@ export default function CustomerMap({ kicker, title, subtitle, countries }: Cust
             );
           })}
 
-          {/* Single hovered tooltip (rendered last → always on top, never crowded) */}
-          {hoveredCode &&
-            (() => {
-              const p = projection(COORDS[hoveredCode]);
-              if (!p) return null;
-              const [x, y] = p;
-              const name = countries[hoveredCode] ?? hoveredCode;
-              const w = Math.max(40, name.length * 7.2 + 20);
-              const h = 22;
-              return (
-                <g transform={`translate(${x},${y})`} style={{ pointerEvents: "none" }}>
-                  <rect
-                    x={-w / 2}
-                    y={-h - 14}
-                    width={w}
-                    height={h}
-                    rx={11}
-                    fill="#1E293B"
-                    opacity={0.94}
-                  />
-                  <path d={`M -5 ${-14} L 0 ${-8} L 5 ${-14} Z`} fill="#1E293B" opacity={0.94} />
-                  <text
-                    x={0}
-                    y={-h - 14 + h / 2}
-                    textAnchor="middle"
-                    dominantBaseline="central"
-                    style={{ fontFamily: "inherit", fontSize: 12, fontWeight: 700, fill: "#fff" }}
-                  >
-                    {name}
-                  </text>
-                </g>
-              );
-            })()}
         </svg>
+
+        {/* Live info card (HTML overlay) — single card, never crowded */}
+        {hoveredCode &&
+          (() => {
+            const p = projection(COORDS[hoveredCode]);
+            if (!p) return null;
+            const [x, y] = p;
+            const leftPct = (x / MAP_W) * 100;
+            const topPct = (y / MAP_H) * 100;
+            const below = y < 108; // flip under the marker when near the top edge
+            const name = countries[hoveredCode] ?? hoveredCode;
+            const tz = TIMEZONES[hoveredCode];
+
+            let timeStr = "--:--";
+            let diffStr = "";
+            if (now && tz) {
+              try {
+                timeStr = new Intl.DateTimeFormat(intlLocale, {
+                  timeZone: tz, hour: "2-digit", minute: "2-digit", hour12: false,
+                }).format(now);
+              } catch { /* keep placeholder */ }
+              const diff = Math.round((offsetHours(tz, now) - BEIJING_OFFSET) * 10) / 10;
+              diffStr = diff === 0 ? t.sync : diff > 0 ? t.ahead(diff) : t.behind(Math.abs(diff));
+            }
+
+            const wx = weather[hoveredCode];
+            const tempStr = !wx || wx.loading ? t.loading : wx.t === null ? "—" : `${Math.round(wx.t)}°C`;
+
+            return (
+              <div
+                className="absolute z-20 pointer-events-none"
+                style={{
+                  left: `${leftPct}%`,
+                  top: `${topPct}%`,
+                  transform: `translate(-50%, ${below ? "16px" : "calc(-100% - 16px)"})`,
+                }}
+              >
+                <div className="relative rounded-xl bg-[#1E293B]/95 backdrop-blur-sm text-white shadow-[0_10px_30px_rgba(15,23,42,0.35)] px-3.5 py-2.5 min-w-[168px]">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--jd-red)]" />
+                    <span className="font-bold text-[13px] leading-tight">{name}</span>
+                  </div>
+                  <div className="space-y-0.5 text-[11.5px] leading-snug text-white/85">
+                    <div className="flex justify-between gap-4">
+                      <span className="text-white/55">🕐 {t.time}</span>
+                      <span className="font-semibold tabular-nums">{timeStr}</span>
+                    </div>
+                    <div className="flex justify-between gap-4">
+                      <span className="text-white/55">⏱ {t.diff}</span>
+                      <span className="font-semibold">{diffStr}</span>
+                    </div>
+                    <div className="flex justify-between gap-4">
+                      <span className="text-white/55">🌡 {t.temp}</span>
+                      <span className="font-semibold tabular-nums">{tempStr}</span>
+                    </div>
+                  </div>
+                  {/* pointer arrow */}
+                  <div
+                    className="absolute left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-[#1E293B]/95 rotate-45"
+                    style={below ? { top: -5 } : { bottom: -5 }}
+                  />
+                </div>
+              </div>
+            );
+          })()}
+
         <p className="absolute bottom-3 right-4 text-xs text-[#1E293B]/45 font-medium pointer-events-none">
           {hasFocus ? "" : "↑ Hover a region, or point at any marker"}
         </p>
