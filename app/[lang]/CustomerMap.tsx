@@ -1,15 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ComposableMap, Geography, Marker } from "react-simple-maps";
+import { geoEqualEarth, geoPath } from "d3-geo";
 import { feature } from "topojson-client";
 import worldData from "world-atlas/countries-110m.json";
-
-// Pre-convert topojson -> geojson features at module scope so the base map
-// renders on the server too (no client-only flash, no runtime fetch).
-const WORLD_FEATURES = (
-  feature(worldData as any, (worldData as any).objects.countries) as any
-).features as any[];
 
 interface CustomerMapProps {
   kicker: string;
@@ -24,7 +18,7 @@ const COUNTRY_CODES = [
   // CIS / Central Asia
   "RU", "BY", "UA", "KZ", "UZ", "KG", "TM", "TJ",
   // Caucasus / Mideast
-  "GE", "AM", "AZ", "TR",
+  "GE", "AM", "AZ", "TR", "SY",
   // Africa
   "DZ", "LY",
   // Other
@@ -34,12 +28,11 @@ const COUNTRY_CODES = [
 const REGION_GROUPS: { key: string; label: string; codes: string[] }[] = [
   { key: "europe", label: "Europe", codes: ["GB", "DE", "FR", "BE", "ES", "PL", "RO", "SE"] },
   { key: "cis", label: "CIS / Central Asia", codes: ["RU", "BY", "UA", "KZ", "UZ", "KG", "TM", "TJ"] },
-  { key: "mideast", label: "Caucasus & Middle East", codes: ["GE", "AM", "AZ", "TR"] },
+  { key: "mideast", label: "Caucasus & Middle East", codes: ["GE", "AM", "AZ", "TR", "SY"] },
   { key: "africa", label: "Africa", codes: ["DZ", "LY"] },
   { key: "other", label: "Americas & Asia", codes: ["AR", "MN"] },
 ];
 
-// code -> region key lookup
 const CODE_TO_REGION: Record<string, string> = REGION_GROUPS.reduce(
   (acc, rg) => {
     rg.codes.forEach((c) => (acc[c] = rg.key));
@@ -48,33 +41,29 @@ const CODE_TO_REGION: Record<string, string> = REGION_GROUPS.reduce(
   {} as Record<string, string>
 );
 
-// Approximate [longitude, latitude] for each market — used to place map markers
+// Approximate [longitude, latitude] for each market
 const COORDS: Record<string, [number, number]> = {
-  GB: [-1.5, 52.5],
-  DE: [10.4, 51.1],
-  FR: [2.3, 46.6],
-  BE: [4.5, 50.6],
-  ES: [-3.7, 40.3],
-  PL: [19.1, 52.1],
-  RO: [24.9, 45.9],
-  SE: [15.5, 62.0],
-  RU: [50.0, 57.0],
-  BY: [27.9, 53.7],
-  UA: [31.2, 49.0],
-  KZ: [66.9, 48.0],
-  UZ: [64.6, 41.4],
-  KG: [74.8, 41.4],
-  TM: [59.6, 39.1],
-  TJ: [71.3, 38.9],
-  GE: [43.4, 42.3],
-  AM: [45.0, 40.3],
-  AZ: [47.6, 40.4],
-  TR: [35.2, 39.0],
-  DZ: [2.6, 28.2],
-  LY: [17.2, 27.0],
-  AR: [-64.0, -38.4],
+  GB: [-1.5, 52.5], DE: [10.4, 51.1], FR: [2.3, 46.6], BE: [4.5, 50.6],
+  ES: [-3.7, 40.3], PL: [19.1, 52.1], RO: [24.9, 45.9], SE: [15.5, 62.0],
+  RU: [50.0, 57.0], BY: [27.9, 53.7], UA: [31.2, 49.0], KZ: [66.9, 48.0],
+  UZ: [64.6, 41.4], KG: [74.8, 41.4], TM: [59.6, 39.1], TJ: [71.3, 38.9],
+  GE: [43.4, 42.3], AM: [45.0, 40.3], AZ: [47.6, 40.4], TR: [35.2, 39.0],
+  SY: [38.5, 35.0], DZ: [2.6, 28.2], LY: [17.2, 27.0], AR: [-64.0, -38.4],
   MN: [103.8, 46.9],
 };
+
+// --- Map geometry (computed once, at module load) ---
+const MAP_W = 900;
+const MAP_H = 460;
+const projection = geoEqualEarth()
+  .scale(175)
+  .center([25, 18])
+  .translate([MAP_W / 2, MAP_H / 2]);
+const pathGen = geoPath(projection);
+const WORLD_FEATURES = (
+  feature(worldData as any, (worldData as any).objects.countries) as any
+).features as any[];
+const LAND_PATHS: string[] = WORLD_FEATURES.map((f) => pathGen(f) || "").filter(Boolean);
 
 export default function CustomerMap({ kicker, title, subtitle, countries }: CustomerMapProps) {
   const [activeRegion, setActiveRegion] = useState<string | null>(null);
@@ -91,11 +80,12 @@ export default function CustomerMap({ kicker, title, subtitle, countries }: Cust
       {/* Stat + interactive region pills */}
       <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-10 mb-8">
         <div className="flex items-baseline gap-3 shrink-0">
-          <span className="text-7xl lg:text-8xl font-black text-[var(--jd-red)] leading-none select-none">24</span>
+          <span className="text-7xl lg:text-8xl font-black text-[var(--jd-red)] leading-none select-none">
+            {COUNTRY_CODES.length}
+          </span>
           <span className="text-2xl font-black text-[#1E293B]/40 leading-none">+</span>
           <span className="ml-3 text-[#1E293B]/60 text-sm font-semibold uppercase tracking-widest">Export<br />Markets</span>
         </div>
-        {/* Region pills — hover/tap to light up that region's countries on the map */}
         <div className="flex flex-wrap gap-3">
           {REGION_GROUPS.map((rg) => {
             const isActive = activeRegion === rg.key;
@@ -126,56 +116,39 @@ export default function CustomerMap({ kicker, title, subtitle, countries }: Cust
         </div>
       </div>
 
-      {/* World map — markers light up per hovered region */}
+      {/* World map — d3-geo rendered, markers light up per hovered region */}
       <div className="relative w-full rounded-2xl overflow-hidden border border-[#F1E7DC] bg-[#EAF0F6] shadow-[0_8px_40px_rgba(30,41,59,0.07)]">
-        <ComposableMap
-          projection="geoEqualEarth"
-          projectionConfig={{ scale: 175, center: [25, 18] }}
-          width={900}
-          height={440}
-          style={{ width: "100%", height: "auto" }}
-        >
-          {WORLD_FEATURES.map((geo, i) => (
-            <Geography
-              key={i}
-              geography={geo}
-              fill="#BCC9D8"
-              stroke="#FFFFFF"
-              strokeWidth={0.5}
-              style={{
-                default: { outline: "none" },
-                hover: { outline: "none", fill: "#BCC9D8" },
-                pressed: { outline: "none" },
-              }}
-            />
-          ))}
-
+        <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} style={{ width: "100%", height: "auto", display: "block" }}>
+          {/* Land */}
+          <g>
+            {LAND_PATHS.map((d, i) => (
+              <path key={i} d={d} fill="#B9C6D6" stroke="#FFFFFF" strokeWidth={0.5} />
+            ))}
+          </g>
+          {/* Market markers */}
           {COUNTRY_CODES.map((code) => {
             const coords = COORDS[code];
             if (!coords) return null;
+            const p = projection(coords);
+            if (!p) return null;
+            const [x, y] = p;
             const inActiveRegion = activeRegion !== null && CODE_TO_REGION[code] === activeRegion;
             const dimmed = activeRegion !== null && !inActiveRegion;
-            const r = inActiveRegion ? 6 : 3.2;
-            const fill = dimmed ? "#F0C9A8" : "var(--jd-red)";
+            const r = inActiveRegion ? 6 : 3.4;
+            const fill = dimmed ? "#C7B29C" : "var(--jd-red)";
             const name = countries[code] ?? code;
             return (
-              <Marker key={code} coordinates={coords}>
+              <g key={code} transform={`translate(${x},${y})`} style={{ transition: "opacity 0.2s ease" }} opacity={dimmed ? 0.45 : 1}>
                 {inActiveRegion && (
                   <circle r={12} fill="var(--jd-red)" opacity={0.18}>
-                    <animate attributeName="r" values="8;14;8" dur="1.6s" repeatCount="indefinite" />
+                    <animate attributeName="r" values="8;15;8" dur="1.6s" repeatCount="indefinite" />
                   </circle>
                 )}
-                <circle
-                  r={r}
-                  fill={fill}
-                  stroke="#fff"
-                  strokeWidth={inActiveRegion ? 1.5 : 0.8}
-                  style={{ transition: "all 0.2s ease" }}
-                />
+                <circle r={r} fill={fill} stroke="#fff" strokeWidth={inActiveRegion ? 1.6 : 0.9} />
                 {inActiveRegion && (
                   <text
                     textAnchor="middle"
-                    y={-12}
+                    y={-11}
                     style={{
                       fontFamily: "inherit",
                       fontSize: 11,
@@ -189,12 +162,10 @@ export default function CustomerMap({ kicker, title, subtitle, countries }: Cust
                     {name}
                   </text>
                 )}
-              </Marker>
+              </g>
             );
           })}
-        </ComposableMap>
-
-        {/* Hint */}
+        </svg>
         <p className="absolute bottom-3 right-4 text-xs text-[#1E293B]/40 font-medium pointer-events-none">
           {activeRegion ? "" : "↑ Hover a region to light up its markets"}
         </p>
