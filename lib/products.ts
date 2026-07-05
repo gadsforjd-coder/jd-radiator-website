@@ -254,10 +254,10 @@ export const subtitleByLocale: Record<string, Record<string, string>> = {
 
 export const productImages: Record<string, string[]> = {
   "jd25y": ["/assets/products/jd25y/hero.jpg", "/assets/products/jd25y/gallery-1.jpg", "/assets/products/jd25y/detail-1.jpg", "/assets/products/jd25y/detail-2.jpg", "/assets/products/jd25y/gallery-2.jpg"],
-  "jd-11k": ["/assets/products/jd-11k/hero.jpg", "/assets/products/jd-11k/gallery-1.jpg", "/assets/products/jd-11k/gallery-2.jpg", "/assets/products/jd-11k/gallery-3.jpg"],
-  "jd-21k": ["/assets/products/jd-21k/hero.jpg", "/assets/products/jd-21k/gallery-1.jpg", "/assets/products/jd-21k/gallery-2.jpg", "/assets/products/jd-21k/gallery-3.jpg"],
-  "jd-22k": ["/assets/products/jd-22k/hero.jpg", "/assets/products/jd-22k/gallery-1.jpg", "/assets/products/jd-22k/gallery-2.jpg", "/assets/products/jd-22k/gallery-3.jpg"],
-  "jd-33k": ["/assets/products/jd-33k/hero.jpg", "/assets/products/jd-33k/gallery-1.jpg", "/assets/products/jd-33k/gallery-2.jpg", "/assets/products/jd-33k/gallery-3.jpg"],
+  "jd-11k": ["/assets/products/jd-11k/cover.jpg", "/assets/products/jd-11k/hero.jpg", "/assets/products/jd-11k/gallery-1.jpg", "/assets/products/jd-11k/gallery-2.jpg", "/assets/products/jd-11k/gallery-3.jpg"],
+  "jd-21k": ["/assets/products/jd-21k/cover.jpg", "/assets/products/jd-21k/hero.jpg", "/assets/products/jd-21k/gallery-1.jpg", "/assets/products/jd-21k/gallery-2.jpg", "/assets/products/jd-21k/gallery-3.jpg"],
+  "jd-22k": ["/assets/products/jd-22k/cover.jpg", "/assets/products/jd-22k/hero.jpg", "/assets/products/jd-22k/gallery-1.jpg", "/assets/products/jd-22k/gallery-2.jpg", "/assets/products/jd-22k/gallery-3.jpg"],
+  "jd-33k": ["/assets/products/jd-33k/cover.jpg", "/assets/products/jd-33k/hero.jpg", "/assets/products/jd-33k/gallery-1.jpg", "/assets/products/jd-33k/gallery-2.jpg", "/assets/products/jd-33k/gallery-3.jpg"],
   "jd132-60tl": ["/assets/products/jd132-60tl/hero.jpg", "/assets/products/jd132-60tl/gallery-1.jpg", "/assets/products/jd132-60tl/gallery-2.jpg", "/assets/products/jd132-60tl/detail-1.jpg", "/assets/products/jd132-60tl/detail-2.jpg"],
   "jd25-28": ["/assets/products/jd25-28/hero.jpg", "/assets/products/jd25-28/gallery-1.jpg", "/assets/products/jd25-28/detail-1.jpg", "/assets/products/jd25-28/detail-2.jpg"],
   "jd30-15": ["/assets/products/jd30-15/hero.jpg", "/assets/products/jd30-15/gallery-1.jpg", "/assets/products/jd30-15/gallery-2.jpg", "/assets/products/jd30-15/detail-1.jpg"],
