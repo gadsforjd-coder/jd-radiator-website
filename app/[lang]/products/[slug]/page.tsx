@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionary";
-import { products, getProductBySlug, getProductImages, categoryLabels, getLocalizedSubtitle, approxCenterDistance, testPressureFrom, localizeSpecValue, heatedAreaFrom, heatOutputAtDt30 } from "@/lib/products";
+import { products, getProductBySlug, getProductImages, getProductDescription, categoryLabels, getLocalizedSubtitle, approxCenterDistance, testPressureFrom, localizeSpecValue, heatedAreaFrom, heatOutputAtDt30 } from "@/lib/products";
 import { getPanelSizes, panelDepth } from "@/lib/panelSizes";
 import { getDocumentsForProduct, formatDocTitle, type SiteDocument } from "@/lib/documents";
 import type { Locale } from "@/lib/i18n";
@@ -106,6 +106,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
   const labels = categoryLabels[locale] || categoryLabels.en;
   const images = getProductImages(slug);
+  const description = getProductDescription(slug, locale);
 
   // RU market expects technical parameters first: center distance,
   // working/test pressure and heat output near the top of the page.
@@ -196,6 +197,12 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <p className="text-sm text-gray-600 leading-relaxed">{d.products.marketLine1}</p>
             <p className="text-sm text-gray-600 leading-relaxed">{d.products.marketLine2}</p>
           </div>
+
+          {description && (
+            <div className="mb-8">
+              <p className="text-gray-600 leading-relaxed whitespace-pre-line">{description}</p>
+            </div>
+          )}
 
           <h2 className="text-xl font-bold mb-4 border-b pb-2">{d.products.specifications}</h2>
           <table className="w-full text-left">

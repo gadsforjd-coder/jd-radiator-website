@@ -254,7 +254,7 @@ export const subtitleByLocale: Record<string, Record<string, string>> = {
 
 export const productImages: Record<string, string[]> = {
   "jd50f": ["/assets/products/jd50f/hero.jpg", "/assets/products/jd50f/gallery-1.jpg", "/assets/products/jd50f/detail-1.jpg", "/assets/products/jd50f/gallery-2.jpg", "/assets/products/jd50f/gallery-3.jpg", "/assets/products/jd50f/gallery-4.jpg", "/assets/products/jd50f/scene-1.jpg", "/assets/products/jd50f/scene-2.jpg"],
-  "jd25y": ["/assets/products/jd25y/hero.jpg", "/assets/products/jd25y/gallery-1.jpg", "/assets/products/jd25y/gallery-2.jpg", "/assets/products/jd25y/gallery-3.jpg"],
+  "jd25y": ["/assets/products/jd25y/hero.jpg", "/assets/products/jd25y/gallery-1.jpg", "/assets/products/jd25y/detail-1.jpg", "/assets/products/jd25y/detail-2.jpg", "/assets/products/jd25y/gallery-2.jpg"],
   "jd25-28": ["/assets/products/jd25-28/hero.jpg", "/assets/products/jd25-28/detail-1.jpg", "/assets/products/jd25-28/detail-2.jpg", "/assets/products/jd25-28/detail-3.jpg"],
   "jd50-25": ["/assets/products/jd50-25/hero.jpg", "/assets/products/jd50-25/gallery-1.jpg", "/assets/products/jd50-25/detail-1.jpg"],
   "jd50-25jz": ["/assets/products/jd50-25jz/hero.jpg", "/assets/products/jd50-25jz/gallery-1.jpg", "/assets/products/jd50-25jz/gallery-2.jpg", "/assets/products/jd50-25jz/gallery-3.jpg", "/assets/products/jd50-25jz/detail-1.jpg", "/assets/products/jd50-25jz/scene-1.jpg", "/assets/products/jd50-25jz/scene-2.jpg"],
@@ -272,6 +272,23 @@ export const productImages: Record<string, string[]> = {
 
 export function getProductImages(slug: string): string[] {
   return productImages[slug] || [];
+}
+
+// Marketing intro copy per product, per locale. Optional — rendered as an
+// "Overview" paragraph above the spec table when present. Sourced from the
+// product catalog and the 3D product renders. Locales without an entry fall
+// back to English.
+export const productDescriptions: Record<string, Record<string, string>> = {
+  "jd25y": {
+    zh: "JD25Y 是九鼎搭焊系列的代表款设计型散热器，以细密排列的 Φ25 立管搭配 Φ35 主管，勾勒出简洁利落的垂直线条——既是供暖设备，也是墙面上的一件装饰。可选单排 / 双排结构，散热量覆盖 449–1476 W，适配 600 / 1500 / 1800 mm 多种高度，竖装横装皆宜，尤其适合客厅、玄关、卧室等注重格调的空间。整机采用优质低碳钢焊接成型，表面经多道喷涂处理，提供亮光 / 柔光 / 哑光三种质感，标准白色之外还有烟煤灰、黑色，也可按 RAL 色卡定制。通过 CE / EN442 认证，工作压力 1.0 MPa，自 2002 年起出口 80 多个国家，支持 OEM / ODM 定制尺寸、颜色与包装。",
+    en: "The JD25Y is a signature designer radiator from Jiuding's welded series. Slender Φ25 vertical tubes paired with a Φ35 header form clean, upright lines — a heating appliance that doubles as a piece of wall décor. Available in single- or double-panel builds, it delivers 449–1476 W across 600 / 1500 / 1800 mm heights and mounts vertically or horizontally, a natural fit for living rooms, hallways and bedrooms where looks matter. Welded from premium low-carbon steel and finished with a multi-coat powder process, it comes in glossy, reluster or matte textures — standard white plus anthracite and black, or any custom RAL shade. CE / EN442 certified and rated to 1.0 MPa, the JD25Y has been exported to 80+ countries since 2002, with OEM / ODM support for custom sizes, colours and packaging.",
+  },
+};
+
+export function getProductDescription(slug: string, locale: string): string {
+  const d = productDescriptions[slug];
+  if (!d) return "";
+  return d[locale] || d.en || "";
 }
 
 export function getLocalizedSubtitle(slug: string, locale: string): string {
