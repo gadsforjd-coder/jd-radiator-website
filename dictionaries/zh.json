@@ -167,6 +167,18 @@
     "metaDescription": "下载九鼎散热器技术文档：产品目录、CE/EN 442 检测报告及欧盟 CPR（305/2011）性能稳定性证书。"
   },
   "calculator": {
+    "roomType": "房间类型",
+    "roomTypeLiving": "客厅",
+    "roomTypeBedroom": "卧室",
+    "roomTypeBathroom": "浴室",
+    "roomTypeKitchen": "厨房",
+    "roomTypeOffice": "办公室",
+    "primaryTitle": "首选产品",
+    "primaryReason": "可满足你所需的 {watts} W。",
+    "otherTitle": "其他适合的选择",
+    "sectionsEst": "约 {n} 片起",
+    "viewProduct": "查看产品",
+    "homeCta": "不确定选多大？30 秒算出适合的型号",
     "kicker": "热量计算器",
     "title": "为您的房间找到合适的散热器。",
     "intro": "输入房间尺寸与条件，计算所需散热量，然后查看匹配的九鼎散热器。",

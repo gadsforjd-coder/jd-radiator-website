@@ -18,6 +18,7 @@ type NavLabels = {
   faq: string;
   blog: string;
   contact: string;
+  calculator: string;
 };
 
 export function MobileNav({ locale, nav }: { locale: Locale; nav: NavLabels }) {
@@ -48,6 +49,7 @@ export function MobileNav({ locale, nav }: { locale: Locale; nav: NavLabels }) {
     { href: `/${locale}/faq`, label: nav.faq },
     { href: `/${locale}/blog`, label: nav.blog },
     { href: `/${locale}/contact`, label: nav.contact },
+    { href: `/${locale}/calculator`, label: nav.calculator },
   ];
 
   return (

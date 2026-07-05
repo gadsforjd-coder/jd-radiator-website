@@ -234,6 +234,18 @@
     "metaDescription": "Documentación técnica de Jiuding Radiator: catálogo de productos, informes de ensayo CE/EN 442 y certificados de constancia de prestaciones CPR (Reglamento UE 305/2011)."
   },
   "calculator": {
+    "roomType": "Tipo de habitación",
+    "roomTypeLiving": "Sala de estar",
+    "roomTypeBedroom": "Dormitorio",
+    "roomTypeBathroom": "Baño",
+    "roomTypeKitchen": "Cocina",
+    "roomTypeOffice": "Oficina",
+    "primaryTitle": "Recomendación principal",
+    "primaryReason": "Cubre los {watts} W que necesitas.",
+    "otherTitle": "Otras opciones adecuadas",
+    "sectionsEst": "≈ {n} secciones+",
+    "viewProduct": "Ver producto",
+    "homeCta": "¿No sabes qué tamaño elegir? Encuéntralo en 30 segundos",
     "kicker": "Cálculo de potencia",
     "title": "Seleccione el radiador adecuado para su estancia",
     "intro": "Introduzca las dimensiones de la estancia y la calculadora determinará la potencia térmica necesaria y le recomendará los modelos más adecuados.",

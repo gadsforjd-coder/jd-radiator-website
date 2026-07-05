@@ -188,6 +188,18 @@
     "metaDescription": "Download Jiuding Radiator technical documentation: product catalog, CE/EN 442 test reports and EU CPR (305/2011) certificates of constancy of performance."
   },
   "calculator": {
+    "roomType": "Room type",
+    "roomTypeLiving": "Living room",
+    "roomTypeBedroom": "Bedroom",
+    "roomTypeBathroom": "Bathroom",
+    "roomTypeKitchen": "Kitchen",
+    "roomTypeOffice": "Office",
+    "primaryTitle": "Top recommendation",
+    "primaryReason": "Covers your required {watts} W.",
+    "otherTitle": "Other suitable options",
+    "sectionsEst": "≈ {n} sections+",
+    "viewProduct": "View product",
+    "homeCta": "Not sure what size? Find your match in 30 seconds",
     "kicker": "Heat Calculator",
     "title": "Find the right radiator for your room.",
     "intro": "Enter your room dimensions and conditions to calculate the required heat output, then see which Jiuding radiators match.",

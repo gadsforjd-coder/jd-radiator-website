@@ -186,6 +186,20 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         <div className="mt-12">
           <Link href={`/${locale}/products`} className="inline-flex h-14 items-center px-8 bg-[var(--jd-red)] text-white font-extrabold rounded-sm hover:bg-orange-700 transition-all hover:shadow-[0_0_30px_rgba(234,88,12,0.4)]">{d.products.viewAll}</Link>
         </div>
+        <Link
+          href={`/${locale}/calculator`}
+          className="group mt-8 flex items-center justify-between gap-4 rounded-lg border border-[var(--jd-orange)]/40 bg-[#FFF7ED] px-6 py-5 hover:border-[var(--jd-orange)] hover:shadow-[0_0_24px_rgba(234,88,12,0.15)] transition-all"
+        >
+          <span className="inline-flex items-center gap-3 font-bold text-base lg:text-lg text-[#1E293B]">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-[var(--jd-red)] shrink-0" aria-hidden="true">
+              <rect x="5" y="3" width="14" height="18" rx="2" />
+              <path d="M8 7h8" />
+              <path d="M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01" />
+            </svg>
+            {d.calculator.homeCta}
+          </span>
+          <span className="text-[var(--jd-red)] font-black text-xl shrink-0 group-hover:translate-x-1 transition-transform">→</span>
+        </Link>
       </section>
 
       {/* Technology Breakdown — Nanfu-style interactive hotspot layout */}

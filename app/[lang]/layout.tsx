@@ -128,6 +128,19 @@ export default async function LangLayout({
             <Link href={`/${locale}/faq`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.faq}</Link>
             <Link href={`/${locale}/blog`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.blog}</Link>
             <Link href={`/${locale}/contact`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors">{d.nav.contact}</Link>
+            <Link
+              href={`/${locale}/calculator`}
+              aria-label={d.nav.calculator}
+              title={d.nav.calculator}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--jd-red)] text-white font-semibold whitespace-nowrap hover:bg-orange-700 transition-colors shadow-[0_2px_10px_rgba(234,88,12,0.35)]"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4" aria-hidden="true">
+                <rect x="5" y="3" width="14" height="18" rx="2" />
+                <path d="M8 7h8" />
+                <path d="M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01" />
+              </svg>
+              <span className="hidden xl:inline text-sm">{d.nav.calculator}</span>
+            </Link>
           </nav>
           <div className="flex items-center gap-2.5 shrink-0">
             <LangSwitcher current={locale} />
