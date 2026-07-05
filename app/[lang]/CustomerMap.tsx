@@ -67,17 +67,20 @@ const TIMEZONES: Record<string, string> = {
 const BEIJING_OFFSET = 8; // UTC+8, no DST
 
 // i18n for the info-card labels
-const I18N: Record<string, { time: string; diff: string; temp: string; loading: string; sync: string; ahead: (n: number) => string; behind: (n: number) => string }> = {
+const I18N: Record<string, { time: string; diff: string; temp: string; loading: string; sync: string; hint: string; swipe: string; ahead: (n: number) => string; behind: (n: number) => string }> = {
   zh: {
     time: "当地时间", diff: "距北京", temp: "当地气温", loading: "获取中…", sync: "与北京同步",
+    hint: "点按或悬停任一国家板块，查看当地时间与气温", swipe: "← 左右滑动查看完整地图 →",
     ahead: (n) => `早 ${n} 小时`, behind: (n) => `晚 ${n} 小时`,
   },
   en: {
     time: "Local time", diff: "vs Beijing", temp: "Temperature", loading: "loading…", sync: "same as Beijing",
+    hint: "Tap or hover any country block for local time & weather", swipe: "← Swipe to see the full map →",
     ahead: (n) => `+${n}h ahead`, behind: (n) => `−${n}h behind`,
   },
   ru: {
     time: "Местное время", diff: "к Пекину", temp: "Температура", loading: "загрузка…", sync: "как в Пекине",
+    hint: "Нажмите или наведите на страну — местное время и погода", swipe: "← Проведите, чтобы увидеть всю карту →",
     ahead: (n) => `+${n} ч`, behind: (n) => `−${n} ч`,
   },
 };
@@ -271,6 +274,10 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
 
       {/* World map — coloured market blocks + trade-route arcs + hover info card */}
       <div className="relative w-full rounded-2xl overflow-hidden border border-[#DCE6F0] shadow-[0_8px_40px_rgba(30,41,59,0.10)]">
+        {/* Small screens: keep the map at a legible width and scroll horizontally.
+            Desktop (lg+): fill the container as before. */}
+        <div className="overflow-x-auto overflow-y-hidden lg:overflow-visible [-webkit-overflow-scrolling:touch]">
+        <div className="relative min-w-[720px] lg:min-w-0">
         <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} style={{ width: "100%", height: "auto", display: "block" }}>
           <defs>
             <radialGradient id="ocean" cx="46%" cy="42%" r="78%">
@@ -359,6 +366,7 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
                 style={{ cursor: "pointer", transition: "fill-opacity 0.2s ease, stroke-width 0.2s ease" }}
                 onMouseEnter={() => setHoveredCode(code)}
                 onMouseLeave={() => setHoveredCode((prev) => (prev === code ? null : prev))}
+                onClick={() => setHoveredCode((prev) => (prev === code ? null : code))}
               />
             );
           })}
@@ -492,7 +500,13 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
           })()}
 
         <p className="absolute bottom-3 right-4 text-xs text-[#1E293B]/45 font-medium pointer-events-none">
-          {hasFocus ? "" : "↑ Hover any country block for local time & weather"}
+          {hasFocus ? "" : t.hint}
+        </p>
+        </div>
+        </div>
+        {/* Mobile-only swipe hint (hidden on desktop where the map fits) */}
+        <p className="lg:hidden absolute top-3 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap rounded-full bg-[#1E293B]/70 text-white text-[11px] font-semibold px-3 py-1 pointer-events-none">
+          {t.swipe}
         </p>
       </div>
     </section>
