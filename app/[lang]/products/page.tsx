@@ -62,9 +62,9 @@ export default async function ProductsPage({ params }: { params: Promise<{ lang:
                 const heroSrc = images?.[0];
                 return (
                   <Link key={p.slug} href={`/${locale}/products/${p.slug}`} className="border border-gray-200 hover:border-[var(--jd-orange)] transition-colors group rounded-lg overflow-hidden">
-                    <div className="relative h-[180px] bg-gray-50">
+                    <div className="relative aspect-[3/4] bg-gray-50">
                       {heroSrc ? (
-                        <Image src={heroSrc} alt={p.model} fill className="object-contain p-2" sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw" />
+                        <Image src={heroSrc} alt={p.model} fill className="object-cover" sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
                           <span className="text-2xl font-black text-gray-300">{p.model}</span>

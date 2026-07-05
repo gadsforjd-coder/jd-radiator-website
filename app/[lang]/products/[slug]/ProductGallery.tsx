@@ -8,7 +8,7 @@ export default function ProductGallery({ images, model }: { images: string[]; mo
 
   return (
     <div>
-      <div className="relative aspect-square bg-gray-50 rounded-lg overflow-hidden">
+      <div className="relative aspect-[3/4] bg-gray-50 rounded-lg overflow-hidden">
         <Image
           src={images[selected]}
           alt={`${model} product photo`}
