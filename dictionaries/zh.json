@@ -155,6 +155,7 @@
     "hotSellingTitle": "热销产品",
     "en442Title": "EN 442 检测报告 — {model}",
     "cprTitle": "CPR 性能稳定性证书 — {model}",
+    "passportTitle": "产品护照 — {model}",
     "pdfLabel": "PDF",
     "kicker": "技术文档",
     "title": "技术文档中心。",

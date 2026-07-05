@@ -6,7 +6,7 @@
  * The general product catalog applies to every product.
  */
 
-export type DocumentType = "catalog" | "en442" | "cpr";
+export type DocumentType = "catalog" | "en442" | "cpr" | "passport";
 
 export interface SiteDocument {
   id: string;
@@ -23,6 +23,7 @@ export interface SiteDocument {
 
 const CERTS = "/assets/certs";
 const CATALOGS = "/catalogs";
+const PASSPORTS = "/assets/passports";
 
 /**
  * Full product catalog (all series) — a single bilingual (CN/EN) edition,
@@ -74,6 +75,13 @@ export const documents: SiteDocument[] = [
   { id: "cpr-0022-jddh-s-7015", type: "cpr", href: `${CERTS}/cpr-certificate-2693-0022-jddh-s-7015.pdf`, model: "JDDH S 7015", slugs: ["jd70-15"] },
   { id: "cpr-0023-jdwy-ch-22y", type: "cpr", href: `${CERTS}/cpr-certificate-2693-0023-jdwy-ch-22y.pdf`, model: "JDWY CH 22Y", slugs: ["jdwy-c"] },
   { id: "cpr-0024-jdwy-dhe-6015", type: "cpr", href: `${CERTS}/cpr-certificate-2693-0024-jdwy-dhe-6015.pdf`, model: "JDWY DHE 6015", slugs: ["jd60-15df"] },
+
+  // Product passports (产品护照) — per-model spec/quality booklets provided by
+  // the factory. Currently available for the steel panel radiator series.
+  { id: "passport-jd-11k", type: "passport", href: `${PASSPORTS}/jiuding-passport-jd-11k.pdf`, model: "JD-11K", slugs: ["jd-11k"] },
+  { id: "passport-jd-21k", type: "passport", href: `${PASSPORTS}/jiuding-passport-jd-21k.pdf`, model: "JD-21K", slugs: ["jd-21k"] },
+  { id: "passport-jd-22k", type: "passport", href: `${PASSPORTS}/jiuding-passport-jd-22k.pdf`, model: "JD-22K", slugs: ["jd-22k"] },
+  { id: "passport-jd-33k", type: "passport", href: `${PASSPORTS}/jiuding-passport-jd-33k.pdf`, model: "JD-33K", slugs: ["jd-33k"] },
 ];
 
 /** Documents shown on a product detail page: model certificates + the main catalog. */

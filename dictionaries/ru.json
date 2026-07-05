@@ -176,6 +176,7 @@
     "hotSellingTitle": "Популярные товары",
     "en442Title": "Протокол испытаний EN 442 — {model}",
     "cprTitle": "Сертификат постоянства характеристик CPR — {model}",
+    "passportTitle": "Паспорт изделия — {model}",
     "pdfLabel": "PDF",
     "kicker": "Документация",
     "title": "Центр технической документации.",

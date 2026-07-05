@@ -222,6 +222,7 @@
     "hotSellingTitle": "Эрэлттэй бүтээгдэхүүн",
     "en442Title": "EN 442 туршилтын тайлан — {model}",
     "cprTitle": "CPR гэрчилгээ (EU 305/2011) — {model}",
+    "passportTitle": "Бүтээгдэхүүний паспорт — {model}",
     "pdfLabel": "PDF",
     "kicker": "Баримт бичиг",
     "title": "Техникийн баримт бичгийн төв.",

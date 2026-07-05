@@ -176,6 +176,7 @@
     "hotSellingTitle": "Hot-Selling Products",
     "en442Title": "EN 442 Test Report — {model}",
     "cprTitle": "CPR Certificate of Constancy of Performance — {model}",
+    "passportTitle": "Product Passport — {model}",
     "pdfLabel": "PDF",
     "kicker": "Documentation",
     "title": "Technical documentation center.",
