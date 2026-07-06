@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { OTHER_FACTOR, countryName, type Country } from "@/lib/countries";
 import {
   INSULATION_COEFF,
@@ -81,6 +81,13 @@ export default function ProductSizer({
   const [supplyCustom, setSupplyCustom] = useState("");
   const [result, setResult] = useState<SizingResult | null>(null);
   const [rec, setRec] = useState<Rec | null>(null);
+  const [submitted, setSubmitted] = useState(false);
+  const lengthRef = useRef<HTMLInputElement>(null);
+  const widthRef = useRef<HTMLInputElement>(null);
+  const heightRef = useRef<HTMLInputElement>(null);
+  const installHRef = useRef<HTMLInputElement>(null);
+  const installWRef = useRef<HTMLInputElement>(null);
+  const heatingRef = useRef<HTMLSelectElement>(null);
 
   const climateFactor = country ? country.factor : OTHER_FACTOR;
   const isCustomSupply = supplyPreset === "custom";
@@ -88,9 +95,13 @@ export default function ProductSizer({
     const n = parseFloat(s);
     return Number.isFinite(n) && n > 0;
   };
-  // Required: room dimensions + install clearance (H×W) + heating method.
-  const dimsValid = [length, width, height].every(posNum);
-  const inputsValid = dimsValid && [installH, installW].every(posNum) && heating !== "";
+  // Required-field errors — only shown after a Calculate attempt.
+  const errLength = submitted && !posNum(length);
+  const errWidth = submitted && !posNum(width);
+  const errHeight = submitted && !posNum(height);
+  const errInstallH = submitted && !posNum(installH);
+  const errInstallW = submitted && !posNum(installW);
+  const errHeating = submitted && heating === "";
   const installHmm = parseFloat(installH) || 0;
   const installWmm = parseFloat(installW) || 0;
   // Heights that physically fit the install-slot clearance (mm).
@@ -117,6 +128,7 @@ export default function ProductSizer({
     setSectionHeight(defaultHeight);
     setResult(null);
     setRec(null);
+    setSubmitted(false);
   }
 
   // Output watts at a given height, scaling ~linearly between the shortest
@@ -190,16 +202,29 @@ export default function ProductSizer({
   }
 
   function calculate() {
-    const L = parseFloat(length);
-    const W = parseFloat(width);
-    const H = parseFloat(height);
-    if (!inputsValid) return;
+    setSubmitted(true);
+    // Guide the buyer to the first empty required field.
+    const checks: [boolean, React.RefObject<HTMLInputElement | HTMLSelectElement | null>][] = [
+      [!posNum(length), lengthRef],
+      [!posNum(width), widthRef],
+      [!posNum(height), heightRef],
+      [!posNum(installH), installHRef],
+      [!posNum(installW), installWRef],
+      [heating === "", heatingRef],
+    ];
+    const firstBad = checks.find(([bad]) => bad);
+    if (firstBad) {
+      const el = firstBad[1].current;
+      el?.scrollIntoView({ behavior: "smooth", block: "center" });
+      el?.focus();
+      return;
+    }
     const method = heating as Heating;
 
     const supplyRaw = isCustomSupply ? parseFloat(supplyCustom) : parseFloat(supplyPreset);
     const supplyTemp = Number.isFinite(supplyRaw) ? supplyRaw : SUPPLY_DEFAULT[method];
 
-    const s = computeSizing({ length: L, width: W, height: H, room, insulation, climateFactor, supplyTemp });
+    const s = computeSizing({ length: parseFloat(length), width: parseFloat(width), height: parseFloat(height), room, insulation, climateFactor, supplyTemp });
     setResult(s);
     setRec(buildRec(s.qRatedNeed));
   }
@@ -223,6 +248,9 @@ export default function ProductSizer({
 
   const inputCls = "w-full p-3 border border-gray-300 rounded";
   const selectCls = "w-full p-3 border border-gray-300 rounded bg-white";
+  const reqCls = (bad: boolean) => `w-full p-3 border rounded ${bad ? "border-red-500 bg-red-50" : "border-gray-300"}`;
+  const reqSelCls = (bad: boolean) => `w-full p-3 border rounded bg-white ${bad ? "border-red-500 bg-red-50" : "border-gray-300"}`;
+  const Req = () => <span className="text-[var(--jd-red)]"> *</span>;
 
   return (
     <div className="w-full">
@@ -239,26 +267,26 @@ export default function ProductSizer({
         <div className="mt-6 border border-gray-200 rounded-lg bg-gray-50 p-6 lg:p-8 animate-in">
           <div className="grid grid-cols-2 gap-4 mb-4">
             <label className="block">
-              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.roomLength}</span>
-              <input type="number" min="1" max="50" step="0.1" value={length} onChange={(e) => setLength(e.target.value)} className={inputCls} />
+              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.roomLength}<Req /></span>
+              <input ref={lengthRef} type="number" min="1" max="50" step="0.1" value={length} onChange={(e) => setLength(e.target.value)} className={reqCls(errLength)} />
             </label>
             <label className="block">
-              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.roomWidth}</span>
-              <input type="number" min="1" max="50" step="0.1" value={width} onChange={(e) => setWidth(e.target.value)} className={inputCls} />
+              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.roomWidth}<Req /></span>
+              <input ref={widthRef} type="number" min="1" max="50" step="0.1" value={width} onChange={(e) => setWidth(e.target.value)} className={reqCls(errWidth)} />
             </label>
           </div>
           <label className="block mb-4">
-            <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.roomHeight}</span>
-            <input type="number" min="2" max="6" step="0.1" value={height} onChange={(e) => setHeight(e.target.value)} className={inputCls} />
+            <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.roomHeight}<Req /></span>
+            <input ref={heightRef} type="number" min="2" max="6" step="0.1" value={height} onChange={(e) => setHeight(e.target.value)} className={reqCls(errHeight)} />
           </label>
           <div className="grid grid-cols-2 gap-4 mb-2">
             <label className="block">
-              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.installHeight}</span>
-              <input type="number" min="100" max="3000" step="10" value={installH} onChange={(e) => setInstallH(e.target.value)} className={inputCls} />
+              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.installHeight}<Req /></span>
+              <input ref={installHRef} type="number" min="100" max="3000" step="10" value={installH} onChange={(e) => setInstallH(e.target.value)} className={reqCls(errInstallH)} />
             </label>
             <label className="block">
-              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.installWidth}</span>
-              <input type="number" min="100" max="6000" step="10" value={installW} onChange={(e) => setInstallW(e.target.value)} className={inputCls} />
+              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.installWidth}<Req /></span>
+              <input ref={installWRef} type="number" min="100" max="6000" step="10" value={installW} onChange={(e) => setInstallW(e.target.value)} className={reqCls(errInstallW)} />
             </label>
           </div>
           <p className="text-xs text-gray-500 leading-relaxed mb-4">{t.installHint}</p>
@@ -296,8 +324,8 @@ export default function ProductSizer({
           )}
 
           <label className="block mb-2">
-            <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.heatingMethod}</span>
-            <select value={heating} onChange={(e) => changeHeating(e.target.value as Heating | "")} className={selectCls}>
+            <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.heatingMethod}<Req /></span>
+            <select ref={heatingRef} value={heating} onChange={(e) => changeHeating(e.target.value as Heating | "")} className={reqSelCls(errHeating)}>
               <option value="" disabled>{t.heatingSelect}</option>
               <option value="central">{t.heatingCentral}</option>
               <option value="independent">{t.heatingIndependent}</option>
@@ -340,8 +368,7 @@ export default function ProductSizer({
             <button
               type="button"
               onClick={calculate}
-              disabled={!inputsValid}
-              className="flex-1 h-12 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-orange-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex-1 h-12 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-orange-700 transition-colors"
             >
               {t.calculate}
             </button>

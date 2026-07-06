@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { locales, type Locale } from "@/lib/i18n";
 import { products, categoryLabels, type Product } from "@/lib/products";
 import { OTHER_FACTOR, countryName, type Country } from "@/lib/countries";
@@ -106,6 +106,15 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
   const [supplyPreset, setSupplyPreset] = useState<string>(String(SUPPLY_DEFAULT.central));
   const [supplyCustom, setSupplyCustom] = useState("");
   const [result, setResult] = useState<CalcResult | null>(null);
+  // Set true once the user presses Calculate → reveals red highlights on any
+  // still-empty required field (we don't disable the button, we guide instead).
+  const [submitted, setSubmitted] = useState(false);
+  const lengthRef = useRef<HTMLInputElement>(null);
+  const widthRef = useRef<HTMLInputElement>(null);
+  const heightRef = useRef<HTMLInputElement>(null);
+  const installHRef = useRef<HTMLInputElement>(null);
+  const installWRef = useRef<HTMLInputElement>(null);
+  const heatingRef = useRef<HTMLSelectElement>(null);
 
   useEffect(() => {
     params.then(({ lang }) => {
@@ -139,6 +148,7 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
     setSupplyPreset(String(SUPPLY_DEFAULT.central));
     setSupplyCustom("");
     setResult(null);
+    setSubmitted(false);
   }
 
   // The climate factor in force (selected country, or fallback).
@@ -149,22 +159,38 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
     const n = parseFloat(s);
     return Number.isFinite(n) && n > 0;
   };
-  // Required: room dimensions + install clearance (H×W) + heating method.
-  const dimsValid = [length, width, height].every(posNum);
-  const installValid = [installH, installW].every(posNum);
-  const inputsValid = dimsValid && installValid && heating !== "";
+  // Required-field errors — only shown after a Calculate attempt (submitted).
+  const errLength = submitted && !posNum(length);
+  const errWidth = submitted && !posNum(width);
+  const errHeight = submitted && !posNum(height);
+  const errInstallH = submitted && !posNum(installH);
+  const errInstallW = submitted && !posNum(installW);
+  const errHeating = submitted && heating === "";
 
   function calculate() {
-    const L = parseFloat(length);
-    const W = parseFloat(width);
-    const H = parseFloat(height);
-    if (!inputsValid) return;
-    const method = heating as Heating;
+    setSubmitted(true);
+    // Guide the buyer to the first empty required field instead of failing silently.
+    const checks: [boolean, React.RefObject<HTMLInputElement | HTMLSelectElement | null>][] = [
+      [!posNum(length), lengthRef],
+      [!posNum(width), widthRef],
+      [!posNum(height), heightRef],
+      [!posNum(installH), installHRef],
+      [!posNum(installW), installWRef],
+      [heating === "", heatingRef],
+    ];
+    const firstBad = checks.find(([bad]) => bad);
+    if (firstBad) {
+      const el = firstBad[1].current;
+      el?.scrollIntoView({ behavior: "smooth", block: "center" });
+      el?.focus();
+      return;
+    }
 
+    const method = heating as Heating;
     const supplyRaw = isCustomSupply ? parseFloat(supplyCustom) : parseFloat(supplyPreset);
     const supplyTemp = Number.isFinite(supplyRaw) ? supplyRaw : SUPPLY_DEFAULT[method];
 
-    const s = computeSizing({ length: L, width: W, height: H, room, insulation, climateFactor, supplyTemp });
+    const s = computeSizing({ length: parseFloat(length), width: parseFloat(width), height: parseFloat(height), room, insulation, climateFactor, supplyTemp });
     setResult({ volume: s.volume, roomLoad: s.qRoom, ratedNeed: s.qRatedNeed, supply: s.supply, deltaT: s.deltaT, factor: s.F });
   }
 
@@ -195,6 +221,10 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
 
   const inputCls = "w-full p-3 border border-gray-300 rounded";
   const selectCls = "w-full p-3 border border-gray-300 rounded bg-white";
+  // Required-field input class turns red once a submit reveals it's empty.
+  const reqCls = (bad: boolean) => `w-full p-3 border rounded ${bad ? "border-red-500 bg-red-50" : "border-gray-300"}`;
+  const reqSelCls = (bad: boolean) => `w-full p-3 border rounded bg-white ${bad ? "border-red-500 bg-red-50" : "border-gray-300"}`;
+  const Req = () => <span className="text-[var(--jd-red)]"> *</span>;
 
   return (
     <div className="py-24 px-6 lg:px-14">
@@ -208,26 +238,26 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
         <div className="bg-gray-50 p-8 lg:p-12 rounded-lg">
           <div className="grid grid-cols-2 gap-5 mb-5">
             <label className="block">
-              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.roomLength}</span>
-              <input type="number" min="1" max="50" step="0.1" value={length} onChange={(e) => setLength(e.target.value)} className={inputCls} />
+              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.roomLength}<Req /></span>
+              <input ref={lengthRef} type="number" min="1" max="50" step="0.1" value={length} onChange={(e) => setLength(e.target.value)} className={reqCls(errLength)} />
             </label>
             <label className="block">
-              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.roomWidth}</span>
-              <input type="number" min="1" max="50" step="0.1" value={width} onChange={(e) => setWidth(e.target.value)} className={inputCls} />
+              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.roomWidth}<Req /></span>
+              <input ref={widthRef} type="number" min="1" max="50" step="0.1" value={width} onChange={(e) => setWidth(e.target.value)} className={reqCls(errWidth)} />
             </label>
           </div>
           <label className="block mb-5">
-            <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.roomHeight}</span>
-            <input type="number" min="2" max="6" step="0.1" value={height} onChange={(e) => setHeight(e.target.value)} className={inputCls} />
+            <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.roomHeight}<Req /></span>
+            <input ref={heightRef} type="number" min="2" max="6" step="0.1" value={height} onChange={(e) => setHeight(e.target.value)} className={reqCls(errHeight)} />
           </label>
           <div className="grid grid-cols-2 gap-5 mb-2">
             <label className="block">
-              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.installHeight}</span>
-              <input type="number" min="100" max="3000" step="10" value={installH} onChange={(e) => setInstallH(e.target.value)} className={inputCls} />
+              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.installHeight}<Req /></span>
+              <input ref={installHRef} type="number" min="100" max="3000" step="10" value={installH} onChange={(e) => setInstallH(e.target.value)} className={reqCls(errInstallH)} />
             </label>
             <label className="block">
-              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.installWidth}</span>
-              <input type="number" min="100" max="6000" step="10" value={installW} onChange={(e) => setInstallW(e.target.value)} className={inputCls} />
+              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.installWidth}<Req /></span>
+              <input ref={installWRef} type="number" min="100" max="6000" step="10" value={installW} onChange={(e) => setInstallW(e.target.value)} className={reqCls(errInstallW)} />
             </label>
           </div>
           <p className="text-xs text-gray-500 leading-relaxed mb-5">{t.installHint}</p>
@@ -251,8 +281,8 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
           </label>
 
           <label className="block mb-2">
-            <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.heatingMethod}</span>
-            <select value={heating} onChange={(e) => changeHeating(e.target.value as Heating | "")} className={selectCls}>
+            <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.heatingMethod}<Req /></span>
+            <select ref={heatingRef} value={heating} onChange={(e) => changeHeating(e.target.value as Heating | "")} className={reqSelCls(errHeating)}>
               <option value="" disabled>{t.heatingSelect}</option>
               <option value="central">{t.heatingCentral}</option>
               <option value="independent">{t.heatingIndependent}</option>
@@ -294,8 +324,7 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
           <div className="flex gap-3">
             <button
               onClick={calculate}
-              disabled={!inputsValid}
-              className="flex-1 h-12 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-orange-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex-1 h-12 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-orange-700 transition-colors"
             >
               {t.calculate}
             </button>
