@@ -274,6 +274,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               slug={slug}
               category={product.category}
               heatRange={product.specs.heatRange}
+              heights={product.specs.heights}
               panelSizes={panelSizes}
               locale={locale}
               dict={d}

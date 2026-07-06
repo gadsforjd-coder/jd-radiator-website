@@ -91,7 +91,9 @@
     "recSize": "Recomendado: {h} × {l} mm (profundidad {d} mm), potencia {q} W, aprox. {w} kg",
     "recGroups": "Una sola unidad no basta — se sugieren {n} unidades en paralelo",
     "recSections": "Unos {n} elementos/columnas (estimado hasta {per} W cada uno; varía según la altura)",
-    "recUnits": "Una unidad cubre {min}–{max} W; necesitas {need} W → se sugieren {n} unidad(es)"
+    "recUnits": "Una unidad cubre {min}–{max} W; necesitas {need} W → se sugieren {n} unidad(es)",
+    "sectionHeight": "Altura del elemento",
+    "recSectionsAtHeight": "Unos {n} elementos/columnas a {h} mm de altura (~{per} W cada uno, cubre {need} W)"
   },
   "tech": {
     "kicker": "Tecnología",

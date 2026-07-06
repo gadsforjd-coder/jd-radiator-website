@@ -91,7 +91,9 @@
     "recSize": "Recommended: {h} × {l} mm (depth {d} mm), output {q} W, approx {w} kg",
     "recGroups": "One unit is not enough — suggest {n} units in parallel",
     "recSections": "About {n} sections (estimated at up to {per} W each; actual varies with height)",
-    "recUnits": "One unit covers {min}–{max} W; you need {need} W → suggest {n} unit(s)"
+    "recUnits": "One unit covers {min}–{max} W; you need {need} W → suggest {n} unit(s)",
+    "sectionHeight": "Section height",
+    "recSectionsAtHeight": "About {n} sections at {h} mm height (~{per} W each, meets {need} W)"
   },
   "tech": {
     "kicker": "Core Technology",

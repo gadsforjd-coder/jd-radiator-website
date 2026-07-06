@@ -9,6 +9,7 @@ import {
   SUPPLY_DEFAULT,
   computeSizing,
   parseRange,
+  clamp,
   type RoomType,
   type Insulation,
   type Heating,
@@ -22,8 +23,13 @@ import CountryPicker from "@/components/CountryPicker";
 // Recommendation shapes per product family.
 type Rec =
   | { kind: "size"; size: PanelSize; groups: number } // panel: concrete size (+ N groups if one is not enough)
-  | { kind: "sections"; sections: number; per: number } // column / bimetal: N sections/columns
+  | { kind: "sectionsAtHeight"; sections: number; per: number; height: number } // column / bimetal: N sections at chosen height
   | { kind: "units"; units: number; min: number; max: number }; // designer / towel: N whole units
+
+// Parse "300 / 500 / 600 mm" → [300, 500, 600] (ascending).
+function parseHeights(heights: string): number[] {
+  return (heights.match(/\d+/g) || []).map(Number).sort((a, b) => a - b);
+}
 
 // Per-product room-sizing widget. Replaces the "download spec sheet" button:
 // the buyer describes their room and gets a concrete spec for THIS product.
@@ -31,6 +37,7 @@ export default function ProductSizer({
   slug,
   category,
   heatRange,
+  heights,
   panelSizes,
   locale,
   dict,
@@ -38,6 +45,7 @@ export default function ProductSizer({
   slug: string;
   category: Product["category"];
   heatRange: string;
+  heights: string;
   panelSizes: PanelSize[];
   locale: string;
   dict: Dictionary;
@@ -45,7 +53,17 @@ export default function ProductSizer({
   const t = dict.calculator;
   const p = dict.products;
 
+  // Column / bimetal: per-section watts scale ~linearly with radiator height.
+  const heightList = parseHeights(heights);
+  const defaultHeight =
+    heightList.length === 0
+      ? 0
+      : heightList.includes(600)
+        ? 600
+        : heightList[Math.floor(heightList.length / 2)];
+
   const [open, setOpen] = useState(false);
+  const [sectionHeight, setSectionHeight] = useState(defaultHeight);
   // Dimensions as raw strings so inputs can be cleared / typed freely.
   const [length, setLength] = useState("");
   const [width, setWidth] = useState("");
@@ -82,8 +100,21 @@ export default function ProductSizer({
     setCountry(null);
     setSupplyPreset(String(SUPPLY_DEFAULT.central));
     setSupplyCustom("");
+    setSectionHeight(defaultHeight);
     setResult(null);
     setRec(null);
+  }
+
+  // Per-section watts at a given height. Watts scale ~linearly between the
+  // shortest height (range lower bound a) and the tallest (upper bound b).
+  function perSectionWatt(h: number): number {
+    const { min: a, max: b } = parseRange(heatRange);
+    if (heightList.length === 0) return b;
+    const hMin = heightList[0];
+    const hMax = heightList[heightList.length - 1];
+    if (hMax === hMin) return b;
+    const w = a + ((h - hMin) / (hMax - hMin)) * (b - a);
+    return clamp(w, a, b);
   }
 
   // Given required rated output, recommend a concrete spec for THIS product.
@@ -97,8 +128,14 @@ export default function ProductSizer({
       return { kind: "size", size: largest, groups: Math.max(1, Math.ceil(qNeed / largest.q)) };
     }
     if (category === "column" || category === "bimetal") {
-      const { max } = parseRange(heatRange); // W per section (upper bound)
-      if (max > 0) return { kind: "sections", sections: Math.max(1, Math.ceil(qNeed / max)), per: max };
+      const per = perSectionWatt(sectionHeight);
+      if (per > 0)
+        return {
+          kind: "sectionsAtHeight",
+          sections: Math.max(1, Math.ceil(qNeed / per)),
+          per: Math.round(per),
+          height: sectionHeight,
+        };
       return null;
     }
     // designer / towel: whole-unit range a–b W.
@@ -186,6 +223,21 @@ export default function ProductSizer({
               <option value="poor">{t.insulationPoor}</option>
             </select>
           </label>
+          {(category === "column" || category === "bimetal") && heightList.length > 0 && (
+            <label className="block mb-4">
+              <span className="text-sm font-semibold text-gray-700 mb-1 block">{p.sectionHeight}</span>
+              <select
+                value={String(sectionHeight)}
+                onChange={(e) => setSectionHeight(Number(e.target.value))}
+                className={selectCls}
+              >
+                {heightList.map((h) => (
+                  <option key={h} value={String(h)}>{h} mm</option>
+                ))}
+              </select>
+            </label>
+          )}
+
           <label className="block mb-2">
             <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.heatingMethod}</span>
             <select value={heating} onChange={(e) => changeHeating(e.target.value as Heating)} className={selectCls}>
@@ -265,9 +317,16 @@ export default function ProductSizer({
                       <p className="text-sm text-white/90 mt-2">{fmt(t.resultRatedNeed, { watts: result.qRatedNeed.toLocaleString() })}</p>
                     </>
                   )}
-                  {rec.kind === "sections" && (
+                  {rec.kind === "sectionsAtHeight" && (
                     <>
-                      <p className="text-lg font-black leading-snug">{fmt(p.recSections, { n: rec.sections, per: rec.per })}</p>
+                      <p className="text-lg font-black leading-snug">
+                        {fmt(p.recSectionsAtHeight, {
+                          n: rec.sections,
+                          h: rec.height,
+                          per: rec.per,
+                          need: result.qRatedNeed.toLocaleString(),
+                        })}
+                      </p>
                       <p className="text-sm text-white/90 mt-2">{fmt(t.resultRatedNeed, { watts: result.qRatedNeed.toLocaleString() })}</p>
                     </>
                   )}
