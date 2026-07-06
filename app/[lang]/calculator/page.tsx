@@ -1,9 +1,21 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { locales, type Locale } from "@/lib/i18n";
 import { products, categoryLabels, type Product } from "@/lib/products";
-import { COUNTRIES, OTHER_FACTOR, countryName, matchesCountry, type Country } from "@/lib/countries";
+import { OTHER_FACTOR, countryName, type Country } from "@/lib/countries";
+import {
+  INSULATION_COEFF,
+  ROOM_FACTOR,
+  SUPPLY_PRESETS,
+  SUPPLY_DEFAULT,
+  computeSizing,
+  parseRange,
+  type RoomType,
+  type Insulation,
+  type Heating,
+} from "@/lib/sizing";
+import CountryPicker from "@/components/CountryPicker";
 
 const dicts: Record<string, Promise<Record<string, Record<string, string>>>> = {
   en: import("@/dictionaries/en.json").then((m) => m.default as never),
@@ -13,34 +25,10 @@ const dicts: Record<string, Promise<Record<string, Record<string, string>>>> = {
   zh: import("@/dictionaries/zh.json").then((m) => m.default as never),
 };
 
-type RoomType = "living" | "bedroom" | "bathroom" | "kitchen" | "office";
-type Insulation = "good" | "average" | "poor";
-type Heating = "central" | "independent";
-
-// W per m³ by insulation quality (hydronic radiator rule of thumb; the room-type
-// factor and pessimistic rounding fold in a small safety margin).
-const INSULATION_COEFF: Record<Insulation, number> = { good: 35, average: 45, poor: 55 };
-const ROOM_FACTOR: Record<RoomType, number> = { living: 1.0, bedroom: 0.9, bathroom: 1.3, kitchen: 0.85, office: 1.0 };
 // Climate factor comes from the selected country object (lib/countries.ts);
 // no country selected or "Other" → OTHER_FACTOR (1.00).
-
-// Preset flow temperatures (°C); "custom" reveals a clamped numeric input.
-const SUPPLY_PRESETS = [95, 80, 75, 70, 60, 55] as const;
-// Default flow temperature per heating method.
-const SUPPLY_DEFAULT: Record<Heating, number> = { central: 60, independent: 70 };
-
-const round10 = (n: number) => Math.round(n / 10) * 10;
-const clamp = (n: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, n));
-
-// Parse a spec heatRange string into { min, max, perSection }.
-// Whole-unit: "449–1476 W"; per-section: "Per section: 50–120 W".
-function parseRange(heatRange: string): { min: number; max: number; perSection: boolean } {
-  const perSection = /per section/i.test(heatRange);
-  const m = heatRange.match(/(\d+)\D+?(\d+)/);
-  const min = m ? +m[1] : 0;
-  const max = m ? +m[2] : 0;
-  return { min, max, perSection };
-}
+// Sizing constants, presets and the core formula live in lib/sizing.ts so the
+// standalone calculator and the per-product widget stay in lockstep.
 
 type Ranked = Product & { min: number; max: number; perSection: boolean };
 const RANKED: Ranked[] = products.map((p) => ({ ...p, ...parseRange(p.specs.heatRange) }));
@@ -85,13 +73,9 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
   const [room, setRoom] = useState<RoomType>("living");
   const [insulation, setInsulation] = useState<Insulation>("average");
   const [heating, setHeating] = useState<Heating>("central");
-  // Country combobox: selected country object (null = "Other" / none), the raw
-  // search text, whether the dropdown is open, and the keyboard-highlighted row.
+  // Selected country object (null = "Other" / none). The searchable combobox
+  // lives in the shared CountryPicker component.
   const [country, setCountry] = useState<Country | null>(null);
-  const [countryQuery, setCountryQuery] = useState("");
-  const [countryOpen, setCountryOpen] = useState(false);
-  const [countryActive, setCountryActive] = useState(0);
-  const countryBoxRef = useRef<HTMLDivElement | null>(null);
   const [supplyPreset, setSupplyPreset] = useState<string>(String(SUPPLY_DEFAULT.central));
   const [supplyCustom, setSupplyCustom] = useState("");
   const [result, setResult] = useState<CalcResult | null>(null);
@@ -103,18 +87,6 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
       dicts[l].then(setD);
     });
   }, [params]);
-
-  // Close the country dropdown when clicking outside the combobox.
-  useEffect(() => {
-    if (!countryOpen) return;
-    function onDown(e: MouseEvent) {
-      if (countryBoxRef.current && !countryBoxRef.current.contains(e.target as Node)) {
-        setCountryOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", onDown);
-    return () => document.removeEventListener("mousedown", onDown);
-  }, [countryOpen]);
 
   if (!d) return null;
   const t = d.calculator;
@@ -135,46 +107,13 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
     setInsulation("average");
     setHeating("central");
     setCountry(null);
-    setCountryQuery("");
-    setCountryOpen(false);
     setSupplyPreset(String(SUPPLY_DEFAULT.central));
     setSupplyCustom("");
     setResult(null);
   }
 
-  // Countries matching the current search text (empty query → full list).
-  const filteredCountries = COUNTRIES.filter((c) => matchesCountry(c, countryQuery));
-
   // The climate factor in force (selected country, or fallback).
   const climateFactor = country ? country.factor : OTHER_FACTOR;
-
-  function selectCountry(c: Country | null) {
-    setCountry(c);
-    setCountryQuery("");
-    setCountryOpen(false);
-    setCountryActive(0);
-  }
-
-  function onCountryKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    // Total rows = filtered countries + the trailing "Other" option.
-    const total = filteredCountries.length + 1;
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      setCountryOpen(true);
-      setCountryActive((i) => (i + 1) % total);
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      setCountryOpen(true);
-      setCountryActive((i) => (i - 1 + total) % total);
-    } else if (e.key === "Enter") {
-      if (!countryOpen) return;
-      e.preventDefault();
-      if (countryActive < filteredCountries.length) selectCountry(filteredCountries[countryActive]);
-      else selectCountry(null); // "Other"
-    } else if (e.key === "Escape") {
-      setCountryOpen(false);
-    }
-  }
 
   const isCustomSupply = supplyPreset === "custom";
   const dimsValid = [length, width, height].every((s) => {
@@ -189,17 +128,10 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
     if (![L, W, H].every((n) => Number.isFinite(n) && n > 0)) return;
 
     const supplyRaw = isCustomSupply ? parseFloat(supplyCustom) : parseFloat(supplyPreset);
-    const supply = clamp(Number.isFinite(supplyRaw) ? supplyRaw : SUPPLY_DEFAULT[heating], 45, 95);
+    const supplyTemp = Number.isFinite(supplyRaw) ? supplyRaw : SUPPLY_DEFAULT[heating];
 
-    const volume = L * W * H;
-    const roomLoad = round10(volume * INSULATION_COEFF[insulation] * ROOM_FACTOR[room] * climateFactor);
-
-    // ΔT correction: return assumed 10°C below flow, room 20°C → mean water − room.
-    const deltaT = supply - 25;
-    const factor = Math.pow(50 / deltaT, 1.3);
-    const ratedNeed = round10(roomLoad * factor);
-
-    setResult({ volume, roomLoad, ratedNeed, supply, deltaT, factor });
+    const s = computeSizing({ length: L, width: W, height: H, room, insulation, climateFactor, supplyTemp });
+    setResult({ volume: s.volume, roomLoad: s.qRoom, ratedNeed: s.qRatedNeed, supply: s.supply, deltaT: s.deltaT, factor: s.F });
   }
 
   const rec = result !== null ? recommend(result.ratedNeed, room) : null;
@@ -286,68 +218,7 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
 
           <div className="block mb-2">
             <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.country}</span>
-            <div className="relative" ref={countryBoxRef}>
-              <input
-                type="text"
-                role="combobox"
-                aria-expanded={countryOpen}
-                aria-autocomplete="list"
-                autoComplete="off"
-                value={countryOpen ? countryQuery : country ? countryName(country, locale) : ""}
-                placeholder={t.countrySearchPlaceholder}
-                onFocus={() => {
-                  setCountryOpen(true);
-                  setCountryActive(0);
-                }}
-                onChange={(e) => {
-                  setCountryQuery(e.target.value);
-                  setCountryOpen(true);
-                  setCountryActive(0);
-                }}
-                onKeyDown={onCountryKeyDown}
-                className={selectCls}
-              />
-              {countryOpen && (
-                <ul
-                  role="listbox"
-                  className="absolute z-20 left-0 right-0 mt-1 max-h-64 overflow-y-auto bg-white border border-gray-300 rounded shadow-lg"
-                >
-                  {filteredCountries.map((c, i) => (
-                    <li
-                      key={c.code}
-                      role="option"
-                      aria-selected={country?.code === c.code}
-                      onMouseDown={(e) => {
-                        e.preventDefault();
-                        selectCountry(c);
-                      }}
-                      onMouseEnter={() => setCountryActive(i)}
-                      className={`flex justify-between items-center gap-3 px-3 py-2 cursor-pointer text-sm ${
-                        i === countryActive ? "bg-[#FFF7ED]" : ""
-                      } ${country?.code === c.code ? "font-semibold" : ""}`}
-                    >
-                      <span>{countryName(c, locale)}</span>
-                      <span className="text-gray-400 text-xs whitespace-nowrap">×{c.factor.toFixed(2)}</span>
-                    </li>
-                  ))}
-                  <li
-                    role="option"
-                    aria-selected={country === null}
-                    onMouseDown={(e) => {
-                      e.preventDefault();
-                      selectCountry(null);
-                    }}
-                    onMouseEnter={() => setCountryActive(filteredCountries.length)}
-                    className={`flex justify-between items-center gap-3 px-3 py-2 cursor-pointer text-sm border-t border-gray-100 ${
-                      countryActive === filteredCountries.length ? "bg-[#FFF7ED]" : ""
-                    } ${country === null ? "font-semibold" : ""}`}
-                  >
-                    <span>{t.countryOther}</span>
-                    <span className="text-gray-400 text-xs whitespace-nowrap">×{OTHER_FACTOR.toFixed(2)}</span>
-                  </li>
-                </ul>
-              )}
-            </div>
+            <CountryPicker value={country} onChange={setCountry} locale={locale} dict={t} className={selectCls} />
           </div>
           <p className="text-xs text-gray-500 leading-relaxed mb-5">{t.countryHint}</p>
 

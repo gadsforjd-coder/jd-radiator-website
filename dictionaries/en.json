@@ -86,7 +86,12 @@
     "testPressure": "Test pressure",
     "marketTitle": "Export-ready manufacturing",
     "marketLine1": "CE/EN442-certified production, exporting to 80+ countries since 2002.",
-    "marketLine2": "OEM/ODM support: custom sizes, colors and packaging."
+    "marketLine2": "OEM/ODM support: custom sizes, colors and packaging.",
+    "sizeThisProduct": "Size this radiator for my room",
+    "recSize": "Recommended: {h} × {l} mm (depth {d} mm), output {q} W, approx {w} kg",
+    "recGroups": "One unit is not enough — suggest {n} units in parallel",
+    "recSections": "About {n} sections (estimated at up to {per} W each; actual varies with height)",
+    "recUnits": "One unit covers {min}–{max} W; you need {need} W → suggest {n} unit(s)"
   },
   "tech": {
     "kicker": "Core Technology",

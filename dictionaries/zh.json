@@ -65,7 +65,12 @@
     "testPressure": "测试压力",
     "marketTitle": "可直接出口的制造能力",
     "marketLine1": "通过 CE/EN442 认证的生产，自 2002 年起出口至 80 多个国家。",
-    "marketLine2": "OEM/ODM 支持：定制尺寸、颜色与包装。"
+    "marketLine2": "OEM/ODM 支持：定制尺寸、颜色与包装。",
+    "sizeThisProduct": "为我的房间选规格",
+    "recSize": "推荐规格：高 {h} × 长 {l} mm（厚 {d} mm），散热量 {q} W，重约 {w} kg",
+    "recGroups": "单组不足，建议 {n} 组并联使用",
+    "recSections": "建议约 {n} 片/柱（按每片最大 {per} W 估算，实际随高度不同）",
+    "recUnits": "单组覆盖 {min}–{max} W，你所需 {need} W → 建议 {n} 组"
   },
   "tech": {
     "kicker": "核心技术",

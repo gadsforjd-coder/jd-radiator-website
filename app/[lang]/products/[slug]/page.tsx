@@ -10,6 +10,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import ProductGallery from "./ProductGallery";
+import ProductSizer from "./ProductSizer";
 
 export function generateStaticParams() {
   const params: { lang: string; slug: string }[] = [];
@@ -267,9 +268,16 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             </div>
           )}
 
-          <div className="flex gap-4 mt-8 flex-wrap">
+          <div className="flex gap-4 mt-8 flex-wrap items-start">
             <Link href={`/${locale}/contact`} className="inline-flex h-12 items-center px-6 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-orange-700 transition-colors">{d.products.inquiry}</Link>
-            <Link href={`/${locale}/downloads`} className="inline-flex h-12 items-center px-6 bg-white border border-gray-300 font-extrabold rounded hover:border-gray-500 transition-colors">{d.products.download}</Link>
+            <ProductSizer
+              slug={slug}
+              category={product.category}
+              heatRange={product.specs.heatRange}
+              panelSizes={panelSizes}
+              locale={locale}
+              dict={d}
+            />
           </div>
         </div>
       </div>
