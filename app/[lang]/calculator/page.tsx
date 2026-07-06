@@ -61,12 +61,17 @@ function recommend(q: number, room: RoomType, heating: Heating, installH: number
     : bestFit(primaryCat, q, installH);
 
   const alts: Ranked[] = [];
-  // Offer sensible cross-family options: panel & column/bimetal & designer.
   const panelAlt = bestFit("panel", q, installH);
   const columnAlt = RANKED.filter((p) => p.category === "column" && fitsSlot(p, installH)).sort((a, b) => b.max - a.max)[0];
   const bimetalAlt = RANKED.filter((p) => p.category === "bimetal" && fitsSlot(p, installH)).sort((a, b) => b.max - a.max)[0];
-  const designer = bestFit("designer", q, installH); // premium look, whole unit
-  for (const c of [panelAlt, columnAlt, bimetalAlt, designer]) {
+  const designer = bestFit("designer", q, installH); // 搭接焊 welded designer, whole unit
+  // Order alternatives by context: central → welded designer (搭接焊) then panel;
+  // independent → column then designer; bathroom → panel then column.
+  const order =
+    room === "bathroom" ? [panelAlt, columnAlt, designer]
+    : heating === "central" ? [designer, panelAlt, bimetalAlt]
+    : [columnAlt, designer, panelAlt];
+  for (const c of order) {
     if (c && c.slug !== primary?.slug && !alts.some((a) => a.slug === c.slug)) alts.push(c);
   }
   return { primary, primaryCat, alts: alts.slice(0, 3) };

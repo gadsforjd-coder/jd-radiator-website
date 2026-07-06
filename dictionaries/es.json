@@ -313,8 +313,8 @@
     "installHint": "Altura y ancho disponibles del lugar de montaje (mm). Solo recomendamos tamaños que quepan en ese espacio.",
     "heatingSelect": "Seleccione el método de calefacción",
     "heatingSelectHint": "Elija su método de calefacción (obligatorio): recomendamos un tipo de radiador distinto para cada uno.",
-    "whyCentral": "Por qué este tipo: la calefacción central/municipal es un sistema abierto con agua más sucia propensa a incrustaciones y corrosión; los radiadores de columna de acero / cobre-aluminio resisten la corrosión y son fáciles de limpiar.",
-    "whyIndependent": "Por qué este tipo: la calefacción independiente (p. ej. caldera de gas) es un sistema cerrado de agua limpia; los radiadores de panel de acero calientan rápido, son eficientes y ofrecen la mejor relación calidad-precio.",
+    "whyCentral": "Por qué este tipo: la calefacción central funciona a alta presión; los radiadores de columna de acero o de diseño soldado soportan la presión, resisten la corrosión y duran más.",
+    "whyIndependent": "Por qué este tipo: la calefacción independiente se adapta a los radiadores de panel de acero: mejor emisión de calor, calentamiento rápido y gran relación calidad-precio.",
     "whyBathroom": "Por qué este tipo: los baños usan radiadores toalleros: calientan la sala y secan toallas, resistentes a la humedad e ideales para zonas húmedas."
   },
   "contact": {

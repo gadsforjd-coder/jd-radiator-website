@@ -267,8 +267,8 @@
     "installHint": "Available height and width of the mounting spot (mm). We only recommend sizes that fit this space.",
     "heatingSelect": "Select heating method",
     "heatingSelectHint": "Choose your heating method (required) — we recommend a different radiator type for each.",
-    "whyCentral": "Why this type: central/municipal heating is an open system with dirtier water prone to scale and corrosion — steel-column / copper-aluminium radiators resist corrosion and are easy to clean, outlasting panels here.",
-    "whyIndependent": "Why this type: independent heating (e.g. gas boiler) is a closed, clean-water system — steel panel radiators heat up fast, are highly efficient and offer the best value.",
+    "whyCentral": "Why this type: central heating runs at high pressure — steel column or welded designer radiators handle the pressure, resist corrosion and last longer.",
+    "whyIndependent": "Why this type: independent heating suits steel panel radiators — better heat output, fast warm-up and great value.",
     "whyBathroom": "Why this type: bathrooms use towel-rail radiators — they heat the room and dry towels, moisture-resistant and ideal for wet areas."
   },
   "applications": {
