@@ -95,7 +95,12 @@
     "sectionHeight": "Section height",
     "recSectionsAtHeight": "About {n} sections at {h} mm height (~{per} W each, meets {need} W)",
     "recSizeByHeight": "Recommended: {h} mm height, ~{q} W per unit (meets {need} W)",
-    "recUnitsByHeight": "Suggest {n} units at {h} mm (~{q} W each, ~{total} W total)"
+    "recUnitsByHeight": "Suggest {n} units at {h} mm (~{q} W each, ~{total} W total)",
+    "recDesigner": "Recommended: {cfg}, {h} × {w} mm ({pipes} tubes), ≈{q} W per unit",
+    "recDesignerUnits": "Suggest {n}× {cfg} {h} × {w} mm ({pipes} tubes) (≈{q} W each, ≈{total} W total)",
+    "designerSD": "Single-row (SD)",
+    "designerDD": "Double-row (DD)",
+    "recNoFit": "Your install space is small — every size exceeds it. Showing the smallest unit for reference; consider a taller slot or another model."
   },
   "tech": {
     "kicker": "Core Technology",
@@ -256,7 +261,15 @@
     "howDeltaT": "Flow-temperature correction: flow {supply}°C → operating ΔT ≈ {dt} K (return assumed 10°C lower, room 20°C)",
     "howFactor": "Sizing factor F = (50 / ΔT)^1.3 = {f}",
     "howRatedNeed": "→ Choose rated output ≥ {watts} W (EN442 ΔT50)",
-    "howNote": "This is an engineering estimate; real sizing should also account for walls, windows, orientation and factory selection tables — contact us to calibrate."
+    "howNote": "This is an engineering estimate; real sizing should also account for walls, windows, orientation and factory selection tables — contact us to calibrate.",
+    "installHeight": "Install height (mm)",
+    "installWidth": "Install width (mm)",
+    "installHint": "Available height and width of the mounting spot (mm). We only recommend sizes that fit this space.",
+    "heatingSelect": "Select heating method",
+    "heatingSelectHint": "Choose your heating method (required) — we recommend a different radiator type for each.",
+    "whyCentral": "Why this type: central/municipal heating is an open system with dirtier water prone to scale and corrosion — steel-column / copper-aluminium radiators resist corrosion and are easy to clean, outlasting panels here.",
+    "whyIndependent": "Why this type: independent heating (e.g. gas boiler) is a closed, clean-water system — steel panel radiators heat up fast, are highly efficient and offer the best value.",
+    "whyBathroom": "Why this type: bathrooms use towel-rail radiators — they heat the room and dry towels, moisture-resistant and ideal for wet areas."
   },
   "applications": {
     "kicker": "Applications",

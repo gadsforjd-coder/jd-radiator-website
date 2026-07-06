@@ -74,7 +74,12 @@
     "sectionHeight": "散热片高度",
     "recSectionsAtHeight": "建议约 {n} 片/柱（高 {h} mm，单片约 {per} W，满足所需 {need} W）",
     "recSizeByHeight": "推荐规格：高 {h} mm，单组散热约 {q} W（满足所需 {need} W）",
-    "recUnitsByHeight": "建议 {n} 组 高 {h} mm（单组约 {q} W，合计约 {total} W）"
+    "recUnitsByHeight": "建议 {n} 组 高 {h} mm（单组约 {q} W，合计约 {total} W）",
+    "recDesigner": "推荐规格:{cfg} 高{h} × 宽{w} mm({pipes}柱),单台散热约{q} W",
+    "recDesignerUnits": "建议 {n} 台 {cfg} 高{h} × 宽{w} mm({pipes}柱)(单台约{q} W,合计约{total} W)",
+    "designerSD": "单排(SD)",
+    "designerDD": "双排(DD)",
+    "recNoFit": "你的安装空间偏小,现有规格都超过这个尺寸;下面是最小的一款供参考,建议放宽安装高度或另选型号。"
   },
   "tech": {
     "kicker": "核心技术",
@@ -235,7 +240,15 @@
     "howDeltaT": "进水温度修正:进水 {supply}℃ → 工作温差 ΔT ≈ {dt} K(回水低10℃、室温20℃估算)",
     "howFactor": "选型系数 F = (50 / ΔT)^1.3 = {f}",
     "howRatedNeed": "→ 需选额定散热量 ≥ {watts} W(EN442 ΔT50 标定)",
-    "howNote": "以上为工程估算,实际选型还需结合墙体、窗户、朝向与工厂选型表,可联系我们校准。"
+    "howNote": "以上为工程估算,实际选型还需结合墙体、窗户、朝向与工厂选型表,可联系我们校准。",
+    "installHeight": "安装位置高度（mm）",
+    "installWidth": "安装位置宽度（mm）",
+    "installHint": "散热器安装位置的可用高度和宽度(毫米)。我们只推荐能装进这个空间的规格。",
+    "heatingSelect": "请选择采暖方式",
+    "heatingSelectHint": "请选择你的采暖方式(必填)——不同方式我们会推荐不同类型的散热器。",
+    "whyCentral": "为什么推荐这个类型:集中/市政供暖是开式系统,水质偏脏、易结垢腐蚀,钢柱式/铜铝更耐腐蚀、好清理,比板式更耐用。",
+    "whyIndependent": "为什么推荐这个类型:独立采暖(燃气壁挂炉等)是闭式系统、水质干净,钢制板式升温快、热效率高、性价比突出。",
+    "whyBathroom": "为什么推荐这个类型:浴室用毛巾架散热器,既供暖又能烘毛巾,防潮耐用、最适合卫浴空间。"
   },
   "applications": {
     "kicker": "应用领域",

@@ -9,12 +9,16 @@ import {
   SUPPLY_DEFAULT,
   computeSizing,
   parseRange,
+  parseHeights,
+  designerRec,
   clamp,
   type RoomType,
   type Insulation,
   type Heating,
   type SizingResult,
+  type DesignerPick,
 } from "@/lib/sizing";
+import { HEAT_TABLE } from "@/lib/heatTable";
 import type { PanelSize } from "@/lib/panelSizes";
 import type { Product } from "@/lib/products";
 import type { Dictionary } from "@/lib/dictionary";
@@ -24,13 +28,9 @@ import CountryPicker from "@/components/CountryPicker";
 type Rec =
   | { kind: "size"; size: PanelSize; groups: number } // panel: concrete size (+ N groups if one is not enough)
   | { kind: "sectionsAtHeight"; sections: number; per: number; height: number } // column / bimetal: N sections at chosen height
-  | { kind: "unitByHeight"; height: number; q: number } // designer / towel: single unit at best-fit height
-  | { kind: "unitsByHeight"; units: number; height: number; q: number; total: number }; // designer / towel: N units at tallest height
-
-// Parse "300 / 500 / 600 mm" → [300, 500, 600] (ascending).
-function parseHeights(heights: string): number[] {
-  return (heights.match(/\d+/g) || []).map(Number).sort((a, b) => a - b);
-}
+  | { kind: "designer"; pick: DesignerPick } // welded designer: real SD/DD SKU from the catalog
+  | { kind: "unitByHeight"; height: number; q: number } // towel: single unit at best-fit height
+  | { kind: "unitsByHeight"; units: number; height: number; q: number; total: number }; // towel: N units at tallest height
 
 // Per-product room-sizing widget. Replaces the "download spec sheet" button:
 // the buyer describes their room and gets a concrete spec for THIS product.
@@ -69,9 +69,13 @@ export default function ProductSizer({
   const [length, setLength] = useState("");
   const [width, setWidth] = useState("");
   const [height, setHeight] = useState("2.7");
+  // Install-position clearance (mm) — required; constrains which sizes fit.
+  const [installH, setInstallH] = useState("");
+  const [installW, setInstallW] = useState("");
   const [room, setRoom] = useState<RoomType>("living");
   const [insulation, setInsulation] = useState<Insulation>("average");
-  const [heating, setHeating] = useState<Heating>("central");
+  // Heating method is required with no default → force an explicit choice.
+  const [heating, setHeating] = useState<Heating | "">("");
   const [country, setCountry] = useState<Country | null>(null);
   const [supplyPreset, setSupplyPreset] = useState<string>(String(SUPPLY_DEFAULT.central));
   const [supplyCustom, setSupplyCustom] = useState("");
@@ -80,14 +84,21 @@ export default function ProductSizer({
 
   const climateFactor = country ? country.factor : OTHER_FACTOR;
   const isCustomSupply = supplyPreset === "custom";
-  const dimsValid = [length, width, height].every((s) => {
+  const posNum = (s: string) => {
     const n = parseFloat(s);
     return Number.isFinite(n) && n > 0;
-  });
+  };
+  // Required: room dimensions + install clearance (H×W) + heating method.
+  const dimsValid = [length, width, height].every(posNum);
+  const inputsValid = dimsValid && [installH, installW].every(posNum) && heating !== "";
+  const installHmm = parseFloat(installH) || 0;
+  const installWmm = parseFloat(installW) || 0;
+  // Heights that physically fit the install-slot clearance (mm).
+  const availHeights = heightList.filter((h) => installHmm <= 0 || h <= installHmm);
 
-  function changeHeating(h: Heating) {
+  function changeHeating(h: Heating | "") {
     setHeating(h);
-    setSupplyPreset(String(SUPPLY_DEFAULT[h]));
+    if (h) setSupplyPreset(String(SUPPLY_DEFAULT[h]));
     setSupplyCustom("");
   }
 
@@ -95,9 +106,11 @@ export default function ProductSizer({
     setLength("");
     setWidth("");
     setHeight("2.7");
+    setInstallH("");
+    setInstallW("");
     setRoom("living");
     setInsulation("average");
-    setHeating("central");
+    setHeating("");
     setCountry(null);
     setSupplyPreset(String(SUPPLY_DEFAULT.central));
     setSupplyCustom("");
@@ -123,33 +136,44 @@ export default function ProductSizer({
   // Given required rated output, recommend a concrete spec for THIS product.
   function buildRec(qNeed: number): Rec | null {
     if (category === "panel" && panelSizes.length > 0) {
-      const sorted = [...panelSizes].sort((a, b) => a.q - b.q);
+      // Respect the install slot: height ≤ clearance H, length ≤ clearance W.
+      const inSlot = panelSizes.filter((s) => (installHmm <= 0 || s.h <= installHmm) && (installWmm <= 0 || s.l <= installWmm));
+      const pool = inSlot.length > 0 ? inSlot : panelSizes;
+      const sorted = [...pool].sort((a, b) => a.q - b.q);
       const fit = sorted.find((s) => s.q >= qNeed);
       if (fit) return { kind: "size", size: fit, groups: 1 };
-      // Nothing single reaches Q → largest size, N groups.
+      // Nothing single reaches Q → largest fitting size, N groups.
       const largest = sorted[sorted.length - 1];
       return { kind: "size", size: largest, groups: Math.max(1, Math.ceil(qNeed / largest.q)) };
     }
     if (category === "column" || category === "bimetal") {
-      const per = outputAtHeight(sectionHeight);
+      // Clamp the chosen section height to what fits the install slot.
+      const h = availHeights.includes(sectionHeight) ? sectionHeight : availHeights[availHeights.length - 1] ?? sectionHeight;
+      const per = outputAtHeight(h);
       if (per > 0)
         return {
           kind: "sectionsAtHeight",
           sections: Math.max(1, Math.ceil(qNeed / per)),
           per: Math.round(per),
-          height: sectionHeight,
+          height: h,
         };
       return null;
     }
-    // designer / towel: whole-unit output scales ~linearly with height.
-    // Find the shortest height whose single-unit output already meets demand.
-    if (heightList.length > 0) {
-      const fitH = heightList.find((h) => outputAtHeight(h) >= qNeed);
+    // Welded designer: pick a real SD/DD SKU from the catalog heat table.
+    if (category === "designer" && HEAT_TABLE[slug]?.length) {
+      const pick = designerRec(HEAT_TABLE[slug], qNeed, installHmm, installWmm);
+      if (pick) return { kind: "designer", pick };
+    }
+    // Towel (and any designer without a catalog table): whole-unit output scales
+    // ~linearly with height. Restrict to heights that fit the install slot.
+    const hs = availHeights.length > 0 ? availHeights : heightList;
+    if (hs.length > 0) {
+      const fitH = hs.find((h) => outputAtHeight(h) >= qNeed);
       if (fitH !== undefined) {
         return { kind: "unitByHeight", height: fitH, q: Math.round(outputAtHeight(fitH)) };
       }
-      // Even the tallest unit is not enough → N units at the tallest height.
-      const hMax = heightList[heightList.length - 1];
+      // Even the tallest fitting unit is not enough → N units at that height.
+      const hMax = hs[hs.length - 1];
       const per = outputAtHeight(hMax);
       if (per > 0) {
         const units = Math.max(1, Math.ceil(qNeed / per));
@@ -169,10 +193,11 @@ export default function ProductSizer({
     const L = parseFloat(length);
     const W = parseFloat(width);
     const H = parseFloat(height);
-    if (![L, W, H].every((n) => Number.isFinite(n) && n > 0)) return;
+    if (!inputsValid) return;
+    const method = heating as Heating;
 
     const supplyRaw = isCustomSupply ? parseFloat(supplyCustom) : parseFloat(supplyPreset);
-    const supplyTemp = Number.isFinite(supplyRaw) ? supplyRaw : SUPPLY_DEFAULT[heating];
+    const supplyTemp = Number.isFinite(supplyRaw) ? supplyRaw : SUPPLY_DEFAULT[method];
 
     const s = computeSizing({ length: L, width: W, height: H, room, insulation, climateFactor, supplyTemp });
     setResult(s);
@@ -226,6 +251,17 @@ export default function ProductSizer({
             <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.roomHeight}</span>
             <input type="number" min="2" max="6" step="0.1" value={height} onChange={(e) => setHeight(e.target.value)} className={inputCls} />
           </label>
+          <div className="grid grid-cols-2 gap-4 mb-2">
+            <label className="block">
+              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.installHeight}</span>
+              <input type="number" min="100" max="3000" step="10" value={installH} onChange={(e) => setInstallH(e.target.value)} className={inputCls} />
+            </label>
+            <label className="block">
+              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.installWidth}</span>
+              <input type="number" min="100" max="6000" step="10" value={installW} onChange={(e) => setInstallW(e.target.value)} className={inputCls} />
+            </label>
+          </div>
+          <p className="text-xs text-gray-500 leading-relaxed mb-4">{t.installHint}</p>
           <label className="block mb-4">
             <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.roomType}</span>
             <select value={room} onChange={(e) => setRoom(e.target.value as RoomType)} className={selectCls}>
@@ -244,15 +280,15 @@ export default function ProductSizer({
               <option value="poor">{t.insulationPoor}</option>
             </select>
           </label>
-          {(category === "column" || category === "bimetal") && heightList.length > 0 && (
+          {(category === "column" || category === "bimetal") && availHeights.length > 0 && (
             <label className="block mb-4">
               <span className="text-sm font-semibold text-gray-700 mb-1 block">{p.sectionHeight}</span>
               <select
-                value={String(sectionHeight)}
+                value={String(availHeights.includes(sectionHeight) ? sectionHeight : availHeights[availHeights.length - 1])}
                 onChange={(e) => setSectionHeight(Number(e.target.value))}
                 className={selectCls}
               >
-                {heightList.map((h) => (
+                {availHeights.map((h) => (
                   <option key={h} value={String(h)}>{h} mm</option>
                 ))}
               </select>
@@ -261,13 +297,14 @@ export default function ProductSizer({
 
           <label className="block mb-2">
             <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.heatingMethod}</span>
-            <select value={heating} onChange={(e) => changeHeating(e.target.value as Heating)} className={selectCls}>
+            <select value={heating} onChange={(e) => changeHeating(e.target.value as Heating | "")} className={selectCls}>
+              <option value="" disabled>{t.heatingSelect}</option>
               <option value="central">{t.heatingCentral}</option>
               <option value="independent">{t.heatingIndependent}</option>
             </select>
           </label>
           <p className="text-xs text-gray-500 leading-relaxed mb-4">
-            {heating === "central" ? t.heatingCentralDesc : t.heatingIndependentDesc}
+            {heating === "central" ? t.heatingCentralDesc : heating === "independent" ? t.heatingIndependentDesc : t.heatingSelectHint}
           </p>
 
           <div className="block mb-2">
@@ -303,7 +340,7 @@ export default function ProductSizer({
             <button
               type="button"
               onClick={calculate}
-              disabled={!dimsValid}
+              disabled={!inputsValid}
               className="flex-1 h-12 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-orange-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {t.calculate}
@@ -345,6 +382,24 @@ export default function ProductSizer({
                           n: rec.sections,
                           h: rec.height,
                           per: rec.per,
+                          need: result.qRatedNeed.toLocaleString(),
+                        })}
+                      </p>
+                      <p className="text-sm text-white/90 mt-2">{fmt(t.resultRatedNeed, { watts: result.qRatedNeed.toLocaleString() })}</p>
+                    </>
+                  )}
+                  {rec.kind === "designer" && (
+                    <>
+                      {!rec.pick.fits && <p className="text-sm text-white/90 mb-2">⚠️ {p.recNoFit}</p>}
+                      <p className="text-lg font-black leading-snug">
+                        {fmt(rec.pick.units > 1 ? p.recDesignerUnits : p.recDesigner, {
+                          cfg: rec.pick.cfg === "SD" ? p.designerSD : p.designerDD,
+                          h: rec.pick.h,
+                          w: rec.pick.w,
+                          pipes: rec.pick.pipes,
+                          q: rec.pick.watt.toLocaleString(),
+                          n: rec.pick.units,
+                          total: rec.pick.total.toLocaleString(),
                           need: result.qRatedNeed.toLocaleString(),
                         })}
                       </p>

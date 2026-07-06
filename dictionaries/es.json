@@ -95,7 +95,12 @@
     "sectionHeight": "Altura del elemento",
     "recSectionsAtHeight": "Unos {n} elementos/columnas a {h} mm de altura (~{per} W cada uno, cubre {need} W)",
     "recSizeByHeight": "Recomendado: altura {h} mm, ~{q} W por unidad (cubre {need} W)",
-    "recUnitsByHeight": "Se sugieren {n} unidades a {h} mm (~{q} W cada una, ~{total} W en total)"
+    "recUnitsByHeight": "Se sugieren {n} unidades a {h} mm (~{q} W cada una, ~{total} W en total)",
+    "recDesigner": "Recomendado: {cfg}, {h} × {w} mm ({pipes} tubos), ≈{q} W por unidad",
+    "recDesignerUnits": "Sugerimos {n}× {cfg} {h} × {w} mm ({pipes} tubos) (≈{q} W c/u, ≈{total} W total)",
+    "designerSD": "Una fila (SD)",
+    "designerDD": "Doble fila (DD)",
+    "recNoFit": "Su espacio de instalación es pequeño: todos los tamaños lo superan. Se muestra la unidad más pequeña; considere un hueco más alto u otro modelo."
   },
   "tech": {
     "kicker": "Tecnología",
@@ -302,7 +307,15 @@
     "howDeltaT": "Corrección por temperatura de impulsión: impulsión {supply}°C → ΔT de trabajo ≈ {dt} K (retorno 10°C menor, recinto 20°C)",
     "howFactor": "Factor de dimensionado F = (50 / ΔT)^1.3 = {f}",
     "howRatedNeed": "→ Elija una potencia nominal ≥ {watts} W (EN442 ΔT50)",
-    "howNote": "Se trata de una estimación de ingeniería; el dimensionado real debe considerar también paredes, ventanas, orientación y tablas de selección de fábrica — contáctenos para calibrar."
+    "howNote": "Se trata de una estimación de ingeniería; el dimensionado real debe considerar también paredes, ventanas, orientación y tablas de selección de fábrica — contáctenos para calibrar.",
+    "installHeight": "Altura de instalación (mm)",
+    "installWidth": "Ancho de instalación (mm)",
+    "installHint": "Altura y ancho disponibles del lugar de montaje (mm). Solo recomendamos tamaños que quepan en ese espacio.",
+    "heatingSelect": "Seleccione el método de calefacción",
+    "heatingSelectHint": "Elija su método de calefacción (obligatorio): recomendamos un tipo de radiador distinto para cada uno.",
+    "whyCentral": "Por qué este tipo: la calefacción central/municipal es un sistema abierto con agua más sucia propensa a incrustaciones y corrosión; los radiadores de columna de acero / cobre-aluminio resisten la corrosión y son fáciles de limpiar.",
+    "whyIndependent": "Por qué este tipo: la calefacción independiente (p. ej. caldera de gas) es un sistema cerrado de agua limpia; los radiadores de panel de acero calientan rápido, son eficientes y ofrecen la mejor relación calidad-precio.",
+    "whyBathroom": "Por qué este tipo: los baños usan radiadores toalleros: calientan la sala y secan toallas, resistentes a la humedad e ideales para zonas húmedas."
   },
   "contact": {
     "kicker": "Contacto",

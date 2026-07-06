@@ -11,9 +11,12 @@ import {
   SUPPLY_DEFAULT,
   computeSizing,
   parseRange,
+  parseHeights,
+  primaryCategory,
   type RoomType,
   type Insulation,
   type Heating,
+  type Category,
 } from "@/lib/sizing";
 import CountryPicker from "@/components/CountryPicker";
 
@@ -30,28 +33,43 @@ const dicts: Record<string, Promise<Record<string, Record<string, string>>>> = {
 // Sizing constants, presets and the core formula live in lib/sizing.ts so the
 // standalone calculator and the per-product widget stay in lockstep.
 
-type Ranked = Product & { min: number; max: number; perSection: boolean };
-const RANKED: Ranked[] = products.map((p) => ({ ...p, ...parseRange(p.specs.heatRange) }));
+type Ranked = Product & { min: number; max: number; perSection: boolean; heightMin: number };
+const RANKED: Ranked[] = products.map((p) => {
+  const heightList = parseHeights(p.specs.heights);
+  return { ...p, ...parseRange(p.specs.heatRange), heightMin: heightList[0] ?? 0 };
+});
+
+// A model physically fits an install slot when its shortest listed height is no
+// taller than the slot (mm). installH ≤ 0 means "no constraint given".
+const fitsSlot = (p: Ranked, installH: number) => installH <= 0 || p.heightMin === 0 || p.heightMin <= installH;
 
 // Pick the smallest-capacity model in a category whose single unit still covers
 // Q (best fit, avoids oversizing); fall back to the largest if none reaches Q.
-function bestFit(category: Product["category"], q: number): Ranked | undefined {
-  const pool = RANKED.filter((p) => p.category === category && !p.perSection).sort((a, b) => a.max - b.max);
+// Only considers models that fit the install height.
+function bestFit(category: Category, q: number, installH: number): Ranked | undefined {
+  const pool = RANKED.filter((p) => p.category === category && !p.perSection && fitsSlot(p, installH)).sort((a, b) => a.max - b.max);
   return pool.find((p) => p.max >= q) ?? pool[pool.length - 1];
 }
 
-function recommend(q: number, room: RoomType) {
-  // Primary: bathrooms → towel radiator; everything else → mainstream panel.
-  const primary = room === "bathroom" ? bestFit("towel", q) : bestFit("panel", q);
+function recommend(q: number, room: RoomType, heating: Heating, installH: number) {
+  // Primary family follows heating method + room (see lib/sizing primaryCategory):
+  // central → column, independent → panel, bathroom → towel.
+  const primaryCat = primaryCategory(heating, room);
+  const sectioned = primaryCat === "column" || primaryCat === "bimetal";
+  const primary = sectioned
+    ? RANKED.filter((p) => p.category === primaryCat && fitsSlot(p, installH)).sort((a, b) => b.max - a.max)[0]
+    : bestFit(primaryCat, q, installH);
 
   const alts: Ranked[] = [];
-  const designer = bestFit("designer", q); // premium look, whole unit
-  const panelAlt = RANKED.filter((p) => p.category === "panel" && p.max >= q && p.slug !== primary?.slug).sort((a, b) => a.max - b.max)[0];
-  const column = RANKED.filter((p) => p.category === "column").sort((a, b) => b.max - a.max)[0]; // sectioned option
-  for (const c of [designer, panelAlt, column]) {
+  // Offer sensible cross-family options: panel & column/bimetal & designer.
+  const panelAlt = bestFit("panel", q, installH);
+  const columnAlt = RANKED.filter((p) => p.category === "column" && fitsSlot(p, installH)).sort((a, b) => b.max - a.max)[0];
+  const bimetalAlt = RANKED.filter((p) => p.category === "bimetal" && fitsSlot(p, installH)).sort((a, b) => b.max - a.max)[0];
+  const designer = bestFit("designer", q, installH); // premium look, whole unit
+  for (const c of [panelAlt, columnAlt, bimetalAlt, designer]) {
     if (c && c.slug !== primary?.slug && !alts.some((a) => a.slug === c.slug)) alts.push(c);
   }
-  return { primary, alts: alts.slice(0, 3) };
+  return { primary, primaryCat, alts: alts.slice(0, 3) };
 }
 
 type CalcResult = {
@@ -70,9 +88,13 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
   const [length, setLength] = useState("5");
   const [width, setWidth] = useState("4");
   const [height, setHeight] = useState("2.7");
+  // Install-position clearance (mm) — required; constrains which heights fit.
+  const [installH, setInstallH] = useState("");
+  const [installW, setInstallW] = useState("");
   const [room, setRoom] = useState<RoomType>("living");
   const [insulation, setInsulation] = useState<Insulation>("average");
-  const [heating, setHeating] = useState<Heating>("central");
+  // Heating method is required with no default → force an explicit choice.
+  const [heating, setHeating] = useState<Heating | "">("");
   // Selected country object (null = "Other" / none). The searchable combobox
   // lives in the shared CountryPicker component.
   const [country, setCountry] = useState<Country | null>(null);
@@ -93,9 +115,9 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
   const cat = categoryLabels[locale] ?? categoryLabels.en;
 
   // Switching heating method resets the flow temperature to its default.
-  function changeHeating(h: Heating) {
+  function changeHeating(h: Heating | "") {
     setHeating(h);
-    setSupplyPreset(String(SUPPLY_DEFAULT[h]));
+    if (h) setSupplyPreset(String(SUPPLY_DEFAULT[h]));
     setSupplyCustom("");
   }
 
@@ -103,9 +125,11 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
     setLength("");
     setWidth("");
     setHeight("");
+    setInstallH("");
+    setInstallW("");
     setRoom("living");
     setInsulation("average");
-    setHeating("central");
+    setHeating("");
     setCountry(null);
     setSupplyPreset(String(SUPPLY_DEFAULT.central));
     setSupplyCustom("");
@@ -116,25 +140,30 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
   const climateFactor = country ? country.factor : OTHER_FACTOR;
 
   const isCustomSupply = supplyPreset === "custom";
-  const dimsValid = [length, width, height].every((s) => {
+  const posNum = (s: string) => {
     const n = parseFloat(s);
     return Number.isFinite(n) && n > 0;
-  });
+  };
+  // Required: room dimensions + install clearance (H×W) + heating method.
+  const dimsValid = [length, width, height].every(posNum);
+  const installValid = [installH, installW].every(posNum);
+  const inputsValid = dimsValid && installValid && heating !== "";
 
   function calculate() {
     const L = parseFloat(length);
     const W = parseFloat(width);
     const H = parseFloat(height);
-    if (![L, W, H].every((n) => Number.isFinite(n) && n > 0)) return;
+    if (!inputsValid) return;
+    const method = heating as Heating;
 
     const supplyRaw = isCustomSupply ? parseFloat(supplyCustom) : parseFloat(supplyPreset);
-    const supplyTemp = Number.isFinite(supplyRaw) ? supplyRaw : SUPPLY_DEFAULT[heating];
+    const supplyTemp = Number.isFinite(supplyRaw) ? supplyRaw : SUPPLY_DEFAULT[method];
 
     const s = computeSizing({ length: L, width: W, height: H, room, insulation, climateFactor, supplyTemp });
     setResult({ volume: s.volume, roomLoad: s.qRoom, ratedNeed: s.qRatedNeed, supply: s.supply, deltaT: s.deltaT, factor: s.F });
   }
 
-  const rec = result !== null ? recommend(result.ratedNeed, room) : null;
+  const rec = result !== null && heating !== "" ? recommend(result.ratedNeed, room, heating as Heating, parseFloat(installH) || 0) : null;
   const fmt = (tpl: string, vars: Record<string, string | number>) =>
     tpl.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ""));
   const displayName = (p: Ranked) => `${p.model} · ${cat[p.category]}`;
@@ -186,6 +215,17 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
             <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.roomHeight}</span>
             <input type="number" min="2" max="6" step="0.1" value={height} onChange={(e) => setHeight(e.target.value)} className={inputCls} />
           </label>
+          <div className="grid grid-cols-2 gap-5 mb-2">
+            <label className="block">
+              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.installHeight}</span>
+              <input type="number" min="100" max="3000" step="10" value={installH} onChange={(e) => setInstallH(e.target.value)} className={inputCls} />
+            </label>
+            <label className="block">
+              <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.installWidth}</span>
+              <input type="number" min="100" max="6000" step="10" value={installW} onChange={(e) => setInstallW(e.target.value)} className={inputCls} />
+            </label>
+          </div>
+          <p className="text-xs text-gray-500 leading-relaxed mb-5">{t.installHint}</p>
           <label className="block mb-5">
             <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.roomType}</span>
             <select value={room} onChange={(e) => setRoom(e.target.value as RoomType)} className={selectCls}>
@@ -207,13 +247,14 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
 
           <label className="block mb-2">
             <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.heatingMethod}</span>
-            <select value={heating} onChange={(e) => changeHeating(e.target.value as Heating)} className={selectCls}>
+            <select value={heating} onChange={(e) => changeHeating(e.target.value as Heating | "")} className={selectCls}>
+              <option value="" disabled>{t.heatingSelect}</option>
               <option value="central">{t.heatingCentral}</option>
               <option value="independent">{t.heatingIndependent}</option>
             </select>
           </label>
           <p className="text-xs text-gray-500 leading-relaxed mb-5">
-            {heating === "central" ? t.heatingCentralDesc : t.heatingIndependentDesc}
+            {heating === "central" ? t.heatingCentralDesc : heating === "independent" ? t.heatingIndependentDesc : t.heatingSelectHint}
           </p>
 
           <div className="block mb-2">
@@ -248,7 +289,7 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
           <div className="flex gap-3">
             <button
               onClick={calculate}
-              disabled={!dimsValid}
+              disabled={!inputsValid}
               className="flex-1 h-12 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-orange-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {t.calculate}
@@ -296,6 +337,9 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
                       <span className="text-[var(--jd-red)] font-bold whitespace-nowrap">{outputText(rec.primary)}</span>
                     </div>
                     <p className="text-sm text-gray-600 mt-2">{fmt(t.primaryReason, { watts: result.ratedNeed.toLocaleString() })}</p>
+                    <p className="text-sm text-gray-500 mt-2 leading-relaxed border-t border-gray-100 pt-2">
+                      💡 {room === "bathroom" ? t.whyBathroom : heating === "central" ? t.whyCentral : t.whyIndependent}
+                    </p>
                     <span className="inline-block mt-3 text-[var(--jd-red)] font-bold text-sm">{t.viewProduct} →</span>
                   </a>
                 </>
