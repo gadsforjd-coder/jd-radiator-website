@@ -275,6 +275,8 @@
     "countryTemperate": "Clima templado / otros",
     "countryWarm": "Regiones más cálidas",
     "countryHint": "El clima y las prácticas constructivas varían según el país; ajustamos el factor climático en consecuencia.",
+    "countrySearchPlaceholder": "Buscar país (中 / EN / RU)…",
+    "countryOther": "Otro",
     "waterTemp": "Temperatura de impulsión (°C)",
     "waterTempCustom": "Personalizado",
     "waterTempHint": "Cuanto menor sea la temperatura de impulsión, menos calor emite un radiador y mayor será el tamaño necesario. La potencia de los productos se indica según EN442 (ΔT50).",

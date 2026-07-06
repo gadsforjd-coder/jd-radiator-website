@@ -229,6 +229,8 @@
     "countryTemperate": "Temperate / Other",
     "countryWarm": "Milder regions",
     "countryHint": "Climate and building practice differ by country; we adjust the climate factor accordingly.",
+    "countrySearchPlaceholder": "Search country (中 / EN / RU)…",
+    "countryOther": "Other",
     "waterTemp": "Flow Temperature (°C)",
     "waterTempCustom": "Custom",
     "waterTempHint": "The lower the flow temperature, the less heat a given radiator puts out and the larger the size you need. Product outputs are rated to EN442 (ΔT50).",

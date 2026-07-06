@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { locales, type Locale } from "@/lib/i18n";
 import { products, categoryLabels, type Product } from "@/lib/products";
+import { COUNTRIES, OTHER_FACTOR, countryName, matchesCountry, type Country } from "@/lib/countries";
 
 const dicts: Record<string, Promise<Record<string, Record<string, string>>>> = {
   en: import("@/dictionaries/en.json").then((m) => m.default as never),
@@ -15,14 +16,13 @@ const dicts: Record<string, Promise<Record<string, Record<string, string>>>> = {
 type RoomType = "living" | "bedroom" | "bathroom" | "kitchen" | "office";
 type Insulation = "good" | "average" | "poor";
 type Heating = "central" | "independent";
-type Country = "mn" | "ru" | "kz" | "cnNorth" | "temperate" | "warm";
 
 // W per m³ by insulation quality (hydronic radiator rule of thumb; the room-type
 // factor and pessimistic rounding fold in a small safety margin).
 const INSULATION_COEFF: Record<Insulation, number> = { good: 35, average: 45, poor: 55 };
 const ROOM_FACTOR: Record<RoomType, number> = { living: 1.0, bedroom: 0.9, bathroom: 1.3, kitchen: 0.85, office: 1.0 };
-// Climate factor by heating country/region — colder climates need more margin.
-const CLIMATE_FACTOR: Record<Country, number> = { mn: 1.2, ru: 1.1, kz: 1.1, cnNorth: 1.05, temperate: 1.0, warm: 0.9 };
+// Climate factor comes from the selected country object (lib/countries.ts);
+// no country selected or "Other" → OTHER_FACTOR (1.00).
 
 // Preset flow temperatures (°C); "custom" reveals a clamped numeric input.
 const SUPPLY_PRESETS = [95, 80, 75, 70, 60, 55] as const;
@@ -85,7 +85,13 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
   const [room, setRoom] = useState<RoomType>("living");
   const [insulation, setInsulation] = useState<Insulation>("average");
   const [heating, setHeating] = useState<Heating>("central");
-  const [country, setCountry] = useState<Country>("temperate");
+  // Country combobox: selected country object (null = "Other" / none), the raw
+  // search text, whether the dropdown is open, and the keyboard-highlighted row.
+  const [country, setCountry] = useState<Country | null>(null);
+  const [countryQuery, setCountryQuery] = useState("");
+  const [countryOpen, setCountryOpen] = useState(false);
+  const [countryActive, setCountryActive] = useState(0);
+  const countryBoxRef = useRef<HTMLDivElement | null>(null);
   const [supplyPreset, setSupplyPreset] = useState<string>(String(SUPPLY_DEFAULT.central));
   const [supplyCustom, setSupplyCustom] = useState("");
   const [result, setResult] = useState<CalcResult | null>(null);
@@ -97,6 +103,18 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
       dicts[l].then(setD);
     });
   }, [params]);
+
+  // Close the country dropdown when clicking outside the combobox.
+  useEffect(() => {
+    if (!countryOpen) return;
+    function onDown(e: MouseEvent) {
+      if (countryBoxRef.current && !countryBoxRef.current.contains(e.target as Node)) {
+        setCountryOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [countryOpen]);
 
   if (!d) return null;
   const t = d.calculator;
@@ -116,10 +134,46 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
     setRoom("living");
     setInsulation("average");
     setHeating("central");
-    setCountry("temperate");
+    setCountry(null);
+    setCountryQuery("");
+    setCountryOpen(false);
     setSupplyPreset(String(SUPPLY_DEFAULT.central));
     setSupplyCustom("");
     setResult(null);
+  }
+
+  // Countries matching the current search text (empty query → full list).
+  const filteredCountries = COUNTRIES.filter((c) => matchesCountry(c, countryQuery));
+
+  // The climate factor in force (selected country, or fallback).
+  const climateFactor = country ? country.factor : OTHER_FACTOR;
+
+  function selectCountry(c: Country | null) {
+    setCountry(c);
+    setCountryQuery("");
+    setCountryOpen(false);
+    setCountryActive(0);
+  }
+
+  function onCountryKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    // Total rows = filtered countries + the trailing "Other" option.
+    const total = filteredCountries.length + 1;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setCountryOpen(true);
+      setCountryActive((i) => (i + 1) % total);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setCountryOpen(true);
+      setCountryActive((i) => (i - 1 + total) % total);
+    } else if (e.key === "Enter") {
+      if (!countryOpen) return;
+      e.preventDefault();
+      if (countryActive < filteredCountries.length) selectCountry(filteredCountries[countryActive]);
+      else selectCountry(null); // "Other"
+    } else if (e.key === "Escape") {
+      setCountryOpen(false);
+    }
   }
 
   const isCustomSupply = supplyPreset === "custom";
@@ -138,7 +192,7 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
     const supply = clamp(Number.isFinite(supplyRaw) ? supplyRaw : SUPPLY_DEFAULT[heating], 45, 95);
 
     const volume = L * W * H;
-    const roomLoad = round10(volume * INSULATION_COEFF[insulation] * ROOM_FACTOR[room] * CLIMATE_FACTOR[country]);
+    const roomLoad = round10(volume * INSULATION_COEFF[insulation] * ROOM_FACTOR[room] * climateFactor);
 
     // ΔT correction: return assumed 10°C below flow, room 20°C → mean water − room.
     const deltaT = supply - 25;
@@ -169,14 +223,9 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
     average: t.insulationAverage,
     poor: t.insulationPoor,
   };
-  const countryLabel: Record<Country, string> = {
-    mn: t.countryMongolia,
-    ru: t.countryRussia,
-    kz: t.countryKazakhstan,
-    cnNorth: t.countryChinaNorth,
-    temperate: t.countryTemperate,
-    warm: t.countryWarm,
-  };
+  // Readable climate label for the "how it's calculated" block: selected
+  // country name in the page language, or the localized "Other" label.
+  const climateLabel = country ? countryName(country, locale) : t.countryOther;
 
   const inputCls = "w-full p-3 border border-gray-300 rounded";
   const selectCls = "w-full p-3 border border-gray-300 rounded bg-white";
@@ -235,17 +284,71 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
             {heating === "central" ? t.heatingCentralDesc : t.heatingIndependentDesc}
           </p>
 
-          <label className="block mb-2">
+          <div className="block mb-2">
             <span className="text-sm font-semibold text-gray-700 mb-1 block">{t.country}</span>
-            <select value={country} onChange={(e) => setCountry(e.target.value as Country)} className={selectCls}>
-              <option value="mn">{t.countryMongolia}</option>
-              <option value="ru">{t.countryRussia}</option>
-              <option value="kz">{t.countryKazakhstan}</option>
-              <option value="cnNorth">{t.countryChinaNorth}</option>
-              <option value="temperate">{t.countryTemperate}</option>
-              <option value="warm">{t.countryWarm}</option>
-            </select>
-          </label>
+            <div className="relative" ref={countryBoxRef}>
+              <input
+                type="text"
+                role="combobox"
+                aria-expanded={countryOpen}
+                aria-autocomplete="list"
+                autoComplete="off"
+                value={countryOpen ? countryQuery : country ? countryName(country, locale) : ""}
+                placeholder={t.countrySearchPlaceholder}
+                onFocus={() => {
+                  setCountryOpen(true);
+                  setCountryActive(0);
+                }}
+                onChange={(e) => {
+                  setCountryQuery(e.target.value);
+                  setCountryOpen(true);
+                  setCountryActive(0);
+                }}
+                onKeyDown={onCountryKeyDown}
+                className={selectCls}
+              />
+              {countryOpen && (
+                <ul
+                  role="listbox"
+                  className="absolute z-20 left-0 right-0 mt-1 max-h-64 overflow-y-auto bg-white border border-gray-300 rounded shadow-lg"
+                >
+                  {filteredCountries.map((c, i) => (
+                    <li
+                      key={c.code}
+                      role="option"
+                      aria-selected={country?.code === c.code}
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        selectCountry(c);
+                      }}
+                      onMouseEnter={() => setCountryActive(i)}
+                      className={`flex justify-between items-center gap-3 px-3 py-2 cursor-pointer text-sm ${
+                        i === countryActive ? "bg-[#FFF7ED]" : ""
+                      } ${country?.code === c.code ? "font-semibold" : ""}`}
+                    >
+                      <span>{countryName(c, locale)}</span>
+                      <span className="text-gray-400 text-xs whitespace-nowrap">×{c.factor.toFixed(2)}</span>
+                    </li>
+                  ))}
+                  <li
+                    role="option"
+                    aria-selected={country === null}
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      selectCountry(null);
+                    }}
+                    onMouseEnter={() => setCountryActive(filteredCountries.length)}
+                    className={`flex justify-between items-center gap-3 px-3 py-2 cursor-pointer text-sm border-t border-gray-100 ${
+                      countryActive === filteredCountries.length ? "bg-[#FFF7ED]" : ""
+                    } ${country === null ? "font-semibold" : ""}`}
+                  >
+                    <span>{t.countryOther}</span>
+                    <span className="text-gray-400 text-xs whitespace-nowrap">×{OTHER_FACTOR.toFixed(2)}</span>
+                  </li>
+                </ul>
+              )}
+            </div>
+          </div>
           <p className="text-xs text-gray-500 leading-relaxed mb-5">{t.countryHint}</p>
 
           <label className="block mb-2">
@@ -304,7 +407,7 @@ export default function CalculatorPage({ params }: { params: Promise<{ lang: str
                   <li>{t.howFormula}</li>
                   <li>{fmt(t.howInsulation, { level: insulationLabel[insulation], q: INSULATION_COEFF[insulation] })}</li>
                   <li>{fmt(t.howRoom, { room: roomLabel[room], f: ROOM_FACTOR[room] })}</li>
-                  <li>{fmt(t.howClimate, { country: countryLabel[country], f: CLIMATE_FACTOR[country] })}</li>
+                  <li>{fmt(t.howClimate, { country: climateLabel, f: climateFactor })}</li>
                   <li className="font-semibold text-gray-800">{fmt(t.howRoomLoad, { watts: result.roomLoad.toLocaleString() })}</li>
                   <li className="pt-2 border-t border-gray-100">{fmt(t.howDeltaT, { supply: result.supply, dt: result.deltaT })}</li>
                   <li>{fmt(t.howFactor, { f: result.factor.toFixed(2) })}</li>

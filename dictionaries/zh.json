@@ -208,6 +208,8 @@
     "countryTemperate": "温带地区 / 其他",
     "countryWarm": "较温暖地区",
     "countryHint": "不同国家的气候与建筑习惯不同,我们据此调整气候系数。",
+    "countrySearchPlaceholder": "搜索国家(中 / 英 / 俄)…",
+    "countryOther": "其他",
     "waterTemp": "进水温度（℃）",
     "waterTempCustom": "自定义",
     "waterTempHint": "进水温度越低,同一散热器输出越少、所需规格越大。产品散热量按 EN442 标准工况(ΔT50)标定。",
