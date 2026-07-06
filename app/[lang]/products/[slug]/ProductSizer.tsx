@@ -24,7 +24,8 @@ import CountryPicker from "@/components/CountryPicker";
 type Rec =
   | { kind: "size"; size: PanelSize; groups: number } // panel: concrete size (+ N groups if one is not enough)
   | { kind: "sectionsAtHeight"; sections: number; per: number; height: number } // column / bimetal: N sections at chosen height
-  | { kind: "units"; units: number; min: number; max: number }; // designer / towel: N whole units
+  | { kind: "unitByHeight"; height: number; q: number } // designer / towel: single unit at best-fit height
+  | { kind: "unitsByHeight"; units: number; height: number; q: number; total: number }; // designer / towel: N units at tallest height
 
 // Parse "300 / 500 / 600 mm" → [300, 500, 600] (ascending).
 function parseHeights(heights: string): number[] {
@@ -105,9 +106,11 @@ export default function ProductSizer({
     setRec(null);
   }
 
-  // Per-section watts at a given height. Watts scale ~linearly between the
-  // shortest height (range lower bound a) and the tallest (upper bound b).
-  function perSectionWatt(h: number): number {
+  // Output watts at a given height, scaling ~linearly between the shortest
+  // height (range lower bound a) and the tallest (upper bound b). For column /
+  // bimetal this is per-section watts; for designer / towel it is whole-unit
+  // watts (heatRange is the whole-unit range there).
+  function outputAtHeight(h: number): number {
     const { min: a, max: b } = parseRange(heatRange);
     if (heightList.length === 0) return b;
     const hMin = heightList[0];
@@ -128,7 +131,7 @@ export default function ProductSizer({
       return { kind: "size", size: largest, groups: Math.max(1, Math.ceil(qNeed / largest.q)) };
     }
     if (category === "column" || category === "bimetal") {
-      const per = perSectionWatt(sectionHeight);
+      const per = outputAtHeight(sectionHeight);
       if (per > 0)
         return {
           kind: "sectionsAtHeight",
@@ -138,9 +141,27 @@ export default function ProductSizer({
         };
       return null;
     }
-    // designer / towel: whole-unit range a–b W.
-    const { min, max } = parseRange(heatRange);
-    if (max > 0) return { kind: "units", units: Math.max(1, Math.ceil(qNeed / max)), min, max };
+    // designer / towel: whole-unit output scales ~linearly with height.
+    // Find the shortest height whose single-unit output already meets demand.
+    if (heightList.length > 0) {
+      const fitH = heightList.find((h) => outputAtHeight(h) >= qNeed);
+      if (fitH !== undefined) {
+        return { kind: "unitByHeight", height: fitH, q: Math.round(outputAtHeight(fitH)) };
+      }
+      // Even the tallest unit is not enough → N units at the tallest height.
+      const hMax = heightList[heightList.length - 1];
+      const per = outputAtHeight(hMax);
+      if (per > 0) {
+        const units = Math.max(1, Math.ceil(qNeed / per));
+        return {
+          kind: "unitsByHeight",
+          units,
+          height: hMax,
+          q: Math.round(per),
+          total: Math.round(per * units),
+        };
+      }
+    }
     return null;
   }
 
@@ -330,10 +351,30 @@ export default function ProductSizer({
                       <p className="text-sm text-white/90 mt-2">{fmt(t.resultRatedNeed, { watts: result.qRatedNeed.toLocaleString() })}</p>
                     </>
                   )}
-                  {rec.kind === "units" && (
-                    <p className="text-lg font-black leading-snug">
-                      {fmt(p.recUnits, { min: rec.min.toLocaleString(), max: rec.max.toLocaleString(), need: result.qRatedNeed.toLocaleString(), n: rec.units })}
-                    </p>
+                  {rec.kind === "unitByHeight" && (
+                    <>
+                      <p className="text-lg font-black leading-snug">
+                        {fmt(p.recSizeByHeight, {
+                          h: rec.height,
+                          q: rec.q.toLocaleString(),
+                          need: result.qRatedNeed.toLocaleString(),
+                        })}
+                      </p>
+                      <p className="text-sm text-white/90 mt-2">{fmt(t.resultRatedNeed, { watts: result.qRatedNeed.toLocaleString() })}</p>
+                    </>
+                  )}
+                  {rec.kind === "unitsByHeight" && (
+                    <>
+                      <p className="text-lg font-black leading-snug">
+                        {fmt(p.recUnitsByHeight, {
+                          n: rec.units,
+                          h: rec.height,
+                          q: rec.q.toLocaleString(),
+                          total: rec.total.toLocaleString(),
+                        })}
+                      </p>
+                      <p className="text-sm text-white/90 mt-2">{fmt(t.resultRatedNeed, { watts: result.qRatedNeed.toLocaleString() })}</p>
+                    </>
                   )}
                 </div>
               )}

@@ -93,7 +93,9 @@
     "recSections": "About {n} sections (estimated at up to {per} W each; actual varies with height)",
     "recUnits": "One unit covers {min}–{max} W; you need {need} W → suggest {n} unit(s)",
     "sectionHeight": "Section height",
-    "recSectionsAtHeight": "About {n} sections at {h} mm height (~{per} W each, meets {need} W)"
+    "recSectionsAtHeight": "About {n} sections at {h} mm height (~{per} W each, meets {need} W)",
+    "recSizeByHeight": "Recommended: {h} mm height, ~{q} W per unit (meets {need} W)",
+    "recUnitsByHeight": "Suggest {n} units at {h} mm (~{q} W each, ~{total} W total)"
   },
   "tech": {
     "kicker": "Core Technology",
