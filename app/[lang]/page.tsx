@@ -95,7 +95,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       title: d.hero.title,
       lead: d.hero.lead,
       cta1: { label: d.hero.cta1, href: `/${locale}/products` },
-      cta2: { label: d.hero.cta2, href: `/${locale}/contact` },
       focal: "left center", // product on the left — keep it from being cropped on narrow viewports
     },
   ];
@@ -108,7 +107,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       title: steelColumn.title,
       lead: steelColumn.lead,
       cta1: { label: steelColumn.cta1, href: `/${locale}/products` },
-      cta2: { label: steelColumn.cta2, href: `/${locale}/contact` },
       focal: "left center", // radiator on the left — keep it from being cropped on narrow viewports
     });
   }
@@ -122,7 +120,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       lead: panel.lead,
       advantages: panel.advantages,
       cta1: { label: panel.cta1, href: `/${locale}/products` },
-      cta2: { label: panel.cta2, href: `/${locale}/contact` },
     });
   }
 

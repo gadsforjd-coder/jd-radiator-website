@@ -67,7 +67,16 @@ export function ContactWidget({ locale, t }: { locale: Locale; t: ContactWidgetS
 
   // Auto-popup once per browser session, 3s after load — unless the user
   // already toggled the widget manually before the timer fires.
+  // Desktop only: on phones/tablets the panel (max-w-[88vw]) would cover almost
+  // the whole screen and block taps on the calculator/product form, so we never
+  // auto-pop below the lg breakpoint — the collapsed tab stays tap-to-open.
   useEffect(() => {
+    const isDesktop =
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(min-width: 1024px)").matches;
+    if (!isDesktop) return;
+
     let alreadyPopped = false;
     try {
       alreadyPopped = sessionStorage.getItem(POPPED_KEY) === "1";
