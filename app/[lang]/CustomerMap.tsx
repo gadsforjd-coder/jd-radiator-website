@@ -185,6 +185,10 @@ const baseProjection = geoEqualEarth()
   .center(PROJECTION_CENTER)
   .scale(PROJECTION_SCALE);
 
+// Base (un-zoomed) projected point of the factory star — used to decide whether
+// the hover card has room above the star or must flip below (near the top edge).
+const FACTORY_BASE = baseProjection(FACTORY) as [number, number];
+
 // Base projected anchor points for each market (before zoom/pan transform).
 const BASE_PT: Record<string, [number, number]> = {};
 COUNTRY_CODES.forEach((code) => {
@@ -325,16 +329,18 @@ function MapOverlays({ lang, countries, hoveredCode, now, weather, transform }: 
 // lives in the star <Marker>. Because it is a child of the marker's own <g>,
 // it is anchored exactly to the star at every zoom/pan state. We counter-scale
 // by 1/k so the card keeps a constant on-screen size regardless of map zoom.
-function FactoryCard({ lang, zoom }: { lang: string; zoom: number }) {
+function FactoryCard({ lang, zoom, below }: { lang: string; zoom: number; below: boolean }) {
   const factory = FACTORY_I18N[lang] ?? FACTORY_I18N.en;
   const inv = 1 / (zoom || 1);
   const CARD_W = 248;
   const CARD_H = 118;
   return (
     <foreignObject
-      // Position above the star, horizontally centred, then counter-scale.
+      // Horizontally centred, then counter-scale. Positioned ABOVE the star by
+      // default, but flipped BELOW when the star is near the top of the map so
+      // the card never spills past the SVG viewport and gets clipped.
       x={-CARD_W / 2}
-      y={-CARD_H - 16}
+      y={below ? 18 : -CARD_H - 16}
       width={CARD_W}
       height={CARD_H}
       transform={`scale(${inv})`}
@@ -361,7 +367,7 @@ function FactoryCard({ lang, zoom }: { lang: string; zoom: number }) {
           <span className="text-[var(--jd-red)] mt-0.5 shrink-0">📍</span>
           <span>{factory.addr}</span>
         </p>
-        <div className="absolute left-1/2 -translate-x-1/2 -bottom-[5px] w-2.5 h-2.5 bg-[#1E293B]/96 rotate-45" />
+        <div className={`absolute left-1/2 -translate-x-1/2 ${below ? "-top-[5px]" : "-bottom-[5px]"} w-2.5 h-2.5 bg-[#1E293B]/96 rotate-45`} />
       </div>
     </foreignObject>
   );
@@ -379,7 +385,12 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
   // the ComposableMap+ZoomableGroup starting position (zoom 1, INITIAL_CENTER).
   const [transform, setTransform] = useState<Transform>(() => {
     const c = baseProjection(INITIAL_CENTER) as [number, number];
-    return { x: MAP_W / 2 - c[0], y: MAP_H / 2 - c[1], k: INITIAL_ZOOM };
+    // Must match ZoomableGroup's actual transform at zoom k: the geographic
+    // center maps to the viewport center AT scale k, i.e. translate =
+    // viewportCenter − k·centerPoint. (The earlier formula omitted ·k, so on
+    // initial load — before any pan fires onMove — the overlay cards and the
+    // factory-card flip decision used a wrong star position.)
+    return { x: MAP_W / 2 - c[0] * INITIAL_ZOOM, y: MAP_H / 2 - c[1] * INITIAL_ZOOM, k: INITIAL_ZOOM };
   });
 
   const hasFocus = activeRegion !== null || hoveredCode !== null;
@@ -567,9 +578,18 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
                       hover: { outline: "none", cursor: "pointer" },
                       pressed: { outline: "none", cursor: "pointer" },
                     }}
-                    onMouseEnter={() => setHoveredCode(code)}
-                    onMouseLeave={() => setHoveredCode((prev) => (prev === code ? null : prev))}
-                    onMouseDown={() => setHoveredCode((prev) => (prev === code ? null : code))}
+                    // NOTE: React's onMouseEnter/Leave (non-bubbling, simulated
+                    // via relatedTarget) do not fire reliably for these SVG
+                    // nodes inside ZoomableGroup's d3-zoom under React 19. The
+                    // bubbling onMouseOver/onMouseOut events do reach React's
+                    // root listener, so we drive hover with those (+ onClick for
+                    // touch). See git history for the headless-repro details.
+                    onMouseOver={() => setHoveredCode(code)}
+                    onMouseOut={(e) => {
+                      if (!e.currentTarget.contains(e.relatedTarget as Node))
+                        setHoveredCode((prev) => (prev === code ? null : prev));
+                    }}
+                    onClick={() => setHoveredCode((prev) => (prev === code ? null : code))}
                   />
                 );
               })}
@@ -612,9 +632,15 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
                   the star at every zoom/pan and its hover fires reliably. */}
               <Marker
                 coordinates={FACTORY}
-                onMouseEnter={() => setFactoryHover(true)}
-                onMouseLeave={() => setFactoryHover(false)}
-                onMouseDown={() => setFactoryHover((v) => !v)}
+                // Bubbling onMouseOver/onMouseOut (+ onClick for touch) — see
+                // the country-block note above; onMouseEnter is unreliable here.
+                // Marker spreads unknown props onto its <g>, so these attach.
+                onMouseOver={() => setFactoryHover(true)}
+                onMouseOut={(e) => {
+                  if (!e.currentTarget.contains(e.relatedTarget as Node))
+                    setFactoryHover(false);
+                }}
+                onClick={() => setFactoryHover((v) => !v)}
                 onFocus={() => setFactoryHover(true)}
                 onBlur={() => setFactoryHover(false)}
                 style={{ default: { cursor: "pointer" }, hover: { cursor: "pointer" }, pressed: { cursor: "pointer" } }}
@@ -634,7 +660,14 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
                   filter="url(#softshadow)"
                   style={{ pointerEvents: "all" }}
                 />
-                {factoryHover && <FactoryCard lang={lang} zoom={transform.k} />}
+                {factoryHover && (
+                  <FactoryCard
+                    lang={lang}
+                    zoom={transform.k}
+                    // flip below when the star sits high in the frame (no room above)
+                    below={FACTORY_BASE[1] * transform.k + transform.y < 150}
+                  />
+                )}
               </Marker>
             </ZoomableGroup>
           </ComposableMap>
