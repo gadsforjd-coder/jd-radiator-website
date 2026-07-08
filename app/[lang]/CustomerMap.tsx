@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { geoEqualEarth, geoPath, geoGraticule10 } from "d3-geo";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import { geoOrthographic, geoPath, geoGraticule10, geoDistance } from "d3-geo";
 import { feature } from "topojson-client";
 import worldData from "world-atlas/countries-110m.json";
 
@@ -67,25 +67,59 @@ const TIMEZONES: Record<string, string> = {
 const BEIJING_OFFSET = 8; // UTC+8, no DST
 
 // i18n for the info-card labels
-const I18N: Record<string, { time: string; diff: string; temp: string; loading: string; sync: string; hint: string; swipe: string; ahead: (n: number) => string; behind: (n: number) => string }> = {
+const I18N: Record<string, { time: string; diff: string; temp: string; loading: string; sync: string; hint: string; drag: string; ahead: (n: number) => string; behind: (n: number) => string }> = {
   zh: {
     time: "当地时间", diff: "距北京", temp: "当地气温", loading: "获取中…", sync: "与北京同步",
-    hint: "点按或悬停任一国家板块，查看当地时间与气温", swipe: "← 左右滑动查看完整地图 →",
+    hint: "点按或悬停任一国家板块，查看当地时间与气温", drag: "🖱 拖动旋转地球",
     ahead: (n) => `早 ${n} 小时`, behind: (n) => `晚 ${n} 小时`,
   },
   en: {
     time: "Local time", diff: "vs Beijing", temp: "Temperature", loading: "loading…", sync: "same as Beijing",
-    hint: "Tap or hover any country block for local time & weather", swipe: "← Swipe to see the full map →",
+    hint: "Tap or hover any country block for local time & weather", drag: "🖱 Drag to spin the globe",
     ahead: (n) => `+${n}h ahead`, behind: (n) => `−${n}h behind`,
   },
   ru: {
     time: "Местное время", diff: "к Пекину", temp: "Температура", loading: "загрузка…", sync: "как в Пекине",
-    hint: "Нажмите или наведите на страну — местное время и погода", swipe: "← Проведите, чтобы увидеть всю карту →",
+    hint: "Нажмите или наведите на страну — местное время и погода", drag: "🖱 Вращайте глобус мышью",
     ahead: (n) => `+${n} ч`, behind: (n) => `−${n} ч`,
+  },
+  es: {
+    time: "Hora local", diff: "vs Pekín", temp: "Temperatura", loading: "cargando…", sync: "igual que Pekín",
+    hint: "Toca o pasa el cursor sobre un país para ver la hora y el clima", drag: "🖱 Arrastra para girar el globo",
+    ahead: (n) => `+${n} h`, behind: (n) => `−${n} h`,
+  },
+  mn: {
+    time: "Орон нутгийн цаг", diff: "Бээжингээс", temp: "Агаарын темп.", loading: "ачааллаж байна…", sync: "Бээжинтэй ижил",
+    hint: "Улс дээр дарж эсвэл хулгана аваачиж цаг, цаг агаарыг харна уу", drag: "🖱 Бөмбөрцгийг чирж эргүүлнэ",
+    ahead: (n) => `+${n} ц`, behind: (n) => `−${n} ц`,
   },
 };
 
-const INTL_LOCALE: Record<string, string> = { zh: "zh-CN", en: "en-US", ru: "ru-RU", de: "de-DE", tr: "tr-TR" };
+// Factory (headquarters) i18n — company name + localized address for the star card
+const FACTORY_I18N: Record<string, { name: string; addr: string }> = {
+  zh: {
+    name: "天津市九鼎阳光暖通有限公司",
+    addr: "天津市宁河区经济开发区五纬路9号",
+  },
+  en: {
+    name: "Tianjin Jiuding Yangguang HVAC Co., Ltd.",
+    addr: "No. 9 Wuwei Road, Economic Development Zone, Ninghe District, Tianjin, China",
+  },
+  ru: {
+    name: "Tianjin Jiuding Yangguang HVAC Co., Ltd.",
+    addr: "Китай, г. Тяньцзинь, район Нинхэ, Зона экономического развития, ул. Увэй, 9",
+  },
+  es: {
+    name: "Tianjin Jiuding Yangguang HVAC Co., Ltd.",
+    addr: "N.º 9, Calle Wuwei, Zona de Desarrollo Económico, Distrito de Ninghe, Tianjín, China",
+  },
+  mn: {
+    name: "Tianjin Jiuding Yangguang HVAC Co., Ltd.",
+    addr: "Хятад, Тяньжинь хот, Нинхэ дүүрэг, Эдийн засгийн хөгжлийн бүс, Үвэй гудамж 9",
+  },
+};
+
+const INTL_LOCALE: Record<string, string> = { zh: "zh-CN", en: "en-US", ru: "ru-RU", de: "de-DE", tr: "tr-TR", es: "es-ES", mn: "mn-MN" };
 
 // ISO 3166-1 numeric id (matches world-atlas feature ids) -> our alpha-2 code
 const NUMERIC_TO_CODE: Record<number, string> = {
@@ -94,84 +128,31 @@ const NUMERIC_TO_CODE: Record<number, string> = {
   268: "GE", 51: "AM", 31: "AZ", 792: "TR", 760: "SY", 12: "DZ", 434: "LY", 32: "AR", 496: "MN", 36: "AU",
 };
 
-// Export hub (JIUDING, China) — origin for the trade-route arcs
-const HUB: [number, number] = [114.5, 34.5];
+// Export hub (JIUDING, China) — origin for the trade-route arcs.
+// Aligned to the real factory location: Tianjin, Ninghe District.
+const HUB: [number, number] = [117.83, 39.33];
+// Factory marker coordinate (same real point as the export hub)
+const FACTORY: [number, number] = [117.83, 39.33];
 
-// --- Map geometry (computed once, at module load) ---
-const MAP_W = 900;
-const MAP_H = 476;
-const projection = geoEqualEarth()
-  .scale(196)
-  .center([12, 32])
-  .translate([MAP_W / 2, MAP_H / 2]);
-const pathGen = geoPath(projection);
+// --- Static geo data (feature parsing is projection-independent, done once) ---
+const MAP_W = 720;
+const MAP_H = 560;
+const GLOBE_CX = MAP_W / 2;
+const GLOBE_CY = MAP_H / 2;
+const GLOBE_R = 250; // sphere radius in px
+const DRAG_SENSITIVITY = 0.25; // degrees per pixel
+
 const WORLD_FEATURES = (
   feature(worldData as any, (worldData as any).objects.countries) as any
 ).features as any[];
-const LAND_PATHS: string[] = WORLD_FEATURES.map((f) => pathGen(f) || "").filter(Boolean);
-const GRATICULE_PATH: string = pathGen(geoGraticule10()) || "";
 
-// Per-market country outline path (for the coloured "blocks")
-const CODE_TO_PATH: Record<string, string> = {};
-WORLD_FEATURES.forEach((f) => {
-  const code = NUMERIC_TO_CODE[Number(f.id)];
-  if (!code) return;
-  const d = pathGen(f);
-  if (d) CODE_TO_PATH[code] = d;
-});
-
-// Build a gently-curved trade-route arc from HUB to a destination point
-function arcPath(from: [number, number], to: [number, number]): string {
-  const [x0, y0] = from;
-  const [x1, y1] = to;
-  const mx = (x0 + x1) / 2;
-  const my = (y0 + y1) / 2;
-  const dx = x1 - x0;
-  const dy = y1 - y0;
-  const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-  const lift = Math.min(dist * 0.22, 90);
-  const cx = mx - (dy / dist) * lift;
-  const cy = my - (dx / dist) * lift;
-  return `M ${x0} ${y0} Q ${cx} ${cy} ${x1} ${y1}`;
-}
-
-const HUB_PT = projection(HUB) as [number, number];
-const PT: Record<string, [number, number]> = {}; // projected market anchor points
-COUNTRY_CODES.forEach((code) => {
-  const p = projection(COORDS[code]);
-  if (p) PT[code] = p as [number, number];
-});
-
-// Label positions — nudged into surrounding sea/space for the dense European
-// cluster so names don't pile up; other markets label on their anchor point.
+// Label positions — nudged for the dense European cluster so names don't pile
+// up; other markets label on their anchor point.
 const LABEL_COORDS: Record<string, [number, number]> = {
   GB: [-8, 57.5], FR: [-4.5, 45.0], BE: [1.5, 53.5], DE: [11.5, 53.8],
   ES: [-7.5, 39.0], PL: [22.5, 54.0], RO: [28.0, 44.5], SE: [16.5, 64.5],
   UA: [33.5, 49.5], BY: [28.5, 55.5],
 };
-const LABEL_PT: Record<string, [number, number]> = {};
-COUNTRY_CODES.forEach((code) => {
-  const p = projection(LABEL_COORDS[code] ?? COORDS[code]);
-  if (p) LABEL_PT[code] = p as [number, number];
-});
-const ARCS: { code: string; region: string; d: string }[] = COUNTRY_CODES.flatMap((code) => {
-  if (!PT[code]) return [];
-  return [{ code, region: CODE_TO_REGION[code], d: arcPath(HUB_PT, PT[code]) }];
-});
-
-// Coordinate labels (degrees) — over open ocean so they don't clutter land
-const LAT_LABELS = [60, 30, 0, -30].flatMap((lat) => {
-  const p = projection([-30, lat]);
-  if (!p) return [];
-  const txt = lat === 0 ? "0°" : `${Math.abs(lat)}°${lat > 0 ? "N" : "S"}`;
-  return [{ x: p[0], y: p[1], txt }];
-});
-const LON_LABELS = [-90, -30, 30, 90, 150].flatMap((lon) => {
-  const p = projection([lon, -18]);
-  if (!p) return [];
-  const txt = lon === 0 ? "0°" : `${Math.abs(lon)}°${lon > 0 ? "E" : "W"}`;
-  return [{ x: p[0], y: p[1], txt }];
-});
 
 // UTC offset (hours) for an IANA tz at a given instant, DST-aware
 function offsetHours(tz: string, at: Date): number {
@@ -193,12 +174,122 @@ function offsetHours(tz: string, at: Date): number {
 export default function CustomerMap({ lang = "en", kicker, title, subtitle, countries }: CustomerMapProps) {
   const [activeRegion, setActiveRegion] = useState<string | null>(null);
   const [hoveredCode, setHoveredCode] = useState<string | null>(null);
+  const [factoryHover, setFactoryHover] = useState(false);
   const [now, setNow] = useState<Date | null>(null);
   const [weather, setWeather] = useState<Record<string, { t: number | null; loading: boolean }>>({});
 
+  // Globe rotation state: [lambda (yaw), phi (pitch)]. Centered on the hub so
+  // the export region faces the viewer on first paint.
+  const [rotation, setRotation] = useState<[number, number]>([-HUB[0], -HUB[1]]);
+  const [dragging, setDragging] = useState(false);
+  const dragRef = useRef<{ x: number; y: number; lambda: number; phi: number } | null>(null);
+  const svgRef = useRef<SVGSVGElement | null>(null);
+
   const hasFocus = activeRegion !== null || hoveredCode !== null;
   const t = I18N[lang] ?? I18N.en;
+  const factory = FACTORY_I18N[lang] ?? FACTORY_I18N.en;
   const intlLocale = INTL_LOCALE[lang] ?? "en-US";
+
+  // ---- Projection + all projection-dependent geometry, recomputed per rotation ----
+  const geo = useMemo(() => {
+    const projection = geoOrthographic()
+      .scale(GLOBE_R)
+      .translate([GLOBE_CX, GLOBE_CY])
+      .rotate([rotation[0], rotation[1], 0])
+      .clipAngle(90);
+    const pathGen = geoPath(projection);
+
+    // Center of the visible hemisphere in geographic coords
+    const center: [number, number] = [-rotation[0], -rotation[1]];
+    const visible = (lonlat: [number, number]) => geoDistance(lonlat, center) < Math.PI / 2;
+
+    // Sphere + graticule (auto-clipped by clipAngle)
+    const spherePath = pathGen({ type: "Sphere" }) || "";
+    const graticulePath = pathGen(geoGraticule10()) || "";
+
+    // Base land + per-market outlines
+    const landPaths: string[] = WORLD_FEATURES.map((f) => pathGen(f) || "").filter(Boolean);
+    const codeToPath: Record<string, string> = {};
+    WORLD_FEATURES.forEach((f) => {
+      const code = NUMERIC_TO_CODE[Number(f.id)];
+      if (!code) return;
+      const d = pathGen(f);
+      if (d) codeToPath[code] = d;
+    });
+
+    // Projected anchor points + label points (only when visible)
+    const pt: Record<string, [number, number]> = {};
+    const labelPt: Record<string, [number, number]> = {};
+    COUNTRY_CODES.forEach((code) => {
+      if (visible(COORDS[code])) {
+        const p = projection(COORDS[code]);
+        if (p) pt[code] = p as [number, number];
+      }
+      const lc = LABEL_COORDS[code] ?? COORDS[code];
+      if (visible(lc)) {
+        const lp = projection(lc);
+        if (lp) labelPt[code] = lp as [number, number];
+      }
+    });
+
+    // Hub + factory projected points (with visibility)
+    const hubVisible = visible(HUB);
+    const hubPt = hubVisible ? (projection(HUB) as [number, number]) : null;
+    const factoryVisible = visible(FACTORY);
+    const factoryPt = factoryVisible ? (projection(FACTORY) as [number, number]) : null;
+
+    // Trade-route arcs — rendered as true great-circle-ish geodesic lines so they
+    // hug the sphere; hidden if either endpoint is back-facing.
+    const arcs: { code: string; region: string; d: string }[] = [];
+    if (hubVisible) {
+      COUNTRY_CODES.forEach((code) => {
+        if (!visible(COORDS[code])) return;
+        const line: any = { type: "LineString", coordinates: [HUB, COORDS[code]] };
+        const d = pathGen(line);
+        if (d) arcs.push({ code, region: CODE_TO_REGION[code], d });
+      });
+    }
+
+    // Degree labels over ocean — only when facing the viewer
+    const latLabels = [60, 30, 0, -30].flatMap((lat) => {
+      const ll: [number, number] = [center[0] - 60, lat];
+      if (!visible(ll)) return [];
+      const p = projection(ll);
+      if (!p) return [];
+      const txt = lat === 0 ? "0°" : `${Math.abs(lat)}°${lat > 0 ? "N" : "S"}`;
+      return [{ x: p[0], y: p[1], txt }];
+    });
+
+    return {
+      spherePath, graticulePath, landPaths, codeToPath,
+      pt, labelPt, hubPt, factoryPt, arcs, latLabels, visible,
+    };
+  }, [rotation]);
+
+  // ---- Pointer drag to spin the globe ----
+  const onPointerDown = useCallback((e: React.PointerEvent<SVGSVGElement>) => {
+    dragRef.current = { x: e.clientX, y: e.clientY, lambda: rotation[0], phi: rotation[1] };
+    setDragging(true);
+    try { (e.target as Element).setPointerCapture?.(e.pointerId); } catch {}
+  }, [rotation]);
+
+  const onPointerMove = useCallback((e: React.PointerEvent<SVGSVGElement>) => {
+    const d = dragRef.current;
+    if (!d) return;
+    const dx = e.clientX - d.x;
+    const dy = e.clientY - d.y;
+    // Dragging right spins the globe so the surface follows the cursor (east).
+    const lambda = d.lambda + dx * DRAG_SENSITIVITY;
+    // Clamp pitch so we never flip the poles past vertical.
+    let phi = d.phi - dy * DRAG_SENSITIVITY;
+    phi = Math.max(-90, Math.min(90, phi));
+    setRotation([lambda, phi]);
+  }, []);
+
+  const endDrag = useCallback(() => {
+    dragRef.current = null;
+    setDragging(false);
+  }, []);
 
   // Tick the clock every second while a block is hovered
   useEffect(() => {
@@ -272,18 +363,30 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
         </div>
       </div>
 
-      {/* World map — coloured market blocks + trade-route arcs + hover info card */}
-      <div className="relative w-full rounded-2xl overflow-hidden border border-[#DCE6F0] shadow-[0_8px_40px_rgba(30,41,59,0.10)]">
-        {/* Small screens: keep the map at a legible width and scroll horizontally.
-            Desktop (lg+): fill the container as before. */}
-        <div className="overflow-x-auto overflow-y-hidden lg:overflow-visible [-webkit-overflow-scrolling:touch]">
-        <div className="relative min-w-[720px] lg:min-w-0">
-        <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} style={{ width: "100%", height: "auto", display: "block" }}>
+      {/* Interactive 3D globe — spin to explore markets + trade-route arcs + info card */}
+      <div className="relative w-full rounded-2xl overflow-hidden border border-[#DCE6F0] shadow-[0_8px_40px_rgba(30,41,59,0.10)] bg-gradient-to-b from-[#F4F9FE] to-[#E7F0FA]">
+        <div className="relative mx-auto" style={{ maxWidth: MAP_W }}>
+        <svg
+          ref={svgRef}
+          viewBox={`0 0 ${MAP_W} ${MAP_H}`}
+          style={{
+            width: "100%",
+            height: "auto",
+            display: "block",
+            touchAction: "none",
+            cursor: dragging ? "grabbing" : "grab",
+          }}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={endDrag}
+          onPointerLeave={endDrag}
+          onPointerCancel={endDrag}
+        >
           <defs>
-            <radialGradient id="ocean" cx="46%" cy="42%" r="78%">
+            <radialGradient id="ocean" cx="42%" cy="38%" r="72%">
               <stop offset="0%" stopColor="#EAF3FB" />
-              <stop offset="55%" stopColor="#D6E6F5" />
-              <stop offset="100%" stopColor="#BFD6EC" />
+              <stop offset="55%" stopColor="#CFE2F3" />
+              <stop offset="100%" stopColor="#A9C7E4" />
             </radialGradient>
             <linearGradient id="land" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#F2ECDD" />
@@ -296,34 +399,35 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
             <filter id="softshadow" x="-30%" y="-30%" width="160%" height="160%">
               <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" floodColor="#B45309" floodOpacity="0.35" />
             </filter>
+            <radialGradient id="globeShade" cx="50%" cy="50%" r="50%">
+              <stop offset="70%" stopColor="#000" stopOpacity="0" />
+              <stop offset="100%" stopColor="#1E3A5F" stopOpacity="0.28" />
+            </radialGradient>
           </defs>
 
-          {/* Ocean */}
-          <rect x={0} y={0} width={MAP_W} height={MAP_H} fill="url(#ocean)" />
+          {/* Sphere / ocean */}
+          <path d={geo.spherePath} fill="url(#ocean)" stroke="#8FB2D6" strokeWidth={0.8} />
 
           {/* Graticule (lat/long grid) */}
-          <path d={GRATICULE_PATH} fill="none" stroke="#8FB2D6" strokeWidth={0.55} strokeOpacity={0.5} />
+          <path d={geo.graticulePath} fill="none" stroke="#8FB2D6" strokeWidth={0.5} strokeOpacity={0.5} style={{ pointerEvents: "none" }} />
 
           {/* Coordinate degree labels */}
-          <g style={{ pointerEvents: "none" }} fill="#6E93B8" fontSize={8.5} fontWeight={600} fontFamily="inherit">
-            {LAT_LABELS.map((l, i) => (
+          <g style={{ pointerEvents: "none" }} fill="#5E85AC" fontSize={8.5} fontWeight={600} fontFamily="inherit">
+            {geo.latLabels.map((l, i) => (
               <text key={`lat-${i}`} x={l.x} y={l.y} textAnchor="middle" dominantBaseline="central">{l.txt}</text>
-            ))}
-            {LON_LABELS.map((l, i) => (
-              <text key={`lon-${i}`} x={l.x} y={l.y} textAnchor="middle" dominantBaseline="central">{l.txt}</text>
             ))}
           </g>
 
           {/* Base land */}
           <g style={{ pointerEvents: "none" }}>
-            {LAND_PATHS.map((d, i) => (
+            {geo.landPaths.map((d, i) => (
               <path key={i} d={d} fill="url(#land)" stroke="#C7B79A" strokeWidth={0.5} strokeLinejoin="round" />
             ))}
           </g>
 
-          {/* Trade-route arcs (kept, dashed) */}
+          {/* Trade-route arcs (kept, dashed) — geodesic, back-face culled */}
           <g fill="none" strokeLinecap="round" style={{ pointerEvents: "none" }}>
-            {ARCS.map((a) => {
+            {geo.arcs.map((a) => {
               const on = (activeRegion !== null && a.region === activeRegion) || hoveredCode === a.code;
               return (
                 <path
@@ -331,7 +435,7 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
                   d={a.d}
                   stroke="var(--jd-red)"
                   strokeWidth={on ? 1.7 : 0.8}
-                  strokeOpacity={on ? 0.85 : hasFocus ? 0.12 : 0.3}
+                  strokeOpacity={on ? 0.85 : hasFocus ? 0.12 : 0.32}
                   strokeDasharray="4 4"
                   style={{ transition: "stroke-opacity 0.25s ease, stroke-width 0.25s ease" }}
                 >
@@ -343,16 +447,16 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
             })}
           </g>
 
-          {/* Market country blocks — coloured, always labelled, hover to highlight + card */}
+          {/* Market country blocks — coloured, hover to highlight + card */}
           {COUNTRY_CODES.map((code) => {
-            const d = CODE_TO_PATH[code];
+            const d = geo.codeToPath[code];
             if (!d) return null;
             const region = CODE_TO_REGION[code];
             const isHover = hoveredCode === code;
             const inRegion = activeRegion !== null && region === activeRegion;
             const active = isHover || inRegion;
             const dim = hasFocus && !active;
-            const fillOpacity = active ? 0.85 : dim ? 0.18 : 0.5;
+            const fillOpacity = active ? 0.9 : dim ? 0.2 : 0.6;
             return (
               <path
                 key={`blk-${code}`}
@@ -371,39 +475,20 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
             );
           })}
 
-          {/* Hub marker (export origin — anchors the arcs) */}
-          <g transform={`translate(${HUB_PT[0]},${HUB_PT[1]})`} style={{ pointerEvents: "none" }}>
-            <circle r={9} fill="none" stroke="#B45309" strokeOpacity={0.35} strokeWidth={1}>
-              <animate attributeName="r" values="6;13;6" dur="2.4s" repeatCount="indefinite" />
-              <animate attributeName="stroke-opacity" values="0.5;0;0.5" dur="2.4s" repeatCount="indefinite" />
-            </circle>
-            <path d="M0,-5 L1.5,-1.5 L5,-1.5 L2,1 L3,5 L0,2.5 L-3,5 L-2,1 L-5,-1.5 L-1.5,-1.5 Z" fill="#B45309" stroke="#fff" strokeWidth={0.6} />
-          </g>
+          {/* Hub marker (export origin — anchors the arcs) — back-face culled */}
+          {geo.hubPt && (
+            <g transform={`translate(${geo.hubPt[0]},${geo.hubPt[1]})`} style={{ pointerEvents: "none" }}>
+              <circle r={9} fill="none" stroke="#B45309" strokeOpacity={0.35} strokeWidth={1}>
+                <animate attributeName="r" values="6;13;6" dur="2.4s" repeatCount="indefinite" />
+                <animate attributeName="stroke-opacity" values="0.5;0;0.5" dur="2.4s" repeatCount="indefinite" />
+              </circle>
+            </g>
+          )}
 
-          {/* Thin leaders for nudged (European) labels */}
+          {/* Country name labels — only for visible (front-facing) markets */}
           <g style={{ pointerEvents: "none" }}>
             {COUNTRY_CODES.map((code) => {
-              if (!LABEL_COORDS[code] || !PT[code] || !LABEL_PT[code]) return null;
-              const isHover = hoveredCode === code;
-              const inRegion = activeRegion !== null && CODE_TO_REGION[code] === activeRegion;
-              const dim = hasFocus && !isHover && !inRegion;
-              return (
-                <line
-                  key={`ld-${code}`}
-                  x1={LABEL_PT[code][0]} y1={LABEL_PT[code][1]}
-                  x2={PT[code][0]} y2={PT[code][1]}
-                  stroke="#C2410C"
-                  strokeWidth={0.5}
-                  strokeOpacity={dim ? 0.15 : 0.45}
-                />
-              );
-            })}
-          </g>
-
-          {/* Country name labels — on every block */}
-          <g style={{ pointerEvents: "none" }}>
-            {COUNTRY_CODES.map((code) => {
-              const p = LABEL_PT[code];
+              const p = geo.labelPt[code];
               if (!p) return null;
               const isHover = hoveredCode === code;
               const inRegion = activeRegion !== null && CODE_TO_REGION[code] === activeRegion;
@@ -434,16 +519,45 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
               );
             })}
           </g>
+
+          {/* Factory red-star marker — Tianjin, Ninghe. Back-face culled. */}
+          {geo.factoryPt && (
+            <g
+              transform={`translate(${geo.factoryPt[0]},${geo.factoryPt[1]})`}
+              style={{ cursor: "pointer" }}
+              onMouseEnter={() => setFactoryHover(true)}
+              onMouseLeave={() => setFactoryHover(false)}
+              onClick={() => setFactoryHover((v) => !v)}
+            >
+              {/* generous transparent hit area */}
+              <circle r={12} fill="transparent" />
+              <circle r={10} fill="none" stroke="#DC2626" strokeOpacity={0.4} strokeWidth={1}>
+                <animate attributeName="r" values="7;15;7" dur="2.4s" repeatCount="indefinite" />
+                <animate attributeName="stroke-opacity" values="0.55;0;0.55" dur="2.4s" repeatCount="indefinite" />
+              </circle>
+              <path
+                d="M0,-8 L2.35,-2.47 L8.4,-2.47 L3.4,1.4 L5.3,7.6 L0,3.8 L-5.3,7.6 L-3.4,1.4 L-8.4,-2.47 L-2.35,-2.47 Z"
+                fill="#DC2626"
+                stroke="#fff"
+                strokeWidth={1}
+                strokeLinejoin="round"
+                filter="url(#softshadow)"
+              />
+            </g>
+          )}
+
+          {/* Subtle 3D shading vignette on the sphere */}
+          <circle cx={GLOBE_CX} cy={GLOBE_CY} r={GLOBE_R} fill="url(#globeShade)" style={{ pointerEvents: "none" }} />
         </svg>
 
         {/* Live info card (HTML overlay) — single card, never crowded */}
         {hoveredCode &&
-          PT[hoveredCode] &&
+          geo.pt[hoveredCode] &&
           (() => {
-            const [x, y] = PT[hoveredCode];
+            const [x, y] = geo.pt[hoveredCode];
             const leftPct = (x / MAP_W) * 100;
             const topPct = (y / MAP_H) * 100;
-            const below = y < 116; // flip under the block when near the top edge
+            const below = y < 130; // flip under the block when near the top edge
             const name = countries[hoveredCode] ?? hoveredCode;
             const tz = TIMEZONES[hoveredCode];
 
@@ -499,15 +613,62 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
             );
           })()}
 
+        {/* Factory card (HTML overlay) — logo + company name + localized address */}
+        {factoryHover &&
+          geo.factoryPt &&
+          (() => {
+            const [x, y] = geo.factoryPt;
+            const leftPct = (x / MAP_W) * 100;
+            const topPct = (y / MAP_H) * 100;
+            const below = y < 150;
+            return (
+              <div
+                className="absolute z-30 pointer-events-none"
+                style={{
+                  left: `${leftPct}%`,
+                  top: `${topPct}%`,
+                  transform: `translate(-50%, ${below ? "20px" : "calc(-100% - 20px)"})`,
+                }}
+              >
+                <div className="relative rounded-xl bg-[#1E293B]/96 backdrop-blur-sm text-white shadow-[0_12px_34px_rgba(15,23,42,0.4)] px-4 py-3 w-[248px]">
+                  <div className="flex items-center gap-2.5 mb-2">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/assets/logo.png"
+                      alt="Jiuding"
+                      width={40}
+                      height={40}
+                      className="w-10 h-10 object-contain rounded-md bg-white/95 p-1 shrink-0"
+                    />
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[#DC2626] text-sm leading-none">★</span>
+                        <span className="font-bold text-[12.5px] leading-snug">{factory.name}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-[11.5px] leading-snug text-white/80 flex items-start gap-1.5">
+                    <span className="text-[var(--jd-red)] mt-0.5 shrink-0">📍</span>
+                    <span>{factory.addr}</span>
+                  </p>
+                  <div
+                    className="absolute left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-[#1E293B]/96 rotate-45"
+                    style={below ? { top: -5 } : { bottom: -5 }}
+                  />
+                </div>
+              </div>
+            );
+          })()}
+
         <p className="absolute bottom-3 right-4 text-xs text-[#1E293B]/45 font-medium pointer-events-none">
           {hasFocus ? "" : t.hint}
         </p>
-        </div>
-        </div>
-        {/* Mobile-only swipe hint (hidden on desktop where the map fits) */}
-        <p className="lg:hidden absolute top-3 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap rounded-full bg-[#1E293B]/70 text-white text-[11px] font-semibold px-3 py-1 pointer-events-none">
-          {t.swipe}
+
+        {/* Drag-to-spin hint */}
+        <p className="absolute top-3 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap rounded-full bg-[#1E293B]/65 text-white text-[11px] font-semibold px-3 py-1 pointer-events-none">
+          {t.drag}
         </p>
+        </div>
       </div>
     </section>
   );
