@@ -144,19 +144,23 @@ const HUB: [number, number] = [117.83, 39.33];
 const FACTORY: [number, number] = [117.83, 39.33];
 
 // --- Flat map geometry ---
+// Bigger canvas + higher projection scale so the map fills its section while
+// still fitting all 26 markets (incl. Argentina & Australia) at zoom=1.
 const MAP_W = 900;
-const MAP_H = 476;
+const MAP_H = 600;
 // Projection config passed to <ComposableMap>. We also rebuild the same
 // projection locally (matching react-simple-maps' internal construction:
 // geoEqualEarth().translate([W/2,H/2]).center(...).scale(...)) so that the
 // HTML overlay cards can be positioned in projected screen space.
-const PROJECTION_CENTER: [number, number] = [12, 32];
-const PROJECTION_SCALE = 196;
+const PROJECTION_CENTER: [number, number] = [22, 20];
+const PROJECTION_SCALE = 218;
 
 // Zoom / pan ("微调") range for the flat map.
 const MIN_ZOOM = 1;
 const MAX_ZOOM = 8;
-const INITIAL_CENTER: [number, number] = [40, 30];
+// Default view framed on the Europe→Central Asia highlighted cluster while
+// still keeping every market on-screen (Americas / Oceania at the edges).
+const INITIAL_CENTER: [number, number] = [33, 22];
 const INITIAL_ZOOM = 1;
 
 // world-atlas topojson -> GeoJSON FeatureCollection (parsed once).
@@ -178,7 +182,6 @@ COUNTRY_CODES.forEach((code) => {
   const p = baseProjection(COORDS[code]);
   if (p) BASE_PT[code] = p as [number, number];
 });
-const BASE_FACTORY_PT = baseProjection(FACTORY) as [number, number];
 
 // Label positions — nudged into surrounding sea/space for the dense European
 // cluster so names don't pile up; other markets label on their anchor point.
@@ -218,20 +221,21 @@ interface OverlayProps {
   lang: string;
   countries: Record<string, string>;
   hoveredCode: string | null;
-  factoryHover: boolean;
   now: Date | null;
   weather: Record<string, { t: number | null; loading: boolean }>;
   transform: Transform;
 }
 
-// HTML overlay cards (info card + factory card). Rendered as an absolutely
-// positioned sibling of the SVG (outside it), synced to the live zoom/pan
-// transform lifted up from <ZoomableGroup> via onMove. The SVG uses viewBox
-// 0 0 W H, so SVG px map 1:1 onto container percentages.
-function MapOverlays({ lang, countries, hoveredCode, factoryHover, now, weather, transform }: OverlayProps) {
+// HTML overlay card for the live country info (local time / temperature).
+// Rendered as an absolutely positioned sibling of the SVG (outside it), synced
+// to the live zoom/pan transform lifted up from <ZoomableGroup> via onMove.
+// The SVG uses viewBox 0 0 W H, so SVG px map 1:1 onto container percentages.
+// NOTE: the factory star card is intentionally NOT here — it is drawn as an
+// in-SVG <foreignObject> inside the star <Marker> so it tracks the star
+// perfectly and its hover/tap fires reliably even while ZoomableGroup pans.
+function MapOverlays({ lang, countries, hoveredCode, now, weather, transform }: OverlayProps) {
   const { x, y, k } = transform;
   const t = I18N[lang] ?? I18N.en;
-  const factory = FACTORY_I18N[lang] ?? FACTORY_I18N.en;
   const intlLocale = INTL_LOCALE[lang] ?? "en-US";
 
   // Map a base (un-zoomed) screen point through the current zoom/pan transform,
@@ -304,51 +308,53 @@ function MapOverlays({ lang, countries, hoveredCode, factoryHover, now, weather,
             </div>
           );
         })()}
-
-      {/* Factory card — logo + company name + localized address */}
-      {factoryHover &&
-        (() => {
-          const { leftPct, topPct, sy } = toPct(BASE_FACTORY_PT);
-          const below = sy < 150;
-          return (
-            <div
-              className="absolute z-30 pointer-events-none"
-              style={{
-                left: `${leftPct}%`,
-                top: `${topPct}%`,
-                transform: `translate(-50%, ${below ? "20px" : "calc(-100% - 20px)"})`,
-              }}
-            >
-              <div className="relative rounded-xl bg-[#1E293B]/96 backdrop-blur-sm text-white shadow-[0_12px_34px_rgba(15,23,42,0.4)] px-4 py-3 w-[248px]">
-                <div className="flex items-center gap-2.5 mb-2">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/assets/logo.png"
-                    alt="Jiuding"
-                    width={40}
-                    height={40}
-                    className="w-10 h-10 object-contain rounded-md bg-white/95 p-1 shrink-0"
-                  />
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-[#DC2626] text-sm leading-none">★</span>
-                      <span className="font-bold text-[12.5px] leading-snug">{factory.name}</span>
-                    </div>
-                  </div>
-                </div>
-                <p className="text-[11.5px] leading-snug text-white/80 flex items-start gap-1.5">
-                  <span className="text-[var(--jd-red)] mt-0.5 shrink-0">📍</span>
-                  <span>{factory.addr}</span>
-                </p>
-                <div
-                  className="absolute left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-[#1E293B]/96 rotate-45"
-                  style={below ? { top: -5 } : { bottom: -5 }}
-                />
-              </div>
-            </div>
-          );
-        })()}
     </>
+  );
+}
+
+// Factory star hover/tap card, drawn INSIDE the SVG as a <foreignObject> that
+// lives in the star <Marker>. Because it is a child of the marker's own <g>,
+// it is anchored exactly to the star at every zoom/pan state. We counter-scale
+// by 1/k so the card keeps a constant on-screen size regardless of map zoom.
+function FactoryCard({ lang, zoom }: { lang: string; zoom: number }) {
+  const factory = FACTORY_I18N[lang] ?? FACTORY_I18N.en;
+  const inv = 1 / (zoom || 1);
+  const CARD_W = 248;
+  const CARD_H = 118;
+  return (
+    <foreignObject
+      // Position above the star, horizontally centred, then counter-scale.
+      x={-CARD_W / 2}
+      y={-CARD_H - 16}
+      width={CARD_W}
+      height={CARD_H}
+      transform={`scale(${inv})`}
+      style={{ overflow: "visible", pointerEvents: "none" }}
+    >
+      <div className="relative rounded-xl bg-[#1E293B]/96 text-white shadow-[0_12px_34px_rgba(15,23,42,0.4)] px-4 py-3 w-[248px]">
+        <div className="flex items-center gap-2.5 mb-2">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/assets/logo.png"
+            alt="Jiuding"
+            width={40}
+            height={40}
+            className="w-10 h-10 object-contain rounded-md bg-white/95 p-1 shrink-0"
+          />
+          <div className="min-w-0">
+            <div className="flex items-center gap-1.5">
+              <span className="text-[#DC2626] text-sm leading-none">★</span>
+              <span className="font-bold text-[12.5px] leading-snug">{factory.name}</span>
+            </div>
+          </div>
+        </div>
+        <p className="text-[11.5px] leading-snug text-white/80 flex items-start gap-1.5">
+          <span className="text-[var(--jd-red)] mt-0.5 shrink-0">📍</span>
+          <span>{factory.addr}</span>
+        </p>
+        <div className="absolute left-1/2 -translate-x-1/2 -bottom-[5px] w-2.5 h-2.5 bg-[#1E293B]/96 rotate-45" />
+      </div>
+    </foreignObject>
   );
 }
 
@@ -592,17 +598,21 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
                 })}
               </g>
 
-              {/* Factory red-star marker — Tianjin, Ninghe */}
+              {/* Factory red-star marker — Tianjin, Ninghe.
+                  Hover/tap card is an in-marker <foreignObject> so it tracks
+                  the star at every zoom/pan and its hover fires reliably. */}
               <Marker
                 coordinates={FACTORY}
                 onMouseEnter={() => setFactoryHover(true)}
                 onMouseLeave={() => setFactoryHover(false)}
                 onMouseDown={() => setFactoryHover((v) => !v)}
+                onFocus={() => setFactoryHover(true)}
+                onBlur={() => setFactoryHover(false)}
                 style={{ default: { cursor: "pointer" }, hover: { cursor: "pointer" }, pressed: { cursor: "pointer" } }}
               >
-                {/* generous transparent hit area */}
-                <circle r={12} fill="transparent" />
-                <circle r={10} fill="none" stroke="#DC2626" strokeOpacity={0.4} strokeWidth={1}>
+                {/* generous transparent hit area — keeps hover stable */}
+                <circle r={14} fill="transparent" style={{ pointerEvents: "all" }} />
+                <circle r={10} fill="none" stroke="#DC2626" strokeOpacity={0.4} strokeWidth={1} style={{ pointerEvents: "none" }}>
                   <animate attributeName="r" values="7;15;7" dur="2.4s" repeatCount="indefinite" />
                   <animate attributeName="stroke-opacity" values="0.55;0;0.55" dur="2.4s" repeatCount="indefinite" />
                 </circle>
@@ -613,7 +623,9 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
                   strokeWidth={1}
                   strokeLinejoin="round"
                   filter="url(#softshadow)"
+                  style={{ pointerEvents: "all" }}
                 />
+                {factoryHover && <FactoryCard lang={lang} zoom={transform.k} />}
               </Marker>
             </ZoomableGroup>
           </ComposableMap>
@@ -624,7 +636,6 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
               lang={lang}
               countries={countries}
               hoveredCode={hoveredCode}
-              factoryHover={factoryHover}
               now={now}
               weather={weather}
               transform={transform}
