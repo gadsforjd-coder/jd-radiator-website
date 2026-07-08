@@ -156,12 +156,20 @@ const PROJECTION_CENTER: [number, number] = [22, 20];
 const PROJECTION_SCALE = 218;
 
 // Zoom / pan ("微调") range for the flat map.
-const MIN_ZOOM = 1;
+// minZoom < 1 lets users zoom OUT to reveal the whole world (incl. the two
+// outlier markets Argentina & Australia). At the base projection the full
+// world is ~1180px wide; at zoom 0.6 that shrinks to ~708px, well inside the
+// 900px frame, so nothing is clipped when zoomed all the way out.
+const MIN_ZOOM = 0.6;
 const MAX_ZOOM = 8;
-// Default view framed on the Europe→Central Asia highlighted cluster while
-// still keeping every market on-screen (Americas / Oceania at the edges).
-const INITIAL_CENTER: [number, number] = [33, 22];
-const INITIAL_ZOOM = 1;
+// DEFAULT view: zoom into the Eurasia customer belt (Western Europe / North
+// Africa → Russia/Scandinavia → China/factory) so it fills the frame at load.
+// The belt (lon ~-12→120, lat ~8→62) is ~395px wide at base scale; zoom 2.0
+// blows it up to ~790px ≈ 88% of the 900px frame, centred on ~[50,40].
+// The two outliers (Argentina, Australia) stay rendered off-viewport and are
+// reached by zooming out / panning.
+const INITIAL_CENTER: [number, number] = [50, 40];
+const INITIAL_ZOOM = 2;
 
 // world-atlas topojson -> GeoJSON FeatureCollection (parsed once).
 const GEO_FEATURES = feature(
