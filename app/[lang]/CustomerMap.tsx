@@ -162,14 +162,15 @@ const PROJECTION_SCALE = 218;
 // 900px frame, so nothing is clipped when zoomed all the way out.
 const MIN_ZOOM = 0.6;
 const MAX_ZOOM = 8;
-// DEFAULT view: zoom into the Eurasia customer belt (Western Europe / North
-// Africa → Russia/Scandinavia → China/factory) so it fills the frame at load.
-// The belt (lon ~-12→120, lat ~8→62) is ~395px wide at base scale; zoom 2.0
-// blows it up to ~790px ≈ 88% of the 900px frame, centred on ~[50,40].
-// The two outliers (Argentina, Australia) stay rendered off-viewport and are
-// reached by zooming out / panning.
-const INITIAL_CENTER: [number, number] = [50, 40];
-const INITIAL_ZOOM = 2;
+// DEFAULT view: framed to show ALL 26 markets at once — from Scandinavia (top)
+// down to Argentina's southern tip & Australia (bottom), and from the UK/Spain
+// (west) across to the China factory & Australia (east). The binding edges are
+// the two southern outliers (Argentina, Australia); the fit was computed from
+// the real projected bounds of every market block (incl. AR/AU polygons, not
+// just their anchor points) so nothing is clipped, at ~93% frame fill.
+// zoom 2 was too tight (outliers off-screen), zoom 1 too small; 1.2 fits all.
+const INITIAL_CENTER: [number, number] = [40, 3];
+const INITIAL_ZOOM = 1.2;
 
 // world-atlas topojson -> GeoJSON FeatureCollection (parsed once).
 const GEO_FEATURES = feature(
