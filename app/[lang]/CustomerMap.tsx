@@ -23,7 +23,7 @@ const COUNTRY_CODES = [
   // Africa
   "DZ", "LY",
   // Other
-  "AR", "MN",
+  "AR", "MN", "AU",
 ];
 
 const REGION_GROUPS: { key: string; label: string; codes: string[] }[] = [
@@ -31,7 +31,7 @@ const REGION_GROUPS: { key: string; label: string; codes: string[] }[] = [
   { key: "cis", label: "CIS / Central Asia", codes: ["RU", "BY", "UA", "KZ", "UZ", "KG", "TM", "TJ"] },
   { key: "mideast", label: "Caucasus & Middle East", codes: ["GE", "AM", "AZ", "TR", "SY"] },
   { key: "africa", label: "Africa", codes: ["DZ", "LY"] },
-  { key: "other", label: "Americas & Asia", codes: ["AR", "MN"] },
+  { key: "other", label: "Americas, Asia & Oceania", codes: ["AR", "MN", "AU"] },
 ];
 
 const CODE_TO_REGION: Record<string, string> = REGION_GROUPS.reduce(
@@ -50,7 +50,7 @@ const COORDS: Record<string, [number, number]> = {
   UZ: [64.6, 41.4], KG: [74.8, 41.4], TM: [59.6, 39.1], TJ: [71.3, 38.9],
   GE: [43.4, 42.3], AM: [45.0, 40.3], AZ: [47.6, 40.4], TR: [35.2, 39.0],
   SY: [38.5, 35.0], DZ: [2.6, 28.2], LY: [17.2, 27.0], AR: [-64.0, -38.4],
-  MN: [103.8, 46.9],
+  MN: [103.8, 46.9], AU: [133.0, -25.0],
 };
 
 // IANA timezone per market (DST handled automatically by Intl)
@@ -61,7 +61,7 @@ const TIMEZONES: Record<string, string> = {
   UZ: "Asia/Tashkent", KG: "Asia/Bishkek", TM: "Asia/Ashgabat", TJ: "Asia/Dushanbe",
   GE: "Asia/Tbilisi", AM: "Asia/Yerevan", AZ: "Asia/Baku", TR: "Europe/Istanbul",
   SY: "Asia/Damascus", DZ: "Africa/Algiers", LY: "Africa/Tripoli",
-  AR: "America/Argentina/Buenos_Aires", MN: "Asia/Ulaanbaatar",
+  AR: "America/Argentina/Buenos_Aires", MN: "Asia/Ulaanbaatar", AU: "Australia/Sydney",
 };
 
 const BEIJING_OFFSET = 8; // UTC+8, no DST
@@ -91,7 +91,7 @@ const INTL_LOCALE: Record<string, string> = { zh: "zh-CN", en: "en-US", ru: "ru-
 const NUMERIC_TO_CODE: Record<number, string> = {
   826: "GB", 276: "DE", 250: "FR", 56: "BE", 724: "ES", 616: "PL", 642: "RO", 752: "SE",
   643: "RU", 112: "BY", 804: "UA", 398: "KZ", 860: "UZ", 417: "KG", 795: "TM", 762: "TJ",
-  268: "GE", 51: "AM", 31: "AZ", 792: "TR", 760: "SY", 12: "DZ", 434: "LY", 32: "AR", 496: "MN",
+  268: "GE", 51: "AM", 31: "AZ", 792: "TR", 760: "SY", 12: "DZ", 434: "LY", 32: "AR", 496: "MN", 36: "AU",
 };
 
 // Export hub (JIUDING, China) — origin for the trade-route arcs
