@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { geoEqualEarth } from "d3-geo";
+import { geoEqualEarth, geoPath } from "d3-geo";
 import { feature } from "topojson-client";
 import {
   ComposableMap,
@@ -157,20 +157,25 @@ const PROJECTION_SCALE = 218;
 
 // Zoom / pan ("微调") range for the flat map.
 // minZoom < 1 lets users zoom OUT to reveal the whole world (incl. the two
-// outlier markets Argentina & Australia). At the base projection the full
-// world is ~1180px wide; at zoom 0.6 that shrinks to ~708px, well inside the
-// 900px frame, so nothing is clipped when zoomed all the way out.
+// outlier markets Argentina & Australia, which sit OUTSIDE the default belt
+// view). At the base projection the full world is ~1180px wide; at zoom 0.6
+// that shrinks to ~708px, well inside the 900px frame, so nothing is clipped
+// when zoomed all the way out.
 const MIN_ZOOM = 0.6;
 const MAX_ZOOM = 8;
-// DEFAULT view: framed to show ALL 26 markets at once — from Scandinavia (top)
-// down to Argentina's southern tip & Australia (bottom), and from the UK/Spain
-// (west) across to the China factory & Australia (east). The binding edges are
-// the two southern outliers (Argentina, Australia); the fit was computed from
-// the real projected bounds of every market block (incl. AR/AU polygons, not
-// just their anchor points) so nothing is clipped, at ~93% frame fill.
-// zoom 2 was too tight (outliers off-screen), zoom 1 too small; 1.2 fits all.
-const INITIAL_CENTER: [number, number] = [40, 3];
-const INITIAL_ZOOM = 1.2;
+// DEFAULT view: framed TIGHTLY onto the Eurasia–Africa export belt so it fills
+// the frame horizontally with minimal blank side bands (this is the fix for the
+// "too much empty space on both sides" report). Spain/UK (lon ~-8) sit near the
+// LEFT edge; the China factory star (lon 117.83) sits with comfortable room from
+// the RIGHT & TOP edges (its nameplate card extends ~124px left / ~134px up, so
+// the star must stay ~140px clear of those edges). At center=[60,36] zoom=1.9
+// the star lands at ~[764,275] in the 900x600 frame (rightGap ~136, topGap ~275)
+// and Spain at x~90 — balanced, minimal blank margins.
+// TRADEOFF (accepted): the two southern outliers Argentina (lon -64) & Australia
+// (lon 133) fall OUTSIDE this default view. Users can zoom OUT (minZoom 0.6) to
+// see them, and the region pills still highlight their arcs from the hub.
+const INITIAL_CENTER: [number, number] = [60, 36];
+const INITIAL_ZOOM = 1.9;
 
 // world-atlas topojson -> GeoJSON FeatureCollection (parsed once).
 const GEO_FEATURES = feature(
@@ -184,6 +189,15 @@ const baseProjection = geoEqualEarth()
   .translate([MAP_W / 2, MAP_H / 2])
   .center(PROJECTION_CENTER)
   .scale(PROJECTION_SCALE);
+
+// geoPath for the SAME projection react-simple-maps builds internally. Used to
+// precompute the `svgPath` (d attribute) for the coloured market blocks below.
+// react-simple-maps only fills in `svgPath` for features that pass through its
+// <Geographies> render-prop; when we render a <Geography> directly from a raw
+// GeoJSON feature it has NO svgPath, so its <path d> comes out EMPTY — the block
+// is invisible AND has zero hit area (so the hover info-card never fires). We
+// must attach svgPath ourselves, matching the projection exactly.
+const basePath = geoPath(baseProjection);
 
 // Base (un-zoomed) projected point of the factory star — used to decide whether
 // the hover card has room above the star or must flip below (near the top edge).
@@ -266,7 +280,11 @@ function MapOverlays({ lang, countries, hoveredCode, now, weather, transform }: 
         BASE_PT[hoveredCode] &&
         (() => {
           const { leftPct, topPct, sy } = toPct(BASE_PT[hoveredCode]);
-          const below = sy < 116; // flip under the block when near the top edge
+          // Flip the card UNDER the block when the anchor sits high in the frame
+          // (no room for the ~128px-tall card above it, else it clips the top edge
+          // of the overflow-hidden map). At the belt framing the top-most market
+          // (Sweden, sy~130) must flip; sy<140 covers it with margin.
+          const below = sy < 140; // flip under the block when near the top edge
           const name = countries[hoveredCode] ?? hoveredCode;
           const tz = TIMEZONES[hoveredCode];
 
@@ -382,7 +400,7 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
 
   // Live zoom/pan transform, lifted from <ZoomableGroup> so the HTML overlay
   // cards (rendered outside the SVG) can track the map. Initial value matches
-  // the ComposableMap+ZoomableGroup starting position (zoom 1, INITIAL_CENTER).
+  // the ComposableMap+ZoomableGroup starting position (INITIAL_ZOOM, INITIAL_CENTER).
   const [transform, setTransform] = useState<Transform>(() => {
     const c = baseProjection(INITIAL_CENTER) as [number, number];
     // Must match ZoomableGroup's actual transform at zoom k: the geographic
@@ -396,12 +414,14 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
   const hasFocus = activeRegion !== null || hoveredCode !== null;
   const t = I18N[lang] ?? I18N.en;
 
-  // Per-market outline features (only the highlighted export markets).
+  // Per-market outline features (only the highlighted export markets), each with
+  // a precomputed `svgPath` so <Geography> renders a real (visible + hoverable)
+  // path. Without svgPath the block's <path d> is empty -> invisible & no hover.
   const marketFeatures = useMemo(() => {
     const byCode: Record<string, any> = {};
     (GEO_FEATURES.features as any[]).forEach((f) => {
       const code = NUMERIC_TO_CODE[Number(f.id)];
-      if (code) byCode[code] = f;
+      if (code) byCode[code] = { ...f, svgPath: basePath(f) };
     });
     return byCode;
   }, []);
