@@ -144,10 +144,13 @@ const HUB: [number, number] = [117.83, 39.33];
 const FACTORY: [number, number] = [117.83, 39.33];
 
 // --- Flat map geometry ---
-// Bigger canvas + higher projection scale so the map fills its section while
-// still fitting all 26 markets (incl. Argentina & Australia) at zoom=1.
+// The SVG fills the full container width (see the `w-full` wrapper below — no
+// maxWidth cap, so on wide screens there are NO blank blue side-bands beyond the
+// map). MAP_W:MAP_H is the viewBox aspect ratio the map is displayed at; a wide,
+// shorter ratio (~1.9:1) keeps the belt filling the width without excess vertical
+// ocean below Africa/India at desktop widths.
 const MAP_W = 900;
-const MAP_H = 600;
+const MAP_H = 470;
 // Projection config passed to <ComposableMap>. We also rebuild the same
 // projection locally (matching react-simple-maps' internal construction:
 // geoEqualEarth().translate([W/2,H/2]).center(...).scale(...)) so that the
@@ -167,14 +170,14 @@ const MAX_ZOOM = 8;
 // the frame horizontally with minimal blank side bands (this is the fix for the
 // "too much empty space on both sides" report). Spain/UK (lon ~-8) sit near the
 // LEFT edge; the China factory star (lon 117.83) sits with comfortable room from
-// the RIGHT & TOP edges (its nameplate card extends ~124px left / ~134px up, so
-// the star must stay ~140px clear of those edges). At center=[60,36] zoom=1.9
-// the star lands at ~[764,275] in the 900x600 frame (rightGap ~136, topGap ~275)
-// and Spain at x~90 — balanced, minimal blank margins.
+// the RIGHT edge (its nameplate card extends ~124px left/right & ~134px up).
+// center latitude 44 (raised from 36 when MAP_H shrank 600→470) keeps the belt
+// vertically centred — Sweden (lat 64) near the top, N. Africa near the bottom —
+// with the star sitting BELOW frame-centre so its card always has room above.
 // TRADEOFF (accepted): the two southern outliers Argentina (lon -64) & Australia
 // (lon 133) fall OUTSIDE this default view. Users can zoom OUT (minZoom 0.6) to
 // see them, and the region pills still highlight their arcs from the hub.
-const INITIAL_CENTER: [number, number] = [60, 36];
+const INITIAL_CENTER: [number, number] = [60, 44];
 const INITIAL_ZOOM = 1.9;
 
 // world-atlas topojson -> GeoJSON FeatureCollection (parsed once).
@@ -500,7 +503,7 @@ export default function CustomerMap({ lang = "en", kicker, title, subtitle, coun
 
       {/* Flat world map — zoom/pan enabled ("微调") + market blocks + arcs + info card */}
       <div className="relative w-full rounded-2xl overflow-hidden border border-[#DCE6F0] shadow-[0_8px_40px_rgba(30,41,59,0.10)] bg-gradient-to-b from-[#EAF3FB] via-[#D6E6F5] to-[#BFD6EC]">
-        <div className="relative mx-auto" style={{ maxWidth: MAP_W }}>
+        <div className="relative w-full">
           <ComposableMap
             width={MAP_W}
             height={MAP_H}
