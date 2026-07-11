@@ -51,26 +51,45 @@ function bestFit(category: Category, q: number, installH: number): Ranked | unde
   return pool.find((p) => p.max >= q) ?? pool[pool.length - 1];
 }
 
+// Panel-type preference for independent heating, per owner (2026-07-11):
+// 22K (double-panel double-convector workhorse — the default) → 21K (slimmer /
+// lighter output) → 33K (triple — highest output). 11K is intentionally
+// EXCLUDED from the auto-recommendation. Which type leads follows the required
+// output (散热量 — which already folds in the region/climate factor): default
+// 22K, but step up to 33K when demand exceeds a single 22K's rated capacity.
+function panelByPref(q: number, installH: number): { primary?: Ranked; ordered: Ranked[] } {
+  const bySlug = (s: string) => RANKED.find((p) => p.slug === s && fitsSlot(p, installH));
+  const k22 = bySlug("jd-22k"), k21 = bySlug("jd-21k"), k33 = bySlug("jd-33k");
+  const ordered = [k22, k21, k33].filter(Boolean) as Ranked[]; // 22K → 21K → 33K
+  const primary = k22 && q <= k22.max ? k22 : (k33 ?? k22 ?? k21 ?? ordered[0]);
+  return { primary, ordered };
+}
+
 function recommend(q: number, room: RoomType, heating: Heating, installH: number) {
   // Primary family follows heating method + room (see lib/sizing primaryCategory):
   // central → column, independent → panel, bathroom → towel.
   const primaryCat = primaryCategory(heating, room);
   const sectioned = primaryCat === "column" || primaryCat === "bimetal";
+  const panel = panelByPref(q, installH); // preferred panel (22K default) + 22K/21K/33K order
   const primary = sectioned
     ? RANKED.filter((p) => p.category === primaryCat && fitsSlot(p, installH)).sort((a, b) => b.max - a.max)[0]
-    : bestFit(primaryCat, q, installH);
+    : primaryCat === "panel"
+      ? panel.primary
+      : bestFit(primaryCat, q, installH); // bathroom → towel
 
   const alts: Ranked[] = [];
-  const panelAlt = bestFit("panel", q, installH);
   const columnAlt = RANKED.filter((p) => p.category === "column" && fitsSlot(p, installH)).sort((a, b) => b.max - a.max)[0];
   const bimetalAlt = RANKED.filter((p) => p.category === "bimetal" && fitsSlot(p, installH)).sort((a, b) => b.max - a.max)[0];
   const designer = bestFit("designer", q, installH); // 搭接焊 welded designer, whole unit
-  // Order alternatives by context: central → welded designer (搭接焊) then panel;
-  // independent → column then designer; bathroom → panel then column.
+  // Alternatives by context:
+  // independent → the other panel types in owner priority (22K/21K/33K, primary
+  //   filtered out below) then a welded designer option;
+  // central → welded designer (搭接焊) then the preferred panel (22K) then bimetal;
+  // bathroom → preferred panel (22K) then column then designer.
   const order =
-    room === "bathroom" ? [panelAlt, columnAlt, designer]
-    : heating === "central" ? [designer, panelAlt, bimetalAlt]
-    : [columnAlt, designer, panelAlt];
+    room === "bathroom" ? [panel.primary, columnAlt, designer]
+    : heating === "central" ? [designer, panel.primary, bimetalAlt]
+    : [...panel.ordered, designer];
   for (const c of order) {
     if (c && c.slug !== primary?.slug && !alts.some((a) => a.slug === c.slug)) alts.push(c);
   }
