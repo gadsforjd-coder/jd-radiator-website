@@ -166,19 +166,16 @@ const PROJECTION_SCALE = 218;
 // when zoomed all the way out.
 const MIN_ZOOM = 0.6;
 const MAX_ZOOM = 8;
-// DEFAULT view: framed TIGHTLY onto the Eurasia–Africa export belt so it fills
-// the frame horizontally with minimal blank side bands (this is the fix for the
-// "too much empty space on both sides" report). Spain/UK (lon ~-8) sit near the
-// LEFT edge; the China factory star (lon 117.83) sits with comfortable room from
-// the RIGHT edge (its nameplate card extends ~124px left/right & ~134px up).
-// center latitude 44 (raised from 36 when MAP_H shrank 600→470) keeps the belt
-// vertically centred — Sweden (lat 64) near the top, N. Africa near the bottom —
-// with the star sitting BELOW frame-centre so its card always has room above.
-// TRADEOFF (accepted): the two southern outliers Argentina (lon -64) & Australia
-// (lon 133) fall OUTSIDE this default view. Users can zoom OUT (minZoom 0.6) to
-// see them, and the region pills still highlight their arcs from the hub.
-const INITIAL_CENTER: [number, number] = [60, 44];
-const INITIAL_ZOOM = 1.9;
+// DEFAULT view: the WHOLE WORLD, zoomed out so ALL 26 markets are visible at
+// once — including the two southern outliers Argentina (lon -64) & Australia
+// (lon 133) — per the owner's requested framing. center≈[18,10] zoom 0.82 fills
+// the full-width frame with the world roughly centred (Europe cluster upper-left,
+// China factory star upper-right, Argentina lower-left, Australia lower-right),
+// with balanced ocean margins. The star (lat 39, high in the frame) sits above
+// frame-centre, so its nameplate card auto-flips BELOW the star (see the `below`
+// prop) to avoid clipping the top edge. Users can still scroll to zoom IN.
+const INITIAL_CENTER: [number, number] = [18, 10];
+const INITIAL_ZOOM = 0.82;
 
 // world-atlas topojson -> GeoJSON FeatureCollection (parsed once).
 const GEO_FEATURES = feature(
