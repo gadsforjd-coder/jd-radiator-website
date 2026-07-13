@@ -419,7 +419,9 @@
     "reachTitle": "Cumplimiento REACH / SVHC",
     "reachText": "Todos los productos Jiuding con certificación CE cumplen el Reglamento REACH. El informe de ensayo SGS REACH/SVHC n.º TSNEC2000446701 (2020-04-08) confirma la ausencia de emisión de sustancias peligrosas y se cita en las 10 Declaraciones de Prestaciones CE.",
     "fireClassTitle": "Clasificación de reacción al fuego",
-    "fireClassText": "Todos los radiadores Jiuding con certificación CE alcanzan la clase de reacción al fuego A1 (no combustible) según EN 13501-1, determinada por VZLU TEST a.s. (República Checa), informe P-VZLUTEST-068/23 (2023). La clase A1 es un requisito en muchos proyectos comerciales y del sector público en Europa."
+    "fireClassText": "Todos los radiadores Jiuding con certificación CE alcanzan la clase de reacción al fuego A1 (no combustible) según EN 13501-1, determinada por VZLU TEST a.s. (República Checa), informe P-VZLUTEST-068/23 (2023). La clase A1 es un requisito en muchos proyectos comerciales y del sector público en Europa.",
+    "patentsLabel": "Patentes",
+    "tmLabel": "Marcas registradas"
   },
   "faq": {
     "kicker": "FAQ",

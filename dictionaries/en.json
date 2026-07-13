@@ -419,7 +419,9 @@
     "reachTitle": "REACH / SVHC Compliance",
     "reachText": "All CE-certified Jiuding products comply with REACH Regulation. SGS REACH/SVHC test report No. TSNEC2000446701 (2020-04-08) confirms no release of dangerous substances and is referenced in all 10 CE Declarations of Performance.",
     "fireClassTitle": "Reaction-to-Fire Classification",
-    "fireClassText": "All CE-certified Jiuding radiators achieve reaction-to-fire class A1 (non-combustible) under EN 13501-1, as determined by VZLU TEST a.s. (Czech Republic), report P-VZLUTEST-068/23 (2023). Class A1 is required in many commercial and public-sector projects in Europe."
+    "fireClassText": "All CE-certified Jiuding radiators achieve reaction-to-fire class A1 (non-combustible) under EN 13501-1, as determined by VZLU TEST a.s. (Czech Republic), report P-VZLUTEST-068/23 (2023). Class A1 is required in many commercial and public-sector projects in Europe.",
+    "patentsLabel": "National Patents",
+    "tmLabel": "Registered Trademarks"
   },
   "faq": {
     "kicker": "FAQ",

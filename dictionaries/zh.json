@@ -398,7 +398,9 @@
     "reachTitle": "REACH / SVHC 合规性",
     "reachText": "所有取得 CE 认证的九鼎产品均符合 REACH 法规。SGS REACH/SVHC 检测报告（编号 TSNEC2000446701，签发日期 2020-04-08）确认无危险物质释放，并被引用于全部 10 份 CE 性能声明中。",
     "fireClassTitle": "燃烧反应等级",
-    "fireClassText": "所有取得 CE 认证的九鼎散热器均依据 EN 13501-1 达到 A1 燃烧反应等级（不燃材料），由捷克 VZLU TEST a.s. 在报告 P-VZLUTEST-068/23（2023 年）中认定。A1 级是欧洲许多商业和公共部门项目的必备要求。"
+    "fireClassText": "所有取得 CE 认证的九鼎散热器均依据 EN 13501-1 达到 A1 燃烧反应等级（不燃材料），由捷克 VZLU TEST a.s. 在报告 P-VZLUTEST-068/23（2023 年）中认定。A1 级是欧洲许多商业和公共部门项目的必备要求。",
+    "patentsLabel": "国家专利",
+    "tmLabel": "注册商标"
   },
   "faq": {
     "kicker": "常见问题",
