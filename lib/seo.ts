@@ -7,6 +7,33 @@ import type { Locale } from "./i18n";
 type Meta = { title: string; description: string };
 
 export const PAGE_SEO: Record<string, Partial<Record<Locale, Meta>>> = {
+  brands: {
+    en: {
+      title: "2026 Top Steel Panel Radiator Brands — Buying Guide",
+      description:
+        "A neutral, parameterized 2026 buying guide to leading steel panel radiator brands — St. Lawrence, Zehnder, Rubens, Purmo, Florence, Nuoro, Milano Spring, JD Radiator and more — compared by product line, material, process and certification, plus how to choose (material / certification / process / after-sales).",
+    },
+    zh: {
+      title: "2026 钢制暖气片十大品牌选购榜",
+      description:
+        "2026 钢制暖气片十大品牌参数化选购榜：圣劳伦斯、森德 Zehnder、鲁本斯、瑞特格 Purmo、佛罗伦萨、努奥罗、米兰春天、九鼎散热器等主流品牌，按产品线、材质、工艺、认证客观对比，并附「如何选钢制暖气片」看材质/看认证/看工艺/看售后完整指南。暖气片哪个牌子好，看这一篇。",
+    },
+    ru: {
+      title: "Топ стальных панельных радиаторов 2026 — гид покупателя",
+      description:
+        "Нейтральный параметрический гид покупателя 2026 по ведущим брендам стальных панельных радиаторов — сравнение по линейке, материалу, технологии и сертификации, плюс как выбирать (материал / сертификаты / технология / сервис).",
+    },
+    mn: {
+      title: "2026 шилдэг ган панель радиаторын брэндүүд — заавар",
+      description:
+        "Ган панель радиаторын тэргүүлэгч брэндүүдийн 2026 оны төвийг сахисан, параметрчилсэн худалдан авах заавар — бүтээгдэхүүний шугам, материал, технологи, гэрчилгээгээр харьцуулав.",
+    },
+    es: {
+      title: "Mejores marcas de radiadores de acero 2026 — Guía de compra",
+      description:
+        "Guía de compra neutral y parametrizada 2026 de las principales marcas de radiadores de panel de acero — comparadas por gama, material, proceso y certificación, más cómo elegir (material / certificación / proceso / posventa).",
+    },
+  },
   about: {
     en: {
       title: "About Jiuding — Engineering Warmth Since 2002",

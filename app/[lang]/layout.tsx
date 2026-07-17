@@ -118,6 +118,9 @@ export default async function LangLayout({
                       {(categoryLabels[locale] ?? categoryLabels.en)[cat]}
                     </Link>
                   ))}
+                  <Link href={`/${locale}/brands`} className="block px-4 py-2.5 mt-1 border-t border-[#F1E7DC] text-sm font-semibold text-[var(--jd-red)] hover:bg-[#FFF7ED] transition-colors">
+                    {d.nav.brands}
+                  </Link>
                 </div>
               </div>
             </div>
@@ -157,6 +160,7 @@ export default async function LangLayout({
               <h3 className="text-white font-black text-lg mb-6">{d.footer.support}</h3>
               <Link href={`/${locale}/contact`} className="block mb-4 text-white/55 hover:text-[var(--jd-orange)] hover:translate-x-1 transition-all">{d.footer.quote}</Link>
               <Link href={`/${locale}/products`} className="block mb-4 text-white/55 hover:text-[var(--jd-orange)] hover:translate-x-1 transition-all">{d.footer.productCenter}</Link>
+              <Link href={`/${locale}/brands`} className="block mb-4 text-white/55 hover:text-[var(--jd-orange)] hover:translate-x-1 transition-all">{d.nav.brands}</Link>
               <Link href={`/${locale}/calculator`} className="block mb-4 text-white/55 hover:text-[var(--jd-orange)] hover:translate-x-1 transition-all">{d.footer.thermalTech}</Link>
               <Link href={`/${locale}/documents`} className="block mb-4 text-white/55 hover:text-[var(--jd-orange)] hover:translate-x-1 transition-all">{d.footer.mfg}</Link>
               <Link href={`/${locale}/collaborate`} className="block mb-4 text-white/55 hover:text-[var(--jd-orange)] hover:translate-x-1 transition-all">{d.nav.collaborate}</Link>
