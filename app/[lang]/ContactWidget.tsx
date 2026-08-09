@@ -61,6 +61,20 @@ export type ContactWidgetStrings = {
 
 const iconCls = "w-4 h-4 shrink-0 text-[var(--jd-orange)]";
 
+// Fire a custom Umami event (safe no-op if the tracker script hasn't loaded).
+// Distinct event names per channel so each shows up separately in the Umami
+// Events list even if event-data isn't enabled — lets us verify track()
+// end-to-end from a click, without waiting for a form submit.
+function track(event: string, data?: Record<string, string>) {
+  try {
+    (
+      window as unknown as {
+        umami?: { track: (n: string, d?: Record<string, string>) => void };
+      }
+    ).umami?.track(event, data);
+  } catch {}
+}
+
 export function ContactWidget({ locale, t }: { locale: Locale; t: ContactWidgetStrings }) {
   const [open, setOpen] = useState(false);
   const interacted = useRef(false);
@@ -158,6 +172,7 @@ export function ContactWidget({ locale, t }: { locale: Locale; t: ContactWidgetS
 
                 <a
                   href={`mailto:${p.email}`}
+                  onClick={() => track("email_click", { who: p.name })}
                   className="flex items-center gap-2.5 py-1 text-[13px] font-medium text-[var(--jd-dark)] hover:text-[var(--jd-orange)] transition-colors break-all"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={iconCls}>
@@ -169,6 +184,7 @@ export function ContactWidget({ locale, t }: { locale: Locale; t: ContactWidgetS
 
                 <a
                   href={`tel:${p.tel}`}
+                  onClick={() => track("tel_click", { who: p.name })}
                   className="flex items-center gap-2.5 py-1 text-[13px] font-medium text-[var(--jd-dark)] hover:text-[var(--jd-orange)] transition-colors"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={iconCls}>
@@ -182,6 +198,7 @@ export function ContactWidget({ locale, t }: { locale: Locale; t: ContactWidgetS
                   href={`https://wa.me/${p.wa}`}
                   target="_blank"
                   rel="noopener"
+                  onClick={() => track("wa_click", { who: p.name })}
                   className="mt-2 flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold text-[13px] rounded-lg px-3 py-2 transition-colors"
                 >
                   <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
@@ -196,6 +213,7 @@ export function ContactWidget({ locale, t }: { locale: Locale; t: ContactWidgetS
           {/* Office line */}
           <a
             href={`tel:${OFFICE_TEL}`}
+            onClick={() => track("tel_click", { who: "office" })}
             className="flex items-center gap-2.5 mt-4 py-1 text-[13px] font-medium text-[var(--jd-dark)] hover:text-[var(--jd-orange)] transition-colors"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={iconCls}>
@@ -233,7 +251,10 @@ export function ContactWidget({ locale, t }: { locale: Locale; t: ContactWidgetS
 
           <Link
             href={`/${locale}/contact`}
-            onClick={() => toggle(false)}
+            onClick={() => {
+              track("quote_click");
+              toggle(false);
+            }}
             className="block w-full text-center bg-[var(--jd-orange)] hover:bg-[var(--jd-orange-dark)] text-white font-bold text-sm rounded-xl px-4 py-3 mt-4 transition-colors"
           >
             {t.quoteButton}
