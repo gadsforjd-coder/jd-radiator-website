@@ -442,6 +442,8 @@ export default async function BrandsPage({
           </Link>
           <Link
             href={`/${locale}/contact`}
+            data-umami-event="contact_click"
+            data-umami-event-src="brands"
             className="inline-flex h-14 items-center px-8 border border-gray-300 text-[var(--jd-dark)] font-extrabold rounded-sm hover:border-gray-500 transition-all"
           >
             联系我们 · Contact Us

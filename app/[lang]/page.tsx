@@ -399,8 +399,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               <h2 className="text-4xl lg:text-5xl font-black text-white tracking-tight">{d.contact.title}</h2>
               <p className="text-white/80 leading-relaxed mt-4 mb-8">{d.contact.lead}</p>
               <div className="flex gap-4 flex-wrap">
-                <Link href={`/${locale}/contact`} className="inline-flex h-14 items-center px-8 bg-white text-[var(--jd-orange)] font-extrabold rounded-sm hover:bg-orange-50 transition-all hover:shadow-[0_0_30px_rgba(255,255,255,0.35)]">{d.contact.email}</Link>
-                <Link href={`/${locale}/contact`} className="inline-flex h-14 items-center px-8 border border-white/60 text-white font-extrabold rounded-sm hover:border-white hover:bg-white/10 transition-all">{d.contact.cta2}</Link>
+                <Link href={`/${locale}/contact`} data-umami-event="contact_click" data-umami-event-src="home" className="inline-flex h-14 items-center px-8 bg-white text-[var(--jd-orange)] font-extrabold rounded-sm hover:bg-orange-50 transition-all hover:shadow-[0_0_30px_rgba(255,255,255,0.35)]">{d.contact.email}</Link>
+                <Link href={`/${locale}/contact`} data-umami-event="contact_click" data-umami-event-src="home_alt" className="inline-flex h-14 items-center px-8 border border-white/60 text-white font-extrabold rounded-sm hover:border-white hover:bg-white/10 transition-all">{d.contact.cta2}</Link>
               </div>
             </div>
           </div>

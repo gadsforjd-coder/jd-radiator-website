@@ -269,7 +269,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           )}
 
           <div className="flex gap-4 mt-8 flex-wrap items-start">
-            <Link href={`/${locale}/contact`} className="inline-flex h-12 items-center px-6 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-orange-700 transition-colors">{d.products.inquiry}</Link>
+            <Link href={`/${locale}/contact`} data-umami-event="contact_click" data-umami-event-src="product" className="inline-flex h-12 items-center px-6 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-orange-700 transition-colors">{d.products.inquiry}</Link>
             <ProductSizer
               slug={slug}
               category={product.category}

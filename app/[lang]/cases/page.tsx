@@ -85,7 +85,7 @@ export default async function CasesPage({ params }: { params: Promise<{ lang: st
       <div className="bg-gray-50 p-12 text-center rounded-xl">
         <h2 className="text-2xl lg:text-3xl font-bold tracking-tight mb-3">{d.cases.ctaTitle}</h2>
         <p className="text-gray-500 text-lg mb-6 max-w-2xl mx-auto">{d.cases.ctaDesc}</p>
-        <Link href={`/${locale}/contact`} className="inline-flex h-12 items-center px-6 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-orange-700 transition-colors">{d.nav.contact}</Link>
+        <Link href={`/${locale}/contact`} data-umami-event="contact_click" data-umami-event-src="cases" className="inline-flex h-12 items-center px-6 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-orange-700 transition-colors">{d.nav.contact}</Link>
       </div>
     </div>
   );
