@@ -77,6 +77,8 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
             href="https://wa.me/8617742252991"
             target="_blank"
             rel="noopener"
+            data-umami-event="wa_click"
+            data-umami-event-src="contact_page"
             className="mt-8 inline-flex items-center gap-2.5 bg-white text-[#128C7E] font-bold rounded-xl px-6 py-3.5 shadow-lg hover:opacity-90 transition-opacity"
           >
             <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
