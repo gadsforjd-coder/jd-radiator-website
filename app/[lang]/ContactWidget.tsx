@@ -194,11 +194,19 @@ export function ContactWidget({ locale, t }: { locale: Locale; t: ContactWidgetS
                   <span className="text-[11px] text-[var(--jd-muted)]">· {t.phoneLabel}</span>
                 </a>
 
+                {/* WhatsApp is the only contact link that opens a new tab
+                    (target=_blank). A JS onClick+track() can race the new-tab
+                    navigation in some environments, so we use Umami's
+                    declarative data-umami-event — its own link-aware, delegated
+                    handler fires the event reliably (and via fetch keepalive it
+                    survives the navigation). This is the single highest-value
+                    conversion signal, so we track it the robust way. */}
                 <a
                   href={`https://wa.me/${p.wa}`}
                   target="_blank"
                   rel="noopener"
-                  onClick={() => track("wa_click", { who: p.name })}
+                  data-umami-event="wa_click"
+                  data-umami-event-who={p.name}
                   className="mt-2 flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold text-[13px] rounded-lg px-3 py-2 transition-colors"
                 >
                   <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
