@@ -4,7 +4,7 @@
 // which rewrites this line and pushes when the tunnel URL changes. Hardcoded so a
 // stale Vercel UMAMI_HOST env var can't silently override it (that caused the
 // 2026-06-12 analytics outage). Keep the assignment on a single line for the script.
-const UMAMI_HOST = "https://analyze-involvement-original-middle.trycloudflare.com";
+const UMAMI_HOST = "https://herbs-jobs-llc-division.trycloudflare.com";
 
 export async function POST(request: Request) {
   const body = await request.text();
