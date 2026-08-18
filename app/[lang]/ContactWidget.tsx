@@ -126,7 +126,7 @@ export function ContactWidget({ locale, t }: { locale: Locale; t: ContactWidgetS
         onClick={() => toggle(!open)}
         aria-expanded={open}
         aria-label={t.tab}
-        className={`fixed right-0 top-1/2 -translate-y-1/2 z-[60] flex flex-col items-center gap-2.5 bg-[var(--jd-orange)] text-white px-2.5 py-5 rounded-l-xl shadow-[0_4px_20px_rgba(234,88,12,0.35)] hover:bg-[var(--jd-orange-dark)] transition-all duration-300 ${
+        className={`fixed right-0 bottom-24 z-[60] lg:bottom-auto lg:top-1/2 lg:-translate-y-1/2 flex flex-col items-center gap-2.5 bg-[var(--jd-orange)] text-white px-2.5 py-5 rounded-l-xl shadow-[0_4px_20px_rgba(234,88,12,0.35)] hover:bg-[var(--jd-orange-dark)] transition-all duration-300 ${
           open ? "translate-x-full opacity-0 pointer-events-none" : ""
         }`}
       >
