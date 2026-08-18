@@ -126,7 +126,7 @@ export function ContactWidget({ locale, t }: { locale: Locale; t: ContactWidgetS
         onClick={() => toggle(!open)}
         aria-expanded={open}
         aria-label={t.tab}
-        className={`fixed right-0 bottom-24 z-[60] lg:bottom-auto lg:top-1/2 lg:-translate-y-1/2 flex flex-col items-center gap-2.5 bg-[var(--jd-orange)] text-white px-2.5 py-5 rounded-l-xl shadow-[0_4px_20px_rgba(234,88,12,0.35)] hover:bg-[var(--jd-orange-dark)] transition-all duration-300 ${
+        className={`fixed right-4 bottom-4 z-[60] p-3.5 rounded-full lg:right-0 lg:bottom-auto lg:top-1/2 lg:-translate-y-1/2 lg:p-0 lg:px-2.5 lg:py-5 lg:rounded-l-xl lg:rounded-r-none flex flex-col items-center gap-2.5 bg-[var(--jd-orange)] text-white shadow-[0_4px_20px_rgba(234,88,12,0.35)] hover:bg-[var(--jd-orange-dark)] transition-all duration-300 ${
           open ? "translate-x-full opacity-0 pointer-events-none" : ""
         }`}
       >
@@ -134,7 +134,7 @@ export function ContactWidget({ locale, t }: { locale: Locale; t: ContactWidgetS
           <rect x="3" y="5" width="18" height="14" rx="2" />
           <path d="m3 7 9 6 9-6" />
         </svg>
-        <span className="[writing-mode:vertical-rl] text-sm font-bold tracking-[0.2em] whitespace-nowrap">
+        <span className="hidden lg:block [writing-mode:vertical-rl] text-sm font-bold tracking-[0.2em] whitespace-nowrap">
           {t.tab}
         </span>
       </button>
