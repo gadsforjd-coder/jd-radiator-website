@@ -4,7 +4,16 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-type CTA = { label: string; href: string };
+type CTA = {
+  label: string;
+  href: string;
+  // Optional umami analytics attributes (rendered as data-umami-event / -src).
+  event?: string;
+  eventSrc?: string;
+  // When true, render as a real external anchor (target=_blank) instead of <Link>
+  // — required for off-site links like WhatsApp under this Next config.
+  external?: boolean;
+};
 
 export type HeroSlide = {
   image: string;
@@ -127,9 +136,17 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
                   </ul>
                 )}
                 <div className="flex gap-4 mt-10 flex-wrap justify-end">
-                  <Link href={slide.cta1.href} tabIndex={active ? 0 : -1} className="inline-flex h-14 items-center px-8 bg-[var(--jd-red)] text-white font-extrabold rounded-sm hover:bg-orange-700 transition-all hover:shadow-[0_0_30px_rgba(234,88,12,0.4)]">{slide.cta1.label}</Link>
+                  {slide.cta1.external ? (
+                    <a href={slide.cta1.href} target="_blank" rel="noopener" tabIndex={active ? 0 : -1} data-umami-event={slide.cta1.event} data-umami-event-src={slide.cta1.eventSrc} className="inline-flex h-14 items-center px-8 bg-[var(--jd-red)] text-white font-extrabold rounded-sm hover:bg-orange-700 transition-all hover:shadow-[0_0_30px_rgba(234,88,12,0.4)]">{slide.cta1.label}</a>
+                  ) : (
+                    <Link href={slide.cta1.href} tabIndex={active ? 0 : -1} data-umami-event={slide.cta1.event} data-umami-event-src={slide.cta1.eventSrc} className="inline-flex h-14 items-center px-8 bg-[var(--jd-red)] text-white font-extrabold rounded-sm hover:bg-orange-700 transition-all hover:shadow-[0_0_30px_rgba(234,88,12,0.4)]">{slide.cta1.label}</Link>
+                  )}
                   {slide.cta2 && (
-                    <Link href={slide.cta2.href} tabIndex={active ? 0 : -1} className="inline-flex h-14 items-center px-8 border border-white/60 bg-white/10 backdrop-blur-sm text-white font-extrabold rounded-sm hover:border-white hover:bg-white/20 transition-all">{slide.cta2.label}</Link>
+                    slide.cta2.external ? (
+                      <a href={slide.cta2.href} target="_blank" rel="noopener" tabIndex={active ? 0 : -1} data-umami-event={slide.cta2.event} data-umami-event-src={slide.cta2.eventSrc} className="inline-flex h-14 items-center px-8 border border-white/60 bg-white/10 backdrop-blur-sm text-white font-extrabold rounded-sm hover:border-white hover:bg-white/20 transition-all">{slide.cta2.label}</a>
+                    ) : (
+                      <Link href={slide.cta2.href} tabIndex={active ? 0 : -1} data-umami-event={slide.cta2.event} data-umami-event-src={slide.cta2.eventSrc} className="inline-flex h-14 items-center px-8 border border-white/60 bg-white/10 backdrop-blur-sm text-white font-extrabold rounded-sm hover:border-white hover:bg-white/20 transition-all">{slide.cta2.label}</Link>
+                    )
                   )}
                 </div>
               </div>
