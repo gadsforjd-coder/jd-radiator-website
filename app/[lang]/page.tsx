@@ -84,6 +84,23 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   const locale = lang as Locale;
   const d = await getDictionary(locale);
 
+  // Conversion-sprint hero CTAs (variant B, locked 2026-08-20): primary → contact
+  // (talk to an engineer), secondary → WhatsApp. Both tracked under src=home_hero
+  // so umami can separate hero clicks from footer (wa_click) / contact page.
+  const heroCta1: HeroSlide["cta1"] = {
+    label: d.hero.cta1,
+    href: `/${locale}/contact`,
+    event: "hero_quote_click",
+    eventSrc: "home_hero",
+  };
+  const heroCta2: NonNullable<HeroSlide["cta2"]> = {
+    label: d.hero.cta2,
+    href: "https://wa.me/8617742252991",
+    event: "hero_wa_click",
+    eventSrc: "home_hero",
+    external: true,
+  };
+
   // Hero carousel slides. Slide 1 reproduces the original static hero exactly.
   // Additional slides come from the optional `heroSlides` dictionary key — each
   // is only added when its translation exists, so locales without the key (and
@@ -94,7 +111,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       kicker: d.hero.kicker,
       title: d.hero.title,
       lead: d.hero.lead,
-      cta1: { label: d.hero.cta1, href: `/${locale}/products` },
+      cta1: heroCta1,
+      cta2: heroCta2,
       focal: "left center", // product on the left — keep it from being cropped on narrow viewports
     },
   ];
@@ -106,7 +124,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       kicker: steelColumn.kicker,
       title: steelColumn.title,
       lead: steelColumn.lead,
-      cta1: { label: steelColumn.cta1, href: `/${locale}/products` },
+      cta1: heroCta1,
+      cta2: heroCta2,
       focal: "left center", // radiator on the left — keep it from being cropped on narrow viewports
     });
   }
@@ -119,7 +138,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       title: panel.title,
       lead: panel.lead,
       advantages: panel.advantages,
-      cta1: { label: panel.cta1, href: `/${locale}/products` },
+      cta1: heroCta1,
+      cta2: heroCta2,
     });
   }
 
