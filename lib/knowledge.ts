@@ -1,5 +1,6 @@
 import type { Locale } from "./i18n";
 import { locales } from "./i18n";
+import rawArticles from "./knowledge-articles.json";
 
 // ---------------------------------------------------------------------------
 // Knowledge Base ("/knowledge") — a GEO-oriented content hub.
@@ -123,69 +124,11 @@ export const KNOWLEDGE_UI: Record<Locale, KnowledgeUi> = {
 };
 
 // ---------------------------------------------------------------------------
-// Articles
-//
-// NOTE: The single entry below is a SCAFFOLD SAMPLE that demonstrates every
-// template feature (h2, internal links, FAQ block + JSON-LD). It carries no
-// product/compliance claims. It is replaced by 运营's compliance-vetted copy
-// (S1《GOST详解》…) before the hub is exposed for launch.
+// Articles — content lives in lib/knowledge-articles.json, generated from the
+// operations-supplied bilingual markdown via scripts/knowledge-md-to-json.js.
 // ---------------------------------------------------------------------------
 
-export const knowledgeArticles: KnowledgeArticle[] = [
-  {
-    slug: "welcome-to-the-knowledge-base",
-    date: "2026-08-26",
-    category: "sourcing",
-    content: {
-      en: {
-        title: "About the Jiuding Radiator Knowledge Base",
-        excerpt:
-          "What this resource covers and how buyers, importers and specifiers can use it to evaluate steel radiators and their documentation.",
-        body: [
-          "This Knowledge Base is a growing library of practical, vendor-neutral guides for anyone sourcing steel radiators — buyers, importers, distributors and design specifiers.",
-          "## What you will find here",
-          "Each guide takes one real question that professional buyers ask and answers it in depth: how to read a thermal-output test report, how certification works across different markets, how material and construction affect service life, and what to check before placing a first order.",
-          "The library is organised so that each article stands on its own. Where a topic connects to our documentation, we link to the relevant page — for example our [certification overview](/en/credentials) or the [contact form](/en/contact) if you need a specific document.",
-          "## How it is maintained",
-          "Guides are written from first-hand manufacturing and export experience and reviewed for accuracy before publishing. New topics are added continuously based on the questions we hear most often from professional buyers.",
-        ],
-        faq: [
-          {
-            q: "Who is this Knowledge Base for?",
-            a: "It is written for B2B buyers, importers, distributors and design specifiers evaluating steel radiators — not for end consumers browsing for a single unit.",
-          },
-          {
-            q: "How can I request a specific document?",
-            a: "Use the contact form and tell our export team which product and market you are working with; they will send the relevant certification or technical documentation.",
-          },
-        ],
-      },
-      ru: {
-        title: "О базе знаний Jiuding Radiator",
-        excerpt:
-          "Что охватывает этот ресурс и как закупщикам, импортёрам и проектировщикам использовать его для оценки стальных радиаторов и их документации.",
-        body: [
-          "База знаний — это растущая библиотека практических, независимых от поставщика руководств для всех, кто занимается закупкой стальных радиаторов: закупщиков, импортёров, дистрибьюторов и проектировщиков.",
-          "## Что вы здесь найдёте",
-          "Каждое руководство берёт один реальный вопрос профессиональных закупщиков и подробно на него отвечает: как читать протокол испытаний теплоотдачи, как устроена сертификация на разных рынках, как материал и конструкция влияют на срок службы и что проверить перед первым заказом.",
-          "Библиотека построена так, чтобы каждая статья была самодостаточной. Там, где тема связана с нашей документацией, мы даём ссылку на соответствующую страницу — например, на [обзор сертификатов](/ru/credentials) или на [форму обратной связи](/ru/contact), если вам нужен конкретный документ.",
-          "## Как она поддерживается",
-          "Руководства написаны на основе непосредственного опыта производства и экспорта и проверяются на точность перед публикацией. Новые темы добавляются постоянно, исходя из вопросов, которые чаще всего задают профессиональные закупщики.",
-        ],
-        faq: [
-          {
-            q: "Для кого эта база знаний?",
-            a: "Она написана для B2B-закупщиков, импортёров, дистрибьюторов и проектировщиков, оценивающих стальные радиаторы, а не для конечных потребителей, выбирающих один прибор.",
-          },
-          {
-            q: "Как запросить конкретный документ?",
-            a: "Заполните форму обратной связи и укажите нашей экспортной команде продукт и рынок; они направят соответствующий сертификат или техническую документацию.",
-          },
-        ],
-      },
-    },
-  },
-];
+export const knowledgeArticles: KnowledgeArticle[] = rawArticles as unknown as KnowledgeArticle[];
 
 // ---------------------------------------------------------------------------
 // Helpers

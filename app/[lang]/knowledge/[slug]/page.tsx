@@ -18,16 +18,25 @@ import { notFound } from "next/navigation";
  *  - inline markdown-style links "[text](/lang/path)" become <Link>s.
  */
 function InlineText({ text }: { text: string }) {
-  const parts = text.split(/(\[[^\]]+\]\([^)\s]+\))/g);
+  // Split on internal links "[text](/path)" and bold "**text**".
+  const parts = text.split(/(\[[^\]]+\]\([^)\s]+\)|\*\*[^*]+\*\*)/g);
   return (
     <>
       {parts.map((part, i) => {
-        const m = part.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
-        if (m) {
+        const link = part.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
+        if (link) {
           return (
-            <Link key={i} href={m[2]} className="text-[var(--jd-red)] font-semibold hover:underline">
-              {m[1]}
+            <Link key={i} href={link[2]} className="text-[var(--jd-red)] font-semibold hover:underline">
+              {link[1]}
             </Link>
+          );
+        }
+        const bold = part.match(/^\*\*([^*]+)\*\*$/);
+        if (bold) {
+          return (
+            <strong key={i} className="font-bold text-[#1E293B]">
+              {bold[1]}
+            </strong>
           );
         }
         return <span key={i}>{part}</span>;
@@ -164,7 +173,11 @@ export default async function KnowledgeArticlePage({
 
           <div className="mt-10">
             {c.body.map((paragraph, i) =>
-              paragraph.startsWith("## ") ? (
+              paragraph.startsWith("### ") ? (
+                <h3 key={i} className="text-xl font-bold tracking-tight mt-8 mb-4">
+                  {paragraph.slice(4)}
+                </h3>
+              ) : paragraph.startsWith("## ") ? (
                 <h2 key={i} className="text-2xl font-bold tracking-tight mt-12 mb-5">
                   {paragraph.slice(3)}
                 </h2>
