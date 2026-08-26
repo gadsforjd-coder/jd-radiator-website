@@ -1,5 +1,148 @@
 [
   {
+    "slug": "read-en442-heat-output-report",
+    "date": "2026-08-26",
+    "category": "thermal",
+    "content": {
+      "en": {
+        "title": "How to Read a Radiator Heat-Output Report (EN442): Why ΔT Matters and How to Compare Fairly",
+        "excerpt": "If you buy steel panel radiators, sooner or later you compare heat-output figures from different suppliers — and the numbers rarely line up. One brand quotes 1,000 W for a panel, another quotes 1,270 W for what looks like the same size, and a third just says \"high output.\" Before you conclude that one product is stronger than another, there is one thing you must check: **at what temperature condition (ΔT) was that figure measured?** Change the ΔT and the same radiator produces a very different number — without anything about the product changing at all.",
+        "body": [
+          "We are a family-run steel panel radiator factory established in 2002, exporting to Europe, Russia, and Central Asia. This article explains, in plain terms, how to read an EN442 heat-output report so you can compare radiators fairly and avoid being misled by a number that only looks impressive.",
+          "## 1. What is EN442, and what does it actually measure?",
+          "**EN442 is Europe's harmonized standard for radiators.** For buyers, the part that matters most is **EN 442-2**, which defines the test method for **heat output** (thermal power). A radiator's rated output is not a fixed property of the product alone — it depends on the temperature difference between the water inside the radiator and the air in the room. EN 442-2 fixes that test condition so that outputs are measured on a common basis.",
+          "The single most important rule: **a heat-output figure is only meaningful if it states the temperature condition it was measured at.** A number on its own — \"1,200 W\" — tells you almost nothing until you know the ΔT behind it.",
+          "## 2. What does ΔT50 mean — and why does ΔT60 give a bigger number?",
+          "**ΔT** (\"delta-T\") is the difference between the radiator's mean water temperature and the room air temperature.",
+          "- **ΔT50 K** is today's standard reference condition, typically expressed as **75 / 65 / 20 °C** (flow 75 °C, return 65 °C, room 20 °C). Mean water temperature = (75 + 65) / 2 = 70 °C; minus 20 °C room = **ΔT50**.\n- **ΔT60 K** is the **older** reference, typically **90 / 70 / 20 °C**. Mean water = (90 + 70) / 2 = 80 °C; minus 20 °C = **ΔT60**.",
+          "Because a hotter radiator gives off more heat, the *same* radiator produces a **higher** number at ΔT60 than at ΔT50. The difference is not small:",
+          "| Same radiator, measured at | Typical temperatures | Relative output |\n|----------------------------|----------------------|-----------------|\n| ΔT50 K (current standard) | 75 / 65 / 20 °C | 1,000 W (reference) |\n| ΔT60 K (older basis) | 90 / 70 / 20 °C | ≈ 1,270 W |",
+          "So a panel rated **1,000 W at ΔT50** can honestly be quoted as roughly **1,270 W at ΔT60** — about **25–27 % higher** — for the *exact same product*. Neither number is \"wrong\"; they are simply measured at different conditions. The problem only arises when a supplier quotes the bigger ΔT60 figure without saying so, next to a competitor's ΔT50 figure, to look stronger.",
+          "**Practical takeaway:** when you see an output figure, find the ΔT first. If it is not stated, ask. Comparing a ΔT60 number against a ΔT50 number is not a fair comparison.",
+          "## 3. How do I compare different brands fairly?",
+          "Two rules:",
+          "1. **Convert everything to the same ΔT before comparing** — normally ΔT50 K, the current standard.\n2. **Then compare like-for-like** on the same Type and size.",
+          "To convert an output from one ΔT to another, EN442 uses this relationship:",
+          "> **Q₂ = Q₁ × (ΔT₂ / ΔT₁)ⁿ**",
+          "where **n** is the **radiator exponent** — a value from the test that describes how the radiator's output changes with temperature. For steel panel radiators, n is typically **around 1.3**, but it varies by product, which is exactly why a proper report should state the actual n value.",
+          "Worked example — converting a ΔT60 figure back to ΔT50, with n = 1.3:",
+          "> Q(ΔT50) = 1,270 × (50 / 60)^1.3 ≈ 1,270 × 0.79 ≈ **1,000 W**",
+          "Once both products are expressed at ΔT50, you are finally comparing apples to apples.",
+          "## 4. Why does the exponent n matter for heat pumps and low-temperature heating?",
+          "This is where n becomes genuinely important, not just academic. Heat pumps and modern low-temperature systems run at much lower water temperatures — so the radiator operates at a **low ΔT** (for example ΔT30 K, around 55 / 45 / 20 °C).",
+          "At a lower ΔT, every radiator produces **less** than its ΔT50 rating. Using the same formula with n = 1.3:",
+          "> Q(ΔT30) = Q(ΔT50) × (30 / 50)^1.3 ≈ Q(ΔT50) × 0.51",
+          "So a radiator rated 1,000 W at ΔT50 delivers only about **510 W** at ΔT30. If you are sizing radiators for a heat-pump or low-temperature system, you **cannot** use the ΔT50 catalogue figure directly — you must recalculate at your real operating ΔT, and for that you need the **n value** from the report. A supplier who can give you n is a supplier who can actually support low-temperature projects.",
+          "## 5. What should a trustworthy EN442 report contain?",
+          "Use this checklist. A report that is missing these fields is hard to rely on:",
+          "- **Model / Type** (e.g., Type 11, 22, 33) and **exact dimensions** (height × length).\n- **Rated heat output in watts, with the ΔT condition stated** (e.g., \"1,000 W at ΔT50 K, 75/65/20 °C\"). An output figure without a ΔT is incomplete.\n- **Reference to EN 442-2** as the test method.\n- **The radiator exponent n**, so outputs can be recalculated at other temperatures.\n- **The testing body** — who performed the test.",
+          "If a supplier can produce a report covering all of the above, you can compare their product confidently and size it correctly for your system.",
+          "## 6. Is the data third-party tested?",
+          "Independent testing matters because it removes the \"we tested it ourselves\" question. For our steel panel radiators, we have **third-party independent laboratory thermal data (BSRIA, UK)** measured to the EN442 method. EN 442-2 is a **publicly available standard**, so you can check the method yourself and ask any supplier to demonstrate their output figures against it. The right question to a supplier is not \"is your output high?\" but \"**is your output backed by a third-party report, and at what ΔT?**\"",
+          "---"
+        ],
+        "faq": [
+          {
+            "q": "What is EN442?",
+            "a": "EN442 is Europe's harmonized standard for radiators. EN 442-2 in particular defines how a radiator's heat output is tested and stated, so that figures from different products can be compared on a common basis."
+          },
+          {
+            "q": "What does ΔT50 mean?",
+            "a": "ΔT50 is the standard test condition where the radiator's mean water temperature is 50 K above room temperature — typically 75 / 65 / 20 °C (flow / return / room). It is the current reference for stating heat output."
+          },
+          {
+            "q": "Why are the wattages at 75-65-20 and 90-70-20 so different for the same radiator?",
+            "a": "Because they are different ΔT conditions: 75/65/20 is ΔT50, and 90/70/20 is ΔT60. A hotter radiator gives off more heat, so the same product shows about 25–27 % higher output at ΔT60 than at ΔT50. The product has not changed — only the test condition has."
+          },
+          {
+            "q": "How do I compare heat output across different brands fairly?",
+            "a": "Convert every figure to the same ΔT (usually ΔT50), then compare the same Type and size. Use Q₂ = Q₁ × (ΔT₂/ΔT₁)ⁿ, where n is the radiator exponent from the report. Never compare a ΔT60 figure directly against a ΔT50 figure."
+          },
+          {
+            "q": "How do I convert a radiator's output to my own system temperature?",
+            "a": "Use Q₂ = Q₁ × (ΔT₂/ΔT₁)ⁿ. Work out your system's ΔT from your flow, return, and room temperatures, then apply the formula using the n value from the report (for steel panels, n is typically around 1.3, but use the actual figure given)."
+          },
+          {
+            "q": "What fields should a reliable heat-output report have?",
+            "a": "Model/Type, exact dimensions, rated output in watts with the ΔT condition stated, a reference to EN 442-2, the radiator exponent n, and the testing body. A figure without a stated ΔT is incomplete."
+          },
+          {
+            "q": "Is the heat-output data third-party tested?",
+            "a": "It should be. For our radiators, we hold third-party independent laboratory thermal data (BSRIA, UK) to the EN442 method. Because EN 442-2 is a public standard, you can ask any supplier to show their figures are tested against it, and at which ΔT."
+          }
+        ]
+      },
+      "ru": {
+        "title": "Как читать отчёт о теплоотдаче радиатора (EN442): почему важен ΔT и как сравнивать честно",
+        "excerpt": "Если вы закупаете стальные панельные радиаторы, рано или поздно вы сравниваете значения теплоотдачи от разных поставщиков — и цифры почти никогда не совпадают. Один бренд заявляет 1000 Вт для панели, другой — 1270 Вт для панели, которая выглядит того же размера, а третий просто пишет «высокая мощность». Прежде чем сделать вывод, что один продукт мощнее другого, нужно проверить одну вещь: **при каком температурном режиме (ΔT) была измерена эта цифра?** Измените ΔT — и тот же радиатор покажет совсем другое число, хотя в самом продукте ничего не изменилось.",
+        "body": [
+          "Мы — семейный завод по производству стальных панельных радиаторов, основанный в 2002 году, с экспортом в Европу, Россию и Центральную Азию. В этой статье мы простыми словами объясняем, как читать отчёт о теплоотдаче по EN442, чтобы сравнивать радиаторы честно и не поддаваться на цифру, которая лишь выглядит внушительно.",
+          "## 1. Что такое EN442 и что он на самом деле измеряет?",
+          "**EN442 — это единый европейский стандарт для радиаторов.** Для покупателя важнее всего часть **EN 442-2**, которая определяет метод испытания **теплоотдачи** (тепловой мощности). Номинальная мощность радиатора — это не фиксированное свойство самого изделия: она зависит от разницы температур между водой внутри радиатора и воздухом в помещении. EN 442-2 фиксирует это условие испытания, чтобы значения мощности измерялись на общей основе.",
+          "Самое важное правило: **значение теплоотдачи имеет смысл только тогда, когда указан температурный режим, при котором оно измерено.** Цифра сама по себе — «1200 Вт» — почти ничего не говорит, пока вы не знаете стоящий за ней ΔT.",
+          "## 2. Что означает ΔT50 — и почему при ΔT60 число больше?",
+          "**ΔT** («дельта-Т») — это разница между средней температурой воды в радиаторе и температурой воздуха в помещении.",
+          "- **ΔT50 K** — это современный стандартный режим, обычно выражаемый как **75 / 65 / 20 °C** (подача 75 °C, обратка 65 °C, помещение 20 °C). Средняя температура воды = (75 + 65) / 2 = 70 °C; минус 20 °C помещения = **ΔT50**.\n- **ΔT60 K** — это **более старый** режим, обычно **90 / 70 / 20 °C**. Средняя вода = (90 + 70) / 2 = 80 °C; минус 20 °C = **ΔT60**.",
+          "Поскольку более горячий радиатор отдаёт больше тепла, *тот же* радиатор показывает **большее** число при ΔT60, чем при ΔT50. И разница немаленькая:",
+          "| Тот же радиатор, измерен при | Типовые температуры | Относительная мощность |\n|------------------------------|---------------------|------------------------|\n| ΔT50 K (текущий стандарт) | 75 / 65 / 20 °C | 1000 Вт (эталон) |\n| ΔT60 K (старая основа) | 90 / 70 / 20 °C | ≈ 1270 Вт |",
+          "Итак, панель с номиналом **1000 Вт при ΔT50** можно честно указать как примерно **1270 Вт при ΔT60** — примерно на **25–27 % выше** — для *того же самого изделия*. Ни одно из чисел не «неправильное»; они просто измерены при разных условиях. Проблема возникает только тогда, когда поставщик приводит большее значение ΔT60, не указывая этого, рядом со значением ΔT50 конкурента, чтобы выглядеть сильнее.",
+          "**Практический вывод:** увидев значение мощности, сначала найдите ΔT. Если он не указан — спросите. Сравнивать число при ΔT60 с числом при ΔT50 — это некорректное сравнение.",
+          "## 3. Как честно сравнить разные бренды?",
+          "Два правила:",
+          "1. **Приведите все значения к одному ΔT перед сравнением** — обычно к ΔT50 K, текущему стандарту.\n2. **Затем сравнивайте «подобное с подобным»** — тот же Type и размер.",
+          "Чтобы пересчитать мощность с одного ΔT на другой, EN442 использует следующее соотношение:",
+          "> **Q₂ = Q₁ × (ΔT₂ / ΔT₁)ⁿ**",
+          "где **n** — это **радиаторный показатель степени** — значение из испытания, описывающее, как меняется мощность радиатора с температурой. Для стальных панельных радиаторов n обычно **около 1,3**, но он различается у разных изделий — именно поэтому в правильном отчёте должно быть указано фактическое значение n.",
+          "Пример пересчёта значения ΔT60 обратно к ΔT50, при n = 1,3:",
+          "> Q(ΔT50) = 1270 × (50 / 60)^1,3 ≈ 1270 × 0,79 ≈ **1000 Вт**",
+          "Как только оба изделия выражены при ΔT50, вы наконец сравниваете сопоставимое с сопоставимым.",
+          "## 4. Почему показатель n важен для тепловых насосов и низкотемпературного отопления?",
+          "Именно здесь n становится по-настоящему важным, а не только теоретическим. Тепловые насосы и современные низкотемпературные системы работают при гораздо более низких температурах воды — то есть радиатор работает при **низком ΔT** (например, ΔT30 K, около 55 / 45 / 20 °C).",
+          "При более низком ΔT любой радиатор отдаёт **меньше**, чем его номинал при ΔT50. По той же формуле при n = 1,3:",
+          "> Q(ΔT30) = Q(ΔT50) × (30 / 50)^1,3 ≈ Q(ΔT50) × 0,51",
+          "Так, радиатор с номиналом 1000 Вт при ΔT50 отдаёт лишь около **510 Вт** при ΔT30. Если вы подбираете радиаторы для системы с тепловым насосом или низкотемпературной системы, вы **не можете** использовать каталожное значение при ΔT50 напрямую — нужно пересчитать при вашем реальном рабочем ΔT, а для этого нужно значение **n** из отчёта. Поставщик, который может дать вам n, — это поставщик, который действительно способен поддержать низкотемпературные проекты.",
+          "## 5. Что должно быть в надёжном отчёте по EN442?",
+          "Используйте этот чек-лист. На отчёт, в котором не хватает этих полей, трудно полагаться:",
+          "- **Модель / Type** (например, Type 11, 22, 33) и **точные размеры** (высота × длина).\n- **Номинальная теплоотдача в ваттах с указанием режима ΔT** (например, «1000 Вт при ΔT50 K, 75/65/20 °C»). Значение мощности без ΔT неполно.\n- **Ссылка на EN 442-2** как метод испытания.\n- **Радиаторный показатель степени n**, чтобы можно было пересчитать мощность при других температурах.\n- **Испытательная организация** — кто проводил испытание.",
+          "Если поставщик может предоставить отчёт со всеми перечисленными пунктами, вы можете уверенно сравнить его изделие и правильно подобрать его для вашей системы.",
+          "## 6. Проверены ли данные третьей стороной?",
+          "Независимые испытания важны, потому что снимают вопрос «мы испытали это сами». Для наших стальных панельных радиаторов у нас есть **теплотехнические данные независимой лаборатории третьей стороны (BSRIA, Великобритания)**, измеренные по методу EN442. EN 442-2 — это **общедоступный стандарт**, поэтому вы можете сами проверить метод и попросить любого поставщика подтвердить свои значения мощности по нему. Правильный вопрос к поставщику — не «высокая ли у вас мощность?», а «**подтверждена ли ваша мощность отчётом третьей стороны и при каком ΔT?**»",
+          "---"
+        ],
+        "faq": [
+          {
+            "q": "Что такое EN442?",
+            "a": "EN442 — это единый европейский стандарт для радиаторов. В частности, EN 442-2 определяет, как испытывается и указывается теплоотдача радиатора, чтобы значения разных изделий можно было сравнивать на общей основе."
+          },
+          {
+            "q": "Что означает ΔT50?",
+            "a": "ΔT50 — это стандартный режим испытания, при котором средняя температура воды в радиаторе на 50 K выше температуры помещения — обычно 75 / 65 / 20 °C (подача / обратка / помещение). Это текущий эталон для указания теплоотдачи."
+          },
+          {
+            "q": "Почему мощность при 75-65-20 и 90-70-20 так различается для одного и того же радиатора?",
+            "a": "Потому что это разные режимы ΔT: 75/65/20 — это ΔT50, а 90/70/20 — это ΔT60. Более горячий радиатор отдаёт больше тепла, поэтому тот же продукт показывает примерно на 25–27 % большую мощность при ΔT60, чем при ΔT50. Продукт не изменился — изменился только режим испытания."
+          },
+          {
+            "q": "Как честно сравнить теплоотдачу разных брендов?",
+            "a": "Приведите каждое значение к одному ΔT (обычно ΔT50), затем сравнивайте тот же Type и размер. Используйте Q₂ = Q₁ × (ΔT₂/ΔT₁)ⁿ, где n — радиаторный показатель степени из отчёта. Никогда не сравнивайте значение при ΔT60 напрямую со значением при ΔT50."
+          },
+          {
+            "q": "Как пересчитать мощность радиатора под температуру моей системы?",
+            "a": "Используйте Q₂ = Q₁ × (ΔT₂/ΔT₁)ⁿ. Определите ΔT вашей системы по температурам подачи, обратки и помещения, затем примените формулу, используя значение n из отчёта (для стальных панелей n обычно около 1,3, но берите фактически указанное значение)."
+          },
+          {
+            "q": "Какие поля должны быть в надёжном отчёте о теплоотдаче?",
+            "a": "Модель/Type, точные размеры, номинальная мощность в ваттах с указанием режима ΔT, ссылка на EN 442-2, радиаторный показатель степени n и испытательная организация. Значение без указанного ΔT неполно."
+          },
+          {
+            "q": "Проверены ли данные о теплоотдаче третьей стороной?",
+            "a": "Так и должно быть. Для наших радиаторов у нас есть теплотехнические данные независимой лаборатории третьей стороны (BSRIA, Великобритания) по методу EN442. Поскольку EN 442-2 — общедоступный стандарт, вы можете попросить любого поставщика показать, что его значения испытаны по нему и при каком ΔT."
+          }
+        ]
+      }
+    }
+  },
+  {
     "slug": "gost-gost-r-eac-export-russia",
     "date": "2026-08-26",
     "category": "certification",
