@@ -1,4 +1,41 @@
-User-Agent: *
+# Default: the whole site is crawlable.
+User-agent: *
+Allow: /
+
+# AI / answer-engine crawlers — explicitly welcomed so our Knowledge Base can
+# be read and cited (GEO). Listed by name in case defaults ever tighten.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
 Allow: /
 
 Sitemap: https://jdradiator.com/sitemap.xml
+Sitemap: https://jdradiator.com/sitemap-knowledge.xml

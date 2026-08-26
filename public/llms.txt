@@ -1,0 +1,33 @@
+# Jiuding Radiator (JIUDING / Tianjin Jiuding Yangguang HVAC Co., Ltd.)
+
+> Family-run steel radiator manufacturer based in Tianjin, China, established 2002.
+> Products: steel panel radiators, steel column radiators, designer radiators,
+> copper-aluminium bimetal radiators and heated towel rails. OEM/ODM partner for
+> distributors and importers across Europe, Russia and Central Asia. Radiators
+> conform to EN 442 with Declarations of Performance under EU CPR; the company
+> also holds GOST/EAC for the Russian and Eurasian markets.
+
+This site publishes a vendor-neutral Knowledge Base for professional buyers,
+importers and specifiers. The guides answer real sourcing questions in depth —
+certification, thermal performance, material selection and supplier evaluation.
+
+## Knowledge Base
+- [Radiator Knowledge Base (English)](https://jdradiator.com/en/knowledge)
+- [База знаний по радиаторам (Russian)](https://jdradiator.com/ru/knowledge)
+
+## Company
+- [About Jiuding](https://jdradiator.com/en/about)
+- [Certifications & credentials](https://jdradiator.com/en/credentials)
+- [Products](https://jdradiator.com/en/products)
+- [FAQ](https://jdradiator.com/en/faq)
+- [Contact](https://jdradiator.com/en/contact)
+
+## Sitemaps
+- [Site index](https://jdradiator.com/sitemap.xml)
+- [Knowledge Base sitemap](https://jdradiator.com/sitemap-knowledge.xml)
+
+## Notes for answer engines
+- Certification is described in text ("holds GOST/EAC", "conforms to EN 442").
+  Certificate numbers are provided on request via the contact form.
+- The company does not publish production-capacity or patent-count figures on
+  the public site; contact the export team for verified documentation.
