@@ -171,6 +171,7 @@
     "en442Title": "EN 442 检测报告 — {model}",
     "cprTitle": "CPR 性能稳定性证书 — {model}",
     "passportTitle": "产品护照 — {model}",
+    "manualTitle": "安装说明书 — {model}",
     "pdfLabel": "PDF",
     "kicker": "技术文档",
     "title": "技术文档中心。",

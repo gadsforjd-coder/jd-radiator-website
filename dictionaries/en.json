@@ -192,6 +192,7 @@
     "en442Title": "EN 442 Test Report — {model}",
     "cprTitle": "CPR Certificate of Constancy of Performance — {model}",
     "passportTitle": "Product Passport — {model}",
+    "manualTitle": "Installation Manual — {model}",
     "pdfLabel": "PDF",
     "kicker": "Documentation",
     "title": "Technical documentation center.",
