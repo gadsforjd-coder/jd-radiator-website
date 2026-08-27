@@ -238,6 +238,7 @@
     "en442Title": "Informe de ensayo EN 442 — {model}",
     "cprTitle": "Certificado de constancia de prestaciones (CPR) — {model}",
     "passportTitle": "Pasaporte de producto — {model}",
+    "manualTitle": "Manual de instalación — {model}",
     "pdfLabel": "PDF",
     "kicker": "Documentación",
     "title": "Centro de documentación técnica.",

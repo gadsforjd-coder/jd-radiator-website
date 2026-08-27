@@ -6,7 +6,7 @@
  * The general product catalog applies to every product.
  */
 
-export type DocumentType = "catalog" | "en442" | "cpr" | "passport";
+export type DocumentType = "catalog" | "en442" | "cpr" | "passport" | "manual";
 
 export interface SiteDocument {
   id: string;
@@ -24,6 +24,7 @@ export interface SiteDocument {
 const CERTS = "/assets/certs";
 const CATALOGS = "/catalogs";
 const PASSPORTS = "/assets/passports";
+const MANUALS = "/assets/manuals";
 
 /**
  * Full product catalog (all series) — a single bilingual (CN/EN) edition,
@@ -82,6 +83,38 @@ export const documents: SiteDocument[] = [
   { id: "passport-jd-21k", type: "passport", href: `${PASSPORTS}/jiuding-passport-jd-21k.pdf`, model: "JD-21K", slugs: ["jd-21k"] },
   { id: "passport-jd-22k", type: "passport", href: `${PASSPORTS}/jiuding-passport-jd-22k.pdf`, model: "JD-22K", slugs: ["jd-22k"] },
   { id: "passport-jd-33k", type: "passport", href: `${PASSPORTS}/jiuding-passport-jd-33k.pdf`, model: "JD-33K", slugs: ["jd-33k"] },
+
+  // Per-product installation manuals (安装说明书) — branded (page 1) editions.
+  // Steel panel / designer series.
+  { id: "manual-jd25y", type: "manual", href: `${MANUALS}/jiuding-manual-jd25y.pdf`, model: "JD25Y", slugs: ["jd25y"] },
+  { id: "manual-jd25-28", type: "manual", href: `${MANUALS}/jiuding-manual-jd25-28.pdf`, model: "JD25/28", slugs: ["jd25-28"] },
+  { id: "manual-jd30f", type: "manual", href: `${MANUALS}/jiuding-manual-jd30f.pdf`, model: "JD30F", slugs: ["jd30f"] },
+  { id: "manual-jd30-15", type: "manual", href: `${MANUALS}/jiuding-manual-jd30-15.pdf`, model: "JD30/15", slugs: ["jd30-15"] },
+  { id: "manual-jd40-12l", type: "manual", href: `${MANUALS}/jiuding-manual-jd40-12l.pdf`, model: "JD40/12L", slugs: ["jd40-12l"] },
+  { id: "manual-jd40-15", type: "manual", href: `${MANUALS}/jiuding-manual-jd40-15.pdf`, model: "JD40/15", slugs: ["jd40-15"] },
+  { id: "manual-jd40", type: "manual", href: `${MANUALS}/jiuding-manual-jd40.pdf`, model: "JD40", slugs: ["jd40"] },
+  { id: "manual-jd50-25jz", type: "manual", href: `${MANUALS}/jiuding-manual-jd50-25jz.pdf`, model: "JD50/25JZ", slugs: ["jd50-25jz"] },
+  { id: "manual-jd50-25", type: "manual", href: `${MANUALS}/jiuding-manual-jd50-25.pdf`, model: "JD50/25", slugs: ["jd50-25"] },
+  { id: "manual-jd50f", type: "manual", href: `${MANUALS}/jiuding-manual-jd50f.pdf`, model: "JD50F", slugs: ["jd50f"] },
+  { id: "manual-jd50y", type: "manual", href: `${MANUALS}/jiuding-manual-jd50y.pdf`, model: "JD50Y", slugs: ["jd50y"] },
+  { id: "manual-jd60-15", type: "manual", href: `${MANUALS}/jiuding-manual-jd60-15.pdf`, model: "JD60/15", slugs: ["jd60-15"] },
+  { id: "manual-jd60-30", type: "manual", href: `${MANUALS}/jiuding-manual-jd60-30.pdf`, model: "JD60/30", slugs: ["jd60-30"] },
+  { id: "manual-jd68-12", type: "manual", href: `${MANUALS}/jiuding-manual-jd68-12.pdf`, model: "JD68/12", slugs: ["jd68-12"] },
+  { id: "manual-jd70-15", type: "manual", href: `${MANUALS}/jiuding-manual-jd70-15.pdf`, model: "JD70/15", slugs: ["jd70-15"] },
+  { id: "manual-jdsc", type: "manual", href: `${MANUALS}/jiuding-manual-jdsc.pdf`, model: "JDSC", slugs: ["jdsc"] },
+  // Steel column series.
+  { id: "manual-jdgz2", type: "manual", href: `${MANUALS}/jiuding-manual-jdgz2.pdf`, model: "JDGZ2", slugs: ["jdgz2"] },
+  { id: "manual-jdgz3", type: "manual", href: `${MANUALS}/jiuding-manual-jdgz3.pdf`, model: "JDGZ3", slugs: ["jdgz3"] },
+  { id: "manual-jdgz4", type: "manual", href: `${MANUALS}/jiuding-manual-jdgz4.pdf`, model: "JDGZ4", slugs: ["jdgz4"] },
+  // Bathroom / towel-rail series.
+  { id: "manual-jd30slf", type: "manual", href: `${MANUALS}/jiuding-manual-jd30slf.pdf`, model: "JD30SLF", slugs: ["jd30slf"] },
+  { id: "manual-jdwy-c", type: "manual", href: `${MANUALS}/jiuding-manual-jdwy-c.pdf`, model: "JDWY(C)", slugs: ["jdwy-c"] },
+  { id: "manual-jdwy-s", type: "manual", href: `${MANUALS}/jiuding-manual-jdwy-s.pdf`, model: "JDWY(S)", slugs: ["jdwy-s"] },
+  { id: "manual-jd60-15df", type: "manual", href: `${MANUALS}/jiuding-manual-jd60-15df.pdf`, model: "JD60/15DF", slugs: ["jd60-15df"] },
+  // Copper-aluminium series.
+  { id: "manual-jd75-75tl", type: "manual", href: `${MANUALS}/jiuding-manual-jd75-75tl.pdf`, model: "JD75/75TL", slugs: ["jd75-75tl"] },
+  { id: "manual-jd132-60tl", type: "manual", href: `${MANUALS}/jiuding-manual-jd132-60tl.pdf`, model: "JD132/60TL", slugs: ["jd132-60tl"] },
+  { id: "manual-jd80-80", type: "manual", href: `${MANUALS}/jiuding-manual-jd80-80.pdf`, model: "JD80/80", slugs: ["jd80-80"] },
 ];
 
 /** Documents shown on a product detail page: model certificates + the main catalog. */

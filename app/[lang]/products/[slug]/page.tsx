@@ -132,7 +132,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       ? d.documents.catalogTitle
       : doc.type === "passport"
         ? formatDocTitle(d.documents.passportTitle, doc.model)
-        : formatDocTitle(doc.type === "en442" ? d.documents.en442Title : d.documents.cprTitle, doc.model);
+        : doc.type === "manual"
+          ? formatDocTitle(d.documents.manualTitle, doc.model)
+          : formatDocTitle(doc.type === "en442" ? d.documents.en442Title : d.documents.cprTitle, doc.model);
 
   // Panel radiators have fixed per-size dimensions (factory data): surface the
   // depth in the main spec table and a full size table further down.
