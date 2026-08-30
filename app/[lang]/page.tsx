@@ -11,6 +11,7 @@ import HeroCarousel, { type HeroSlide } from "./HeroCarousel";
 import { VRTour } from "./VRTour";
 import { vrTourUrl } from "@/lib/vr";
 import CustomerMap from "./CustomerMap";
+import AquaThermLanding from "./AquaThermLanding";
 
 // Small line icons paired with the homepage stat metrics.
 const ICON = "w-5 h-5";
@@ -169,6 +170,11 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           </div>
         </div>
       </section>
+
+      {/* AquaTherm Almaty 2026 — 展会-week campaign block (ru locale only).
+          UTM links from the fair land on /ru; this puts the banner + inquiry
+          form directly below the hero so it is the first thing visitors see. */}
+      {d.aquatherm && <AquaThermLanding t={d.aquatherm} />}
 
       {/* Products — with numbering, hover glow, featured card */}
       <section className="bg-white text-[#1E293B] py-24 px-6 lg:px-14">

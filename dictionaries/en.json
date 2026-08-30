@@ -558,5 +558,24 @@
       "MN": "Mongolia",
       "SY": "Syria"
     }
+  },
+  "aquatherm": {
+    "kicker": "AquaTherm Almaty 2026",
+    "bannerTitle": "Meet us at AquaTherm Almaty 2026 — stand 11-957 · 2–4 September",
+    "bannerSubhead": "Steel panel (type 11/22/33) and tubular radiators — direct from the factory, EN 442 / CE",
+    "ctaTitle": "Request price list and catalogue",
+    "ctaSubhead": "Write to us — we reply in Russian within 24 hours",
+    "formName": "Name",
+    "formCompany": "Company",
+    "formLocation": "Country / city",
+    "formEmail": "E-mail",
+    "formWhatsapp": "WhatsApp",
+    "formRequest": "Your request (model, quantity, port)",
+    "consent": "By submitting the form, you agree to the processing of your data.",
+    "submit": "Send request",
+    "sending": "Sending…",
+    "success": "Thank you! We will contact you within 24 hours.",
+    "error": "An error occurred — please write to us directly.",
+    "emailFallback": "Or write directly in Russian: kevin@jdradiator.com"
   }
 }

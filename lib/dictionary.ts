@@ -8,12 +8,13 @@ const dictionaries = {
   zh: () => import("../dictionaries/zh.json").then((m) => m.default),
 };
 
-// The English dictionary is the canonical shape. `heroSlides` is optional so
-// locales that have not yet been given the extra hero-carousel slides (e.g. zh)
-// still satisfy the type; the homepage guards against its absence at runtime.
+// The English dictionary is the canonical shape. `heroSlides` and `aquatherm`
+// are optional so locales that have not yet been given them (e.g. zh, or the
+// ru-only AquaTherm campaign block) still satisfy the type; the homepage guards
+// against their absence at runtime.
 type EnDictionary = Awaited<ReturnType<(typeof dictionaries)["en"]>>;
-export type Dictionary = Omit<EnDictionary, "heroSlides"> &
-  Partial<Pick<EnDictionary, "heroSlides">>;
+export type Dictionary = Omit<EnDictionary, "heroSlides" | "aquatherm"> &
+  Partial<Pick<EnDictionary, "heroSlides" | "aquatherm">>;
 
 export async function getDictionary(locale: Locale): Promise<Dictionary> {
   return dictionaries[locale]();
