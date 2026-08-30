@@ -121,9 +121,12 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
                 aria-label={slide.promo.alt}
                 tabIndex={active ? 0 : -1}
                 // Keep the banner between the fixed 96px header (pt-24) and the
-                // bottom stats strip / dots (pb-44 lg:pb-40) so the whole artwork
-                // stays visible and clickable.
-                className="absolute inset-0 flex items-center justify-center px-4 sm:px-6 pt-24 pb-44 lg:pb-40 focus:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white/70"
+                // bottom stats strip / dots. Mobile stats is a taller 2-row grid,
+                // so reserve more bottom space (pb-60) — otherwise the contained
+                // portrait banner sits only ~12px above the stats card and the
+                // booth number / 11-957 badge read as covered. Desktop stats is a
+                // single row, so lg:pb-40 is enough there.
+                className="absolute inset-0 flex items-center justify-center px-4 sm:px-6 pt-24 pb-60 lg:pb-40 focus:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white/70"
               >
                 {/* Blurred, scaled copy of the banner fills the letterbox bands
                     with the artwork's own colors — no flat empty border, and the
