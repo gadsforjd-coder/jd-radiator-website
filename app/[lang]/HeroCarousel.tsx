@@ -126,7 +126,7 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
                 // portrait banner sits only ~12px above the stats card and the
                 // booth number / 11-957 badge read as covered. Desktop stats is a
                 // single row, so lg:pb-40 is enough there.
-                className="absolute inset-0 flex items-center justify-center px-4 sm:px-6 pt-24 pb-60 lg:pb-40 focus:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white/70"
+                className="absolute inset-0 flex items-center justify-center px-4 sm:px-6 pt-24 pb-[calc(15rem_+_env(safe-area-inset-bottom))] lg:pb-40 focus:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white/70"
               >
                 {/* Blurred, scaled copy of the banner fills the letterbox bands
                     with the artwork's own colors — no flat empty border, and the

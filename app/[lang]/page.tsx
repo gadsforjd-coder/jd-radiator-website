@@ -108,27 +108,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   // translation exists, so locales without them gracefully fall back.
   const slides: HeroSlide[] = [];
 
-  // AquaTherm Almaty 2026 show banner as the LEAD hero slide — approved baked
-  // artwork shown uncropped (booth number / dates stay legible), linking to the
-  // #aquatherm section that is kept below the hero so it matches the paid-traffic
-  // landing anchor. Only zh/en/ru/mn have artwork.
-  // ⚠️ SEASONAL: REMOVE THIS BLOCK AFTER THE SHOW (2026-09-04).
-  if (isAquaThermSupported(lang)) {
-    slides.push({
-      image: `/assets/aquatherm/banner-${lang}-V1.png`, // fallback only; promo path renders the real art
-      kicker: "",
-      title: "",
-      lead: "",
-      cta1: heroCta1,
-      promo: {
-        desktopSrc: `/assets/aquatherm/banner-${lang}-V1.png`,
-        mobileSrc: `/assets/aquatherm/banner-${lang}-mobile-V1.png`,
-        href: `/${lang}#aquatherm`,
-        alt: AQUATHERM_ALT[lang],
-      },
-    });
-  }
-
   // Original static hero (reproduces the pre-carousel hero exactly).
   slides.push({
     image: "/assets/ai-images/hero-banner.png",
@@ -166,15 +145,43 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
     });
   }
 
+  // AquaTherm Almaty 2026 show banner as the LAST hero slide (owner call
+  // 2026-08-30: 4th/last, not lead) — approved baked artwork shown uncropped
+  // (booth number / dates stay legible), linking to the #aquatherm section kept
+  // below the hero so it matches the paid-traffic landing anchor. zh/en/ru/mn only.
+  // ⚠️ SEASONAL: REMOVE THIS BLOCK AFTER THE SHOW (2026-09-04).
+  if (isAquaThermSupported(lang)) {
+    slides.push({
+      image: `/assets/aquatherm/banner-${lang}-V1.png`, // fallback only; promo path renders the real art
+      kicker: "",
+      title: "",
+      lead: "",
+      cta1: heroCta1,
+      promo: {
+        desktopSrc: `/assets/aquatherm/banner-${lang}-V1.png`,
+        mobileSrc: `/assets/aquatherm/banner-${lang}-mobile-V1.png`,
+        href: `/${lang}#aquatherm`,
+        alt: AQUATHERM_ALT[lang],
+      },
+    });
+  }
+
   return (
     <>
       {/* Hero — rotating full-bleed carousel with warm scrim behind the text only */}
-      <section className="relative min-h-[88vh] lg:min-h-[70vh] lg:aspect-[7/4] lg:max-h-screen -mt-[96px] pt-[96px] flex items-center overflow-hidden bg-[#FFF7ED]">
+      {/* Full-bleed hero. NOTE: do NOT reintroduce `aspect-[..] max-h-screen`
+          together — on wide/short viewports the aspect-ratio + capped height
+          shrinks the section WIDTH (e.g. 1750px at 1920×1000), leaving a right
+          whitespace band. Height is driven by min-height only so width always
+          fills the viewport. Mobile uses svh so the section fits the always-
+          visible area on iOS Safari (toolbar shown) and the bottom booth-number
+          badge is never clipped under the browser chrome. */}
+      <section className="relative w-full min-h-[88svh] lg:min-h-[86vh] -mt-[96px] pt-[96px] flex items-center overflow-hidden bg-[#FFF7ED]">
         <HeroCarousel slides={slides} />
 
         {/* Stats strip at bottom — light bar, each metric paired with an icon */}
         <div className="absolute bottom-0 left-0 right-0 z-10">
-          <div className="grid grid-cols-2 lg:grid-cols-4 border-t border-[#F1E7DC] bg-white/90 backdrop-blur-xl">
+          <div className="grid grid-cols-2 lg:grid-cols-4 border-t border-[#F1E7DC] bg-white/90 backdrop-blur-xl pb-[env(safe-area-inset-bottom)]">
             {[
               { num: d.stats.years, label: d.stats.yearsLabel, icon: STAT_ICONS.experience },
               { num: d.stats.markets, label: d.stats.marketsLabel, icon: STAT_ICONS.markets },
