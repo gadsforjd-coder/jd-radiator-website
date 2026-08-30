@@ -26,6 +26,18 @@ export const AQUATHERM_ALT: Record<Supported, string> = {
   mn: "AquaTherm Almaty 2026-д уулзъя · Стенд 11-957 · 9-р сарын 2–4 · Алмати",
 };
 
+// Code-rendered hero copy for the AquaTherm carousel slide. Owner feedback
+// 2026-08-30: the baked-artwork "floating card" slide looked inconsistent with
+// the other full-bleed photo+text slides — so this slide now uses the standard
+// hero template with the booth number / dates rendered as real text (never
+// cropped). kicker is the event name (kept uppercase in all locales).
+export const AQUATHERM_HERO: Record<Supported, { kicker: string; title: string; lead: string }> = {
+  zh: { kicker: "AQUATHERM ALMATY 2026", title: "诚邀莅临九鼎展位", lead: "展位 11-957 · 9月2–4日 · 哈萨克斯坦阿拉木图" },
+  en: { kicker: "AQUATHERM ALMATY 2026", title: "Meet Jiuding at the Show", lead: "Booth 11-957 · September 2–4 · Almaty, Kazakhstan" },
+  ru: { kicker: "AQUATHERM ALMATY 2026", title: "Ждём вас на нашем стенде", lead: "Стенд 11-957 · 2–4 сентября · Алматы, Казахстан" },
+  mn: { kicker: "AQUATHERM ALMATY 2026", title: "Манай стендэд урьж байна", lead: "Стенд 11-957 · 9-р сарын 2–4 · Алмати, Казахстан" },
+};
+
 export default function AquaThermBanner({ lang }: { lang: string }) {
   if (!isAquaThermSupported(lang)) return null;
 

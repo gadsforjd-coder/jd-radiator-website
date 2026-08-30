@@ -8,7 +8,7 @@ import Image from "next/image";
 import TechBreakdown from "./TechBreakdown";
 import CertMarquee from "./CertMarquee";
 import HeroCarousel, { type HeroSlide } from "./HeroCarousel";
-import { AQUATHERM_ALT, isAquaThermSupported } from "./AquaThermBanner";
+import { AQUATHERM_HERO, isAquaThermSupported } from "./AquaThermBanner";
 import { VRTour } from "./VRTour";
 import { vrTourUrl } from "@/lib/vr";
 import CustomerMap from "./CustomerMap";
@@ -145,24 +145,23 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
     });
   }
 
-  // AquaTherm Almaty 2026 show banner as the LAST hero slide (owner call
-  // 2026-08-30: 4th/last, not lead) — approved baked artwork shown uncropped
-  // (booth number / dates stay legible), linking to the #aquatherm section kept
-  // below the hero so it matches the paid-traffic landing anchor. zh/en/ru/mn only.
+  // AquaTherm Almaty 2026 show invite as the LAST hero slide (owner call
+  // 2026-08-30: 4th/last, not lead). Owner feedback same day: the earlier baked-
+  // artwork "floating card" slide looked inconsistent with the other slides, so
+  // this now uses the STANDARD hero template (clean full-bleed photo + warm scrim
+  // + right-aligned code-rendered text) exactly like the panel/column slides. The
+  // booth number / dates are real text (never cropped). The #aquatherm anchor is
+  // on the hero <section>, so paid-traffic UTM links still land here. zh/en/ru/mn.
   // ⚠️ SEASONAL: REMOVE THIS BLOCK AFTER THE SHOW (2026-09-04).
   if (isAquaThermSupported(lang)) {
     slides.push({
-      image: `/assets/aquatherm/banner-${lang}-V1.png`, // fallback only; promo path renders the real art
-      kicker: "",
-      title: "",
-      lead: "",
+      image: "/assets/ai-images/scene-column-livingroom.png",
+      kicker: AQUATHERM_HERO[lang].kicker,
+      title: AQUATHERM_HERO[lang].title,
+      lead: AQUATHERM_HERO[lang].lead,
       cta1: heroCta1,
-      promo: {
-        desktopSrc: `/assets/aquatherm/banner-${lang}-V1.png`,
-        mobileSrc: `/assets/aquatherm/banner-${lang}-mobile-V1.png`,
-        href: `/${lang}/contact`,
-        alt: AQUATHERM_ALT[lang],
-      },
+      cta2: heroCta2,
+      focal: "left center", // radiator sits left — keep it clear of the right-aligned text
     });
   }
 
