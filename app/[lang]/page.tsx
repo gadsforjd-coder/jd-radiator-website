@@ -8,6 +8,7 @@ import Image from "next/image";
 import TechBreakdown from "./TechBreakdown";
 import CertMarquee from "./CertMarquee";
 import HeroCarousel, { type HeroSlide } from "./HeroCarousel";
+import AquaThermBanner from "./AquaThermBanner";
 import { VRTour } from "./VRTour";
 import { vrTourUrl } from "@/lib/vr";
 import CustomerMap from "./CustomerMap";
@@ -169,6 +170,11 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           </div>
         </div>
       </section>
+
+      {/* AquaTherm Almaty 2026 show banner — approved bilingual artwork, near the
+          top. Anchor target: /{lang}#aquatherm. Renders per-language art;
+          nothing for unsupported locales (es). */}
+      <AquaThermBanner lang={lang} />
 
       {/* Products — with numbering, hover glow, featured card */}
       <section className="bg-white text-[#1E293B] py-24 px-6 lg:px-14">
