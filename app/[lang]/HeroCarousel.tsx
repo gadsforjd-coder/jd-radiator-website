@@ -158,9 +158,9 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
 
             {/* pt-24 keeps the vertically-centered text clear of the fixed 96px
                 header — long kickers (e.g. RU) no longer slide under the nav. */}
-            <div className="relative z-10 px-6 lg:px-14 w-full pt-24 pb-48 lg:pb-52 flex justify-end h-full items-center">
+            <div className="relative z-10 px-6 lg:px-14 w-full pt-24 pb-52 flex justify-end h-full items-center">
               <div className="animate-in max-w-3xl text-right">
-                <p className="text-orange-300 uppercase tracking-[0.3em] font-extrabold text-sm mb-3 lg:mb-6">{slide.kicker}</p>
+                <p className="text-orange-300 uppercase tracking-[0.3em] font-extrabold text-sm mb-3 lg:mb-6 [text-shadow:0_1px_10px_rgba(67,20,7,0.65)]">{slide.kicker}</p>
                 <h1 className="text-[clamp(1.85rem,4.4vw,4.25rem)] font-black leading-[1.06] tracking-tight text-white whitespace-pre-line text-balance [text-wrap:balance] [text-shadow:0_2px_24px_rgba(67,20,7,0.45)]">{slide.title}</h1>
                 <p className="text-xl text-white/90 leading-snug lg:leading-relaxed mt-3 lg:mt-7 max-w-2xl ml-auto [text-shadow:0_1px_12px_rgba(67,20,7,0.5)]">{slide.lead}</p>
                 {slide.advantages && slide.advantages.length > 0 && (
