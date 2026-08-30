@@ -8,7 +8,7 @@ import Image from "next/image";
 import TechBreakdown from "./TechBreakdown";
 import CertMarquee from "./CertMarquee";
 import HeroCarousel, { type HeroSlide } from "./HeroCarousel";
-import AquaThermBanner from "./AquaThermBanner";
+import AquaThermBanner, { AQUATHERM_ALT, isAquaThermSupported } from "./AquaThermBanner";
 import { VRTour } from "./VRTour";
 import { vrTourUrl } from "@/lib/vr";
 import CustomerMap from "./CustomerMap";
@@ -102,21 +102,43 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
     external: true,
   };
 
-  // Hero carousel slides. Slide 1 reproduces the original static hero exactly.
-  // Additional slides come from the optional `heroSlides` dictionary key — each
-  // is only added when its translation exists, so locales without the key (and
-  // any future ones) gracefully fall back to a single-slide hero.
-  const slides: HeroSlide[] = [
-    {
-      image: "/assets/ai-images/hero-banner.png",
-      kicker: d.hero.kicker,
-      title: d.hero.title,
-      lead: d.hero.lead,
+  // Hero carousel slides. The original static hero is always present; the
+  // AquaTherm show banner leads when in season, and extra product slides come
+  // from the optional `heroSlides` dictionary key — each is only added when its
+  // translation exists, so locales without them gracefully fall back.
+  const slides: HeroSlide[] = [];
+
+  // AquaTherm Almaty 2026 show banner as the LEAD hero slide — approved baked
+  // artwork shown uncropped (booth number / dates stay legible), linking to the
+  // #aquatherm section that is kept below the hero so it matches the paid-traffic
+  // landing anchor. Only zh/en/ru/mn have artwork.
+  // ⚠️ SEASONAL: REMOVE THIS BLOCK AFTER THE SHOW (2026-09-04).
+  if (isAquaThermSupported(lang)) {
+    slides.push({
+      image: `/assets/aquatherm/banner-${lang}-V1.png`, // fallback only; promo path renders the real art
+      kicker: "",
+      title: "",
+      lead: "",
       cta1: heroCta1,
-      cta2: heroCta2,
-      focal: "left center", // product on the left — keep it from being cropped on narrow viewports
-    },
-  ];
+      promo: {
+        desktopSrc: `/assets/aquatherm/banner-${lang}-V1.png`,
+        mobileSrc: `/assets/aquatherm/banner-${lang}-mobile-V1.png`,
+        href: `/${lang}#aquatherm`,
+        alt: AQUATHERM_ALT[lang],
+      },
+    });
+  }
+
+  // Original static hero (reproduces the pre-carousel hero exactly).
+  slides.push({
+    image: "/assets/ai-images/hero-banner.png",
+    kicker: d.hero.kicker,
+    title: d.hero.title,
+    lead: d.hero.lead,
+    cta1: heroCta1,
+    cta2: heroCta2,
+    focal: "left center", // product on the left — keep it from being cropped on narrow viewports
+  });
 
   const steelColumn = d.heroSlides?.steelColumn;
   if (steelColumn) {

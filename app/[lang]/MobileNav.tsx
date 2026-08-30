@@ -21,7 +21,10 @@ type NavLabels = {
   calculator: string;
 };
 
-export function MobileNav({ locale, nav }: { locale: Locale; nav: NavLabels }) {
+// `wide` locales (RU/MN) keep the hamburger up to 2xl because their long nav
+// labels overflow the desktop row all the way through xl (verified: RU still
+// clips at 1280); other locales collapse to the hamburger at lg.
+export function MobileNav({ locale, nav, wide = false }: { locale: Locale; nav: NavLabels; wide?: boolean }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -53,7 +56,7 @@ export function MobileNav({ locale, nav }: { locale: Locale; nav: NavLabels }) {
   ];
 
   return (
-    <div ref={ref} className="lg:hidden relative">
+    <div ref={ref} className={`${wide ? "2xl:hidden" : "lg:hidden"} relative`}>
       <button
         type="button"
         onClick={() => setOpen(!open)}

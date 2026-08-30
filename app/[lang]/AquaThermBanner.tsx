@@ -8,17 +8,18 @@ import Link from "next/link";
 // viewport so mobile always gets the legible variant.
 //
 // Only zh/en/ru/mn have approved artwork. Any other locale (es, …) renders
-// nothing.
-const SUPPORTED = ["zh", "en", "ru", "mn"] as const;
-type Supported = (typeof SUPPORTED)[number];
+// nothing. Exported so the hero carousel can reuse the exact same locale gate
+// and alt text when it shows this banner as its lead slide.
+export const AQUATHERM_SUPPORTED = ["zh", "en", "ru", "mn"] as const;
+type Supported = (typeof AQUATHERM_SUPPORTED)[number];
 
-function isSupported(lang: string): lang is Supported {
-  return (SUPPORTED as readonly string[]).includes(lang);
+export function isAquaThermSupported(lang: string): lang is Supported {
+  return (AQUATHERM_SUPPORTED as readonly string[]).includes(lang);
 }
 
 // Per-language descriptive alt text (accessibility / SEO). Mirrors the baked
 // artwork; not rendered copy.
-const ALT: Record<Supported, string> = {
+export const AQUATHERM_ALT: Record<Supported, string> = {
   zh: "AquaTherm Almaty 2026 · 诚邀莅临九鼎展位 11-957，9月2–4日 哈萨克斯坦阿拉木图",
   en: "Meet Jiuding at AquaTherm Almaty 2026 · Booth 11-957 · September 2–4 · Almaty, Kazakhstan",
   ru: "Встречаемся на AquaTherm Almaty 2026 · Стенд 11-957 · 2–4 сентября · Алматы",
@@ -26,9 +27,9 @@ const ALT: Record<Supported, string> = {
 };
 
 export default function AquaThermBanner({ lang }: { lang: string }) {
-  if (!isSupported(lang)) return null;
+  if (!isAquaThermSupported(lang)) return null;
 
-  const alt = ALT[lang];
+  const alt = AQUATHERM_ALT[lang];
   const desktopSrc = `/assets/aquatherm/banner-${lang}-V1.png`;
   const mobileSrc = `/assets/aquatherm/banner-${lang}-mobile-V1.png`;
 

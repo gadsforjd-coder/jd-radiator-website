@@ -78,6 +78,13 @@ export default async function LangLayout({
   const locale = lang as Locale;
   const d = await getDictionary(locale);
 
+  // RU/MN nav labels are far longer than EN/ZH and overflow the fixed-height
+  // header row all the way through xl (verified: RU still clips at 1280 — the
+  // "Расчёт" label was visible in the bug screenshot yet still cut off). For
+  // those locales keep the hamburger up to 2xl and tighten spacing, instead of
+  // clipping the row; the compact desktop nav only appears at >=1536.
+  const wideNav = locale === "ru" || locale === "mn";
+
   return (
     <html lang={locale}>
       <head>
@@ -105,7 +112,7 @@ export default async function LangLayout({
               <span className="block text-[var(--jd-orange)] text-[11px] tracking-[0.35em] mt-0.5 whitespace-nowrap">RADIATOR</span>
             </div>
           </Link>
-          <nav className="hidden lg:flex gap-5 xl:gap-7 font-semibold text-sm xl:text-base text-[#1E293B]/75">
+          <nav className={wideNav ? "hidden 2xl:flex gap-4 font-semibold text-sm text-[#1E293B]/75" : "hidden lg:flex gap-5 xl:gap-7 font-semibold text-sm xl:text-base text-[#1E293B]/75"}>
             <div className="relative group">
               <Link href={`/${locale}/products`} className="whitespace-nowrap hover:text-[var(--jd-red)] transition-colors inline-flex items-center gap-1">
                 {d.nav.products}
@@ -147,7 +154,7 @@ export default async function LangLayout({
           </nav>
           <div className="flex items-center gap-2.5 shrink-0">
             <LangSwitcher current={locale} />
-            <MobileNav locale={locale} nav={d.nav} />
+            <MobileNav locale={locale} nav={d.nav} wide={wideNav} />
           </div>
         </header>
 

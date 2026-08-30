@@ -31,6 +31,17 @@ export type HeroSlide = {
   // Optional short product-advantage points shown between the lead and the CTAs
   // (right-aligned, code-rendered — never baked into the photo).
   advantages?: string[];
+  // When set, this slide renders an approved promotional banner (text baked into
+  // the artwork) instead of the photo + text-overlay layout. The full banner is
+  // shown uncropped (object-contain) over a blurred backdrop of itself, wrapped
+  // in a single link — so the baked booth number / dates are always legible and
+  // never cropped. Used for the AquaTherm show banner as the lead slide.
+  promo?: {
+    desktopSrc: string;
+    mobileSrc: string;
+    href: string;
+    alt: string;
+  };
 };
 
 const AUTO_ADVANCE_MS = 6000;
@@ -104,6 +115,28 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
             aria-roledescription="slide"
             aria-label={`${i + 1} of ${count}`}
           >
+            {slide.promo ? (
+              <Link
+                href={slide.promo.href}
+                aria-label={slide.promo.alt}
+                tabIndex={active ? 0 : -1}
+                // Keep the banner between the fixed 96px header (pt-24) and the
+                // bottom stats strip / dots (pb-44 lg:pb-40) so the whole artwork
+                // stays visible and clickable.
+                className="absolute inset-0 flex items-center justify-center px-4 sm:px-6 pt-24 pb-44 lg:pb-40 focus:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white/70"
+              >
+                {/* Blurred, scaled copy of the banner fills the letterbox bands
+                    with the artwork's own colors — no flat empty border, and the
+                    sharp banner on top is never cropped. */}
+                <Image src={slide.promo.desktopSrc} alt="" fill sizes="100vw" {...(i === 0 ? { preload: true } : {})} className="hidden lg:block object-cover scale-125 blur-2xl" />
+                <Image src={slide.promo.mobileSrc} alt="" fill sizes="100vw" {...(i === 0 ? { preload: true } : {})} className="lg:hidden object-cover scale-125 blur-2xl" />
+                <div className="absolute inset-0 bg-[#431407]/25" />
+                {/* Sharp, fully-visible banner — booth number / dates never cropped. */}
+                <Image src={slide.promo.desktopSrc} alt={slide.promo.alt} width={1920} height={720} sizes="100vw" {...(i === 0 ? { preload: true } : {})} className="relative z-10 hidden lg:block h-auto w-auto max-h-full max-w-6xl rounded-xl shadow-2xl object-contain" />
+                <Image src={slide.promo.mobileSrc} alt={slide.promo.alt} width={1080} height={1350} sizes="100vw" {...(i === 0 ? { preload: true } : {})} className="relative z-10 lg:hidden h-auto w-auto max-h-full max-w-full rounded-xl shadow-2xl object-contain" />
+              </Link>
+            ) : (
+            <>
             <Image
               src={slide.image}
               alt=""
@@ -120,7 +153,9 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
             {/* Blend the hero bottom into the light page instead of black */}
             <div className="absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-t from-[#FFF7ED] to-transparent" />
 
-            <div className="relative z-10 px-6 lg:px-14 w-full pb-40 flex justify-end h-full items-center">
+            {/* pt-24 keeps the vertically-centered text clear of the fixed 96px
+                header — long kickers (e.g. RU) no longer slide under the nav. */}
+            <div className="relative z-10 px-6 lg:px-14 w-full pt-24 pb-40 flex justify-end h-full items-center">
               <div className="animate-in max-w-3xl text-right">
                 <p className="text-orange-300 uppercase tracking-[0.3em] font-extrabold text-sm mb-6">{slide.kicker}</p>
                 <h1 className="text-[clamp(1.85rem,4.4vw,4.25rem)] font-black leading-[1.06] tracking-tight text-white whitespace-pre-line text-balance [text-wrap:balance] [text-shadow:0_2px_24px_rgba(67,20,7,0.45)]">{slide.title}</h1>
@@ -151,6 +186,8 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
                 </div>
               </div>
             </div>
+            </>
+            )}
           </div>
         );
       })}
