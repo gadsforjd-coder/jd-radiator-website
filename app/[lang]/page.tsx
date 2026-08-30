@@ -8,7 +8,7 @@ import Image from "next/image";
 import TechBreakdown from "./TechBreakdown";
 import CertMarquee from "./CertMarquee";
 import HeroCarousel, { type HeroSlide } from "./HeroCarousel";
-import AquaThermBanner, { AQUATHERM_ALT, isAquaThermSupported } from "./AquaThermBanner";
+import { AQUATHERM_ALT, isAquaThermSupported } from "./AquaThermBanner";
 import { VRTour } from "./VRTour";
 import { vrTourUrl } from "@/lib/vr";
 import CustomerMap from "./CustomerMap";
@@ -160,7 +160,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       promo: {
         desktopSrc: `/assets/aquatherm/banner-${lang}-V1.png`,
         mobileSrc: `/assets/aquatherm/banner-${lang}-mobile-V1.png`,
-        href: `/${lang}#aquatherm`,
+        href: `/${lang}/contact`,
         alt: AQUATHERM_ALT[lang],
       },
     });
@@ -176,7 +176,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           fills the viewport. Mobile uses svh so the section fits the always-
           visible area on iOS Safari (toolbar shown) and the bottom booth-number
           badge is never clipped under the browser chrome. */}
-      <section className="relative w-full min-h-[88svh] lg:min-h-[86vh] -mt-[96px] pt-[96px] flex items-center overflow-hidden bg-[#FFF7ED]">
+      <section id="aquatherm" className="relative w-full min-h-[88svh] lg:min-h-screen scroll-mt-24 -mt-[96px] pt-[96px] flex items-center overflow-hidden bg-[#FFF7ED]">
         <HeroCarousel slides={slides} />
 
         {/* Stats strip at bottom — light bar, each metric paired with an icon */}
@@ -200,10 +200,10 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </div>
       </section>
 
-      {/* AquaTherm Almaty 2026 show banner — approved bilingual artwork, near the
-          top. Anchor target: /{lang}#aquatherm. Renders per-language art;
-          nothing for unsupported locales (es). */}
-      <AquaThermBanner lang={lang} />
+      {/* Lower AquaTherm banner strip REMOVED per owner 2026-08-30 (redundant with
+          the carousel slide). The #aquatherm anchor now lives on the hero
+          <section> above so the paid-traffic UTM links (telegram/vk/dzen →
+          /{lang}#aquatherm) still land on the hero that carries the banner. */}
 
       {/* Products — with numbering, hover glow, featured card */}
       <section className="bg-white text-[#1E293B] py-24 px-6 lg:px-14">

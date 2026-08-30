@@ -126,7 +126,7 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
                 // portrait banner sits only ~12px above the stats card and the
                 // booth number / 11-957 badge read as covered. Desktop stats is a
                 // single row, so lg:pb-40 is enough there.
-                className="absolute inset-0 flex items-center justify-center px-4 sm:px-6 pt-24 pb-[calc(15rem_+_env(safe-area-inset-bottom))] lg:pb-40 focus:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white/70"
+                className="absolute inset-0 flex items-center justify-center px-4 sm:px-6 lg:px-0 pt-24 pb-[calc(15rem_+_env(safe-area-inset-bottom))] lg:pb-40 focus:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white/70"
               >
                 {/* Blurred, scaled copy of the banner fills the letterbox bands
                     with the artwork's own colors — no flat empty border, and the
@@ -135,7 +135,7 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
                 <Image src={slide.promo.mobileSrc} alt="" fill sizes="100vw" {...(i === 0 ? { preload: true } : {})} className="lg:hidden object-cover scale-125 blur-2xl" />
                 <div className="absolute inset-0 bg-[#431407]/25" />
                 {/* Sharp, fully-visible banner — booth number / dates never cropped. */}
-                <Image src={slide.promo.desktopSrc} alt={slide.promo.alt} width={1920} height={720} sizes="100vw" {...(i === 0 ? { preload: true } : {})} className="relative z-10 hidden lg:block h-auto w-auto max-h-full max-w-6xl rounded-xl shadow-2xl object-contain" />
+                <Image src={slide.promo.desktopSrc} alt={slide.promo.alt} width={1920} height={720} sizes="100vw" {...(i === 0 ? { preload: true } : {})} className="relative z-10 hidden lg:block w-full h-auto max-h-full object-contain" />
                 <Image src={slide.promo.mobileSrc} alt={slide.promo.alt} width={1080} height={1350} sizes="100vw" {...(i === 0 ? { preload: true } : {})} className="relative z-10 lg:hidden h-auto w-auto max-h-full max-w-full rounded-xl shadow-2xl object-contain" />
               </Link>
             ) : (
@@ -158,7 +158,7 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
 
             {/* pt-24 keeps the vertically-centered text clear of the fixed 96px
                 header — long kickers (e.g. RU) no longer slide under the nav. */}
-            <div className="relative z-10 px-6 lg:px-14 w-full pt-24 pb-40 flex justify-end h-full items-center">
+            <div className="relative z-10 px-6 lg:px-14 w-full pt-24 pb-48 lg:pb-52 flex justify-end h-full items-center">
               <div className="animate-in max-w-3xl text-right">
                 <p className="text-orange-300 uppercase tracking-[0.3em] font-extrabold text-sm mb-6">{slide.kicker}</p>
                 <h1 className="text-[clamp(1.85rem,4.4vw,4.25rem)] font-black leading-[1.06] tracking-tight text-white whitespace-pre-line text-balance [text-wrap:balance] [text-shadow:0_2px_24px_rgba(67,20,7,0.45)]">{slide.title}</h1>
@@ -216,7 +216,7 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
           </button>
 
           {/* Dot indicators — sit just above the stats strip */}
-          <div className="absolute bottom-[120px] lg:bottom-[124px] left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5">
+          <div className="absolute bottom-[190px] lg:bottom-[188px] left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5">
             {slides.map((_, i) => (
               <button
                 key={i}
