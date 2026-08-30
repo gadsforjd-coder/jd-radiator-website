@@ -84,31 +84,10 @@ export function ContactWidget({ locale, t }: { locale: Locale; t: ContactWidgetS
   // Desktop only: on phones/tablets the panel (max-w-[88vw]) would cover almost
   // the whole screen and block taps on the calculator/product form, so we never
   // auto-pop below the lg breakpoint — the collapsed tab stays tap-to-open.
-  useEffect(() => {
-    const isDesktop =
-      typeof window !== "undefined" &&
-      window.matchMedia &&
-      window.matchMedia("(min-width: 1024px)").matches;
-    if (!isDesktop) return;
-
-    let alreadyPopped = false;
-    try {
-      alreadyPopped = sessionStorage.getItem(POPPED_KEY) === "1";
-    } catch {
-      /* sessionStorage unavailable — never auto-pop */
-      alreadyPopped = true;
-    }
-    if (alreadyPopped) return;
-
-    const timer = setTimeout(() => {
-      if (interacted.current) return;
-      try {
-        sessionStorage.setItem(POPPED_KEY, "1");
-      } catch {}
-      setOpen(true);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
+  // Auto-pop disabled (珊, 2026-08-29): the desktop panel opened over the hero's
+  // right side and covered the headline (worst on the longer RU slogan). The
+  // widget now stays as the collapsed tap-to-open tab on every viewport, so the
+  // banner is never obscured. Re-enable by restoring the 3s desktop timer below.
 
   function toggle(next: boolean) {
     interacted.current = true;
