@@ -160,30 +160,30 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
                 header — long kickers (e.g. RU) no longer slide under the nav. */}
             <div className="relative z-10 px-6 lg:px-14 w-full pt-24 pb-52 flex justify-end h-full items-center">
               <div className="animate-in max-w-3xl text-right">
-                <p className="text-orange-300 uppercase tracking-[0.3em] font-extrabold text-sm mb-3 lg:mb-6 [text-shadow:0_1px_10px_rgba(67,20,7,0.65)]">{slide.kicker}</p>
-                <h1 className="text-[clamp(1.85rem,4.4vw,4.25rem)] font-black leading-[1.06] tracking-tight text-white whitespace-pre-line text-balance [text-wrap:balance] [text-shadow:0_2px_24px_rgba(67,20,7,0.45)]">{slide.title}</h1>
-                <p className="text-xl text-white/90 leading-snug lg:leading-relaxed mt-3 lg:mt-7 max-w-2xl ml-auto [text-shadow:0_1px_12px_rgba(67,20,7,0.5)]">{slide.lead}</p>
+                <p className="text-orange-300 uppercase tracking-[0.3em] font-extrabold text-xs lg:text-sm mb-2 lg:mb-6 [text-shadow:0_1px_10px_rgba(67,20,7,0.65)]">{slide.kicker}</p>
+                <h1 className="text-[clamp(1.6rem,4.4vw,4.25rem)] font-black leading-[1.04] lg:leading-[1.06] tracking-tight text-white whitespace-pre-line text-balance [text-wrap:balance] [text-shadow:0_2px_24px_rgba(67,20,7,0.45)]">{slide.title}</h1>
+                <p className="text-base lg:text-xl text-white/90 leading-snug lg:leading-relaxed mt-2 lg:mt-7 max-w-2xl ml-auto [text-shadow:0_1px_12px_rgba(67,20,7,0.5)]">{slide.lead}</p>
                 {slide.advantages && slide.advantages.length > 0 && (
-                  <ul className="mt-4 lg:mt-7 flex flex-col items-end gap-2 lg:gap-2.5">
+                  <ul className="mt-3 lg:mt-7 flex flex-col items-end gap-1.5 lg:gap-2.5">
                     {slide.advantages.map((adv, idx) => (
-                      <li key={idx} className="flex items-center justify-end gap-2 text-white/95 text-base lg:text-lg font-semibold [text-shadow:0_1px_10px_rgba(67,20,7,0.55)]">
+                      <li key={idx} className="flex items-center justify-end gap-2 text-white/95 text-sm lg:text-lg font-semibold [text-shadow:0_1px_10px_rgba(67,20,7,0.55)]">
                         <span>{adv}</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 shrink-0 text-orange-300" aria-hidden><path d="M20 6 9 17l-5-5" /></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 lg:w-5 lg:h-5 shrink-0 text-orange-300" aria-hidden><path d="M20 6 9 17l-5-5" /></svg>
                       </li>
                     ))}
                   </ul>
                 )}
-                <div className="flex gap-4 mt-6 lg:mt-10 flex-wrap justify-end">
+                <div className="flex gap-2.5 lg:gap-4 mt-4 lg:mt-10 flex-wrap justify-end">
                   {slide.cta1.external ? (
-                    <a href={slide.cta1.href} target="_blank" rel="noopener" tabIndex={active ? 0 : -1} data-umami-event={slide.cta1.event} data-umami-event-src={slide.cta1.eventSrc} className="inline-flex h-14 items-center px-8 bg-[var(--jd-red)] text-white font-extrabold rounded-sm hover:bg-orange-700 transition-all hover:shadow-[0_0_30px_rgba(234,88,12,0.4)]">{slide.cta1.label}</a>
+                    <a href={slide.cta1.href} target="_blank" rel="noopener" tabIndex={active ? 0 : -1} data-umami-event={slide.cta1.event} data-umami-event-src={slide.cta1.eventSrc} className="inline-flex h-11 lg:h-14 items-center px-5 lg:px-8 text-sm lg:text-base bg-[var(--jd-red)] text-white font-extrabold rounded-sm hover:bg-orange-700 transition-all hover:shadow-[0_0_30px_rgba(234,88,12,0.4)]">{slide.cta1.label}</a>
                   ) : (
-                    <Link href={slide.cta1.href} tabIndex={active ? 0 : -1} data-umami-event={slide.cta1.event} data-umami-event-src={slide.cta1.eventSrc} className="inline-flex h-14 items-center px-8 bg-[var(--jd-red)] text-white font-extrabold rounded-sm hover:bg-orange-700 transition-all hover:shadow-[0_0_30px_rgba(234,88,12,0.4)]">{slide.cta1.label}</Link>
+                    <Link href={slide.cta1.href} tabIndex={active ? 0 : -1} data-umami-event={slide.cta1.event} data-umami-event-src={slide.cta1.eventSrc} className="inline-flex h-11 lg:h-14 items-center px-5 lg:px-8 text-sm lg:text-base bg-[var(--jd-red)] text-white font-extrabold rounded-sm hover:bg-orange-700 transition-all hover:shadow-[0_0_30px_rgba(234,88,12,0.4)]">{slide.cta1.label}</Link>
                   )}
                   {slide.cta2 && (
                     slide.cta2.external ? (
-                      <a href={slide.cta2.href} target="_blank" rel="noopener" tabIndex={active ? 0 : -1} data-umami-event={slide.cta2.event} data-umami-event-src={slide.cta2.eventSrc} className="inline-flex h-14 items-center px-8 border border-white/60 bg-white/10 backdrop-blur-sm text-white font-extrabold rounded-sm hover:border-white hover:bg-white/20 transition-all">{slide.cta2.label}</a>
+                      <a href={slide.cta2.href} target="_blank" rel="noopener" tabIndex={active ? 0 : -1} data-umami-event={slide.cta2.event} data-umami-event-src={slide.cta2.eventSrc} className="inline-flex h-11 lg:h-14 items-center px-5 lg:px-8 text-sm lg:text-base border border-white/60 bg-white/10 backdrop-blur-sm text-white font-extrabold rounded-sm hover:border-white hover:bg-white/20 transition-all">{slide.cta2.label}</a>
                     ) : (
-                      <Link href={slide.cta2.href} tabIndex={active ? 0 : -1} data-umami-event={slide.cta2.event} data-umami-event-src={slide.cta2.eventSrc} className="inline-flex h-14 items-center px-8 border border-white/60 bg-white/10 backdrop-blur-sm text-white font-extrabold rounded-sm hover:border-white hover:bg-white/20 transition-all">{slide.cta2.label}</Link>
+                      <Link href={slide.cta2.href} tabIndex={active ? 0 : -1} data-umami-event={slide.cta2.event} data-umami-event-src={slide.cta2.eventSrc} className="inline-flex h-11 lg:h-14 items-center px-5 lg:px-8 text-sm lg:text-base border border-white/60 bg-white/10 backdrop-blur-sm text-white font-extrabold rounded-sm hover:border-white hover:bg-white/20 transition-all">{slide.cta2.label}</Link>
                     )
                   )}
                 </div>
