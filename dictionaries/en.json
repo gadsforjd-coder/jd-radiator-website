@@ -31,12 +31,12 @@
     },
     "panel": {
       "kicker": "Panel Radiators",
-      "title": "Modern Warmth · Panel Perfected",
-      "lead": "Minimal Design · Maximum Efficiency",
+      "title": "Modern Warmth",
+      "lead": "Minimal design, maximum efficiency",
       "advantages": [
-        "Fast heat-up · high thermal efficiency",
-        "13 bar pressure-tested · safe & reliable",
-        "Acid-wash phosphating · deep anti-corrosion"
+        "Fast heat-up · high efficiency",
+        "13 bar pressure-tested",
+        "Acid-wash phosphating"
       ],
       "cta1": "View Products",
       "cta2": "Contact Us"

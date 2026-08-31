@@ -202,7 +202,7 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
             type="button"
             onClick={prev}
             aria-label="Previous slide"
-            className="group absolute left-4 lg:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center rounded-full border border-white/40 bg-black/20 text-white backdrop-blur-sm hover:bg-black/40 hover:border-white transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            className="group absolute left-4 lg:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 lg:w-12 lg:h-12 hidden lg:flex items-center justify-center rounded-full border border-white/40 bg-black/20 text-white backdrop-blur-sm hover:bg-black/40 hover:border-white transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5" aria-hidden><path d="m15 18-6-6 6-6" /></svg>
           </button>
@@ -210,7 +210,7 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
             type="button"
             onClick={next}
             aria-label="Next slide"
-            className="group absolute right-4 lg:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center rounded-full border border-white/40 bg-black/20 text-white backdrop-blur-sm hover:bg-black/40 hover:border-white transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            className="group absolute right-4 lg:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 lg:w-12 lg:h-12 hidden lg:flex items-center justify-center rounded-full border border-white/40 bg-black/20 text-white backdrop-blur-sm hover:bg-black/40 hover:border-white transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5" aria-hidden><path d="m9 18 6-6-6-6" /></svg>
           </button>

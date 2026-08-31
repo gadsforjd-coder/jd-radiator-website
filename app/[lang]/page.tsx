@@ -187,8 +187,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               { num: d.stats.oem, label: d.stats.oemLabel, icon: STAT_ICONS.oem },
               { num: d.stats.quality, label: d.stats.qualityLabel, icon: STAT_ICONS.quality },
             ].map((s) => (
-              <div key={s.num} className="py-6 px-7 lg:px-9 border-r border-[#F1E7DC] last:border-r-0 flex items-center gap-3.5">
-                <span className="shrink-0 w-11 h-11 rounded-xl bg-[var(--jd-red)]/10 text-[var(--jd-red)] flex items-center justify-center">{s.icon}</span>
+              <div key={s.num} className="py-3.5 px-5 lg:py-6 lg:px-9 border-r border-[#F1E7DC] last:border-r-0 flex items-center gap-2.5 lg:gap-3.5">
+                <span className="shrink-0 w-9 h-9 lg:w-11 lg:h-11 rounded-xl bg-[var(--jd-red)]/10 text-[var(--jd-red)] flex items-center justify-center">{s.icon}</span>
                 <div>
                   <strong className="block text-2xl lg:text-3xl text-[var(--jd-red)] font-black leading-none mb-1">{s.num}</strong>
                   <span className="text-[#64748B] text-xs lg:text-sm">{s.label}</span>
