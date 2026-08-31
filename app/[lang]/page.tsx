@@ -145,16 +145,18 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
     });
   }
 
-  // AquaTherm Almaty 2026 show invite as the LAST hero slide (owner call
-  // 2026-08-30: 4th/last, not lead). Owner feedback same day: the earlier baked-
-  // artwork "floating card" slide looked inconsistent with the other slides, so
-  // this now uses the STANDARD hero template (clean full-bleed photo + warm scrim
-  // + right-aligned code-rendered text) exactly like the panel/column slides. The
-  // booth number / dates are real text (never cropped). The #aquatherm anchor is
-  // on the hero <section>, so paid-traffic UTM links still land here. zh/en/ru/mn.
-  // ⚠️ SEASONAL: REMOVE THIS BLOCK AFTER THE SHOW (2026-09-04).
+  // AquaTherm Almaty 2026 show invite as the FIRST hero slide (owner call
+  // 2026-08-31: move to lead/index 0 to maximize exposure — show opens 09-02;
+  // was 4th/last per 2026-08-30). Uses the STANDARD hero template (clean full-
+  // bleed photo + warm scrim + right-aligned code-rendered text) like the
+  // panel/column slides. The booth number / dates are real text (never cropped).
+  // The #aquatherm anchor is on the hero <section>, so paid-traffic UTM links
+  // still land here. zh/en/ru/mn. unshift() keeps it index 0 with the others
+  // following in order.
+  // ⚠️ SEASONAL: REMOVE THIS BLOCK AFTER THE SHOW (2026-09-04) — and the
+  //    remaining slides revert to their natural order automatically.
   if (isAquaThermSupported(lang)) {
-    slides.push({
+    slides.unshift({
       image: "/assets/ai-images/scene-column-livingroom.png",
       kicker: AQUATHERM_HERO[lang].kicker,
       title: AQUATHERM_HERO[lang].title,
