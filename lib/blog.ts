@@ -60,6 +60,7 @@ export const blogPosts: BlogPost[] = [
           "La página de Certificados reúne la documentación en un solo lugar: certificados CE / EN 442 para radiadores de panel y tubulares, informes de ensayo UKCA, 42 patentes y 12 marcas registradas.",
           "La página de FAQ responde a las preguntas más frecuentes de clientes B2B: certificaciones, servicios OEM/ODM, pedidos mínimos, plazos de producción y mercados de exportación.",
           "Ambas páginas están disponibles en español, inglés, ruso y mongol. Para solicitar documentación específica, contacte con nuestro equipo comercial.",
+          "Recursos relacionados: [entender EN442 ΔT50/ΔT30](/es/blog/understanding-en442-dt50-dt30), la página de [Certificados](/es/credentials) y las [preguntas frecuentes](/es/faq).",
         ],
       },
       zh: {
@@ -627,6 +628,7 @@ export const blogPosts: BlogPost[] = [
           "Potencias citadas sin referencia de ΔT. Cifras de catálogo superiores al informe de ensayo para el mismo tamaño. La fórmula «equivalente a EN 442» sin informe real. Un único certificado reciclado entre generaciones de producto visiblemente distintas. Nada de esto significa automáticamente mal producto, pero cada punto justifica preguntar más antes de comprometer volumen.",
           "## Dónde verificar nuestra documentación",
           "JIUDING fabrica radiadores de acero de panel, tubulares, de diseño y toalleros con una capacidad anual de 500.000 conjuntos y más de 600 especificaciones. Nuestros informes EN 442, declaraciones CE y documentación UKCA están disponibles en el [centro de documentación](/es/documents), con los certificados resumidos en la página de [Certificados](/es/credentials). Para datos de proyecto —alturas, colores o conexiones especiales— nuestro equipo técnico facilita tablas de potencia por modelo bajo petición.",
+          "Para el contexto de mercado y los requisitos de certificación de exportación, vea [radiadores de panel de acero certificados para exportación](/es/blog/china-steel-panel-radiator-export-market-2026).",
         ],
       },
       zh: {
@@ -739,6 +741,7 @@ export const blogPosts: BlogPost[] = [
           "## JIUDING en el mercado mongol: 5 años",
           "JIUDING cumple su quinto año en el mercado mongol con una cuota aproximada del 40 % — miles de nuestros radiadores funcionan cada invierno en edificios residenciales y públicos de Ulán Bator. Nuestra fábrica de 45 000 m² en Tianjin, con 8 líneas automatizadas, tiene una capacidad anual de 500.000 conjuntos. El rendimiento térmico está ensayado según la norma europea EN 442 y la gestión de calidad certificada por ISO 9001. Los certificados e informes de ensayo están en la página de [Certificados](/es/credentials) y en el [centro de documentación](/es/documents).",
           "Para importadores y clientes de proyectos de construcción: envíennos las superficies, el número de plantas y el tipo de conexión, y prepararemos la serie adecuada y el cálculo de elementos entre más de 600 especificaciones. Las preguntas frecuentes se responden en el [FAQ](/es/faq).",
+          "Vea también nuestra guía sobre la [exportación de radiadores de acero de China](/es/blog/china-steel-panel-radiator-export-market-2026).",
         ],
       },
       zh: {
@@ -858,6 +861,7 @@ export const blogPosts: BlogPost[] = [
           "Jiuding cuenta con 10 Declaraciones de Prestaciones CE bajo el CPR UE n.º 305/2011, evaluadas por HEATEST s.r.o. (NB 2693): certificados 2693-CPR-0010 to 0013-2024 y 2693-CPR-0019 to 0024-2023. Para el mercado del Reino Unido: informes BSRIA 104719/1 y 105549/1.",
           "## Sección 4: Guía del comprador",
           "Fundada en 2002, Jiuding Radiator (Tianjin Jiuding Yangguang HVAC Co., Ltd.) fabrica 6 series de productos, 600+ especificaciones. Certificada ISO 9001:2015 e ISO 14001:2015 (válidas hasta 2027). Código de registro aduanero: 121496018E. Contacto: kevin@jdradiator.com.",
+          "Recursos relacionados: [certificación EN442 (ΔT50/ΔT30)](/es/blog/understanding-en442-dt50-dt30), [cómo elegir radiadores de panel de acero](/es/blog/stalnye-panelnye-radiatory-vybor) y [rendimiento en climas extremos](/es/blog/steel-radiators-extreme-cold-mongolia). Consulte también nuestro [catálogo de productos](/es/products) y la página de [Certificados](/es/credentials).",
         ],
       },
     },
@@ -1060,6 +1064,7 @@ export const blogPosts: BlogPost[] = [
           "La empresa Jiuding Radiator (Tianjin Jiuding Yangguang HVAC Co., Ltd.) fabrica radiadores de panel de acero desde 2002 en una fábrica de 45 000 m² en Tianjin. La capacidad de producción es de 500 000 conjuntos al año. Los productos se exportan a más de 20 países; la empresa ostenta alrededor del 40% del mercado de radiadores de panel de acero de Mongolia. Los radiadores Jiuding están certificados según CE / EN 442 (10 certificados CPR, organismo notificado n.º 2693), cuentan con certificación ISO 9001 e ISO 14001 y, además, cumplen los requisitos del mercado ruso (GOST 31311-2022). La empresa es participante habitual de ferias internacionales: Aquatherm Moscow 2025, Aquatherm Almaty 2025, Aquatherm Tashkent 2024, BARILGA Mongolia 2024.",
           "Para consultas sobre suministros mayoristas, especificaciones técnicas y muestras: sitio web [www.jdradiator.com](https://www.jdradiator.com), correo electrónico kevin@jdradiator.com.",
           "Este material ha sido elaborado por el departamento técnico de Jiuding Radiator y tiene carácter informativo y de referencia. La elección final del tipo y el tamaño del aparato debe ser realizada por el proyectista sobre la base del cálculo termotécnico del edificio y de los parámetros del sistema de calefacción concreto.",
+          "Recursos relacionados: [mercado de exportación de radiadores de panel de acero de China 2026](/es/blog/china-steel-panel-radiator-export-market-2026), [calcular la potencia del radiador por habitación](/es/blog/calculate-radiator-output-per-room) y nuestro [catálogo de productos](/es/products).",
         ],
       },
       zh: {
