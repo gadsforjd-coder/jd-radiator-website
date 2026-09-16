@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { pageSeo } from "@/lib/seo";
 import { getDictionary } from "@/lib/dictionary";
 import { products, categoryLabels, productImages, getLocalizedSubtitle, localizeSpecValue } from "@/lib/products";
+import { getPostBySlug } from "@/lib/blog";
 import type { Locale } from "@/lib/i18n";
 import { locales, languageAlternates } from "@/lib/i18n";
 import { BASE_URL } from "@/lib/constants";
@@ -36,6 +37,11 @@ export default async function ProductsPage({ params }: { params: Promise<{ lang:
   const d = await getDictionary(locale);
   const labels = categoryLabels[locale] || categoryLabels.en;
   const categories = ["designer", "column", "towel", "bimetal", "panel"] as const;
+  // Localized "related guide" link — points each locale at its own cold-bottom
+  // guide (post exists in all 5 locales). Anchor = the post's localized title,
+  // feeding internal-link equity to the guide from a high-authority page.
+  const coldBottomGuide = getPostBySlug("radiator-cold-at-bottom");
+  const coldBottomTitle = coldBottomGuide?.content[locale]?.title ?? coldBottomGuide?.content.en.title;
 
   return (
     <div>
@@ -49,6 +55,12 @@ export default async function ProductsPage({ params }: { params: Promise<{ lang:
         </div>
       </div>
       <div className="py-16 px-6 lg:px-14">
+
+      {coldBottomTitle && (
+        <Link href={`/${locale}/blog/radiator-cold-at-bottom`} className="inline-flex items-center gap-2 text-sm text-[var(--jd-red)] font-semibold hover:underline mb-10">
+          <span aria-hidden="true">📘</span>{coldBottomTitle} →
+        </Link>
+      )}
 
       {categories.map((cat) => {
         const catProducts = products.filter((p) => p.category === cat);
