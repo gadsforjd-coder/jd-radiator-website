@@ -8,22 +8,29 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 /**
- * Body paragraphs support two lightweight conventions:
+ * Body paragraphs support four lightweight conventions:
  *  - a paragraph starting with "## " is rendered as an <h2> subheading;
- *  - inline markdown-style links "[text](/lang/path)" become <Link>s.
+ *  - a paragraph starting with "> " is rendered as a highlighted answer/callout
+ *    block (used for SEO "quick answer" blocks that target featured snippets);
+ *  - inline markdown-style links "[text](/lang/path)" become <Link>s;
+ *  - inline "**bold**" becomes <strong>.
  */
 function InlineText({ text }: { text: string }) {
-  const parts = text.split(/(\[[^\]]+\]\([^)\s]+\))/g);
+  const parts = text.split(/(\[[^\]]+\]\([^)\s]+\)|\*\*[^*]+\*\*)/g);
   return (
     <>
       {parts.map((part, i) => {
-        const m = part.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
-        if (m) {
+        const link = part.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
+        if (link) {
           return (
-            <Link key={i} href={m[2]} className="text-[var(--jd-red)] font-semibold hover:underline">
-              {m[1]}
+            <Link key={i} href={link[2]} className="text-[var(--jd-red)] font-semibold hover:underline">
+              {link[1]}
             </Link>
           );
+        }
+        const bold = part.match(/^\*\*([^*]+)\*\*$/);
+        if (bold) {
+          return <strong key={i} className="font-semibold text-gray-900">{bold[1]}</strong>;
         }
         return <span key={i}>{part}</span>;
       })}
@@ -114,6 +121,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ lang:
             {c.body.map((paragraph, i) =>
               paragraph.startsWith("## ") ? (
                 <h2 key={i} className="text-2xl font-bold tracking-tight mt-12 mb-5">{paragraph.slice(3)}</h2>
+              ) : paragraph.startsWith("> ") ? (
+                <blockquote key={i} className="border-l-4 border-[var(--jd-red)] bg-gray-50 rounded-r-lg px-6 py-5 mb-8 text-lg text-gray-700 leading-relaxed">
+                  <InlineText text={paragraph.slice(2)} />
+                </blockquote>
               ) : (
                 <p key={i} className="text-lg text-gray-600 leading-relaxed mb-6"><InlineText text={paragraph} /></p>
               )
