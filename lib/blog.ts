@@ -156,6 +156,7 @@ export const blogPosts: BlogPost[] = [
         excerpt:
           "Que la parte baja del radiador esté fría no siempre es una avería. Explicamos cuándo es física normal de la calefacción y cuándo indica lodos, desequilibrio hidráulico o errores de conexión, y qué hacer en cada caso.",
         body: [
+          "> **Respuesta rápida:** que la parte inferior del radiador esté algo más fría que la superior suele ser normal (el agua entra caliente por arriba y sale más fría por abajo). Solo indica avería si la zona fría es amplia y persistente, normalmente por lodos/óxido acumulado, desequilibrio hidráulico o una conexión invertida. **Solución:** purgar el aire, hacer un lavado químico si hay lodos y equilibrar el caudal con los detentores.",
           "Una parte superior caliente y una inferior notablemente más fría es una de las quejas más habituales sobre los sistemas de calefacción. La buena noticia: en muchos casos no es un defecto, sino funcionamiento normal. La mala: en el resto, la causa son lodos, errores de conexión o un sistema desequilibrado, que reducen gradualmente la emisión de calor. Veamos cómo distinguirlos.",
           "## Cuándo es normal que la parte baja esté fría",
           "El radiador cede calor a medida que el agua lo atraviesa: entra caliente, se enfría y sale por el retorno. En un sistema bien ajustado la diferencia entre ida y retorno es de 15–20 °C, por lo que la zona próxima a la salida —normalmente la conexión inferior— siempre está más fría que la de entrada. No es un fallo: es la prueba de que el radiador realmente transfiere calor a la habitación.",
@@ -295,6 +296,7 @@ export const blogPosts: BlogPost[] = [
           "## Cómo ensaya JIUDING",
           "En la fábrica de JIUDING cada unidad —no una muestra— pasa una prueba hidráulica a 1,5 veces la presión de trabajo: para las series de 1,0 MPa (10 atm) son 1,5 MPa (≈15 atm). El ensayo forma parte del control de calidad en varias etapas según ISO 9001, y el rendimiento térmico está verificado conforme a la norma europea EN 442. Los informes de ensayo y certificados están en nuestro [centro de documentación](/es/documents), con un resumen en la página de [Certificados](/es/credentials).",
           "Si está especificando radiadores para un proyecto concreto —un edificio en altura, un hotel o una promoción— envíenos los parámetros del sistema: presión de trabajo, régimen de temperaturas y tipo de conexión. Le propondremos la serie con el margen de presión adecuado entre más de 600 especificaciones.",
+          "¿Su radiador aguanta bien la presión pero calienta de forma desigual? Consulte [por qué la parte baja del radiador está fría](/es/blog/radiator-cold-at-bottom) para descartar caudal bajo, lodos o errores de conexión.",
         ],
       },
       zh: {
@@ -344,6 +346,7 @@ export const blogPosts: BlogPost[] = [
           "El suelo radiante es un emisor excelente para obra nueva, pero en rehabilitación implica levantar pavimentos, recrecidos de varios centímetros y semanas de obra. Sustituir radiadores es una intervención de horas por estancia, sin afectar a la altura libre ni al pavimento. Con radiadores correctamente dimensionados a baja temperatura, la aerotermia alcanza rendimientos estacionales comparables en la mayoría de viviendas existentes, y el sistema conserva una ventaja: la inercia baja, que permite respuestas rápidas a los cambios de consigna.",
           "## Qué pedir al fabricante",
           "Antes de especificar, solicite tres cosas: la declaración de potencia conforme a EN 442 con los valores de Km y n del modelo, la potencia a ΔT30 además de la nominal, y la presión de trabajo (los radiadores de acero JIUDING operan a 1,0 MPa / 10 bar, con cada unidad probada en fábrica a 1,5 veces la presión de trabajo). Los informes de ensayo y certificados CE están disponibles en nuestro [centro de documentación](/es/documents), y las dudas habituales sobre pedidos y plazos se responden en el [FAQ](/es/faq).",
+          "Un radiador bien dimensionado a baja temperatura pero que calienta de forma desigual puede tener otras causas: vea [radiador frío por abajo: causas](/es/blog/radiator-cold-at-bottom) —caudal, lodos o conexión— antes de dar por corto el cálculo.",
         ],
       },
       zh: {
