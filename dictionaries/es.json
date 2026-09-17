@@ -17,7 +17,7 @@
   "hero": {
     "kicker": "Fabricante de radiadores de acero desde 2002",
     "title": "Forjamos la marca Jiuding, llevamos calor a cada hogar",
-    "lead": "Radiadores de panel, tubulares y de diseño en acero. Para viviendas, hoteles y proyectos comerciales. Certificación CE / EN 442. Exportación a más de 80 países.",
+    "lead": "Radiadores de panel, tubulares y de diseño en acero. Para viviendas, hoteles y proyectos comerciales. Certificación CE / EN 442. Exportación a más de 26 países.",
     "cta1": "Hable con un ingeniero",
     "cta2": "Escríbanos por WhatsApp"
   },
@@ -25,7 +25,7 @@
     "steelColumn": {
       "kicker": "Radiadores de columna de acero",
       "title": "Certificado UE. Calidad de exportación.",
-      "lead": "Construcción sólida de columna de acero, certificada CE (EN 442) y exportada a más de 80 mercados: calor duradero para hogares y proyectos en todo el mundo.",
+      "lead": "Construcción sólida de columna de acero, certificada CE (EN 442) y exportada a más de 26 mercados: calor duradero para hogares y proyectos en todo el mundo.",
       "cta1": "Ver Productos",
       "cta2": "Contacto"
     },
@@ -45,7 +45,7 @@
   "stats": {
     "years": "20+",
     "yearsLabel": "Años de experiencia",
-    "markets": "80+",
+    "markets": "26+",
     "marketsLabel": "Mercados de exportación",
     "oem": "OEM/ODM",
     "oemLabel": "Marca privada",
@@ -161,7 +161,7 @@
     "title": "Por qué elegir Jiuding.",
     "experience": "20+ Años de fabricación",
     "experienceDesc": "Fábrica propia de 45.000 m² en Tianjin, 8 líneas automatizadas, más de 500.000 conjuntos al año.",
-    "export": "Exportación a 80+ países",
+    "export": "Exportación a 26+ países",
     "exportDesc": "Certificación CE, EN 442 y UKCA. Documentación de exportación completa y soporte logístico.",
     "quality": "Control de calidad",
     "qualityDesc": "ISO 9001, inspección multietapa, prueba hidráulica 1,5× en cada radiador.",
@@ -173,14 +173,14 @@
   "about": {
     "kicker": "Quiénes somos",
     "title": "Creando Calidez Desde 2002",
-    "intro": "Jiuding Radiator — fabricante de radiadores de acero y diseño en Tianjin, China. 20+ años de experiencia, exportación a 80+ países. Socio OEM/ODM de confianza para distribuidores en todo el mundo.",
+    "intro": "Jiuding Radiator — fabricante de radiadores de acero y diseño en Tianjin, China. 20+ años de experiencia, exportación a 26+ países. Socio OEM/ODM de confianza para distribuidores en todo el mundo.",
     "historyTitle": "Hitos",
     "h2002": "Fundación en Tianjin, China",
     "h2005": "Primeras exportaciones a Europa del Este",
     "h2010": "Certificación ISO 9001",
-    "h2015": "Expansión a 50+ mercados",
+    "h2015": "Mercados de exportación ampliados por Europa y la CEI",
     "h2020": "Capacidad: 500.000 conjuntos/año",
-    "h2024": "80+ mercados en 6 continentes",
+    "h2024": "26+ mercados de exportación en todo el mundo",
     "capTitle": "Capacidad Productiva",
     "capArea": "Superficie",
     "capAreaVal": "45.000 m²",
@@ -473,7 +473,7 @@
     "title": "Trabajemos juntos",
     "lead": "Producción OEM, distribución regional, suministro por proyecto — estamos listos.",
     "exportTitle": "Exportación",
-    "exportDesc": "Radiadores a 30+ países. MOQ flexible, certificación completa (CE / UKCA / EN442).",
+    "exportDesc": "Radiadores a 26+ países. MOQ flexible, certificación completa (CE / UKCA / EN442).",
     "oemTitle": "OEM / ODM",
     "oemDesc": "Marca propia, embalaje, especificaciones. Fábrica de 45.000 m² a su servicio.",
     "distributorTitle": "Distribuidores",
@@ -529,7 +529,7 @@
   },
   "customerMap": {
     "kicker": "Alcance Global",
-    "title": "Exportando a más de 30 países",
+    "title": "Exportando a más de 26 países",
     "subtitle": "Los radiadores Jiuding llegan a socios en Europa, CEI, Oriente Medio, África y Sudamérica",
     "countries": {
       "GB": "Reino Unido",
