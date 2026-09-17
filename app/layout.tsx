@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "Jiuding Radiator — CE-certified manufacturer of steel panel radiators, designer radiators, column radiators and heated towel rails. OEM/ODM partner exporting to 80+ countries since 2002.",
+    "Jiuding Radiator — CE-certified manufacturer of steel panel radiators, designer radiators, column radiators and heated towel rails. OEM/ODM partner exporting to 26+ countries since 2002.",
   keywords: [
     "radiator manufacturer",
     "steel panel radiator",

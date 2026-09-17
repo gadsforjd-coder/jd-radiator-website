@@ -33,27 +33,27 @@ const metaByLocale: Record<string, { title: string; description: string }> = {
   en: {
     title: "Jiuding Radiator | Steel Radiator Manufacturer & OEM Partner",
     description:
-      "CE/EN442-certified steel radiator manufacturer since 2002. Designer, column, panel radiators and heated towel rails. OEM/ODM for 80+ countries. Get a quote today.",
+      "CE/EN442-certified steel radiator manufacturer since 2002. Designer, column, panel radiators and heated towel rails. OEM/ODM for 26+ countries. Get a quote today.",
   },
   zh: {
     title: "Jiuding Radiator | 钢制散热器制造商与OEM合作伙伴",
     description:
-      "2002年成立的CE/EN442认证钢制散热器制造商。设计款、柱式、板式散热器及电热毛巾架，面向80多个国家提供OEM/ODM，立即获取报价。",
+      "2002年成立的CE/EN442认证钢制散热器制造商。设计款、柱式、板式散热器及电热毛巾架，面向 26 个国家提供OEM/ODM，立即获取报价。",
   },
   ru: {
     title: "Jiuding Radiator | Производитель стальных радиаторов и OEM-партнёр",
     description:
-      "Сертифицированный CE/EN442 производитель стальных радиаторов с 2002 года. Дизайнерские, колончатые, панельные радиаторы и полотенцесушители. OEM/ODM в 80+ стран.",
+      "Сертифицированный CE/EN442 производитель стальных радиаторов с 2002 года. Дизайнерские, колончатые, панельные радиаторы и полотенцесушители. OEM/ODM в 26+ стран.",
   },
   mn: {
     title: "Jiuding Radiator | Ган радиатор үйлдвэрлэгч ба OEM түнш",
     description:
-      "2002 оноос хойш CE/EN442 гэрчилгээтэй ган радиатор үйлдвэрлэгч. Дизайнер, баганат, хавтгай радиатор, алчуур хатаагч. 80+ оронд OEM/ODM.",
+      "2002 оноос хойш CE/EN442 гэрчилгээтэй ган радиатор үйлдвэрлэгч. Дизайнер, баганат, хавтгай радиатор, алчуур хатаагч. 26+ оронд OEM/ODM.",
   },
   es: {
     title: "Jiuding Radiator | Fabricante de Radiadores de Acero y Socio OEM",
     description:
-      "Fabricante de radiadores de acero certificado CE/EN442 desde 2002. Radiadores de diseño, columna, panel y toalleros calefactados. OEM/ODM para más de 80 países.",
+      "Fabricante de radiadores de acero certificado CE/EN442 desde 2002. Radiadores de diseño, columna, panel y toalleros calefactados. OEM/ODM para más de 26 países.",
   },
 };
 
