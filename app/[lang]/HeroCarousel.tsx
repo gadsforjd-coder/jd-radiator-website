@@ -196,27 +196,23 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
       })}
 
       {count > 1 && (
-        <>
-          {/* Prev / next arrows */}
+        // Prev / next arrows grouped with the dots into a single bottom-center
+        // control cluster. The next arrow used to sit at right-6 top-1/2, which
+        // overlapped the right-aligned headline ("翻页箭头挡字"); moving both arrows
+        // down beside the dots keeps all controls clear of the hero text.
+        <div className="absolute bottom-[190px] lg:bottom-[188px] left-1/2 -translate-x-1/2 z-20 flex items-center gap-3 lg:gap-4">
+          {/* Prev arrow */}
           <button
             type="button"
             onClick={prev}
             aria-label="Previous slide"
-            className="group absolute left-4 lg:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 lg:w-12 lg:h-12 hidden lg:flex items-center justify-center rounded-full border border-white/40 bg-black/20 text-white backdrop-blur-sm hover:bg-black/40 hover:border-white transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            className="group w-9 h-9 lg:w-10 lg:h-10 hidden lg:flex items-center justify-center rounded-full border border-white/40 bg-black/20 text-white backdrop-blur-sm hover:bg-black/40 hover:border-white transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5" aria-hidden><path d="m15 18-6-6 6-6" /></svg>
           </button>
-          <button
-            type="button"
-            onClick={next}
-            aria-label="Next slide"
-            className="group absolute right-4 lg:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 lg:w-12 lg:h-12 hidden lg:flex items-center justify-center rounded-full border border-white/40 bg-black/20 text-white backdrop-blur-sm hover:bg-black/40 hover:border-white transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5" aria-hidden><path d="m9 18 6-6-6-6" /></svg>
-          </button>
 
-          {/* Dot indicators — sit just above the stats strip */}
-          <div className="absolute bottom-[190px] lg:bottom-[188px] left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5">
+          {/* Dot indicators */}
+          <div className="flex items-center gap-2.5">
             {slides.map((_, i) => (
               <button
                 key={i}
@@ -230,7 +226,17 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
               />
             ))}
           </div>
-        </>
+
+          {/* Next arrow */}
+          <button
+            type="button"
+            onClick={next}
+            aria-label="Next slide"
+            className="group w-9 h-9 lg:w-10 lg:h-10 hidden lg:flex items-center justify-center rounded-full border border-white/40 bg-black/20 text-white backdrop-blur-sm hover:bg-black/40 hover:border-white transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5" aria-hidden><path d="m9 18 6-6-6-6" /></svg>
+          </button>
+        </div>
       )}
     </div>
   );
