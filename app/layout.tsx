@@ -4,8 +4,7 @@ import { BASE_URL, SITE_NAME } from "@/lib/constants";
 
 // viewport-fit=cover is required for env(safe-area-inset-*) to resolve to real
 // values on notched iOS devices — the hero uses the bottom inset so the mobile
-// AquaTherm booth-number badge is never hidden behind the Safari toolbar /
-// home indicator.
+// stats strip is never hidden behind the Safari toolbar / home indicator.
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -19,7 +18,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "Jiuding Radiator — CE-certified manufacturer of steel panel radiators, designer radiators, column radiators and heated towel rails. OEM/ODM partner exporting to 80+ countries since 2002.",
+    "Jiuding Radiator — family-run manufacturer of steel panel radiators, designer radiators, column radiators and heated towel rails since 2002. EN 442 and GOST compliant OEM/ODM partner for Europe, Russia and Central Asia.",
   keywords: [
     "radiator manufacturer",
     "steel panel radiator",

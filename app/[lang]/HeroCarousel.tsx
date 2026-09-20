@@ -31,18 +31,11 @@ export type HeroSlide = {
   // Optional short product-advantage points shown between the lead and the CTAs
   // (right-aligned, code-rendered — never baked into the photo).
   advantages?: string[];
-  // When set, this slide renders an approved promotional banner (text baked into
-  // the artwork) instead of the photo + text-overlay layout. The full banner is
-  // shown uncropped (object-contain) over a blurred backdrop of itself, wrapped
-  // in a single link — so the baked booth number / dates are always legible and
-  // never cropped. Used for the AquaTherm show banner as the lead slide.
-  promo?: {
-    desktopSrc: string;
-    mobileSrc: string;
-    href: string;
-    alt: string;
-  };
 };
+
+// NOTE: this carousel previously supported a "promo" slide variant (baked-artwork
+// banner shown object-contain over a blurred backdrop) used for the AquaTherm
+// Almaty 2026 expo. That expo has passed and the variant was removed 2026-09-20.
 
 const AUTO_ADVANCE_MS = 6000;
 
@@ -115,31 +108,6 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
             aria-roledescription="slide"
             aria-label={`${i + 1} of ${count}`}
           >
-            {slide.promo ? (
-              <Link
-                href={slide.promo.href}
-                aria-label={slide.promo.alt}
-                tabIndex={active ? 0 : -1}
-                // Keep the banner between the fixed 96px header (pt-24) and the
-                // bottom stats strip / dots. Mobile stats is a taller 2-row grid,
-                // so reserve more bottom space (pb-60) — otherwise the contained
-                // portrait banner sits only ~12px above the stats card and the
-                // booth number / 11-957 badge read as covered. Desktop stats is a
-                // single row, so lg:pb-40 is enough there.
-                className="absolute inset-0 flex items-center justify-center px-4 sm:px-6 lg:px-0 pt-24 pb-[calc(15rem_+_env(safe-area-inset-bottom))] lg:pb-40 focus:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white/70"
-              >
-                {/* Blurred, scaled copy of the banner fills the letterbox bands
-                    with the artwork's own colors — no flat empty border, and the
-                    sharp banner on top is never cropped. */}
-                <Image src={slide.promo.desktopSrc} alt="" fill sizes="100vw" {...(i === 0 ? { preload: true } : {})} className="hidden lg:block object-cover scale-125 blur-2xl" />
-                <Image src={slide.promo.mobileSrc} alt="" fill sizes="100vw" {...(i === 0 ? { preload: true } : {})} className="lg:hidden object-cover scale-125 blur-2xl" />
-                <div className="absolute inset-0 bg-[#431407]/25" />
-                {/* Sharp, fully-visible banner — booth number / dates never cropped. */}
-                <Image src={slide.promo.desktopSrc} alt={slide.promo.alt} width={1920} height={720} sizes="100vw" {...(i === 0 ? { preload: true } : {})} className="relative z-10 hidden lg:block w-full h-auto max-h-full object-contain" />
-                <Image src={slide.promo.mobileSrc} alt={slide.promo.alt} width={1080} height={1350} sizes="100vw" {...(i === 0 ? { preload: true } : {})} className="relative z-10 lg:hidden h-auto w-auto max-h-full max-w-full rounded-xl shadow-2xl object-contain" />
-              </Link>
-            ) : (
-            <>
             <Image
               src={slide.image}
               alt=""
@@ -189,8 +157,6 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
                 </div>
               </div>
             </div>
-            </>
-            )}
           </div>
         );
       })}

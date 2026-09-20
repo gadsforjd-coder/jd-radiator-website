@@ -11,7 +11,7 @@ const POPPED_KEY = "jd_contact_popped";
 const SALES = [
   {
     name: "Lu Nan",
-    email: "lunan@jdradiator.com",
+    email: "kevin@jdradiator.com",
     tel: "+8618612430813",
     telLabel: "+86 186 1243 0813",
     wa: "8617742252991",

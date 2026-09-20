@@ -27,7 +27,7 @@ const organizationJsonLd = (locale: Locale) => ({
   logo: `${BASE_URL}/assets/logo.png`,
   foundingDate: "2002",
   description:
-    "Tianjin Jiuding Yangguang HVAC Co., Ltd. (est. 2002) manufactures steel panel and column radiators in Tianjin, China. Holds 10 CE Declarations of Performance under EU CPR No. 305/2011 (cert. nos. 2693-CPR-0010 to 0013-2024 and 2693-CPR-0019 to 0024-2023), assessed by HEATEST s.r.o. (NB 2693) to EN 442-1:2014. ISO 9001:2015 and ISO 14001:2015 certified (valid to 2027). Exports approximately 300 containers/year to 20+ countries across Europe, Russia, and Central Asia. 6 product series, 600+ specifications. All CE-certified products: reaction-to-fire class A1; REACH SVHC-compliant (SGS No. TSNEC2000446701).",
+    "Jiuding Radiator (JIUDING) — Tianjin Jiuding Yangguang HVAC Co., Ltd. — is a family-run manufacturer of steel panel radiators, along with steel column and designer radiators, established in 2002 in Tianjin, China. Products serve residential and commercial heating markets across Europe, Russia, and Central Asia. Manufacturing is EN 442 and GOST compliant.",
   address: {
     "@type": "PostalAddress",
     streetAddress: "No.9, Wuwei Road, Economic Development Zone",
@@ -37,22 +37,20 @@ const organizationJsonLd = (locale: Locale) => ({
   contactPoint: [
     {
       "@type": "ContactPoint",
-      email: "lunan@jdradiator.com",
+      email: "kevin@jdradiator.com",
       telephone: "+86-22-69189950",
       contactType: "sales",
       availableLanguage: ["English", "Chinese", "Russian"],
     },
   ],
   sameAs: [
+    "https://jdradiator.en.alibaba.com/",
+    "https://www.youtube.com/@jdradiator",
+    "https://t.me/jdradiator",
     "https://www.linkedin.com/company/tianjin-jiuding-sunshine-radiator-co-ltd/",
     "https://www.instagram.com/jiudingradiator/",
     "https://www.facebook.com/profile.php?id=61551859532584",
   ],
-  award: [
-    "Best Stand Design Award, Aquatherm Tashkent 2024",
-    "Official exhibitor: ISH Frankfurt 2025 (Hall 4.2, K15E) and MCE Expocomfort Milan 2026 (Stand 18 F04)",
-  ],
-  slogan: "Warm Homes, One Winter at a Time",
 });
 
 const websiteJsonLd = (locale: Locale) => ({

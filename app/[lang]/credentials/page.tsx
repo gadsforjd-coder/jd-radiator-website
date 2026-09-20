@@ -78,7 +78,7 @@ const TRADEMARK_IMAGES = [
   { src: "/assets/certs/trademark-montreal.jpg", key: "tm3" as const },
 ];
 
-const TRUST_BADGES = ["CE", "EN 442", "ISO 9001", "ISO 14001", "UKCA", "REACH", "Fire A1"];
+const TRUST_BADGES = ["CE", "EN 442", "GOST", "ISO 9001", "ISO 14001", "REACH", "Fire A1"];
 
 export default async function CredentialsPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -92,7 +92,6 @@ export default async function CredentialsPage({ params }: { params: Promise<{ la
   const sceneTagline = (d.products && d.products.marketLine1) || c.intro;
 
   const stats = [
-    { num: "42", label: c.patentsLabel, href: "#patents" },
     { num: "12", label: c.tmLabel, href: "#trademarks" },
     { num: d.stats.years, label: d.stats.yearsLabel, href: undefined },
     { num: d.stats.markets, label: d.stats.marketsLabel, href: undefined },
@@ -102,9 +101,9 @@ export default async function CredentialsPage({ params }: { params: Promise<{ la
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: [
-      { "@type": "Question", name: "What certifications do Jiuding radiators hold?", acceptedAnswer: { "@type": "Answer", text: "Jiuding radiators are CE-certified under EN 442 (EU CPR 305/2011), tested by HEATEST s.r.o. (NB 2693). Both steel panel and column radiators are covered. UKCA compliance is validated by BSRIA (UK). Jiuding also holds ISO 9001 (quality management) and ISO 14001 (environmental management) certifications." } },
-      { "@type": "Question", name: "How many patents does Jiuding hold?", acceptedAnswer: { "@type": "Answer", text: "Jiuding holds 42 national patents granted by CNIPA: 2 invention patents, 30 utility model patents, and 10 design patents covering radiator structures, manufacturing processes, and product designs." } },
-      { "@type": "Question", name: "Does Jiuding have UKCA certification for the UK market?", acceptedAnswer: { "@type": "Answer", text: "Yes. Thermal performance has been validated by BSRIA (Building Services Research and Information Association, UK) with reports covering 7 multi-column radiator models." } },
+      { "@type": "Question", name: "What certifications do Jiuding radiators hold?", acceptedAnswer: { "@type": "Answer", text: "Jiuding radiators are CE-certified under EN 442 (EU CPR 305/2011). Both steel panel and column radiators are covered. Products are also GOST compliant for the Russia and Central Asia markets, and Jiuding holds ISO 9001 (quality management) and ISO 14001 (environmental management) certifications." } },
+      { "@type": "Question", name: "Does Jiuding hold patents?", acceptedAnswer: { "@type": "Answer", text: "Yes. Jiuding holds national patents granted by CNIPA, including invention, utility model, and design patents covering radiator structures, manufacturing processes, and product designs." } },
+      { "@type": "Question", name: "Which markets are Jiuding radiators compliant for?", acceptedAnswer: { "@type": "Answer", text: "Jiuding radiators are EN 442 compliant for Europe and GOST compliant for Russia and Central Asia, the company's core export markets." } },
       { "@type": "Question", name: "What testing standards do Jiuding radiators comply with?", acceptedAnswer: { "@type": "Answer", text: "Jiuding radiators comply with EN 442-1:2014, EN 442-2, EN 2808, ISO 2409:2013, and EU Regulation No 305/2011 (Construction Products Regulation)." } },
     ],
   };
@@ -134,7 +133,7 @@ export default async function CredentialsPage({ params }: { params: Promise<{ la
 
       {/* Big-number stats band — bold color pop */}
       <section className="px-6 lg:px-14 py-14 lg:py-16 bg-gradient-to-br from-[var(--jd-red)] to-[#c2410c]">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-6 max-w-6xl mx-auto">
           {stats.map((s, i) => {
             const inner = (
               <>
@@ -182,17 +181,17 @@ export default async function CredentialsPage({ params }: { params: Promise<{ la
         </div>
       </section>
 
-      {/* UKCA */}
-      <section id="ukca" className="scroll-mt-24 py-20 lg:py-24 px-6 lg:px-14 bg-gray-50">
+      {/* Regional compliance — GOST / EN 442 */}
+      <section id="regional" className="scroll-mt-24 py-20 lg:py-24 px-6 lg:px-14 bg-gray-50">
         <SectionHead icon={<BeakerIcon />} title={c.ukcaTitle} />
         <p className="text-gray-600 text-lg max-w-3xl mb-12">{c.ukcaIntro}</p>
         <div className="grid md:grid-cols-2 gap-8">
           <div className="border border-gray-200 bg-white p-8 rounded-lg">
-            <span className="text-[var(--jd-red)] font-extrabold text-sm uppercase tracking-[0.2em] block mb-3">BSRIA</span>
+            <span className="text-[var(--jd-red)] font-extrabold text-sm uppercase tracking-[0.2em] block mb-3">GOST</span>
             <p className="text-gray-600 text-lg">{c.ukcaReport1}</p>
           </div>
           <div className="border border-gray-200 bg-white p-8 rounded-lg">
-            <span className="text-[var(--jd-red)] font-extrabold text-sm uppercase tracking-[0.2em] block mb-3">BSRIA</span>
+            <span className="text-[var(--jd-red)] font-extrabold text-sm uppercase tracking-[0.2em] block mb-3">EN 442</span>
             <p className="text-gray-600 text-lg">{c.ukcaReport2}</p>
           </div>
         </div>

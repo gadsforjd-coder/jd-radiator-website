@@ -10,7 +10,7 @@ import type { Dictionary } from "@/lib/dictionary";
 // redirected to FormSubmit's "Thanks" page. The response is opaque (can't be
 // read cross-origin), so success is shown optimistically once the request is
 // sent. The inbox must be activated once (one-time "Activate Form" email).
-const FORMSUBMIT_ENDPOINT = "https://formsubmit.co/lunan@jdradiator.com";
+const FORMSUBMIT_ENDPOINT = "https://formsubmit.co/kevin@jdradiator.com";
 const MAX_IMAGES = 5;
 const MAX_DOCS = 3;
 const MAX_TOTAL_BYTES = 9.5 * 1024 * 1024;

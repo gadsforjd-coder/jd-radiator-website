@@ -43,6 +43,7 @@ const pages = [
   ["/contact", "monthly", "0.8"],
   ["/credentials", "monthly", "0.8"],
   ["/faq", "monthly", "0.8"],
+  ["/faq-guide", "monthly", "0.8"],
   ...(blogSlugs.length > 0 ? [["/blog", "weekly", "0.8"]] : []),
   ...productSlugs.map((slug) => [`/products/${slug}`, "monthly", "0.7"]),
   ...blogSlugs.map((slug) => [`/blog/${slug}`, "monthly", "0.6"]),

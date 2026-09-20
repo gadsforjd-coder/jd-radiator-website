@@ -13,10 +13,10 @@
 
 ## Certifications (held)
 
-- CE — Declarations of Performance under EU Construction Products Regulation (EU) No. 305/2011, assessed to harmonised standard EN 442-1 by notified body HEATEST s.r.o. (NB 2693)
+- CE — Declarations of Performance under the EU Construction Products Regulation, assessed to harmonised standard EN 442 by a notified body
 - ISO 9001:2015 (quality management) and ISO 14001:2015 (environmental management)
-- UKCA — steel column radiators, supported by BSRIA test reporting
-- REACH — SVHC-compliant (SGS)
+- GOST — compliant for Russia and Central Asia markets
+- REACH — SVHC-compliant
 - Reaction-to-fire class A1 for CE-certified steel products
 
 ## Products
@@ -37,11 +37,12 @@
 - Documents center (catalogs, datasheets, DoP): https://jdradiator.com/en/documents
 - Project cases: https://jdradiator.com/en/cases
 - FAQ: https://jdradiator.com/en/faq
+- Buying & installation guide (FAQ): https://jdradiator.com/en/faq-guide
 - Blog: https://jdradiator.com/en/blog
 - OEM / ODM & partnership: https://jdradiator.com/en/collaborate
 
 ## Contact
 
-- Sales: kevin@jdradiator.com, lunan@jdradiator.com
+- Sales: kevin@jdradiator.com
 - Phone: +86-22-69189950
 - Contact page: https://jdradiator.com/en/contact

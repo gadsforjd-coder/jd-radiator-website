@@ -33,27 +33,27 @@ const metaByLocale: Record<string, { title: string; description: string }> = {
   en: {
     title: "Jiuding Radiator | Steel Radiator Manufacturer & OEM Partner",
     description:
-      "CE/EN442-certified steel radiator manufacturer since 2002. Designer, column, panel radiators and heated towel rails. OEM/ODM for 80+ countries. Get a quote today.",
+      "EN 442 and GOST compliant steel radiator manufacturer since 2002. Designer, column, panel radiators and heated towel rails. OEM/ODM for Europe, Russia and Central Asia. Get a quote today.",
   },
   zh: {
     title: "Jiuding Radiator | 钢制散热器制造商与OEM合作伙伴",
     description:
-      "2002年成立的CE/EN442认证钢制散热器制造商。设计款、柱式、板式散热器及电热毛巾架，面向80多个国家提供OEM/ODM，立即获取报价。",
+      "2002年成立的钢制散热器制造商，符合 EN 442 与 GOST 标准。设计款、柱式、板式散热器及电热毛巾架，面向欧洲、俄罗斯及中亚市场提供OEM/ODM，立即获取报价。",
   },
   ru: {
     title: "Jiuding Radiator | Производитель стальных радиаторов и OEM-партнёр",
     description:
-      "Сертифицированный CE/EN442 производитель стальных радиаторов с 2002 года. Дизайнерские, колончатые, панельные радиаторы и полотенцесушители. OEM/ODM в 80+ стран.",
+      "Производитель стальных радиаторов с 2002 года, соответствие EN 442 и ГОСТ. Дизайнерские, колончатые, панельные радиаторы и полотенцесушители. OEM/ODM для Европы, России и Центральной Азии.",
   },
   mn: {
     title: "Jiuding Radiator | Ган радиатор үйлдвэрлэгч ба OEM түнш",
     description:
-      "2002 оноос хойш CE/EN442 гэрчилгээтэй ган радиатор үйлдвэрлэгч. Дизайнер, баганат, хавтгай радиатор, алчуур хатаагч. 80+ оронд OEM/ODM.",
+      "2002 оноос хойш EN 442 болон ГОСТ-д нийцсэн ган радиатор үйлдвэрлэгч. Дизайнер, баганат, хавтгай радиатор, алчуур хатаагч. Европ, Орос, Төв Азид OEM/ODM.",
   },
   es: {
     title: "Jiuding Radiator | Fabricante de Radiadores de Acero y Socio OEM",
     description:
-      "Fabricante de radiadores de acero certificado CE/EN442 desde 2002. Radiadores de diseño, columna, panel y toalleros calefactados. OEM/ODM para más de 80 países.",
+      "Fabricante de radiadores de acero conforme con EN 442 y GOST desde 2002. Radiadores de diseño, columna, panel y toalleros calefactados. OEM/ODM para Europa, Rusia y Asia Central.",
   },
 };
 
@@ -154,7 +154,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           fills the viewport. Mobile uses svh so the section fits the always-
           visible area on iOS Safari (toolbar shown) and the bottom booth-number
           badge is never clipped under the browser chrome. */}
-      <section id="aquatherm" className="relative w-full min-h-[88svh] lg:min-h-screen scroll-mt-24 -mt-[96px] pt-[96px] flex items-center overflow-hidden bg-[#FFF7ED]">
+      <section id="hero" className="relative w-full min-h-[88svh] lg:min-h-screen scroll-mt-24 -mt-[96px] pt-[96px] flex items-center overflow-hidden bg-[#FFF7ED]">
         <HeroCarousel slides={slides} />
 
         {/* Stats strip at bottom — light bar, each metric paired with an icon */}
@@ -178,10 +178,9 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </div>
       </section>
 
-      {/* Lower AquaTherm banner strip REMOVED per owner 2026-08-30 (redundant with
-          the carousel slide). The #aquatherm anchor now lives on the hero
-          <section> above so the paid-traffic UTM links (telegram/vk/dzen →
-          /{lang}#aquatherm) still land on the hero that carries the banner. */}
+      {/* AquaTherm Almaty 2026 expo promotion fully removed 2026-09-20 (event past,
+          approved by owner). Legacy paid-traffic links to /{lang}#aquatherm now
+          simply land at the top of the page (the hero <section id="hero"> above). */}
 
       {/* Products — with numbering, hover glow, featured card */}
       <section className="bg-white text-[#1E293B] py-24 px-6 lg:px-14">
@@ -364,7 +363,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         <div className="text-center mb-8 px-6">
           <p className="text-[var(--jd-red)] uppercase tracking-[0.25em] font-extrabold text-xs mb-2">{d.certs.kicker}</p>
           <div className="flex flex-wrap items-center justify-center gap-2.5">
-            {["CE", "EN 442", "ISO 9001", "ISO 14001", "UKCA", `1.5× ${d.certs.pressure}`].map((c) => (
+            {["CE", "EN 442", "GOST", "ISO 9001", "ISO 14001", `1.5× ${d.certs.pressure}`].map((c) => (
               <span key={c} className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white border border-[#F1E7DC] text-[var(--jd-red)] font-black text-xs">{c}</span>
             ))}
           </div>

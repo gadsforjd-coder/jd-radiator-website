@@ -38,27 +38,27 @@ export const PAGE_SEO: Record<string, Partial<Record<Locale, Meta>>> = {
     en: {
       title: "About Jiuding — Engineering Warmth Since 2002",
       description:
-        "Founded in 2002 in Tianjin, China. 45,000㎡ factory, 500,000 sets/year, 42 patents, CE/EN442/UKCA certified. Trusted OEM partner for radiator distributors in 80+ countries.",
+        "A family-run steel radiator manufacturer founded in 2002 in Tianjin, China. Steel panel, column and designer radiators, EN 442 and GOST compliant. Trusted OEM partner for radiator distributors across Europe, Russia and Central Asia.",
     },
     zh: {
       title: "关于九鼎 — 2002年至今专注采暖散热",
       description:
-        "九鼎散热器2002年创立于中国天津，4.5万㎡工厂，年产50万组，42项专利，通过CE/EN442/UKCA认证，为80多个国家的散热器经销商提供可信赖的OEM代工。",
+        "九鼎散热器是2002年创立于中国天津的家族制造企业，生产钢制板式、柱式与设计款散热器，符合 EN 442 与 GOST 标准，为欧洲、俄罗斯及中亚市场的散热器经销商提供可信赖的OEM代工。",
     },
     ru: {
       title: "О компании Jiuding — тепло и качество с 2002 года",
       description:
-        "Основана в 2002 году в Тяньцзине, Китай. Завод 45 000 м², 500 000 комплектов в год, 42 патента, сертификаты CE/EN442/UKCA. Надёжный OEM-партнёр для дистрибьюторов радиаторов в более чем 80 странах.",
+        "Семейное производство стальных радиаторов, основано в 2002 году в Тяньцзине, Китай. Стальные панельные, колончатые и дизайнерские радиаторы, соответствие EN 442 и ГОСТ. Надёжный OEM-партнёр для дистрибьюторов радиаторов в Европе, России и Центральной Азии.",
     },
     mn: {
       title: "Jiuding компанийн тухай — 2002 оноос дулааныг бүтээнэ",
       description:
-        "2002 онд Хятадын Тяньжинь хотод үүсгэн байгуулагдсан. 45,000 м² үйлдвэр, жилд 500,000 иж бүрдэл, 42 патент, CE/EN442/UKCA гэрчилгээтэй. 80+ оронд радиаторын дистрибьютеруудын найдвартай OEM түнш.",
+        "2002 онд Хятадын Тяньжинь хотод үүсгэн байгуулагдсан гэр бүлийн ган радиатор үйлдвэрлэгч. Ган хавтан, баганат болон дизайнер радиатор, EN 442 болон ГОСТ-д нийцсэн. Европ, Орос, Төв Азийн радиаторын дистрибьютеруудын найдвартай OEM түнш.",
     },
     es: {
       title: "Sobre Jiuding — Generando calor desde 2002",
       description:
-        "Fundada en 2002 en Tianjin, China. Fábrica de 45.000 m², 500.000 conjuntos al año, 42 patentes, certificación CE/EN442/UKCA. Socio OEM de confianza para distribuidores de radiadores en más de 80 países.",
+        "Fabricante familiar de radiadores de acero fundado en 2002 en Tianjin, China. Radiadores de panel, de columna y de diseño de acero, conformes con EN 442 y GOST. Socio OEM de confianza para distribuidores de radiadores en Europa, Rusia y Asia Central.",
     },
   },
   products: {
@@ -146,54 +146,54 @@ export const PAGE_SEO: Record<string, Partial<Record<Locale, Meta>>> = {
     en: {
       title: "Contact Jiuding — Get a Radiator Quote",
       description:
-        "Contact Jiuding Radiator for OEM/ODM inquiries, product quotes, and export cooperation. Email lunan@jdradiator.com or fill in the contact form.",
+        "Contact Jiuding Radiator for OEM/ODM inquiries, product quotes, and export cooperation. Email kevin@jdradiator.com or fill in the contact form.",
     },
     zh: {
       title: "联系九鼎 — 获取散热器报价",
       description:
-        "联系九鼎散热器，咨询OEM/ODM、产品报价及出口合作。邮箱 lunan@jdradiator.com，或填写在线联系表单。",
+        "联系九鼎散热器，咨询OEM/ODM、产品报价及出口合作。邮箱 kevin@jdradiator.com，或填写在线联系表单。",
     },
     ru: {
       title: "Связаться с Jiuding — запросить цену на радиаторы",
       description:
-        "Свяжитесь с Jiuding Radiator по вопросам OEM/ODM, расчёта цен и экспорта. Эл. почта lunan@jdradiator.com или заполните форму обратной связи.",
+        "Свяжитесь с Jiuding Radiator по вопросам OEM/ODM, расчёта цен и экспорта. Эл. почта kevin@jdradiator.com или заполните форму обратной связи.",
     },
     mn: {
       title: "Jiuding-тай холбогдох — радиаторын үнийн санал авах",
       description:
-        "OEM/ODM, бүтээгдэхүүний үнийн санал, экспортын хамтын ажиллагааны талаар Jiuding Radiator-тай холбогдоно уу. И-мэйл lunan@jdradiator.com эсвэл холбоо барих маягтыг бөглөнө үү.",
+        "OEM/ODM, бүтээгдэхүүний үнийн санал, экспортын хамтын ажиллагааны талаар Jiuding Radiator-тай холбогдоно уу. И-мэйл kevin@jdradiator.com эсвэл холбоо барих маягтыг бөглөнө үү.",
     },
     es: {
       title: "Contacto Jiuding — Solicite presupuesto de radiadores",
       description:
-        "Contacte con Jiuding Radiator para consultas OEM/ODM, presupuestos y cooperación de exportación. Correo lunan@jdradiator.com o rellene el formulario de contacto.",
+        "Contacte con Jiuding Radiator para consultas OEM/ODM, presupuestos y cooperación de exportación. Correo kevin@jdradiator.com o rellene el formulario de contacto.",
     },
   },
   credentials: {
     en: {
-      title: "Credentials — CE, UKCA, Patents & Trademarks",
+      title: "Credentials — Certifications & Compliance",
       description:
-        "Jiuding radiators hold CE EN 442, UKCA (BSRIA-tested) certifications, 42 national patents, and 12 registered trademarks. Verified quality credentials for global partners.",
+        "Jiuding radiators are EN 442 and GOST compliant, with certifications held for European, Russian and Central Asian markets. Verified quality credentials for global partners.",
     },
     zh: {
-      title: "资质认证 — CE、UKCA、专利与商标",
+      title: "资质认证 — 认证与合规",
       description:
-        "九鼎散热器拥有CE EN 442、UKCA（经BSRIA检测）认证，42项国家专利及12项注册商标，为全球合作伙伴提供经核验的品质资质。",
+        "九鼎散热器符合 EN 442 与 GOST 标准，持有面向欧洲、俄罗斯及中亚市场的相关认证，为全球合作伙伴提供经核验的品质资质。",
     },
     ru: {
-      title: "Сертификаты — CE, UKCA, патенты и товарные знаки",
+      title: "Сертификаты — сертификация и соответствие",
       description:
-        "Радиаторы Jiuding имеют сертификаты CE EN 442, UKCA (испытания BSRIA), 42 национальных патента и 12 зарегистрированных товарных знаков. Подтверждённое качество для партнёров по всему миру.",
+        "Радиаторы Jiuding соответствуют EN 442 и ГОСТ; сертификаты получены для рынков Европы, России и Центральной Азии. Подтверждённое качество для партнёров по всему миру.",
     },
     mn: {
-      title: "Гэрчилгээ — CE, UKCA, патент ба барааны тэмдэг",
+      title: "Гэрчилгээ — сертификаци ба нийцэл",
       description:
-        "Jiuding радиатор нь CE EN 442, UKCA (BSRIA шалгасан) гэрчилгээ, 42 үндэсний патент, 12 бүртгэлтэй барааны тэмдэгтэй. Дэлхийн түншүүдэд баталгаажсан чанарын гэрчилгээ.",
+        "Jiuding радиатор нь EN 442 болон ГОСТ-д нийцсэн бөгөөд Европ, Орос, Төв Азийн зах зээлд зориулсан гэрчилгээтэй. Дэлхийн түншүүдэд баталгаажсан чанарын гэрчилгээ.",
     },
     es: {
-      title: "Certificaciones — CE, UKCA, patentes y marcas",
+      title: "Certificaciones — certificación y conformidad",
       description:
-        "Los radiadores Jiuding cuentan con certificaciones CE EN 442, UKCA (ensayado por BSRIA), 42 patentes nacionales y 12 marcas registradas. Credenciales de calidad verificadas para socios globales.",
+        "Los radiadores Jiuding cumplen con EN 442 y GOST, con certificaciones para los mercados de Europa, Rusia y Asia Central. Credenciales de calidad verificadas para socios globales.",
     },
   },
   faq: {

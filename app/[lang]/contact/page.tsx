@@ -57,7 +57,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
             <h3 className="text-2xl font-bold mb-6">Jiuding Radiator</h3>
             <div className="space-y-4 text-white/85">
             <p><strong className="text-white">Email:</strong>{" "}
-              <a href="mailto:lunan@jdradiator.com" className="font-semibold underline underline-offset-2 hover:opacity-80 transition-opacity">lunan@jdradiator.com</a>
+              <a href="mailto:kevin@jdradiator.com" className="font-semibold underline underline-offset-2 hover:opacity-80 transition-opacity">kevin@jdradiator.com</a>
             </p>
             <p><strong className="text-white">Phone:</strong>{" "}
               <a href="tel:+862269189950" className="font-semibold hover:opacity-80 transition-opacity">022-6918 9950</a>
