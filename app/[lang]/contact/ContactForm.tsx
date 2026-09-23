@@ -3,17 +3,20 @@
 import { useState } from "react";
 import type { Dictionary } from "@/lib/dictionary";
 
-// FormSubmit delivers the inquiry + attachments to this inbox (free, no API
-// key). We POST multipart/form-data to the STANDARD endpoint (the only one that
-// processes file attachments) using fetch with mode:"no-cors", so the visitor
-// NEVER leaves the site — we show an inline success message instead of being
-// redirected to FormSubmit's "Thanks" page. The response is opaque (can't be
-// read cross-origin), so success is shown optimistically once the request is
-// sent. The inbox must be activated once (one-time "Activate Form" email).
+// Inquiries POST to our OWN server route first (same-origin → we can read the
+// REAL result). That route guarantees capture by pushing the lead to Feishu the
+// instant it arrives, so a lead can never be silently lost the way it was on
+// 2026-09-22 (form had been repointed to an un-activated FormSubmit inbox, which
+// held every submission — and the old no-cors call showed "success" anyway).
+const INQUIRY_ENDPOINT = "/api/inquiry";
+// Second channel: attachments (if any) still go straight to FormSubmit for the
+// email-with-files path. Best-effort only — it never gates the success state.
 // The endpoint uses FormSubmit's hash alias for kevin@jdradiator.com (issued
 // after activation on 2026-09-29) so the raw address is not scrapable here.
 const FORMSUBMIT_ENDPOINT =
   "https://formsubmit.co/1ffc8eab63ae5a943062b18ebc8b3c2e";
+// Direct fallback shown if BOTH channels fail, so the visitor can still reach us.
+const FALLBACK_EMAIL = "kevin@jdradiator.com";
 const MAX_IMAGES = 5;
 const MAX_DOCS = 3;
 const MAX_TOTAL_BYTES = 9.5 * 1024 * 1024;
@@ -87,24 +90,58 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
       return;
     }
 
-    const fd = new FormData();
-    (["name", "email", "phone", "company", "country", "message"] as const).forEach((k) =>
-      fd.append(k, (raw.get(k) as string) || ""),
-    );
-    fd.append("_subject", "官网询盘 / Website inquiry — " + ((raw.get("name") as string) || ""));
-    fd.append("_template", "table");
-    fd.append("_captcha", "false");
-    // Each file needs a UNIQUE field name — FormSubmit keeps only the last file
-    // when several share one name, so reusing "attachment" drops all but one.
-    images.forEach((f, i) => fd.append(`image${i + 1}`, f, f.name));
-    docs.forEach((f, i) => fd.append(`document${i + 1}`, f, f.name));
+    const path = typeof window !== "undefined" ? window.location.pathname : "";
+    const text = {
+      name: (raw.get("name") as string) || "",
+      email: (raw.get("email") as string) || "",
+      phone: (raw.get("phone") as string) || "",
+      company: (raw.get("company") as string) || "",
+      country: (raw.get("country") as string) || "",
+      message: (raw.get("message") as string) || "",
+      page: path,
+      locale: path.split("/")[1] || "",
+      attachments: [...images, ...docs].map((f) => f.name),
+    };
 
     setStatus("sending");
+
+    // PRIMARY: our server route. Same-origin, so we read the true result —
+    // captured is only true when a durable channel (Feishu/email) accepted it.
+    let captured = false;
     try {
-      // no-cors: the request (incl. attachments) is sent to FormSubmit, but the
-      // response is opaque. We stay on the page and show success optimistically.
-      await fetch(FORMSUBMIT_ENDPOINT, { method: "POST", mode: "no-cors", body: fd });
-      // Track a custom "inquiry" event in Umami for the daily report count.
+      const res = await fetch(INQUIRY_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(text),
+      });
+      captured = res.ok && ((await res.json()) as { ok?: boolean }).ok === true;
+    } catch {
+      captured = false;
+    }
+
+    // SECOND CHANNEL (best-effort): send attachments to FormSubmit for email.
+    // Opaque no-cors; it never affects the success state — the route already
+    // captured the lead above.
+    if (images.length || docs.length) {
+      const fd = new FormData();
+      (["name", "email", "phone", "company", "country", "message"] as const).forEach((k) =>
+        fd.append(k, (raw.get(k) as string) || ""),
+      );
+      fd.append("_subject", "官网询盘（含附件）/ Website inquiry (with files) — " + text.name);
+      fd.append("_template", "table");
+      fd.append("_captcha", "false");
+      // Each file needs a UNIQUE field name — FormSubmit keeps only the last file
+      // when several share one name, so reusing "attachment" drops all but one.
+      images.forEach((f, i) => fd.append(`image${i + 1}`, f, f.name));
+      docs.forEach((f, i) => fd.append(`document${i + 1}`, f, f.name));
+      try {
+        await fetch(FORMSUBMIT_ENDPOINT, { method: "POST", mode: "no-cors", body: fd });
+      } catch {}
+    }
+
+    if (captured) {
+      // Track a custom "inquiry" event in Umami — now fires ONLY on real capture,
+      // so the daily report count reflects genuinely-received leads.
       try {
         (window as unknown as { umami?: { track: (n: string) => void } }).umami?.track("inquiry");
       } catch {}
@@ -112,7 +149,7 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
       form.reset();
       setImages([]);
       setDocs([]);
-    } catch {
+    } else {
       setStatus("error");
     }
   }
@@ -194,7 +231,14 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
       >
         {status === "sending" ? t.formSending : t.formSubmit}
       </button>
-      {status === "error" && <p className="text-red-600 text-sm mt-3 text-center">{t.formError}</p>}
+      {status === "error" && (
+        <p className="text-red-600 text-sm mt-3 text-center">
+          {t.formError}{" "}
+          <a href={`mailto:${FALLBACK_EMAIL}`} className="underline font-semibold">
+            {FALLBACK_EMAIL}
+          </a>
+        </p>
+      )}
       {status === "toolarge" && <p className="text-red-600 text-sm mt-3 text-center">{t.formTooLarge}</p>}
     </form>
   );
