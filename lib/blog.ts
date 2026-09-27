@@ -1641,6 +1641,114 @@ export const blogPosts: BlogPost[] = [
       },
     },
   },
+  {
+    slug: "flushing-commissioning-steel-panel-radiator-system",
+    date: "2026-09-27",
+    content: {
+      en: {
+        title:
+          "Flushing and commissioning a steel panel radiator system: what the factory knows that installers often skip",
+        excerpt:
+          "A steel panel radiator that leaves the factory in perfect condition can still underperform or corrode early if the system it enters has not been properly flushed and commissioned. This guide covers the pre-fill flush, inhibitor dosing, air purging, and first-season checks that protect your investment and keep warranties intact.",
+        body: [
+          "## Why flushing matters more than people think",
+          "New pipework carries flux residue, metal swarf, and jointing compound. Existing systems accumulate magnetite sludge — that black, gritty deposit that collects at the base of radiators and inside circulator housings. When a new steel panel radiator is connected to either type of system without a proper pre-fill flush, that contamination starts attacking the internal surface of the radiator from day one. Pinhole corrosion and cold spots at the bottom of the radiator are almost always traceable to system contamination rather than a manufacturing defect. Flushing is not optional; it is the single step that most often separates a 20-year radiator from a 5-year one.",
+          "## Pre-fill flush: the non-negotiable first step",
+          "Before any new steel panel radiator goes on the wall — or before an existing one is reconnected after a system drain — the circuit must be power-flushed or, at minimum, gravity-flushed until the discharge runs visibly clear. On new installations, flush every circuit separately so velocity is high enough to carry debris out. On retrofit jobs, fit a temporary bypass so you can flush at full boiler flow without pushing sludge through the new radiator. Use a flushing agent at the concentration the manufacturer recommends for the water hardness in your region, then neutralize fully before filling. Skipping the flush to save two hours on site routinely costs several times that in callbacks and warranty disputes.",
+          "## Inhibitor dosing: the right amount in the right place",
+          "Once the system is clean and filled with fresh water, add a corrosion and scale inhibitor appropriate for a mixed-metal system (steel radiators, copper pipe, aluminum heat exchangers are common combinations). Dose to the manufacturer's specification for system volume — under-dosing is common and leaves the steel exposed. The inhibitor should be introduced at a low point in the system and the pump run for at least 30 minutes to ensure even distribution before any balancing takes place. Record the inhibitor brand, concentration, and date in the commissioning log; this record is often required to activate extended warranties from radiator manufacturers. For guidance on what water quality looks like long-term, see our post on [protecting steel radiators from corrosion](/en/blog/protecting-steel-radiators-from-corrosion-water-quality).",
+          "## Air purging and balancing",
+          "Steel panel radiators are self-venting to a degree — rising air collects at the top and can be released through the manual bleed valve. After fill, open each valve in sequence working from the top floor down, and bleed until water runs without bubbles. Then run the system at full temperature for one heating cycle and bleed again; dissolved gases released on first heat often produce a second air lock. Balancing — adjusting lockshield valves to equalize flow across the circuit — should come after the second bleed, not before. A radiator that is still air-bound when you balance it will appear correctly set but will run cold once the air migrates. Thermostatic radiator valve (TRV) heads should be fitted after balancing so they do not interfere with the initial full-flow pass.",
+          "## First-season checks",
+          "Commission the system before the heating season, not during it — faults found in September are far easier to fix than those found on the coldest day of January. After the first two to four weeks of operation, check inhibitor concentration with a test kit and top up if needed; inhibitor depletes slightly as it passivates fresh metal surfaces. Inspect all radiator bleed points for seepage, check that TRV heads are operating freely, and confirm that the system pressure holds overnight. If pressure drops repeatedly without visible leaks, suspect microbubble accumulation in the expansion vessel — a common issue on under-pressurized systems. Document all readings; they establish a baseline for future service visits.",
+          "## What a good commissioning record looks like",
+          "A commissioning record does not need to be elaborate, but it should note: flush agent used and discharge condition at completion; inhibitor brand, concentration, and date dosed; system fill pressure and expansion vessel pre-charge; radiator bleed sequence and any anomalies; balancing valve settings for each radiator; and the name and contact of the commissioning engineer. This document travels with the building, not with the installer. For B2B buyers specifying radiators for residential or commercial developments, asking for a commissioning protocol alongside the product specification is a reasonable part of procurement — see our broader discussion of [project sourcing considerations](/en/blog/sourcing-steel-radiators-residential-project-europe-central-asia). Our [FAQ](/en/faq) covers warranty documentation and our [products](/en/products) page lists the radiator ranges available for specification.",
+          "## About the manufacturer",
+          "Jiuding Radiator (Tianjin Jiuding Sunshine HVAC Equipment Co., Ltd.) is a family-run manufacturer producing steel panel and column/designer radiators in Tianjin, China since 2002, with export to Europe, Russia, and Central Asia. Products hold CE / EN 442 certification (CPR Declaration of Performance assessed by a notified body), ISO 9001 and ISO 14001 certification, and comply with GOST requirements for the Russian market. For wholesale inquiries, specifications, and samples: [www.jdradiator.com](https://www.jdradiator.com) | kevin@jdradiator.com | +86-22-69189950.",
+        ],
+      },
+      ru: {
+        title:
+          "Промывка и пуско-наладка системы стальных панельных радиаторов: что знают на заводе, но часто пропускают монтажники",
+        excerpt:
+          "Стальной панельный радиатор, покидающий завод в идеальном состоянии, может преждевременно выйти из строя, если система не была должным образом промыта и введена в эксплуатацию. Это руководство охватывает предварительную промывку, дозирование ингибитора, удаление воздуха и проверки в первый сезон.",
+        body: [
+          "## Почему промывка важнее, чем принято думать",
+          "Новые трубопроводы содержат остатки флюса, металлическую стружку и герметик. В старых системах накапливается шлам из магнетита — чёрный зернистый осадок, собирающийся в нижней части радиаторов и в корпусах циркуляционных насосов. Если новый стальной панельный радиатор подключается к такой системе без предварительной промывки, это загрязнение с первого же дня атакует внутреннюю поверхность радиатора. Точечная коррозия и холодные зоны в нижней части радиатора почти всегда связаны с загрязнением системы, а не с производственным дефектом.",
+          "## Предварительная промывка: обязательный первый шаг",
+          "До монтажа любого нового стального панельного радиатора — или перед повторным подключением существующего после слива системы — контур необходимо промыть принудительно или, как минимум, самотёком до тех пор, пока вода на сливе не станет визуально чистой. На новых объектах промывайте каждый контур отдельно, чтобы скорость потока была достаточной для удаления загрязнений. При реконструкции установите временный байпас, чтобы промыть систему на полном расходе котла, не пропуская шлам через новый радиатор. Используйте промывочное средство в концентрации, рекомендованной производителем для жёсткости воды в вашем регионе, затем полностью нейтрализуйте его перед заполнением.",
+          "## Дозирование ингибитора: нужное количество в нужном месте",
+          "После очистки системы и заполнения свежей водой добавьте ингибитор коррозии и накипи, подходящий для систем из разных металлов (сталь, медь, алюминий). Дозируйте согласно объёму системы — заниженная дозировка распространена и оставляет сталь незащищённой. Ингибитор следует вводить в нижней точке системы, а насос включить минимум на 30 минут для равномерного распределения. Зафиксируйте марку ингибитора, концентрацию и дату в акте ввода в эксплуатацию — это часто требуется для активации расширенной гарантии. О том, как водная среда влияет на долговечность стальных радиаторов, читайте в нашей статье [о защите от коррозии](/ru/blog/protecting-steel-radiators-from-corrosion-water-quality).",
+          "## Удаление воздуха и балансировка",
+          "Стальные панельные радиаторы обладают определённой степенью самовентиляции — воздух поднимается вверх и может быть выпущен через ручной кран Маевского. После заполнения откройте каждый кран поочерёдно, начиная с верхнего этажа, и стравливайте до появления воды без пузырей. Затем запустите систему на полной температуре на один цикл отопления и снова стравите воздух. Балансировку — регулировку запорно-регулировочных клапанов для выравнивания потока — следует выполнять после второго стравливания, а не до. Термостатические головки TRV устанавливайте после балансировки.",
+          "## Проверки в первый сезон",
+          "Введите систему в эксплуатацию до начала отопительного сезона, а не в разгар его — неисправности, обнаруженные в сентябре, устранить значительно проще, чем в самый холодный день января. Через две-четыре недели работы проверьте концентрацию ингибитора с помощью тест-кита и при необходимости добавьте. Осмотрите все краны Маевского на предмет подтекания, убедитесь в свободном ходе термостатических головок и в том, что давление в системе остаётся стабильным в течение ночи. Задокументируйте все показатели — они станут базой для последующих обслуживаний.",
+          "## О производителе",
+          "Jiuding Radiator (Тяньцзинь Цзюдин Саншайн) — семейный завод-производитель стальных панельных и трубчатых радиаторов в Тяньцзине (Китай) с 2002 года, поставляющий продукцию в Европу, Россию и Центральную Азию. Продукция имеет сертификаты CE / EN 442, ISO 9001 и ISO 14001, а также соответствует требованиям ГОСТ для российского рынка. Оптовые поставки, спецификации, образцы: [www.jdradiator.com](https://www.jdradiator.com) | kevin@jdradiator.com | +86-22-69189950.",
+        ],
+      },
+      mn: {
+        title:
+          "Ган хавтан радиаторын системийг угаах, ашиглалтад оруулах: үйлдвэрт мэддэг ч суурилуулагчид олонтоо орхидог зүйлс",
+        excerpt:
+          "Үйлдвэрээс төгс байдлаар гарсан ган хавтан радиатор ч систем нь зохих ёсоор угаагдаагүй, ашиглалтад оруулаагүй тохиолдолд хугацаанаасаа өмнө гэмтэж болно. Энэхүү гарын авлага нь урьдчилсан угаалт, дарангуйлагч тунгалаг, агаар гаргах, улирлын эхний шалгалтыг тайлбарлана.",
+        body: [
+          "## Яагаад угаалт чухал вэ",
+          "Шинэ хоолойн дотор флюсийн үлдэгдэл, металл хэлтэрхий, нийлүүлэгч материал байдаг. Хуучин системд магнетитийн шлам хуримтлагддаг — радиаторын доод хэсэг болон насосны корпусд цугладаг хар, ширхэглэг тунадас. Шинэ ган хавтан радиаторыг угаалтгүйгээр холбовол энэ бохирдол эхний өдрөөс радиаторын дотоод гадаргуугийн элэгдэлд хүргэдэг. Цоорхой зэврэлт, радиаторын доод хэсгийн хүйтэн бүс нь ихэнхдээ үйлдвэрийн доголдол биш, системийн бохирдолтой холбоотой байдаг.",
+          "## Урьдчилсан угаалт: заавал хийх эхний алхам",
+          "Ямар ч шинэ ган хавтан радиаторыг хана дээр өлгөхөөс өмнө — эсвэл системийг шавхсаны дараа дахин холбохоос өмнө — хэлхээг хүчээр эсвэл хамгийн бага нь таталцлын хүчээр ус ялгаралт тодорхой цэвэр болох хүртэл угаах ёстой. Шинэ суурилуулалтад хог хаягдлыг гаргаж авахуйц хурд хангахын тулд хэлхээ тус бүрийг тусад нь угаана. Дахин засварын ажилд шинэ радиаторыг шлам дайран өнгөрөхгүйн тулд түр зуурын тойруулах замыг суурилуулна. Угаалтын бодис ашиглаад бүрэн саармагжуулсны дараа дүүргэнэ.",
+          "## Дарангуйлагч тунгалаг: зөв хэмжээ, зөв газар",
+          "Систем цэвэрлэгдэж, цэвэр усаар дүүргэгдсэний дараа холимог металл системд тохиромжтой зэврэлт, хайрсны дарангуйлагч нэмнэ. Системийн эзэлхүүнд тохирох тунгалгыг хийнэ — бага тунгалаг нь элбэг тохиолдол бөгөөд гангийн гадаргууг хамгаалалтгүй орхидог. Дарангуйлагчийг системийн доод цэгт оруулж, насосыг жигд тархалтыг хангахын тулд дор хаяж 30 минут ажиллуулна. Брэнд, концентраци, огноог гүйцэтгэлийн актад бүртгэнэ. Усны чанар урт хугацаанд хэрхэн нөлөөлдөг талаар [зэврэлтээс хамгаалах](/mn/blog/protecting-steel-radiators-from-corrosion-water-quality) нийтлэлийг үзнэ үү.",
+          "## Агаар гаргах, тэнцвэржүүлэх",
+          "Ган хавтан радиаторууд ямар хэмжээгээр агаарыг өөрөө гаргадаг — дэлхийн дэвшилтэт агаар дээш гарч гараар шавхагчийн хавхлагаар гарч болно. Дүүргэсний дараа дээд давхраас эхлэн дараалан хавхлага нээж, бөмбөлөггүй ус гарах хүртэл агаар гаргана. Дараа нь системийг бүрэн температурт нэг халааны мөчлөгт ажиллуулж, дахин агаар гаргана. Тэнцвэржүүлэлтийг хоёр дахь агаар гаргалтын дараа хийнэ. TRV термостатик толгойнуудыг тэнцвэржүүлэлтийн дараа суурилуулна.",
+          "## Эхний улирлын шалгалт",
+          "Системийг халаалтын улирлаас өмнө ашиглалтад оруулна — есдүгээр сард олдсон гэмтлийг нэгдүгээр сарын хамгийн хүйтэн өдрийнхөөс хамаагүй хялбар засна. Хоёроос дөрвөн долоо хоногийн ажиллагааны дараа тест багажаар дарангуйлагчийн концентрацийг шалгаж, шаардлагатай бол нэмнэ. Бүх шавхах цэгүүдийг нэвтрэлтэд шалгаж, TRV толгойнуудын чөлөөт хөдөлгөөнийг баталгаажуулж, шөнийн турш системийн даралт тогтвортой хадгалагдаж байгааг шалгана. Бүх уншилтыг баримтжуулна.",
+          "## Үйлдвэрийн тухай",
+          "Jiuding Radiator (Тяньжин Жюдин Сүншайн HVAC тоног төхөөрөмжийн ХК) нь 2002 оноос хойш Хятадын Тяньжин хотод гэр бүлийн удирдлагатайгаар ган хавтан болон баганат/дизайнерийн радиатор үйлдвэрлэж, Европ, Орос, Төв Азид экспортолдог. Бүтээгдэхүүн нь CE / EN 442, ISO 9001, ISO 14001 гэрчилгээтэй бөгөөд Оросын зах зээлийн ГОСТ шаардлагыг хангадаг. Бөөний захиалга, техникийн үзүүлэлт, дээж: [www.jdradiator.com](https://www.jdradiator.com) | kevin@jdradiator.com | +86-22-69189950.",
+        ],
+      },
+      es: {
+        title:
+          "Purga y puesta en marcha de un sistema de radiadores de panel de acero: lo que sabe la fábrica y los instaladores suelen omitir",
+        excerpt:
+          "Un radiador de panel de acero que sale de fábrica en perfectas condiciones puede fallar prematuramente si el sistema no ha sido purga correctamente ni puesto en marcha de forma adecuada. Esta guía cubre el lavado previo al llenado, la dosificación de inhibidor, el purgado de aire y las comprobaciones del primer período de calefacción.",
+        body: [
+          "## Por qué el lavado importa más de lo que se cree",
+          "Las tuberías nuevas contienen residuos de fundente, virutas metálicas y compuestos de unión. Los sistemas existentes acumulan lodos de magnetita — ese depósito negro y granuloso que se recoge en la parte inferior de los radiadores y en el interior de las bombas de circulación. Cuando un radiador de panel de acero nuevo se conecta a cualquier tipo de sistema sin un lavado previo adecuado, esa contaminación empieza a atacar la superficie interior del radiador desde el primer día. La corrosión puntual y las zonas frías en la parte inferior del radiador son casi siempre atribuibles a la contaminación del sistema y no a un defecto de fabricación.",
+          "## Lavado previo al llenado: el primer paso ineludible",
+          "Antes de que cualquier radiador de panel de acero nuevo se monte en la pared — o antes de reconectar uno existente tras vaciar el sistema — el circuito debe someterse a un lavado a presión o, como mínimo, a un lavado por gravedad hasta que el agua de descarga salga visiblemente limpia. En instalaciones nuevas, lave cada circuito por separado para que la velocidad sea suficiente para arrastrar los residuos. En obras de reforma, instale un bypass temporal para lavar a caudal completo de la caldera sin empujar el lodo hacia el nuevo radiador. Use un agente de lavado a la concentración recomendada por el fabricante para la dureza del agua de su región y neutralícelo completamente antes de llenar.",
+          "## Dosificación del inhibidor: la cantidad correcta en el lugar correcto",
+          "Una vez limpio el sistema y llenado con agua fresca, añada un inhibidor de corrosión y cal apropiado para un sistema de metales mixtos (radiadores de acero, tubería de cobre, intercambiadores de aluminio son combinaciones habituales). Dosifique según el volumen del sistema — la subdosificación es frecuente y deja el acero expuesto. El inhibidor debe introducirse en un punto bajo del sistema y la bomba debe funcionar al menos 30 minutos para garantizar una distribución uniforme. Registre la marca, la concentración y la fecha en el acta de puesta en marcha. Para orientación sobre la calidad del agua a largo plazo, consulte nuestro artículo sobre [protección contra la corrosión](/es/blog/protecting-steel-radiators-from-corrosion-water-quality).",
+          "## Purga de aire y equilibrado",
+          "Los radiadores de panel de acero son autoventilantes en cierta medida — el aire que asciende se acumula en la parte superior y puede liberarse mediante la válvula de purga manual. Tras el llenado, abra cada válvula en secuencia empezando por el piso superior y purgue hasta que el agua salga sin burbujas. A continuación, haga funcionar el sistema a plena temperatura durante un ciclo de calefacción y purgue de nuevo. El equilibrado — ajuste de las válvulas de cierre para igualar el caudal en el circuito — debe realizarse después de la segunda purga, no antes. Las cabezas de válvula termostática (TRV) deben montarse después del equilibrado.",
+          "## Comprobaciones del primer período de calefacción",
+          "Ponga el sistema en marcha antes de la temporada de calefacción, no durante ella — los fallos detectados en septiembre son mucho más fáciles de corregir que los del día más frío de enero. Tras las dos a cuatro primeras semanas de funcionamiento, compruebe la concentración del inhibidor con un kit de prueba y reponga si es necesario. Inspect todas las válvulas de purga en busca de fugas, compruebe que las cabezas TRV funcionan libremente y confirme que la presión del sistema se mantiene estable durante la noche. Documente todas las lecturas; establecen una referencia para futuras visitas de mantenimiento.",
+          "## Sobre el fabricante",
+          "Jiuding Radiator (Tianjin Jiuding Sunshine HVAC Equipment Co., Ltd.) es un fabricante familiar que produce radiadores de panel de acero y de columna/diseño en Tianjin, China desde 2002, con exportación a Europa, Rusia y Asia Central. Los productos cuentan con certificación CE / EN 442, ISO 9001 e ISO 14001, y cumplen los requisitos GOST para el mercado ruso. Consultas mayoristas, especificaciones y muestras: [www.jdradiator.com](https://www.jdradiator.com) | kevin@jdradiator.com | +86-22-69189950.",
+        ],
+      },
+      zh: {
+        title:
+          "钢制板式散热器系统的冲洗与调试：工厂知道、安装工常跳过的那些步骤",
+        excerpt:
+          "一台从工厂出来时完好无缺的钢制板式散热器，如果接入的系统未经正规冲洗和调试，同样可能提前锈蚀或失效。本文逐步讲解预冲洗、缓蚀剂加注、排气和首个采暖季检查，帮你把这笔投资保护到位。",
+        body: [
+          "## 为什么冲洗比很多人以为的更重要",
+          "新管路内残留焊剂、金属屑和密封材料；旧系统则积累了磁铁矿污泥——那种沉积在散热器底部和循环泵腔体里的黑色颗粒状沉积物。如果不做预冲洗就把新钢制板式散热器接入这类系统，这些污染物从第一天起就开始侵蚀散热器的内壁。散热器底部出现针孔腐蚀和冷区，几乎总是系统污染所致，而非产品制造缺陷。冲洗不是可选步骤，它往往是决定一台散热器用二十年还是五年的那一步。",
+          "## 预冲洗：不可跳过的第一步",
+          "任何新钢制板式散热器上墙之前——或系统放水后重新接入之前——管路必须进行强制冲洗，或至少靠重力冲洗，直到排出水目视清澈。新装项目应逐回路单独冲洗，确保流速足够高，将杂质彻底带出。改造项目应安装临时旁通，以锅炉满流量冲洗，避免将污泥推入新散热器。按当地水质硬度选用推荐浓度的冲洗剂，冲洗完成后在注水前务必充分中和。为了节省两小时工时而跳过冲洗，往往要付出数倍于此的返工和质保纠纷代价。",
+          "## 缓蚀剂加注：用量对、位置对",
+          "系统清洁并注入新水后，加入适合混合金属系统（钢制散热器+铜管+铝制换热器是常见组合）的缓蚀防垢剂。按系统容量足量加注，加注不足很常见，且会让钢材暴露在腐蚀环境中。缓蚀剂应从系统低点注入，循环泵至少运行30分钟以保证均匀分布，然后再进行平衡调试。品牌、浓度、日期记入调试报告——这份记录常常是激活制造商延长质保的必要凭据。关于水质对散热器寿命的长期影响，可参阅我们关于[散热器防腐蚀](/zh/blog/protecting-steel-radiators-from-corrosion-water-quality)的文章。",
+          "## 排气与水力平衡",
+          "钢制板式散热器具备一定的自排气能力——上升气体聚集在顶部，可通过手动排气阀放出。注水后，从顶层开始逐一开启排气阀，排至出水无气泡为止。随后以满温度运行一个采暖周期，再次排气——初次加热时溶解气体析出，常产生第二次气锁。水力平衡（调节锁闭阀以均衡各支路流量）应在第二次排气之后进行，而非之前。温控阀（TRV）阀头应在平衡调试完成后安装，以免影响初期满流量运行。",
+          "## 首个采暖季的检查",
+          "应在采暖季开始前完成调试，而非在采暖季中途。九月发现的问题远比一月最冷那天发现的容易处理。运行两到四周后，用测试盒检查缓蚀剂浓度，不足时补加；缓蚀剂在对新金属表面进行钝化的过程中会有少量消耗。检查所有散热器排气点有无渗漏，确认TRV阀头动作灵活，验证系统压力可以维持一夜不降。如果压力反复下降但未见明显渗漏，应检查膨胀罐充气压力——这在欠压系统上是常见问题。所有数据记录存档，作为后续保养的基准。关于项目采购中的规格与文件要求，可参阅[住宅项目采购](/zh/blog/sourcing-steel-radiators-residential-project-europe-central-asia)和[常见问题](/zh/faq)页面。",
+          "## 关于制造商",
+          "天津九鼎阳光暖通设备有限公司（Jiuding Radiator）是一家家族经营的制造商，自2002年起在天津生产钢制板式和钢柱/设计师款散热器，产品出口至欧洲、俄罗斯和中亚。产品持有CE / EN 442认证（经公告机构评定的CPR性能声明）及ISO 9001、ISO 14001认证；面向俄罗斯市场的产品符合GOST要求。批发询价、规格书及样品：[www.jdradiator.com](https://www.jdradiator.com) | kevin@jdradiator.com | +86-22-69189950。",
+        ],
+      },
+    },
+  },
 ];
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
