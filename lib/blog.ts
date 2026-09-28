@@ -1749,6 +1749,112 @@ export const blogPosts: BlogPost[] = [
       },
     },
   },
+  {
+    slug: "steel-panel-radiator-types-how-to-choose",
+    date: "2026-09-28",
+    content: {
+      en: {
+        title:
+          "Type 11, 21, 22 or 33? How to choose steel panel radiator types by heat output, depth and room",
+        excerpt:
+          "Steel panel radiators are classified by type — 11, 21, 22, 33 and others — and the number is not arbitrary: it tells you how many water panels and how many convector fins the radiator has, which in turn sets its heat output and its depth off the wall. This guide explains what the type numbers mean and how to match a type to a room without oversizing or running short.",
+        body: [
+          "## What the type numbers actually mean",
+          "Every steel panel radiator carries a two-digit type designation: 11, 21, 22, 33 and so on. The digits are not a model code — they describe construction. The first digit is the number of water-carrying panels; the second is the number of convector fin sets (the corrugated steel finning welded to the back of each panel to increase surface area). A Type 22 therefore has two panels and two convector sets; a Type 11 has one panel and one convector; a Type 33 has three panels and three convector sets. More panels and more fins mean more heat-emitting surface packed into the same face dimensions — but also a deeper radiator that sits further off the wall. Understanding this single rule makes radiator selection far more predictable than picking by price or by picture.",
+          "## Output and depth: the trade-off in one table",
+          "For a given height and length, output rises with type but so does depth off the wall. As a rough guide at EN 442 ΔT50 reference conditions, a Type 11 is the slimmest at roughly 55–65 mm deep and the lowest output; a Type 21 adds a second panel behind the first for more output at around 65–80 mm; a Type 22 adds a second convector set for a substantial output increase at around 90–110 mm; and a Type 33 stacks three panels and three convectors for the highest output at around 145–160 mm. The exact figures depend on the manufacturer's tested data, which should always be quoted at ΔT50 so specifications are comparable — see our explanation of [EN 442 ΔT50 and ΔT30](/en/blog/understanding-en442-dt50-dt30) for why the reference condition matters when you compare two suppliers.",
+          "## Matching a type to a room",
+          "Start from the room's heat-loss calculation in watts, then read across the manufacturer's output tables to find a radiator whose ΔT50 output meets or slightly exceeds that figure at the height and length that physically fit the wall. Where wall space is generous, a taller or longer Type 11 or 21 keeps the radiator slim and unobtrusive. Where wall space is tight — under a short window, in a hallway, in a bathroom — a Type 22 or 33 delivers the required output in a compact face at the cost of protruding further into the room. For our detailed method on turning heat loss into a radiator size, see [calculating radiator output per room](/en/blog/calculate-radiator-output-per-room). As a rule, prefer the slimmest type that meets the load: deeper radiators cost more, weigh more, and hold more water.",
+          "## Low-temperature and heat-pump systems change the answer",
+          "The type numbers above assume traditional boiler flow temperatures. If the system runs at low temperature — as heat pumps do, typically 35–45 °C flow — the effective ΔT drops well below 50, and every radiator emits far less heat than its ΔT50 rating. In these systems the sizing logic flips toward the higher types: a Type 22 or 33 that would be oversized on a hot boiler becomes the sensible default because it recovers the lost output through sheer surface area. Buyers specifying radiators for heat-pump-ready or renovation projects should size at the actual design ΔT, not the catalogue ΔT50 figure. Our post on [low-temperature radiators for heat pumps](/en/blog/low-temperature-radiators-heat-pumps) covers this in depth.",
+          "## Getting it right at the specification stage",
+          "For B2B buyers and project specifiers, the type mix across a building is a procurement decision, not just a technical one. A residential block will typically need a spread of Type 11 through 33 depending on room size and glazing, and it is far cheaper to confirm the mix before production than to swap protruding radiators after handover. When you brief a factory, provide the per-room heat loss and the design flow temperature, and ask for ΔT50 output data plus depth for each proposed type so the fit and the output are both verifiable. Our [products](/en/products) page lists the panel ranges available for specification, and our [FAQ](/en/faq) covers minimum order quantities, lead times and documentation for project orders.",
+          "## About the manufacturer",
+          "Jiuding Radiator (Tianjin Jiuding Sunshine HVAC Equipment Co., Ltd.) is a family-run manufacturer producing steel panel and column/designer radiators in Tianjin, China since 2002, with export to Europe, Russia, and Central Asia. Products hold CE / EN 442 certification (CPR Declaration of Performance assessed by a notified body), ISO 9001 and ISO 14001 certification, and comply with GOST requirements for the Russian market. For wholesale inquiries, specifications, and samples: [www.jdradiator.com](https://www.jdradiator.com) | kevin@jdradiator.com | +86-22-69189950.",
+        ],
+      },
+      ru: {
+        title:
+          "Тип 11, 21, 22 или 33? Как выбрать тип стального панельного радиатора по теплоотдаче, глубине и помещению",
+        excerpt:
+          "Стальные панельные радиаторы классифицируются по типу — 11, 21, 22, 33 и другие — и число это не случайно: оно указывает количество водяных панелей и конвекторных рёбер, что задаёт теплоотдачу и глубину радиатора. В руководстве объясняется, что означают номера типов и как подобрать тип под помещение.",
+        body: [
+          "## Что на самом деле означают номера типов",
+          "Каждый стальной панельный радиатор имеет двузначное обозначение типа: 11, 21, 22, 33 и т. д. Цифры описывают конструкцию, а не модель. Первая цифра — количество водяных панелей; вторая — количество конвекторных оребрений (гофрированного стального оребрения, приваренного к тыльной стороне панели для увеличения площади). Таким образом, Тип 22 имеет две панели и два конвектора; Тип 11 — одну панель и один конвектор; Тип 33 — три панели и три конвектора. Больше панелей и рёбер — больше теплоотдающей поверхности при тех же габаритах лицевой части, но и большая глубина радиатора.",
+          "## Теплоотдача и глубина: компромисс",
+          "При заданной высоте и длине теплоотдача растёт с типом, но растёт и глубина. Ориентировочно при эталонных условиях EN 442 ΔT50: Тип 11 — самый тонкий, около 55–65 мм, с наименьшей теплоотдачей; Тип 21 добавляет вторую панель — около 65–80 мм; Тип 22 добавляет второй конвектор для существенного роста теплоотдачи — около 90–110 мм; Тип 33 — три панели и три конвектора, наибольшая теплоотдача, около 145–160 мм. Точные значения зависят от испытанных данных производителя, которые всегда следует приводить при ΔT50 для сопоставимости — см. наше объяснение [EN 442 ΔT50 и ΔT30](/ru/blog/understanding-en442-dt50-dt30).",
+          "## Подбор типа под помещение",
+          "Отталкивайтесь от расчёта теплопотерь помещения в ваттах, затем по таблицам производителя найдите радиатор, теплоотдача которого при ΔT50 соответствует или немного превышает эту величину при высоте и длине, физически вписывающихся в стену. Где места на стене достаточно, более высокий или длинный Тип 11 или 21 остаётся тонким и незаметным. Где места мало — под коротким окном, в коридоре, в ванной — Тип 22 или 33 обеспечивает нужную теплоотдачу в компактном формате ценой большего выступа в помещение. Наш метод перевода теплопотерь в размер радиатора: [расчёт теплоотдачи по помещениям](/ru/blog/calculate-radiator-output-per-room).",
+          "## Низкотемпературные системы и тепловые насосы меняют ответ",
+          "Приведённые типы предполагают традиционные температуры котла. Если система работает при низкой температуре — как тепловые насосы, обычно 35–45 °C — эффективный ΔT падает значительно ниже 50, и каждый радиатор отдаёт гораздо меньше тепла, чем по паспорту ΔT50. В таких системах логика подбора смещается к более высоким типам: Тип 22 или 33 становится разумным выбором по умолчанию. Подбирайте по фактическому расчётному ΔT, а не по каталожному ΔT50. Подробнее — в статье о [низкотемпературных радиаторах для тепловых насосов](/ru/blog/low-temperature-radiators-heat-pumps).",
+          "## Как не ошибиться на этапе спецификации",
+          "Для B2B-закупщиков и проектировщиков сочетание типов по зданию — это закупочное решение, а не только техническое. Жилому дому обычно требуется набор от Типа 11 до 33 в зависимости от размера помещений и остекления, и подтвердить состав до производства гораздо дешевле, чем менять выступающие радиаторы после сдачи. При запросе на завод укажите теплопотери по помещениям и расчётную температуру подачи, запросите данные теплоотдачи при ΔT50 и глубину по каждому типу. Раздел [продукции](/ru/products) и [FAQ](/ru/faq) охватывают номенклатуру, минимальные партии, сроки и документацию.",
+          "## О производителе",
+          "Jiuding Radiator (Тяньцзинь Цзюдин Саншайн) — семейный завод-производитель стальных панельных и трубчатых радиаторов в Тяньцзине (Китай) с 2002 года, поставляющий продукцию в Европу, Россию и Центральную Азию. Продукция имеет сертификаты CE / EN 442, ISO 9001 и ISO 14001, а также соответствует требованиям ГОСТ для российского рынка. Оптовые поставки, спецификации, образцы: [www.jdradiator.com](https://www.jdradiator.com) | kevin@jdradiator.com | +86-22-69189950.",
+        ],
+      },
+      mn: {
+        title:
+          "Тип 11, 21, 22 эсвэл 33? Ган хавтан радиаторын төрлийг дулаан ялгаралт, гүн, өрөөгөөр хэрхэн сонгох вэ",
+        excerpt:
+          "Ган хавтан радиаторыг төрлөөр нь ангилдаг — 11, 21, 22, 33 гэх мэт — тэр тоо санамсаргүй биш: усны хэдэн хавтан, конвекторын хэдэн хавирга байгааг заадаг бөгөөд энэ нь дулаан ялгаралт болон радиаторын гүнийг тодорхойлдог. Энэ гарын авлага төрлийн дугаарын утга болон өрөөнд хэрхэн тохируулахыг тайлбарлана.",
+        body: [
+          "## Төрлийн дугаар юуг илэрхийлдэг вэ",
+          "Ган хавтан радиатор бүр хоёр оронтой төрлийн тэмдэглэгээтэй: 11, 21, 22, 33 гэх мэт. Эдгээр цифр нь загварын код биш, бүтцийг илэрхийлдэг. Эхний цифр нь ус дамжуулах хавтангийн тоо; хоёр дахь нь конвекторын хавиргын багцын тоо (гадаргууг нэмэгдүүлэхийн тулд хавтангийн ард гагнасан долгионтой ган хавирга). Тиймээс Тип 22 нь хоёр хавтан, хоёр конвектортой; Тип 11 нэг хавтан, нэг конвектортой; Тип 33 гурван хавтан, гурван конвектортой. Илүү олон хавтан, хавирга нь ижил урд талын хэмжээнд илүү их дулаан ялгаруулах гадаргуутай гэсэн үг — гэхдээ мөн илүү гүн радиатор.",
+          "## Дулаан ялгаралт ба гүн: буулт",
+          "Тодорхой өндөр, урттай үед дулаан ялгаралт төрлийн дагуу нэмэгддэг ч гүн ч бас нэмэгддэг. EN 442 ΔT50 лавлагаа нөхцөлд ойролцоогоор: Тип 11 хамгийн нимгэн, ойролцоогоор 55–65 мм, дулаан ялгаралт хамгийн бага; Тип 21 хоёр дахь хавтан нэмж ойролцоогоор 65–80 мм; Тип 22 хоёр дахь конвектор нэмж дулаан ялгаралтыг ихээхэн нэмэгдүүлж ойролцоогоор 90–110 мм; Тип 33 гурван хавтан, гурван конвектортой, хамгийн их дулаан ялгаралт, ойролцоогоор 145–160 мм. Тодорхой тоо нь үйлдвэрлэгчийн туршсан өгөгдлөөс хамаарах ба харьцуулах боломжтой байхын тулд ΔT50-д гаргах ёстой — [EN 442 ΔT50 ба ΔT30](/mn/blog/understanding-en442-dt50-dt30) тайлбарыг үзнэ үү.",
+          "## Төрлийг өрөөнд тохируулах",
+          "Өрөөний дулаан алдагдлын тооцооноос ваттаар эхэлж, дараа нь үйлдвэрлэгчийн хүснэгтээс ΔT50-д дулаан ялгаралт нь тухайн тоог хангах эсвэл бага зэрэг давсан, ханад багтах өндөр урттай радиаторыг олно. Хана хангалттай зайтай бол илүү өндөр эсвэл урт Тип 11 эсвэл 21 нимгэн, анзаарагдахгүй хэвээр үлддэг. Зай бага бол — богино цонхны доор, коридор, угаалгын өрөөнд — Тип 22 эсвэл 33 нягт хэлбэрт шаардлагатай дулааныг өгдөг. Дулаан алдагдлыг радиаторын хэмжээ болгох аргачлал: [өрөө тус бүрийн дулаан ялгаралтыг тооцоолох](/mn/blog/calculate-radiator-output-per-room).",
+          "## Нам температурын систем ба дулааны насос хариултыг өөрчилдөг",
+          "Дээрх төрлүүд нь уламжлалт зуухны температурыг таамаглаж байна. Хэрэв систем нам температурт ажилладаг бол — дулааны насос шиг, ихэвчлэн 35–45 °C — үр дүнтэй ΔT нь 50-аас хамаагүй доош унаж, радиатор бүр ΔT50 үнэлгээнээсээ хамаагүй бага дулаан ялгаруулна. Ийм системд сонголтын логик өндөр төрлүүд рүү шилждэг: Тип 22 эсвэл 33 нь ухаалаг стандарт болдог. Каталогийн ΔT50 биш, бодит зохион байгуулалтын ΔT-ээр хэмжинэ. Дэлгэрэнгүйг [дулааны насосны нам температурын радиатор](/mn/blog/low-temperature-radiators-heat-pumps) нийтлэлээс үзнэ үү.",
+          "## Техникийн үзүүлэлтийн үе шатанд зөв хийх",
+          "B2B худалдан авагч, төслийн зохион бүтээгчдийн хувьд барилга даяарх төрлийн хослол нь зөвхөн техникийн бус худалдан авалтын шийдвэр юм. Орон сууцны байшинд ихэвчлэн өрөөний хэмжээ, шилэн хаалтаас хамаарч Тип 11-ээс 33 хүртэлх багц шаардлагатай бөгөөд үйлдвэрлэлээс өмнө хослолыг баталгаажуулах нь хүлээлгэн өгсний дараа цухуйсан радиаторыг солихоос хамаагүй хямд. Үйлдвэрт даалгавар өгөхдөө өрөө тус бүрийн дулаан алдагдал, зохион байгуулалтын нийлүүлэлтийн температурыг өгч, төрөл бүрийн ΔT50 дулаан ялгаралт болон гүнийг асууна. [Бүтээгдэхүүн](/mn/products) болон [FAQ](/mn/faq) хуудас нь нэр төрөл, захиалгын доод хэмжээ, хугацаа, баримт бичгийг хамардаг.",
+          "## Үйлдвэрийн тухай",
+          "Jiuding Radiator (Тяньжин Жюдин Сүншайн HVAC тоног төхөөрөмжийн ХК) нь 2002 оноос хойш Хятадын Тяньжин хотод гэр бүлийн удирдлагатайгаар ган хавтан болон баганат/дизайнерийн радиатор үйлдвэрлэж, Европ, Орос, Төв Азид экспортолдог. Бүтээгдэхүүн нь CE / EN 442, ISO 9001, ISO 14001 гэрчилгээтэй бөгөөд Оросын зах зээлийн ГОСТ шаардлагыг хангадаг. Бөөний захиалга, техникийн үзүүлэлт, дээж: [www.jdradiator.com](https://www.jdradiator.com) | kevin@jdradiator.com | +86-22-69189950.",
+        ],
+      },
+      es: {
+        title:
+          "¿Tipo 11, 21, 22 o 33? Cómo elegir el tipo de radiador de panel de acero según potencia, profundidad y estancia",
+        excerpt:
+          "Los radiadores de panel de acero se clasifican por tipo — 11, 21, 22, 33 y otros — y el número no es arbitrario: indica cuántos paneles de agua y cuántas aletas convectoras tiene el radiador, lo que determina su potencia calorífica y su profundidad respecto a la pared. Esta guía explica qué significan los números de tipo y cómo ajustar un tipo a cada estancia.",
+        body: [
+          "## Qué significan realmente los números de tipo",
+          "Cada radiador de panel de acero lleva una designación de tipo de dos dígitos: 11, 21, 22, 33, etc. Los dígitos describen la construcción, no un código de modelo. El primer dígito es el número de paneles de agua; el segundo es el número de conjuntos de aletas convectoras (el aleteado de acero corrugado soldado a la parte trasera de cada panel para aumentar la superficie). Así, un Tipo 22 tiene dos paneles y dos convectores; un Tipo 11 tiene un panel y un convector; un Tipo 33 tiene tres paneles y tres convectores. Más paneles y aletas significan más superficie emisora en las mismas dimensiones frontales, pero también un radiador más profundo.",
+          "## Potencia y profundidad: el compromiso",
+          "Para una altura y longitud dadas, la potencia aumenta con el tipo, pero también lo hace la profundidad. Como guía aproximada en condiciones de referencia EN 442 ΔT50: el Tipo 11 es el más delgado, unos 55–65 mm, con la menor potencia; el Tipo 21 añade un segundo panel, unos 65–80 mm; el Tipo 22 añade un segundo convector para un aumento sustancial de potencia, unos 90–110 mm; y el Tipo 33 apila tres paneles y tres convectores para la mayor potencia, unos 145–160 mm. Las cifras exactas dependen de los datos ensayados del fabricante, que siempre deben indicarse a ΔT50 para que las especificaciones sean comparables — véase nuestra explicación de [EN 442 ΔT50 y ΔT30](/es/blog/understanding-en442-dt50-dt30).",
+          "## Ajustar un tipo a la estancia",
+          "Parta del cálculo de pérdida de calor de la estancia en vatios, luego consulte las tablas de potencia del fabricante para encontrar un radiador cuya potencia a ΔT50 iguale o supere ligeramente esa cifra con la altura y longitud que físicamente caben en la pared. Donde el espacio de pared es amplio, un Tipo 11 o 21 más alto o largo mantiene el radiador delgado y discreto. Donde el espacio es reducido — bajo una ventana corta, en un pasillo, en un baño — un Tipo 22 o 33 aporta la potencia necesaria en un formato compacto a costa de sobresalir más. Nuestro método para convertir la pérdida de calor en tamaño de radiador: [calcular la potencia por estancia](/es/blog/calculate-radiator-output-per-room).",
+          "## Los sistemas de baja temperatura y las bombas de calor cambian la respuesta",
+          "Los tipos anteriores suponen temperaturas de caldera tradicionales. Si el sistema funciona a baja temperatura — como las bombas de calor, típicamente 35–45 °C — el ΔT efectivo cae muy por debajo de 50, y cada radiador emite mucho menos calor que su valor nominal ΔT50. En estos sistemas la lógica de dimensionado se inclina hacia los tipos superiores: un Tipo 22 o 33 se convierte en la opción predeterminada sensata. Dimensione al ΔT de diseño real, no a la cifra de catálogo ΔT50. Nuestro artículo sobre [radiadores de baja temperatura para bombas de calor](/es/blog/low-temperature-radiators-heat-pumps) lo trata en detalle.",
+          "## Acertar en la fase de especificación",
+          "Para compradores B2B y prescriptores de proyecto, la combinación de tipos en un edificio es una decisión de compra, no solo técnica. Un bloque residencial suele necesitar una gama del Tipo 11 al 33 según el tamaño de las estancias y el acristalamiento, y confirmar la combinación antes de fabricar es mucho más barato que cambiar radiadores que sobresalen tras la entrega. Al informar a la fábrica, aporte la pérdida de calor por estancia y la temperatura de impulsión de diseño, y solicite datos de potencia a ΔT50 y profundidad de cada tipo propuesto. Nuestra página de [productos](/es/products) y nuestro [FAQ](/es/faq) cubren la gama, los pedidos mínimos, los plazos y la documentación.",
+          "## Sobre el fabricante",
+          "Jiuding Radiator (Tianjin Jiuding Sunshine HVAC Equipment Co., Ltd.) es un fabricante familiar que produce radiadores de panel de acero y de columna/diseño en Tianjin, China desde 2002, con exportación a Europa, Rusia y Asia Central. Los productos cuentan con certificación CE / EN 442, ISO 9001 e ISO 14001, y cumplen los requisitos GOST para el mercado ruso. Consultas mayoristas, especificaciones y muestras: [www.jdradiator.com](https://www.jdradiator.com) | kevin@jdradiator.com | +86-22-69189950.",
+        ],
+      },
+      zh: {
+        title:
+          "11型、21型、22型还是33型？如何按散热量、厚度和房间选钢制板式散热器型号",
+        excerpt:
+          "钢制板式散热器按型号分类——11、21、22、33 等——这个数字并非随意：它标示散热器有几层水道板、几组对流片，而这直接决定了散热量和离墙厚度。本文讲清型号数字的含义，以及如何在不选大也不选小的前提下把型号匹配到房间。",
+        body: [
+          "## 型号数字到底代表什么",
+          "每台钢制板式散热器都带一个两位数型号：11、21、22、33 等。这两个数字描述的是结构，而非产品代号。第一位是水道板的数量；第二位是对流片组的数量（焊在每块板背面、用于增大换热面积的波纹钢翅片）。因此 22 型有两块板、两组对流片；11 型是一块板、一组对流片；33 型是三块板、三组对流片。板数和翅片越多，意味着在相同正面尺寸内塞进了更多散热面——但散热器也更厚、离墙更远。掌握这一条规则，选型就比看价格或看图片可靠得多。",
+          "## 散热量与厚度：一目了然的取舍",
+          "在给定高度和长度下，散热量随型号上升，但厚度也随之增加。按 EN 442 ΔT50 基准工况粗略参考：11 型最薄，约 55–65 mm，散热量最低；21 型在第一块板后加第二块板，散热量提升，约 65–80 mm；22 型再加第二组对流片，散热量大幅提高，约 90–110 mm；33 型叠三块板、三组对流片，散热量最高，约 145–160 mm。具体数值取决于制造商的实测数据，且应统一按 ΔT50 标注，规格才可比——为什么基准工况在比较两家供应商时至关重要，参见我们对[EN 442 ΔT50 与 ΔT30](/zh/blog/understanding-en442-dt50-dt30)的说明。",
+          "## 把型号匹配到房间",
+          "从房间的热负荷计算（瓦）出发，再对照制造商的散热量表，找出在能装进这面墙的高度和长度下、ΔT50 散热量刚好达到或略高于该数值的散热器。墙面空间充裕时，选更高或更长的 11 型或 21 型，能让散热器保持纤薄不显眼。墙面空间紧张时——短窗下、走廊里、卫生间——22 型或 33 型能以紧凑的正面尺寸提供所需散热量，代价是向房间内凸出更多。把热负荷换算成散热器尺寸的详细方法，参见[按房间计算散热量](/zh/blog/calculate-radiator-output-per-room)。总原则：在满足负荷的前提下优先选最薄的型号——更厚的散热器更贵、更重、储水更多。",
+          "## 低温系统和热泵会改变答案",
+          "上述型号是按传统锅炉供水温度设定的。如果系统在低温下运行——热泵即是如此，供水温度通常 35–45 °C——有效 ΔT 会远低于 50，每台散热器的实际散热量都远低于其 ΔT50 标称值。在这类系统中，选型逻辑倒向更高型号：在高温锅炉上会显得过大的 22 型或 33 型，反而成为合理的默认选择，因为它靠更大的表面积把损失的散热量补回来。为热泵预留或改造项目选型时，应按实际设计 ΔT 而非样本 ΔT50 数值来选。我们关于[热泵用低温散热器](/zh/blog/low-temperature-radiators-heat-pumps)的文章有深入讲解。",
+          "## 在规格阶段把型号定对",
+          "对 B2B 采购方和项目规格制定者而言，整栋楼的型号组合是一项采购决策，而不只是技术问题。一栋住宅楼通常需要按房间大小和窗户面积配置 11 型到 33 型的组合，而在投产前确认这一组合，远比交付后更换凸出的散热器便宜。向工厂下达需求时，提供各房间热负荷和设计供水温度，并索要每个拟用型号的 ΔT50 散热量数据和厚度，让贴合度和散热量都可核验。我们的[产品](/zh/products)页列出可供选型的板式系列，[常见问题](/zh/faq)页涵盖项目订单的起订量、交期与文件。",
+          "## 关于制造商",
+          "天津九鼎阳光暖通设备有限公司（Jiuding Radiator）是一家家族经营的制造商，自2002年起在天津生产钢制板式和钢柱/设计师款散热器，产品出口至欧洲、俄罗斯和中亚。产品持有CE / EN 442认证（经公告机构评定的CPR性能声明）及ISO 9001、ISO 14001认证；面向俄罗斯市场的产品符合GOST要求。批发询价、规格书及样品：[www.jdradiator.com](https://www.jdradiator.com) | kevin@jdradiator.com | +86-22-69189950。",
+        ],
+      },
+    },
+  },
 ];
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
