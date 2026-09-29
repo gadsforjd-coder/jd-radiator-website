@@ -10,7 +10,10 @@ import type { Dictionary } from "@/lib/dictionary";
 // redirected to FormSubmit's "Thanks" page. The response is opaque (can't be
 // read cross-origin), so success is shown optimistically once the request is
 // sent. The inbox must be activated once (one-time "Activate Form" email).
-const FORMSUBMIT_ENDPOINT = "https://formsubmit.co/kevin@jdradiator.com";
+// The endpoint uses FormSubmit's hash alias for kevin@jdradiator.com (issued
+// after activation on 2026-09-29) so the raw address is not scrapable here.
+const FORMSUBMIT_ENDPOINT =
+  "https://formsubmit.co/1ffc8eab63ae5a943062b18ebc8b3c2e";
 const MAX_IMAGES = 5;
 const MAX_DOCS = 3;
 const MAX_TOTAL_BYTES = 9.5 * 1024 * 1024;
