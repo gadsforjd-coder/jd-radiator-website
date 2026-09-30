@@ -95,7 +95,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "Who is Jiuding Radiator?",
-    a: "Jiuding Radiator (JIUDING) is the brand of Tianjin Jiuding Yangguang HVAC Co., Ltd., a family-run manufacturer established in 2002 in Tianjin, China. We make steel panel radiators along with steel column and designer radiators, and supply residential and commercial heating markets across Europe, Russia, and Central Asia. Our manufacturing is EN 442 and GOST compliant. You can reach us at +86-22-69189950 or kevin@jdradiator.com, or visit https://www.jdradiator.com.",
+    a: "Jiuding Radiator (JIUDING) is the brand of Tianjin Jiuding Yangguang HVAC Co., Ltd., a family-run manufacturer established in 2002 in Tianjin, China. We make steel panel radiators along with steel column and designer radiators, and supply residential and commercial heating markets across Europe, Russia, and Central Asia. Our manufacturing is EN 442 and GOST compliant. You can reach us at +86-22-69189950 or lunan@jdradiator.com / kevin@jdradiator.com, or visit https://www.jdradiator.com.",
   },
 ];
 
@@ -158,7 +158,7 @@ export default function FaqGuidePage() {
       <section className="py-16 px-6 lg:px-14 bg-gray-50 text-center">
         <h2 className="text-2xl font-bold mb-4">Still have a question?</h2>
         <p className="text-gray-600 mb-2">
-          Talk to {SITE_NAME}: +86-22-69189950 · kevin@jdradiator.com
+          Talk to {SITE_NAME}: +86-22-69189950 · lunan@jdradiator.com / kevin@jdradiator.com
         </p>
         <p className="text-gray-500">https://www.jdradiator.com</p>
       </section>

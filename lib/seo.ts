@@ -146,27 +146,27 @@ export const PAGE_SEO: Record<string, Partial<Record<Locale, Meta>>> = {
     en: {
       title: "Contact Jiuding — Get a Radiator Quote",
       description:
-        "Contact Jiuding Radiator for OEM/ODM inquiries, product quotes, and export cooperation. Email kevin@jdradiator.com or fill in the contact form.",
+        "Contact Jiuding Radiator for OEM/ODM inquiries, product quotes, and export cooperation. Email lunan@jdradiator.com / kevin@jdradiator.com or fill in the contact form.",
     },
     zh: {
       title: "联系九鼎 — 获取散热器报价",
       description:
-        "联系九鼎散热器，咨询OEM/ODM、产品报价及出口合作。邮箱 kevin@jdradiator.com，或填写在线联系表单。",
+        "联系九鼎散热器，咨询OEM/ODM、产品报价及出口合作。邮箱 lunan@jdradiator.com / kevin@jdradiator.com，或填写在线联系表单。",
     },
     ru: {
       title: "Связаться с Jiuding — запросить цену на радиаторы",
       description:
-        "Свяжитесь с Jiuding Radiator по вопросам OEM/ODM, расчёта цен и экспорта. Эл. почта kevin@jdradiator.com или заполните форму обратной связи.",
+        "Свяжитесь с Jiuding Radiator по вопросам OEM/ODM, расчёта цен и экспорта. Эл. почта lunan@jdradiator.com / kevin@jdradiator.com или заполните форму обратной связи.",
     },
     mn: {
       title: "Jiuding-тай холбогдох — радиаторын үнийн санал авах",
       description:
-        "OEM/ODM, бүтээгдэхүүний үнийн санал, экспортын хамтын ажиллагааны талаар Jiuding Radiator-тай холбогдоно уу. И-мэйл kevin@jdradiator.com эсвэл холбоо барих маягтыг бөглөнө үү.",
+        "OEM/ODM, бүтээгдэхүүний үнийн санал, экспортын хамтын ажиллагааны талаар Jiuding Radiator-тай холбогдоно уу. И-мэйл lunan@jdradiator.com / kevin@jdradiator.com эсвэл холбоо барих маягтыг бөглөнө үү.",
     },
     es: {
       title: "Contacto Jiuding — Solicite presupuesto de radiadores",
       description:
-        "Contacte con Jiuding Radiator para consultas OEM/ODM, presupuestos y cooperación de exportación. Correo kevin@jdradiator.com o rellene el formulario de contacto.",
+        "Contacte con Jiuding Radiator para consultas OEM/ODM, presupuestos y cooperación de exportación. Correo lunan@jdradiator.com / kevin@jdradiator.com o rellene el formulario de contacto.",
     },
   },
   credentials: {

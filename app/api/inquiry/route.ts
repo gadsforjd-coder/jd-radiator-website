@@ -17,9 +17,11 @@ const FEISHU_BASE =
     ? "https://open.larksuite.com"
     : "https://open.feishu.cn";
 
-// Best-effort email second channel. Keep pointing at whatever inbox the team
-// chose (main currently = kevin@); the Feishu path is the reliable one.
+// Best-effort email second channel. Dual outward inboxes (Lu 2026-09-30):
+// kevin@ is the primary recipient (7×24 monitored), lunan@ gets a CC so both
+// see every inquiry. The Feishu path is the reliable one.
 const FORMSUBMIT_INBOX = process.env.FORMSUBMIT_INBOX || "kevin@jdradiator.com";
+const FORMSUBMIT_CC = process.env.FORMSUBMIT_CC || "lunan@jdradiator.com";
 
 type InquiryBody = {
   name?: string;
@@ -110,6 +112,7 @@ async function sendEmail(b: InquiryBody): Promise<boolean> {
           _subject: `官网询盘 / Website inquiry — ${b.name || b.email || ""}`,
           _template: "table",
           _captcha: "false",
+          _cc: FORMSUBMIT_CC,
         }),
       },
     );

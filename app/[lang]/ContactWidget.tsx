@@ -11,7 +11,8 @@ const POPPED_KEY = "jd_contact_popped";
 const SALES = [
   {
     name: "Lu Nan",
-    email: "kevin@jdradiator.com",
+    // Dual outward inboxes (Lu 2026-09-30): show both, kevin@ is 7×24 monitored.
+    emails: ["lunan@jdradiator.com", "kevin@jdradiator.com"],
     tel: "+8618612430813",
     telLabel: "+86 186 1243 0813",
     wa: "8617742252991",
@@ -19,7 +20,7 @@ const SALES = [
   },
   {
     name: "Jason",
-    email: "wubao160808@foxmail.com",
+    emails: ["wubao160808@foxmail.com"],
     tel: "+8613311319595",
     telLabel: "+86 133 1131 9595",
     wa: "8613311319595",
@@ -146,20 +147,23 @@ export function ContactWidget({ locale, t }: { locale: Locale; t: ContactWidgetS
 
           <div className="space-y-4">
             {SALES.map((p) => (
-              <div key={p.email} className="rounded-xl border border-[#F1E7DC] bg-[#FFFBF6] p-3.5">
+              <div key={p.name} className="rounded-xl border border-[#F1E7DC] bg-[#FFFBF6] p-3.5">
                 <p className="font-bold text-[var(--jd-dark)] text-sm mb-2">{p.name}</p>
 
-                <a
-                  href={`mailto:${p.email}`}
-                  onClick={() => track("email_click", { who: p.name })}
-                  className="flex items-center gap-2.5 py-1 text-[13px] font-medium text-[var(--jd-dark)] hover:text-[var(--jd-orange)] transition-colors break-all"
-                >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={iconCls}>
-                    <rect x="3" y="5" width="18" height="14" rx="2" />
-                    <path d="m3 7 9 6 9-6" />
-                  </svg>
-                  {p.email}
-                </a>
+                {p.emails.map((em) => (
+                  <a
+                    key={em}
+                    href={`mailto:${em}`}
+                    onClick={() => track("email_click", { who: p.name })}
+                    className="flex items-center gap-2.5 py-1 text-[13px] font-medium text-[var(--jd-dark)] hover:text-[var(--jd-orange)] transition-colors break-all"
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={iconCls}>
+                      <rect x="3" y="5" width="18" height="14" rx="2" />
+                      <path d="m3 7 9 6 9-6" />
+                    </svg>
+                    {em}
+                  </a>
+                ))}
 
                 <a
                   href={`tel:${p.tel}`}

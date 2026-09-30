@@ -16,7 +16,8 @@ const INQUIRY_ENDPOINT = "/api/inquiry";
 const FORMSUBMIT_ENDPOINT =
   "https://formsubmit.co/1ffc8eab63ae5a943062b18ebc8b3c2e";
 // Direct fallback shown if BOTH channels fail, so the visitor can still reach us.
-const FALLBACK_EMAIL = "kevin@jdradiator.com";
+// Dual outward inboxes (Lu 2026-09-30): show both addresses.
+const FALLBACK_EMAILS = ["lunan@jdradiator.com", "kevin@jdradiator.com"];
 const MAX_IMAGES = 5;
 const MAX_DOCS = 3;
 const MAX_TOTAL_BYTES = 9.5 * 1024 * 1024;
@@ -130,6 +131,8 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
       fd.append("_subject", "官网询盘（含附件）/ Website inquiry (with files) — " + text.name);
       fd.append("_template", "table");
       fd.append("_captcha", "false");
+      // Dual outward inboxes (Lu 2026-09-30): kevin@ primary, lunan@ CC'd.
+      fd.append("_cc", "lunan@jdradiator.com");
       // Each file needs a UNIQUE field name — FormSubmit keeps only the last file
       // when several share one name, so reusing "attachment" drops all but one.
       images.forEach((f, i) => fd.append(`image${i + 1}`, f, f.name));
@@ -234,9 +237,14 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
       {status === "error" && (
         <p className="text-red-600 text-sm mt-3 text-center">
           {t.formError}{" "}
-          <a href={`mailto:${FALLBACK_EMAIL}`} className="underline font-semibold">
-            {FALLBACK_EMAIL}
-          </a>
+          {FALLBACK_EMAILS.map((em, i) => (
+            <span key={em}>
+              {i > 0 && " / "}
+              <a href={`mailto:${em}`} className="underline font-semibold">
+                {em}
+              </a>
+            </span>
+          ))}
         </p>
       )}
       {status === "toolarge" && <p className="text-red-600 text-sm mt-3 text-center">{t.formTooLarge}</p>}
