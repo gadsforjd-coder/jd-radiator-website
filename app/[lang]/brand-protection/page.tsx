@@ -143,7 +143,19 @@ export default function BrandProtectionPage() {
                 </div>
               ))}
             </div>
-            <div className="flex items-center gap-5 mt-8 border border-[#F1E7DC] rounded-lg p-5 bg-gray-50">
+            <figure className="mt-8 border border-[#F1E7DC] rounded-lg p-5 bg-gray-50">
+              <Image
+                src="/assets/fangwei-label-sample.png"
+                alt="九鼎官方防伪标样式（示意图）"
+                width={1200}
+                height={896}
+                className="w-full max-w-xl mx-auto h-auto rounded"
+              />
+              <figcaption className="text-sm text-gray-500 text-center mt-3">
+                官方防伪标样式（示意图：二维码为示意图案，实际防伪码以产品所贴防伪标为准）
+              </figcaption>
+            </figure>
+            <div className="flex items-center gap-5 mt-6 border border-[#F1E7DC] rounded-lg p-5 bg-gray-50">
               <Image
                 src="/assets/brand-logo-2026.png"
                 alt="九鼎品牌logo"
