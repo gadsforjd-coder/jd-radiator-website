@@ -6,9 +6,11 @@
 //
 // FACTS (LOCKED — do not alter without owner sign-off):
 // - Company: 天津市九鼎阳光暖通有限公司 (原天津市九鼎不锈钢制品有限公司, 同一公司更名)
-// - 阳光九鼎® (注册号8464198, 第11类, 有效至2031-07-20) is the ONLY mark that
-//   may carry the ® symbol. 九鼎(13502959) / 九鼎阳光(17329730) /
-//   蒙特利尔 MENGTELAIER(6311833) are stated as "持有" + 注册号 only, no ®.
+// - ®清单v2 (2026-10-08 店小二+运营 对齐定稿): exactly THREE marks may carry ®:
+//   九鼎散热器®(71721073, 至2033-12-13) / 阳光九鼎®(8464198, 至2031-07-20) /
+//   圆形徽标图形商标®(13503043, 续展至2035-04-13). 九鼎(13502959) /
+//   蒙特利尔 MENGTELAIER(6311833) are stated as "持有" + 注册号 only, no ®
+//   (续展核实中). ASHAP / 新鼎徽 must NOT appear with ® anywhere.
 // - Anti-counterfeit labels: 中国产品质量365防伪查询系统, verify at www.zx3315.cn.
 // - Hotline: 022-69189950. Never name any other brand on this page.
 // ============================================================================
@@ -92,14 +94,31 @@ export default function BrandProtectionPage() {
             <h2 className="text-2xl lg:text-3xl font-bold tracking-tight text-gray-900 mb-4">
               注册商标
             </h2>
-            <div className="border border-[#F1E7DC] bg-[var(--jd-cream)] rounded-lg p-6 mb-5">
-              <p className="text-lg text-gray-900 font-bold mb-1">阳光九鼎®</p>
-              <p className="text-gray-600 leading-relaxed">
-                注册号 8464198，第11类，已续展，有效期至2031年7月20日。
-              </p>
+            <p className="text-lg text-gray-600 leading-relaxed mb-5">
+              九鼎系列商标由天津市九鼎阳光暖通有限公司（原天津市九鼎不锈钢制品有限公司）持有。
+            </p>
+            <div className="space-y-4 mb-5">
+              <div className="border border-[#F1E7DC] bg-[var(--jd-cream)] rounded-lg p-6">
+                <p className="text-lg text-gray-900 font-bold mb-1">九鼎散热器®</p>
+                <p className="text-gray-600 leading-relaxed">
+                  注册号 71721073，第11类，有效期至2033年12月13日。
+                </p>
+              </div>
+              <div className="border border-[#F1E7DC] bg-[var(--jd-cream)] rounded-lg p-6">
+                <p className="text-lg text-gray-900 font-bold mb-1">阳光九鼎®</p>
+                <p className="text-gray-600 leading-relaxed">
+                  注册号 8464198，第11类，已续展，有效期至2031年7月20日。
+                </p>
+              </div>
+              <div className="border border-[#F1E7DC] bg-[var(--jd-cream)] rounded-lg p-6">
+                <p className="text-lg text-gray-900 font-bold mb-1">圆形徽标（图形商标）®</p>
+                <p className="text-gray-600 leading-relaxed">
+                  注册号 13503043，第11类，已续展，有效期至2035年4月13日。
+                </p>
+              </div>
             </div>
             <p className="text-lg text-gray-600 leading-relaxed">
-              此外，本公司持有“九鼎”（注册号
+              此外，本公司还持有“九鼎”（注册号
               13502959）、“九鼎阳光”（注册号 17329730）、“蒙特利尔
               MENGTELAIER”（注册号 6311833）等系列商标。
             </p>
