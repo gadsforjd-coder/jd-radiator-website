@@ -148,6 +148,11 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
       try {
         (window as unknown as { umami?: { track: (n: string) => void } }).umami?.track("inquiry");
       } catch {}
+      try {
+        // Mirror the same success-only signal to Yandex Metrica (counter in app/layout.tsx)
+        // as a JS-event goal, so Direct campaign CPL uses real captures, not raw submits.
+        (window as unknown as { ym?: (id: number, m: string, g: string) => void }).ym?.(110104115, "reachGoal", "inquiry");
+      } catch {}
       setStatus("success");
       form.reset();
       setImages([]);
