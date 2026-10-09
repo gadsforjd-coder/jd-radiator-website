@@ -38,9 +38,9 @@ export default function BrandProtectionBar() {
   return (
     <>
       {/* 滚动声明条 */}
-      <div className="flex items-stretch bg-[var(--jd-cream)] border-b border-[#F1E7DC]">
+      <div className="flex items-stretch bg-[#FEF0E0] border-b-2 border-[var(--jd-red)]">
         <div className="relative flex-1 overflow-hidden" aria-label={MARQUEE_TEXT}>
-          <div className="animate-marquee-fast flex items-center gap-16 whitespace-nowrap py-2 text-xs sm:text-sm text-[#1E293B] leading-snug w-max">
+          <div className="animate-marquee-fast flex items-center gap-16 whitespace-nowrap py-2.5 text-[13px] sm:text-sm font-semibold text-[#1E293B] leading-snug w-max">
             {[0, 1].map((i) => (
               <span key={i} aria-hidden={i === 1} className="flex items-center gap-16">
                 <span>
