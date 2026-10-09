@@ -131,8 +131,17 @@ body { font-family: Arial, "Helvetica Neue", sans-serif; }
   animation: marquee 45s linear infinite;
 }
 
+.animate-marquee-fast {
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee-fast:hover {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee { animation: none; }
+  .animate-marquee-fast { animation: none; }
 }
 
 .product-card-hover:hover {

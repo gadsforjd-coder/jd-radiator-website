@@ -8,6 +8,7 @@ import Image from "next/image";
 import { LangSwitcher } from "./LangSwitcher";
 import { MobileNav } from "./MobileNav";
 import { ContactWidget } from "./ContactWidget";
+import BrandProtectionBar from "./BrandProtectionBar";
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -157,18 +158,8 @@ export default async function LangLayout({
         </header>
 
         <main className="pt-[96px]">
-          {/* 中文访客品牌保护通告条 — zh only, 其他语言完全不渲染 */}
-          {locale === "zh" && (
-            <div className="bg-[var(--jd-cream)] border-b border-[#F1E7DC] px-4 lg:px-14 py-2 text-center text-xs sm:text-sm text-[#1E293B] leading-snug">
-              <span>⚠️ 谨防仿冒：认准九鼎logo与官方防伪标，正品可刮码验真</span>{" "}
-              <Link
-                href="/zh/brand-protection"
-                className="text-[var(--jd-red)] font-bold whitespace-nowrap hover:underline underline-offset-2"
-              >
-                了解详情→
-              </Link>
-            </div>
-          )}
+          {/* 中文访客品牌保护滚动声明条+验真入口 — zh only, 其他语言完全不渲染 */}
+          {locale === "zh" && <BrandProtectionBar />}
           {children}
         </main>
 
