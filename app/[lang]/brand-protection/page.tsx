@@ -10,8 +10,12 @@
 //   九鼎散热器®(71721073, 至2033-12-13) / 阳光九鼎®(8464198, 至2031-07-20) /
 //   圆形徽标图形商标®(13503043, 续展至2035-04-13). 九鼎(13502959) /
 //   蒙特利尔 MENGTELAIER(6311833) are stated as "持有" + 注册号 only, no ®
-//   (续展核实中). ASHAP / 新鼎徽 must NOT appear with ® anywhere.
-// - Anti-counterfeit labels: 中国产品质量365防伪查询系统, verify at www.zx3315.cn.
+//   (续展核实中). 新鼎徽 must NOT appear with ®.
+// - ASHAP: shown as brand mark, NO ® and NO "注册商标" wording on the zh site
+//   until CN application 65404971 is verified registered (DE reg 30 2022 222 295
+//   is verified but only supports ® in DE/EU/export contexts, not here).
+// - Scope per Lu 2026-10-09: statement + correct-logo education ONLY. No 防伪标/
+//   刮码/zx3315.cn verification mechanics anywhere on the site.
 // - Hotline: 022-69189950. Never name any other brand on this page.
 // ============================================================================
 
@@ -20,9 +24,9 @@ import Image from "next/image";
 import { BASE_URL } from "@/lib/constants";
 import { languageAlternates } from "@/lib/i18n";
 
-const PAGE_TITLE = "品牌保护与防伪声明 | 九鼎散热器";
+const PAGE_TITLE = "品牌保护声明 | 九鼎散热器";
 const PAGE_DESC =
-  "天津市九鼎阳光暖通有限公司官方品牌保护与防伪声明：注册商标信息、正品识别三步法（认准九鼎logo、刮开防伪标涂层取码、登录 zx3315.cn 验真）、商标问题热线 022-69189950 及官方联系渠道。";
+  "天津市九鼎阳光暖通有限公司官方品牌保护声明：注册商标信息、正品logo识别、商标问题热线 022-69189950 及官方联系渠道。";
 
 export async function generateMetadata({
   params,
@@ -45,22 +49,6 @@ export async function generateMetadata({
   };
 }
 
-// 正品识别三步 (locked wording)
-const steps = [
-  {
-    title: "认准九鼎logo",
-    desc: "正品产品及包装均使用本公司九鼎品牌标识。购买时请先核对logo。",
-  },
-  {
-    title: "刮开防伪标涂层取码",
-    desc: "正品贴有“中国产品质量365防伪查询系统”防伪标，刮开涂层即可获取防伪码。",
-  },
-  {
-    title: "zx3315.cn 验真 / 扫码验真",
-    desc: "登录 www.zx3315.cn 输入防伪码，或直接扫描防伪标上的二维码，即可核验真伪。",
-  },
-];
-
 export default function BrandProtectionPage() {
   return (
     <div>
@@ -70,10 +58,10 @@ export default function BrandProtectionPage() {
           官方声明
         </p>
         <h1 className="text-4xl lg:text-6xl font-bold leading-tight tracking-tight max-w-3xl">
-          品牌保护与防伪声明
+          品牌保护声明
         </h1>
         <p className="text-xl text-gray-500 leading-relaxed mt-7 max-w-3xl">
-          认准九鼎logo与官方防伪标，正品可刮码验真。
+          认准九鼎官方logo与名义，谨防仿冒。
         </p>
       </section>
 
@@ -124,57 +112,45 @@ export default function BrandProtectionPage() {
             </p>
           </article>
 
-          {/* 正品识别三步 */}
+          {/* 如何辨认正品 */}
           <article>
-            <h2 className="text-2xl lg:text-3xl font-bold tracking-tight text-gray-900 mb-6">
-              正品识别三步
+            <h2 className="text-2xl lg:text-3xl font-bold tracking-tight text-gray-900 mb-4">
+              如何辨认正品
             </h2>
-            <div className="grid sm:grid-cols-3 gap-5">
-              {steps.map((step, i) => (
-                <div
-                  key={i}
-                  className="border border-[#F1E7DC] rounded-lg p-6 bg-white shadow-[0_1px_12px_rgba(30,41,59,0.05)]"
-                >
-                  <span className="inline-grid place-items-center w-10 h-10 rounded-full bg-[var(--jd-orange)] text-white font-black text-lg mb-4">
-                    {i + 1}
+            <p className="text-lg text-gray-600 leading-relaxed mb-6">
+              正品产品及包装均使用本公司品牌标识。购买时请先核对logo，谨防仿冒。
+            </p>
+            <div className="grid sm:grid-cols-2 gap-5">
+              <figure className="border border-[#F1E7DC] rounded-lg p-6 bg-gray-50 grid place-items-center">
+                <Image
+                  src="/assets/brand-logo-2026.png"
+                  alt="九鼎品牌logo"
+                  width={160}
+                  height={160}
+                  className="object-contain h-28 w-auto"
+                />
+                <figcaption className="text-gray-700 font-bold mt-4 text-center">
+                  九鼎散热器®
+                  <span className="block text-sm text-gray-500 font-normal mt-1">
+                    注册商标（注册号 71721073）
                   </span>
-                  <h3 className="font-bold text-gray-900 mb-2">{step.title}</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">{step.desc}</p>
-                </div>
-              ))}
-            </div>
-            <figure className="mt-8 border border-[#F1E7DC] rounded-lg p-5 bg-gray-50">
-              <Image
-                src="/assets/fangwei-label-sample.png"
-                alt="九鼎官方防伪标样式（示意图）"
-                width={1200}
-                height={896}
-                className="w-full max-w-xl mx-auto h-auto rounded"
-              />
-              <figcaption className="text-sm text-gray-500 text-center mt-3">
-                官方防伪标样式（示意图：二维码为示意图案，实际防伪码以产品所贴防伪标为准）
-              </figcaption>
-            </figure>
-            <div className="flex items-center gap-5 mt-6 border border-[#F1E7DC] rounded-lg p-5 bg-gray-50">
-              <Image
-                src="/assets/brand-logo-2026.png"
-                alt="九鼎品牌logo"
-                width={96}
-                height={96}
-                className="object-contain shrink-0"
-              />
-              <p className="text-gray-600 leading-relaxed">
-                请认准九鼎品牌logo。正品贴有“中国产品质量365防伪查询系统”防伪标，刮开涂层后扫码，或登录{" "}
-                <a
-                  href="https://www.zx3315.cn"
-                  target="_blank"
-                  rel="noopener"
-                  className="text-[var(--jd-red)] font-semibold underline underline-offset-2"
-                >
-                  www.zx3315.cn
-                </a>{" "}
-                输入防伪码验真。
-              </p>
+                </figcaption>
+              </figure>
+              <figure className="border border-[#F1E7DC] rounded-lg p-6 bg-gray-50 grid place-items-center">
+                <Image
+                  src="/assets/ashap-logo.png"
+                  alt="ASHAP 品牌标识"
+                  width={240}
+                  height={71}
+                  className="object-contain h-16 w-auto"
+                />
+                <figcaption className="text-gray-700 font-bold mt-4 text-center">
+                  ASHAP
+                  <span className="block text-sm text-gray-500 font-normal mt-1">
+                    本公司品牌标识
+                  </span>
+                </figcaption>
+              </figure>
             </div>
           </article>
 

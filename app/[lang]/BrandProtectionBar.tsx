@@ -1,13 +1,15 @@
 "use client";
 
 // ============================================================================
-// 中文站品牌保护滚动声明条 + 绿色「验证真伪」入口（Lu 2026-10-09 需求）.
-// zh only — the layout gates rendering, this file never checks locale itself.
+// 中文站品牌保护滚动声明条 + 绿色「如何识别正品」入口.
+// Scope per Lu 2026-10-09 (店小二 line-pass same day): statement + correct-logo
+// education ONLY. No 防伪标/刮码/zx3315 verification mechanics on the site.
 //
-// COPY IS LOCKED: every sentence below is lifted verbatim from the line-passed
-// brand-protection page (app/[lang]/brand-protection/page.tsx). Do not reword
-// without 店小二 line-pass + owner sign-off. Hotline 022-69189950; verify at
-// www.zx3315.cn; never name any other brand here.
+// COPY IS LOCKED: statement sentences from the line-passed brand-protection
+// page; the marquee wording follows 店小二's approved phrasing (认准官方logo与
+// 名义/核实热线). ASHAP shows as a brand mark with NO ® and NO "注册商标"
+// wording until its CN registration status (65404971) is verified. 九鼎散热器
+// may carry ® (reg. 71721073). Hotline 022-69189950. Never name other brands.
 // ============================================================================
 
 import { useEffect, useState } from "react";
@@ -15,23 +17,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const MARQUEE_TEXT =
-  "⚠️ 谨防仿冒：天津市九鼎阳光暖通有限公司郑重声明——认准九鼎logo与官方防伪标，正品可刮码验真。商标问题热线 022-69189950";
-
-// 正品识别三步 (locked wording, identical to brand-protection page)
-const steps = [
-  {
-    title: "认准九鼎logo",
-    desc: "正品产品及包装均使用本公司九鼎品牌标识。购买时请先核对logo。",
-  },
-  {
-    title: "刮开防伪标涂层取码",
-    desc: "正品贴有“中国产品质量365防伪查询系统”防伪标，刮开涂层即可获取防伪码。",
-  },
-  {
-    title: "zx3315.cn 验真 / 扫码验真",
-    desc: "登录 www.zx3315.cn 输入防伪码，或直接扫描防伪标上的二维码，即可核验真伪。",
-  },
-];
+  "⚠️ 谨防仿冒：天津市九鼎阳光暖通有限公司郑重声明——认准九鼎官方logo与名义，核实请致电 022-69189950";
 
 export default function BrandProtectionBar() {
   const [open, setOpen] = useState(false);
@@ -70,7 +56,7 @@ export default function BrandProtectionBar() {
             ))}
           </div>
         </div>
-        {/* 绿色验真入口 */}
+        {/* 绿色正品识别入口 */}
         <button
           type="button"
           onClick={() => setOpen(true)}
@@ -90,17 +76,17 @@ export default function BrandProtectionBar() {
             <path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" />
             <path d="M9 12l2 2 4-4" />
           </svg>
-          验证真伪
+          如何识别正品
         </button>
       </div>
 
-      {/* 验真弹层 */}
+      {/* 正品logo识别弹层 */}
       {open && (
         <div
           className="fixed inset-0 z-[200] grid place-items-center p-4 bg-black/55"
           role="dialog"
           aria-modal="true"
-          aria-label="验证真伪"
+          aria-label="如何识别正品"
           onClick={() => setOpen(false)}
         >
           <div
@@ -117,54 +103,60 @@ export default function BrandProtectionBar() {
             </button>
 
             <p className="text-[#15803D] uppercase tracking-[0.2em] font-extrabold text-xs mb-2">
-              官方防伪
+              官方声明
             </p>
-            <h2 className="text-2xl font-bold tracking-tight text-gray-900 mb-6">
-              验证真伪 · 正品识别三步
+            <h2 className="text-2xl font-bold tracking-tight text-gray-900 mb-4">
+              认准九鼎官方logo
             </h2>
+            <p className="text-gray-600 leading-relaxed mb-6">
+              正品产品及包装均使用本公司品牌标识。购买时请先核对logo，谨防仿冒。
+            </p>
 
-            <ol className="space-y-4 mb-6">
-              {steps.map((step, i) => (
-                <li key={i} className="flex gap-4">
-                  <span className="shrink-0 inline-grid place-items-center w-8 h-8 rounded-full bg-[#15803D] text-white font-black">
-                    {i + 1}
+            <div className="grid sm:grid-cols-2 gap-4 mb-6">
+              <figure className="border border-[#F1E7DC] rounded-lg p-5 bg-gray-50 grid place-items-center">
+                <Image
+                  src="/assets/brand-logo-2026.png"
+                  alt="九鼎品牌logo"
+                  width={140}
+                  height={140}
+                  className="object-contain h-24 w-auto"
+                />
+                <figcaption className="text-sm text-gray-700 font-bold mt-3 text-center">
+                  九鼎散热器®
+                  <span className="block text-xs text-gray-500 font-normal mt-1">
+                    注册商标（注册号 71721073）
                   </span>
-                  <div>
-                    <h3 className="font-bold text-gray-900">{step.title}</h3>
-                    <p className="text-sm text-gray-600 leading-relaxed">{step.desc}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
+                </figcaption>
+              </figure>
+              <figure className="border border-[#F1E7DC] rounded-lg p-5 bg-gray-50 grid place-items-center">
+                <Image
+                  src="/assets/ashap-logo.png"
+                  alt="ASHAP 品牌标识"
+                  width={200}
+                  height={59}
+                  className="object-contain h-14 w-auto"
+                />
+                <figcaption className="text-sm text-gray-700 font-bold mt-3 text-center">
+                  ASHAP
+                  <span className="block text-xs text-gray-500 font-normal mt-1">
+                    本公司品牌标识
+                  </span>
+                </figcaption>
+              </figure>
+            </div>
 
-            <figure className="border border-[#F1E7DC] rounded-lg p-4 bg-gray-50 mb-6">
-              <Image
-                src="/assets/fangwei-label-sample.png"
-                alt="九鼎官方防伪标样式（示意图）"
-                width={1200}
-                height={896}
-                className="w-full h-auto rounded"
-              />
-              <figcaption className="text-xs text-gray-500 text-center mt-2">
-                官方防伪标样式（示意图：二维码为示意图案，实际防伪码以产品所贴防伪标为准）
-              </figcaption>
-            </figure>
+            <p className="text-sm text-gray-600 leading-relaxed mb-6">
+              本公司注册商标包括：九鼎散热器®（注册号
+              71721073）、阳光九鼎®（注册号 8464198）、圆形徽标®（注册号
+              13503043）等。
+            </p>
 
             <div className="rounded-lg bg-[var(--jd-cream)] border border-[#F1E7DC] p-4 text-sm text-gray-700 leading-relaxed">
               如对产品真伪有任何疑问，或发现假冒本公司品牌的线索，欢迎拨打商标问题热线{" "}
               <a href="tel:022-69189950" className="text-[var(--jd-red)] font-bold whitespace-nowrap">
                 022-69189950
-              </a>
-              ，或登录{" "}
-              <a
-                href="https://www.zx3315.cn"
-                target="_blank"
-                rel="noopener"
-                className="text-[var(--jd-red)] font-semibold underline underline-offset-2"
-              >
-                www.zx3315.cn
               </a>{" "}
-              输入防伪码验真。
+              核实。
             </div>
 
             <div className="mt-5 text-center">
@@ -173,7 +165,7 @@ export default function BrandProtectionBar() {
                 onClick={() => setOpen(false)}
                 className="text-[var(--jd-red)] font-bold hover:underline underline-offset-2"
               >
-                查看完整《品牌保护与防伪声明》→
+                查看完整《品牌保护声明》→
               </Link>
             </div>
           </div>
