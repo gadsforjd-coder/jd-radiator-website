@@ -37,8 +37,11 @@ export default function BrandProtectionBar() {
 
   return (
     <>
-      {/* 滚动声明条 */}
-      <div className="flex items-stretch bg-[#FEF0E0] border-b-2 border-[var(--jd-red)]">
+      {/* 滚动声明条 — relative z-30 so it paints above the homepage Hero
+          (z-10, pulled up over this bar via its -mt-[96px]) while staying
+          below the fixed header (z-50) and its dropdowns. Lifts the whole
+          bar incl. the 如何识别正品 button in one. */}
+      <div className="relative z-30 flex items-stretch bg-[#FEF0E0] border-b-2 border-[var(--jd-red)]">
         <div className="relative flex-1 overflow-hidden" aria-label={MARQUEE_TEXT}>
           <div className="animate-marquee-fast flex items-center gap-16 whitespace-nowrap py-2.5 text-[13px] sm:text-sm font-semibold text-[#1E293B] leading-snug w-max">
             {[0, 1].map((i) => (
