@@ -120,31 +120,33 @@ export default function BrandProtectionPage() {
               正品产品及包装均使用本公司品牌标识。购买时请先核对logo，谨防仿冒。
             </p>
             <div className="grid sm:grid-cols-2 gap-5">
-              <figure className="border border-[#F1E7DC] rounded-lg p-6 bg-gray-50 grid place-items-center">
+              <figure className="border border-[#F1E7DC] rounded-lg p-6 bg-white grid place-items-center">
                 <Image
-                  src="/assets/logo-mark.png"
-                  alt="九龙圣鼎圆形徽标"
-                  width={260}
-                  height={260}
-                  className="object-contain h-44 w-auto"
+                  src="/assets/old-logo-ring.jpg"
+                  alt="九龙圣鼎圆形徽标（已注册商标 13503043）"
+                  width={300}
+                  height={116}
+                  className="object-contain h-32 w-auto"
                 />
                 <figcaption className="text-gray-700 font-bold mt-4 text-center">
-                  圆形徽标®
+                  圆形徽标®（原标识）
                   <span className="block text-sm text-gray-500 font-normal mt-1">
-                    图形商标 · 注册号 13503043
+                    已注册商标 · 注册号 13503043
                   </span>
                 </figcaption>
               </figure>
-              <figure className="border border-[#F1E7DC] rounded-lg p-6 bg-gray-50 grid place-items-center">
-                <div className="h-44 grid place-items-center">
-                  <span className="text-4xl font-extrabold text-gray-900 tracking-wide text-center">
-                    九鼎散热器®
-                  </span>
-                </div>
+              <figure className="border border-[#F1E7DC] rounded-lg p-6 bg-white grid place-items-center">
+                <Image
+                  src="/assets/logo-mark.png"
+                  alt="九鼎散热器现用品牌标识（旭日）"
+                  width={260}
+                  height={260}
+                  className="object-contain h-32 w-auto"
+                />
                 <figcaption className="text-gray-700 font-bold mt-4 text-center">
-                  九鼎散热器®
+                  现用品牌标识（旭日）
                   <span className="block text-sm text-gray-500 font-normal mt-1">
-                    文字商标 · 注册号 71721073
+                    商标申请中
                   </span>
                 </figcaption>
               </figure>
