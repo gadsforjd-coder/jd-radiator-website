@@ -86,13 +86,13 @@ export default async function CredentialsPage({ params }: { params: Promise<{ la
   const d = await getDictionary(locale);
   const c = d.credentials;
 
-  const trademarks = [c.tm1, c.tm2, c.tm3, c.tm4, c.tm5, c.tm6, c.tm7, c.tm8];
+  const trademarks = [c.tm1, c.tm2, c.tm3, c.tm4, c.tm5, c.tm7, c.tm8];
   const standards = [c.standard1, c.standard2, c.standard3, c.standard4, c.standard5];
   const tmImageLabel: Record<string, string> = { tm1: c.tm1, tm2: c.tm2, tm3: c.tm3 };
   const sceneTagline = (d.products && d.products.marketLine1) || c.intro;
 
   const stats = [
-    { num: "12", label: c.tmLabel, href: "#trademarks" },
+    { num: "7", label: c.tmLabel, href: "#trademarks" },
     { num: d.stats.years, label: d.stats.yearsLabel, href: undefined },
     { num: d.stats.markets, label: d.stats.marketsLabel, href: undefined },
   ];
