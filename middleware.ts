@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { locales, defaultLocale, type Locale } from "./lib/i18n";
+import { antiBot } from "./lib/anti-bot";
 
 const LOCALE_COOKIE = "NEXT_LOCALE";
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
@@ -47,6 +48,13 @@ export function middleware(request: NextRequest) {
   ) {
     return;
   }
+
+  // Anti-scraping gate: runs only on real page routes (static assets, /api and
+  // the tracker are already returned above). Search-engine crawlers are let
+  // through untouched inside antiBot(), so SEO is never affected. Returns a
+  // 403/429 response to short-circuit, or null to continue to i18n handling.
+  const blocked = antiBot(request);
+  if (blocked) return blocked;
 
   // Already on a localed path: remember that locale so geo-detection never
   // overrides a manual language choice on later visits to the root.

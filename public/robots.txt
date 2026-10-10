@@ -1,4 +1,21 @@
+# Real search engines: full access (SEO/GEO depends on this).
 User-Agent: *
 Allow: /
+
+# Competitor SEO-intel crawlers: ask them not to crawl (they mine our
+# backlinks/content for rivals). AI answer/retrieval crawlers (ChatGPT,
+# Perplexity, Claude, Doubao/Bytespider, Qwen …) are deliberately NOT listed
+# here — they are our GEO distribution channel and must stay allowed.
+# (robots.txt only constrains well-behaved bots; the middleware also returns
+#  403 to these — this block is the polite, defense-in-depth layer.)
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: MJ12bot
+User-agent: DotBot
+User-agent: BLEXBot
+User-agent: DataForSeoBot
+User-agent: SerpstatBot
+User-agent: MegaIndex
+Disallow: /
 
 Sitemap: https://jdradiator.com/sitemap.xml
