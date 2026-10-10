@@ -8,6 +8,7 @@ import Image from "next/image";
 import { LangSwitcher } from "./LangSwitcher";
 import { MobileNav } from "./MobileNav";
 import { ContactWidget } from "./ContactWidget";
+import BrandProtectionBar from "./BrandProtectionBar";
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -156,7 +157,11 @@ export default async function LangLayout({
           </div>
         </header>
 
-        <main className="pt-[96px]">{children}</main>
+        <main className="pt-[96px]">
+          {/* 中文访客品牌保护滚动声明条+验真入口 — zh only, 其他语言完全不渲染 */}
+          {locale === "zh" && <BrandProtectionBar />}
+          {children}
+        </main>
 
         {/* Footer */}
         <footer className="bg-[#1C1310] text-gray-300 pt-18 pb-7 px-[4vw]">
