@@ -140,9 +140,9 @@ export default function BrandProtectionBar() {
                   className="object-contain h-24 w-auto"
                 />
                 <figcaption className="text-sm text-gray-700 font-bold mt-3 text-center">
-                  现用品牌标识（旭日）
+                  现用品牌标识（旭日）®
                   <span className="block text-xs text-gray-500 font-normal mt-1">
-                    商标申请中
+                    已注册图形商标
                   </span>
                 </figcaption>
               </figure>

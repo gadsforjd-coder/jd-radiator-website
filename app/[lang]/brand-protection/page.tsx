@@ -144,9 +144,9 @@ export default function BrandProtectionPage() {
                   className="object-contain h-32 w-auto"
                 />
                 <figcaption className="text-gray-700 font-bold mt-4 text-center">
-                  现用品牌标识（旭日）
+                  现用品牌标识（旭日）®
                   <span className="block text-sm text-gray-500 font-normal mt-1">
-                    商标申请中
+                    已注册图形商标
                   </span>
                 </figcaption>
               </figure>
