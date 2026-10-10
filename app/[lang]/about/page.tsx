@@ -51,6 +51,12 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
     { label: d.about.capWorkers, value: d.about.capWorkersVal },
   ];
 
+  const storyParts = [
+    { h: d.about.brandStory.h1, p: d.about.brandStory.p1 },
+    { h: d.about.brandStory.h2, p: d.about.brandStory.p2 },
+    { h: d.about.brandStory.h3, p: d.about.brandStory.p3 },
+  ];
+
   return (
     <div>
       {/* Hero */}
@@ -61,36 +67,52 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
       </section>
 
       {/* Brand Story · 九鼎由来 */}
-      <section className="py-24 px-6 lg:px-14">
-        <p className="text-[var(--jd-red)] uppercase tracking-[0.2em] font-extrabold text-sm mb-5">{d.about.brandStory.kicker}</p>
-        <h2 className="text-3xl lg:text-5xl font-bold tracking-tight max-w-3xl mb-12">{d.about.brandStory.title}</h2>
-        <div className="grid lg:grid-cols-5 gap-12 items-start">
-          <div className="lg:col-span-3 space-y-8">
-            <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">{d.about.brandStory.h1}</h3>
-              <p className="text-gray-600 leading-relaxed text-lg">{d.about.brandStory.p1}</p>
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">{d.about.brandStory.h2}</h3>
-              <p className="text-gray-600 leading-relaxed text-lg">{d.about.brandStory.p2}</p>
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">{d.about.brandStory.h3}</h3>
-              <p className="text-gray-600 leading-relaxed text-lg">{d.about.brandStory.p3}</p>
-            </div>
+      <section className="py-20 lg:py-28 px-6 lg:px-14">
+        <p className="text-[var(--jd-red)] uppercase tracking-[0.2em] font-extrabold text-sm mb-4">{d.about.brandStory.kicker}</p>
+        <h2 className="text-3xl lg:text-5xl font-bold tracking-tight max-w-3xl mb-12 lg:mb-16">{d.about.brandStory.title}</h2>
+
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+          {/* Text column */}
+          <div className="lg:col-span-7 space-y-10 lg:space-y-12">
+            {storyParts.map((s, i) => (
+              <div key={i} className="border-l-2 border-[var(--jd-orange)]/30 pl-5 lg:pl-7">
+                <h3 className="flex items-baseline gap-3 text-xl lg:text-2xl font-bold text-[var(--jd-dark)] mb-3">
+                  <span className="text-[var(--jd-orange)] font-extrabold text-sm tabular-nums shrink-0 translate-y-[-1px]">0{i + 1}</span>
+                  <span>{s.h}</span>
+                </h3>
+                <p className="text-[var(--jd-muted)] leading-[1.95] text-base lg:text-lg">{s.p}</p>
+              </div>
+            ))}
           </div>
-          <figure className="lg:col-span-2">
-            <div className="rounded-xl overflow-hidden bg-[#0b0b0b]">
+
+          {/* Image column */}
+          <figure className="lg:col-span-5 lg:sticky lg:top-28">
+            <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-[#111]">
               <Image
-                src="/assets/da-ke-ding.jpg"
+                src="/assets/da-ke-ding-bright.jpg"
                 alt={d.about.brandStory.title}
-                width={1080}
-                height={1600}
+                width={1040}
+                height={1300}
                 className="w-full h-auto object-cover"
               />
             </div>
             <figcaption className="text-xs text-gray-400 mt-3 leading-relaxed">{d.about.brandStory.caption}</figcaption>
           </figure>
+        </div>
+
+        {/* Brand promise */}
+        <div className="mt-16 lg:mt-20 max-w-5xl">
+          <div className="bg-[var(--jd-cream)] border border-[#F1E7DC] rounded-2xl p-8 lg:p-12">
+            <div className="lg:flex lg:items-start lg:gap-10">
+              <div className="shrink-0 mb-5 lg:mb-0 lg:w-56">
+                <span className="inline-block w-10 h-1 bg-[var(--jd-orange)] mb-4" />
+                <p className="text-[var(--jd-orange)] uppercase tracking-[0.18em] font-extrabold text-xs mb-2">{d.about.brandStory.promiseLabel}</p>
+                <p className="text-2xl lg:text-3xl font-bold tracking-tight text-[var(--jd-dark)]">{d.about.brandStory.promiseTitle}</p>
+              </div>
+              <p className="text-[var(--jd-muted)] leading-[1.9] text-base lg:text-lg lg:flex-1">{d.about.brandStory.promiseText}</p>
+            </div>
+            <p className="text-sm text-[var(--jd-muted)] mt-7 pt-6 border-t border-[#F1E7DC]">{d.about.brandStory.bridgeText}</p>
+          </div>
         </div>
       </section>
 
