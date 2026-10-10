@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { pageSeo } from "@/lib/seo";
 import { getDictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
@@ -57,6 +58,40 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
         <p className="text-[var(--jd-red)] uppercase tracking-[0.2em] font-extrabold text-sm mb-5">{d.about.kicker}</p>
         <h1 className="text-4xl lg:text-6xl font-bold leading-tight tracking-tight max-w-3xl">{d.about.title}</h1>
         <p className="text-xl text-gray-500 leading-relaxed mt-7 max-w-3xl">{d.about.intro}</p>
+      </section>
+
+      {/* Brand Story · 九鼎由来 */}
+      <section className="py-24 px-6 lg:px-14">
+        <p className="text-[var(--jd-red)] uppercase tracking-[0.2em] font-extrabold text-sm mb-5">{d.about.brandStory.kicker}</p>
+        <h2 className="text-3xl lg:text-5xl font-bold tracking-tight max-w-3xl mb-12">{d.about.brandStory.title}</h2>
+        <div className="grid lg:grid-cols-5 gap-12 items-start">
+          <div className="lg:col-span-3 space-y-8">
+            <div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{d.about.brandStory.h1}</h3>
+              <p className="text-gray-600 leading-relaxed text-lg">{d.about.brandStory.p1}</p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{d.about.brandStory.h2}</h3>
+              <p className="text-gray-600 leading-relaxed text-lg">{d.about.brandStory.p2}</p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{d.about.brandStory.h3}</h3>
+              <p className="text-gray-600 leading-relaxed text-lg">{d.about.brandStory.p3}</p>
+            </div>
+          </div>
+          <figure className="lg:col-span-2">
+            <div className="rounded-xl overflow-hidden bg-[#0b0b0b]">
+              <Image
+                src="/assets/da-ke-ding.jpg"
+                alt={d.about.brandStory.title}
+                width={1080}
+                height={1600}
+                className="w-full h-auto object-cover"
+              />
+            </div>
+            <figcaption className="text-xs text-gray-400 mt-3 leading-relaxed">{d.about.brandStory.caption}</figcaption>
+          </figure>
+        </div>
       </section>
 
       {/* Capabilities */}
