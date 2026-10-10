@@ -106,8 +106,7 @@ export default function BrandProtectionPage() {
               </div>
             </div>
             <p className="text-lg text-gray-600 leading-relaxed">
-              此外，本公司还持有“九鼎”（注册号
-              13502959）、“九鼎阳光”（注册号 17329730）、“蒙特利尔
+              此外，本公司还持有“九鼎”（注册号 13502959）、“蒙特利尔
               MENGTELAIER”（注册号 6311833）等系列商标。
             </p>
           </article>
@@ -123,31 +122,29 @@ export default function BrandProtectionPage() {
             <div className="grid sm:grid-cols-2 gap-5">
               <figure className="border border-[#F1E7DC] rounded-lg p-6 bg-gray-50 grid place-items-center">
                 <Image
-                  src="/assets/brand-logo-2026.png"
-                  alt="九鼎品牌logo"
-                  width={160}
-                  height={160}
-                  className="object-contain h-28 w-auto"
+                  src="/assets/logo-mark.png"
+                  alt="九龙圣鼎圆形徽标"
+                  width={260}
+                  height={260}
+                  className="object-contain h-44 w-auto"
                 />
                 <figcaption className="text-gray-700 font-bold mt-4 text-center">
-                  九鼎散热器®
+                  圆形徽标®
                   <span className="block text-sm text-gray-500 font-normal mt-1">
-                    注册商标（注册号 71721073）
+                    图形商标 · 注册号 13503043
                   </span>
                 </figcaption>
               </figure>
               <figure className="border border-[#F1E7DC] rounded-lg p-6 bg-gray-50 grid place-items-center">
-                <Image
-                  src="/assets/ashap-logo.png"
-                  alt="ASHAP 品牌标识"
-                  width={240}
-                  height={71}
-                  className="object-contain h-16 w-auto"
-                />
+                <div className="h-44 grid place-items-center">
+                  <span className="text-4xl font-extrabold text-gray-900 tracking-wide text-center">
+                    九鼎散热器®
+                  </span>
+                </div>
                 <figcaption className="text-gray-700 font-bold mt-4 text-center">
-                  ASHAP
+                  九鼎散热器®
                   <span className="block text-sm text-gray-500 font-normal mt-1">
-                    本公司品牌标识
+                    文字商标 · 注册号 71721073
                   </span>
                 </figcaption>
               </figure>

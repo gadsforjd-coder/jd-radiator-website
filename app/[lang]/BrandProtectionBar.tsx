@@ -118,31 +118,29 @@ export default function BrandProtectionBar() {
             <div className="grid sm:grid-cols-2 gap-4 mb-6">
               <figure className="border border-[#F1E7DC] rounded-lg p-5 bg-gray-50 grid place-items-center">
                 <Image
-                  src="/assets/brand-logo-2026.png"
-                  alt="九鼎品牌logo"
-                  width={140}
-                  height={140}
-                  className="object-contain h-24 w-auto"
+                  src="/assets/logo-mark.png"
+                  alt="九龙圣鼎圆形徽标"
+                  width={220}
+                  height={220}
+                  className="object-contain h-36 w-auto"
                 />
                 <figcaption className="text-sm text-gray-700 font-bold mt-3 text-center">
-                  九鼎散热器®
+                  圆形徽标®
                   <span className="block text-xs text-gray-500 font-normal mt-1">
-                    注册商标（注册号 71721073）
+                    图形商标 · 注册号 13503043
                   </span>
                 </figcaption>
               </figure>
               <figure className="border border-[#F1E7DC] rounded-lg p-5 bg-gray-50 grid place-items-center">
-                <Image
-                  src="/assets/ashap-logo.png"
-                  alt="ASHAP 品牌标识"
-                  width={200}
-                  height={59}
-                  className="object-contain h-14 w-auto"
-                />
+                <div className="h-36 grid place-items-center">
+                  <span className="text-3xl font-extrabold text-gray-900 tracking-wide text-center">
+                    九鼎散热器®
+                  </span>
+                </div>
                 <figcaption className="text-sm text-gray-700 font-bold mt-3 text-center">
-                  ASHAP
+                  九鼎散热器®
                   <span className="block text-xs text-gray-500 font-normal mt-1">
-                    本公司品牌标识
+                    文字商标 · 注册号 71721073
                   </span>
                 </figcaption>
               </figure>
