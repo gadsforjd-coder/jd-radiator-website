@@ -8,10 +8,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 /**
- * Body paragraphs support four lightweight conventions:
+ * Body paragraphs support five lightweight conventions:
  *  - a paragraph starting with "## " is rendered as an <h2> subheading;
  *  - a paragraph starting with "> " is rendered as a highlighted answer/callout
  *    block (used for SEO "quick answer" blocks that target featured snippets);
+ *  - a paragraph that is exactly "![alt](src)" is rendered as a full-width
+ *    <figure> image (src under /public, e.g. /assets/blog/...);
  *  - inline markdown-style links "[text](/lang/path)" become <Link>s;
  *  - inline "**bold**" becomes <strong>.
  */
@@ -118,8 +120,21 @@ export default async function BlogPostPage({ params }: { params: Promise<{ lang:
           <time dateTime={post.date} className="block text-sm text-gray-400 font-semibold mt-8">{formatPostDate(post.date, locale)}</time>
           <h1 className="text-3xl lg:text-5xl font-bold leading-tight tracking-tight mt-3">{c.title}</h1>
           <div className="mt-10">
-            {c.body.map((paragraph, i) =>
-              paragraph.startsWith("## ") ? (
+            {c.body.map((paragraph, i) => {
+              const image = paragraph.match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/);
+              if (image) {
+                return (
+                  <figure key={i} className="my-10">
+                    <img
+                      src={image[2]}
+                      alt={image[1]}
+                      loading="lazy"
+                      className="w-full h-auto rounded-2xl border border-gray-200"
+                    />
+                  </figure>
+                );
+              }
+              return paragraph.startsWith("## ") ? (
                 <h2 key={i} className="text-2xl font-bold tracking-tight mt-12 mb-5">{paragraph.slice(3)}</h2>
               ) : paragraph.startsWith("> ") ? (
                 <blockquote key={i} className="border-l-4 border-[var(--jd-red)] bg-gray-50 rounded-r-lg px-6 py-5 mb-8 text-lg text-gray-700 leading-relaxed">
@@ -127,8 +142,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ lang:
                 </blockquote>
               ) : (
                 <p key={i} className="text-lg text-gray-600 leading-relaxed mb-6"><InlineText text={paragraph} /></p>
-              )
-            )}
+              );
+            })}
           </div>
           {/* Bottom-of-article CTA. Products is the PRIMARY action: GEO/AI
               referral traffic lands on these posts and needs a first-class path
