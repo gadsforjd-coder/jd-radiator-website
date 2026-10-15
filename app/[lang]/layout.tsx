@@ -2,13 +2,14 @@ import "../globals.css";
 import { locales, type Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dictionary";
 import { categoryLabels } from "@/lib/products";
-import { BASE_URL, SITE_NAME } from "@/lib/constants";
+import { BASE_URL, SITE_NAME, CANTON_FAIR_EXPIRY_MS } from "@/lib/constants";
 import Link from "next/link";
 import Image from "next/image";
 import { LangSwitcher } from "./LangSwitcher";
 import { MobileNav } from "./MobileNav";
 import { ContactWidget } from "./ContactWidget";
 import BrandProtectionBar from "./BrandProtectionBar";
+import CantonFairBar from "./CantonFairBar";
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -158,6 +159,12 @@ export default async function LangLayout({
         </header>
 
         <main className="pt-[96px]">
+          {/* Canton Fair 2026 announcement bar — all locales, links to the
+              locale's Canton Fair post; auto-expires after 2026-10-27 (build-
+              time gate here + client-side gate inside the component). */}
+          {Date.now() < CANTON_FAIR_EXPIRY_MS && (
+            <CantonFairBar locale={locale} text={d.announcement.cantonFair} />
+          )}
           {/* 中文访客品牌保护滚动声明条+验真入口 — zh only, 其他语言完全不渲染 */}
           {locale === "zh" && <BrandProtectionBar />}
           {children}
