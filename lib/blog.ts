@@ -3472,9 +3472,10 @@ export const blogPosts: BlogPost[] = [
         excerpt:
           "Phase 1 of the 140th Canton Fair opened today in Guangzhou, and the JD Radiator booth is live: Area A, Hall 3.1, Booth L34. Steel panel radiators, column radiators, and towel rails on display through October 19 — with Phase 2 following on October 23–27 in Area B, 9.1 I22–23.",
         body: [
-          "![Opening day — the JD Radiator booth at 3.1 L34, 140th Canton Fair Phase 1, Guangzhou](/assets/blog/canton-fair-140th-phase1-opening.jpg)",
+          "![Opening day — the JD Radiator booth at 3.1 L34 seen from the Hall 3.1 aisle, 140th Canton Fair Phase 1, Guangzhou](/assets/blog/canton-fair-140th-phase1-booth-aisle.jpg)",
           "Phase 1 of the **140th Canton Fair** opened this morning in Guangzhou — and our booth opened with it. The photo above was taken at the stand today: look for the **TIANJIN JIUDING YANGGUANG HVAC CO., LTD.** sign at **Area A, Hall 3.1, Booth L34**, with the orange JIUDING RADIATOR counter and the radiator sample wall right behind it.",
           "## What's on display\n\nWe brought the products our partners order most. **Steel panel radiators** hang on the sample wall in white and color finishes, so you can judge welds, coating, and fit up close. **Steel column radiators** show both classic and modern profiles for residential and commercial projects. And **towel rails** round out the bathroom side of the range. Touching the product beats any catalog — come and look closely.",
+          "![The radiator sample wall and JIUDING RADIATOR counter at booth 3.1 L34, 140th Canton Fair Phase 1](/assets/blog/canton-fair-140th-phase1-display-wall.jpg)",
           "## When and where\n\n**Phase 1 — October 15–19 · Area A · Hall 3.1 · Booth L34** (open now)\n\n**Phase 2 — October 23–27 · Area B · Hall 9.1 · Booth I22–23**",
           "If you are a distributor, importer, or project buyer visiting Guangzhou, stop by — our sales team is at the stand every day, in both phases. Bring your specification and we will talk types, sizes, finishes, packaging, and delivery on the spot. Full details of our participation are in the [fair announcement](/en/blog/meet-jd-radiator-140th-canton-fair-2026).",
           "Can't make it in person? Write to us anytime: [lunan@jdradiator.com](mailto:lunan@jdradiator.com) / [kevin@jdradiator.com](mailto:kevin@jdradiator.com) · [www.jdradiator.com](https://www.jdradiator.com).",
@@ -3486,9 +3487,10 @@ export const blogPosts: BlogPost[] = [
         excerpt:
           "Сегодня в Гуанчжоу открылась Фаза 1 140-й Кантонской ярмарки, и стенд JD Radiator уже работает: зона A, павильон 3.1, стенд L34. Стальные панельные радиаторы, трубчатые радиаторы и полотенцесушители — до 19 октября, а затем Фаза 2 с 23 по 27 октября в зоне B, 9.1 I22–23.",
         body: [
-          "![День открытия — стенд JD Radiator 3.1 L34, Фаза 1 140-й Кантонской ярмарки, Гуанчжоу](/assets/blog/canton-fair-140th-phase1-opening.jpg)",
+          "![День открытия — стенд JD Radiator 3.1 L34 со стороны прохода павильона 3.1, Фаза 1 140-й Кантонской ярмарки, Гуанчжоу](/assets/blog/canton-fair-140th-phase1-booth-aisle.jpg)",
           "Сегодня утром в Гуанчжоу открылась Фаза 1 **140-й Кантонской ярмарки** — и вместе с ней открылся наш стенд. Фото выше сделано на стенде сегодня: ищите вывеску **TIANJIN JIUDING YANGGUANG HVAC CO., LTD.** в **зоне A, павильон 3.1, стенд L34** — с оранжевой стойкой JIUDING RADIATOR и стеной образцов радиаторов сразу за ней.",
           "## Что на стенде\n\nМы привезли то, что наши партнёры заказывают чаще всего. **Стальные панельные радиаторы** висят на стене образцов в белом и цветных покрытиях — швы, покрытие и сборку можно оценить вблизи. **Стальные трубчатые радиаторы** представлены классическими и современными профилями для жилых и коммерческих проектов. **Полотенцесушители** закрывают ванную часть ассортимента. Потрогать продукт лучше любого каталога — приходите и смотрите вблизи.",
+          "![Стена образцов радиаторов и стойка JIUDING RADIATOR на стенде 3.1 L34, Фаза 1 140-й Кантонской ярмарки](/assets/blog/canton-fair-140th-phase1-display-wall.jpg)",
           "## Когда и где\n\n**Фаза 1 — 15–19 октября · Зона A · Павильон 3.1 · Стенд L34** (уже открыт)\n\n**Фаза 2 — 23–27 октября · Зона B · Павильон 9.1 · Стенд I22–23**",
           "Если вы дистрибьютор, импортёр или закупщик проектов и будете в Гуанчжоу — заходите: наша команда продаж на стенде каждый день, на обеих фазах. Приносите свою спецификацию, и мы на месте обсудим типы, размеры, покрытия, упаковку и поставку. Все детали нашего участия — в [анонсе выставки](/ru/blog/meet-jd-radiator-140th-canton-fair-2026).",
           "Не получается приехать? Пишите в любое время: [lunan@jdradiator.com](mailto:lunan@jdradiator.com) / [kevin@jdradiator.com](mailto:kevin@jdradiator.com) · [www.jdradiator.com](https://www.jdradiator.com).",
@@ -3500,9 +3502,10 @@ export const blogPosts: BlogPost[] = [
         excerpt:
           "Өнөөдөр Гуанжоуд 140 дахь Кантоны үзэсгэлэнгийн 1-р үе шат нээгдэж, JD Radiator-ын стенд ажиллаж эхэллээ: A бүс, 3.1 танхим, L34 стенд. Ган хавтант радиатор, баганат радиатор, алчуур хатаагч 10-р сарын 19 хүртэл — дараа нь 2-р үе шат 10-р сарын 23–27-нд B бүсийн 9.1 I22–23-т.",
         body: [
-          "![Нээлтийн өдөр — JD Radiator-ын стенд 3.1 L34, 140 дахь Кантоны үзэсгэлэнгийн 1-р үе шат, Гуанжоу](/assets/blog/canton-fair-140th-phase1-opening.jpg)",
+          "![Нээлтийн өдөр — 3.1 танхимын гудамнаас харагдах JD Radiator-ын 3.1 L34 стенд, 140 дахь Кантоны үзэсгэлэнгийн 1-р үе шат, Гуанжоу](/assets/blog/canton-fair-140th-phase1-booth-aisle.jpg)",
           "Өнөө өглөө Гуанжоуд **140 дахь Кантоны үзэсгэлэнгийн** 1-р үе шат нээгдэж — түүнтэй хамт манай стенд ч нээгдлээ. Дээрх зургийг өнөөдөр стенд дээр авсан: **A бүс, 3.1 танхим, L34 стенд** дээрх **TIANJIN JIUDING YANGGUANG HVAC CO., LTD.** хаягийг хайгаарай — улбар шар JIUDING RADIATOR лангуу, ард нь радиаторын загварын хана бий.",
           "## Стенд дээр юу байгаа вэ\n\nБид түншүүдийнхээ хамгийн их захиалдаг бүтээгдэхүүнийг авчирсан. **Ган хавтант радиаторууд** загварын хананд цагаан болон өнгөт өнгөлгөөтэй өлгөөтэй — гагнуур, бүрхүүл, угсралтыг ойроос үнэлж болно. **Ган баганат радиаторууд** орон сууц, арилжааны төслүүдэд зориулсан сонгодог болон орчин үеийн профилиудыг харуулж байна. **Алчуур хатаагчид** угаалгын өрөөний төрлийг гүйцээнэ. Бүтээгдэхүүнд гар хүрэх нь ямар ч каталогоос дээр — ирж ойроос үзээрэй.",
+          "![3.1 L34 стенд дээрх радиаторын загварын хана ба JIUDING RADIATOR лангуу, 140 дахь Кантоны үзэсгэлэнгийн 1-р үе шат](/assets/blog/canton-fair-140th-phase1-display-wall.jpg)",
           "## Хэзээ, хаана\n\n**1-р үе шат — 10-р сарын 15–19 · A бүс · 3.1 танхим · L34 стенд** (одоо нээлттэй)\n\n**2-р үе шат — 10-р сарын 23–27 · B бүс · 9.1 танхим · I22–23 стенд**",
           "Хэрэв та Гуанжоуд зочилж буй дистрибьютер, импортлогч эсвэл төслийн худалдан авагч бол саатаарай — манай борлуулалтын баг хоёр үе шатын өдөр бүр стенд дээр байна. Техникийн шаардлагаа аваад ирээрэй, төрөл, хэмжээ, өнгөлгөө, сав баглаа, нийлүүлэлтийг газар дээр нь ярилцъя. Оролцооны бүрэн дэлгэрэнгүй [үзэсгэлэнгийн зарлалд](/mn/blog/meet-jd-radiator-140th-canton-fair-2026) бий.",
           "Биеэр ирж чадахгүй юу? Хэзээ ч бичээрэй: [lunan@jdradiator.com](mailto:lunan@jdradiator.com) / [kevin@jdradiator.com](mailto:kevin@jdradiator.com) · [www.jdradiator.com](https://www.jdradiator.com).",
@@ -3514,9 +3517,10 @@ export const blogPosts: BlogPost[] = [
         excerpt:
           "La Fase 1 de la 140.ª Feria de Cantón abrió hoy en Guangzhou, y el estand de JD Radiator ya está en marcha: Zona A, pabellón 3.1, estand L34. Radiadores de panel de acero, radiadores de columna y toalleros en exposición hasta el 19 de octubre — y la Fase 2 del 23 al 27 de octubre en la Zona B, 9.1 I22–23.",
         body: [
-          "![Día de apertura — el estand de JD Radiator en 3.1 L34, Fase 1 de la 140.ª Feria de Cantón, Guangzhou](/assets/blog/canton-fair-140th-phase1-opening.jpg)",
+          "![Día de apertura — el estand de JD Radiator en 3.1 L34 visto desde el pasillo del pabellón 3.1, Fase 1 de la 140.ª Feria de Cantón, Guangzhou](/assets/blog/canton-fair-140th-phase1-booth-aisle.jpg)",
           "La Fase 1 de la **140.ª Feria de Cantón** abrió esta mañana en Guangzhou — y nuestro estand abrió con ella. La foto de arriba se tomó hoy en el estand: busque el rótulo de **TIANJIN JIUDING YANGGUANG HVAC CO., LTD.** en la **Zona A, pabellón 3.1, estand L34**, con el mostrador naranja de JIUDING RADIATOR y la pared de muestras de radiadores justo detrás.",
           "## Qué hay en exposición\n\nTrajimos los productos que más piden nuestros socios. Los **radiadores de panel de acero** cuelgan de la pared de muestras en blanco y en acabados de color, para juzgar de cerca soldaduras, recubrimiento y ajuste. Los **radiadores de columna de acero** muestran perfiles clásicos y modernos para proyectos residenciales y comerciales. Y los **toalleros** completan la parte de baño de la gama. Tocar el producto vale más que cualquier catálogo — venga y mírelo de cerca.",
+          "![La pared de muestras de radiadores y el mostrador de JIUDING RADIATOR en el estand 3.1 L34, Fase 1 de la 140.ª Feria de Cantón](/assets/blog/canton-fair-140th-phase1-display-wall.jpg)",
           "## Cuándo y dónde\n\n**Fase 1 — 15–19 de octubre · Zona A · Pabellón 3.1 · Estand L34** (abierto ya)\n\n**Fase 2 — 23–27 de octubre · Zona B · Pabellón 9.1 · Estand I22–23**",
           "Si usted es distribuidor, importador o comprador de proyectos y visita Guangzhou, pase a vernos — nuestro equipo de ventas está en el estand todos los días, en ambas fases. Traiga su especificación y hablaremos de tipos, medidas, acabados, embalaje y entrega en el momento. Todos los detalles de nuestra participación están en el [anuncio de la feria](/es/blog/meet-jd-radiator-140th-canton-fair-2026).",
           "¿No puede venir en persona? Escríbanos cuando quiera: [lunan@jdradiator.com](mailto:lunan@jdradiator.com) / [kevin@jdradiator.com](mailto:kevin@jdradiator.com) · [www.jdradiator.com](https://www.jdradiator.com).",
@@ -3527,9 +3531,10 @@ export const blogPosts: BlogPost[] = [
         excerpt:
           "第140届广交会第一期今天在广州开幕，九鼎散热器展位同步开张：A区 3.1 馆 L34 展位。钢制板式散热器、柱式散热器、毛巾架展出至10月19日；第二期10月23–27日移师B区 9.1 I22–23。",
         body: [
-          "![开幕日 — 第140届广交会第一期，九鼎散热器 3.1 L34 展位，广州](/assets/blog/canton-fair-140th-phase1-opening.jpg)",
+          "![开幕日 — 从 3.1 馆通道看九鼎散热器 3.1 L34 展位，第140届广交会第一期，广州](/assets/blog/canton-fair-140th-phase1-booth-aisle.jpg)",
           "今天上午，**第140届广交会**第一期在广州开幕——我们的展位也随之开张。上面这张照片就是今天在展位现场拍摄的：在 **A区 3.1 馆 L34 展位**，认准 **天津市九鼎阳光暖通有限公司** 的招牌——橙色的 JIUDING RADIATOR 接待台，身后就是散热器样品墙。",
           "## 展出什么\n\n我们带来了合作伙伴下单最多的产品。**钢制板式散热器**挂满样品墙，白色与彩色涂层都有，焊缝、涂层和装配可以凑近细看。**钢制柱式散热器**展示经典与现代两类造型，适配住宅和商业项目。**毛巾架**补齐卫浴线。亲手摸到产品胜过任何画册——欢迎来仔细看看。",
+          "![3.1 L34 展位的散热器样品墙与 JIUDING RADIATOR 接待台，第140届广交会第一期](/assets/blog/canton-fair-140th-phase1-display-wall.jpg)",
           "## 时间与地点\n\n**第一期 — 10月15–19日 · A区 · 3.1 馆 · L34 展位**（现已开放）\n\n**第二期 — 10月23–27日 · B区 · 9.1 馆 · I22–23 展位**",
           "如果您是正在广州参展、看展的经销商、进口商或项目采购方，欢迎顺路过来——两期展会期间，我们的销售团队每天都在展位。带上您的技术需求，型号、尺寸、涂层、包装、交付，当场就能谈。参展详情见[参展公告](/zh/blog/meet-jd-radiator-140th-canton-fair-2026)。",
           "来不了现场？随时写信给我们：[lunan@jdradiator.com](mailto:lunan@jdradiator.com) / [kevin@jdradiator.com](mailto:kevin@jdradiator.com) · [www.jdradiator.com](https://www.jdradiator.com)。",
