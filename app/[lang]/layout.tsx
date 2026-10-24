@@ -5,6 +5,7 @@ import { categoryLabels } from "@/lib/products";
 import { BASE_URL, SITE_NAME, CANTON_FAIR_EXPIRY_MS } from "@/lib/constants";
 import Link from "next/link";
 import Image from "next/image";
+import Script from "next/script";
 import { LangSwitcher } from "./LangSwitcher";
 import { MobileNav } from "./MobileNav";
 import { ContactWidget } from "./ContactWidget";
@@ -96,10 +97,18 @@ export default async function LangLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd(locale)) }}
         />
-        <script
-          defer
+        {/* Umami analytics — strategy="afterInteractive" so the tracker
+            initialises as soon as the page is hydrated (same timing as GA4
+            and Yandex Metrica in app/layout.tsx). Using raw <script defer>
+            meant the tracker never fired for fast-bounce visitors on slow
+            mobile connections, causing the observed ~73% session-loss in
+            Yandex Direct reporting. afterInteractive uses Next.js's own
+            keepalive-fetch scheduler so link/navigate events are captured
+            even when the user taps away immediately after paint. */}
+        <Script
           src="/tracker.js"
           data-website-id="f0fab079-cec6-4102-967d-f2ab1efe8745"
+          strategy="afterInteractive"
         />
       </head>
       <body className="text-[var(--jd-dark)] bg-white overflow-x-hidden">
