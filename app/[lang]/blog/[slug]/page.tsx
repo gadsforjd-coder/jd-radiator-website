@@ -134,6 +134,26 @@ export default async function BlogPostPage({ params }: { params: Promise<{ lang:
                   </figure>
                 );
               }
+              const youtube = paragraph.match(/^@youtube\(([A-Za-z0-9_-]{6,})\)$/);
+              if (youtube) {
+                return (
+                  <figure key={i} className="my-10">
+                    <div
+                      className="relative w-full overflow-hidden rounded-2xl border border-gray-200 bg-black"
+                      style={{ aspectRatio: "16 / 9" }}
+                    >
+                      <iframe
+                        src={`https://www.youtube-nocookie.com/embed/${youtube[1]}`}
+                        title={c.title}
+                        loading="lazy"
+                        allow="accelerated-sensors; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                        className="absolute inset-0 h-full w-full"
+                      />
+                    </div>
+                  </figure>
+                );
+              }
               return paragraph.startsWith("## ") ? (
                 <h2 key={i} className="text-2xl font-bold tracking-tight mt-12 mb-5">{paragraph.slice(3)}</h2>
               ) : paragraph.startsWith("> ") ? (
