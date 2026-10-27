@@ -355,7 +355,19 @@
     "formTooLarge": "El tamaño total supera los 10 MB: elimine algunos archivos.",
     "formSending": "Enviando…",
     "formError": "Algo salió mal: escríbanos directamente.",
-    "formSuccess": "¡Gracias! Responderemos en 24 horas."
+    "formSuccess": "¡Gracias! Responderemos en 24 horas.",
+    "quickInquiry": {
+      "title": "Cotización rápida — respuesta en 24 h",
+      "lead": "Cuéntenos qué necesita. Con una línea basta; le enviaremos precio y detalles.",
+      "name": "Nombre",
+      "contact": "Email o WhatsApp",
+      "requirement": "Modelo, cantidad o mercado (una línea)",
+      "submit": "Solicitar precio",
+      "sending": "Enviando…",
+      "success": "¡Gracias! Responderemos en 24 horas.",
+      "error": "Algo salió mal: escríbanos directamente.",
+      "full": "¿Necesita adjuntar planos o documentos? Formulario completo →"
+    }
   },
   "footer": {
     "support": "SOPORTE",

@@ -355,7 +355,19 @@
     "formTooLarge": "Total file size exceeds 10MB — please remove or compress some files.",
     "formSending": "Sending…",
     "formError": "Something went wrong — please email us directly.",
-    "formSuccess": "Thank you! We will reply within 24 hours."
+    "formSuccess": "Thank you! We will reply within 24 hours.",
+    "quickInquiry": {
+      "title": "Quick quote — reply within 24h",
+      "lead": "Tell us what you need. One line is enough — we'll follow up with pricing and details.",
+      "name": "Your name",
+      "contact": "Email or WhatsApp",
+      "requirement": "Model, quantity or market (one line)",
+      "submit": "Get a quote",
+      "sending": "Sending…",
+      "success": "Thank you! We'll reply within 24 hours.",
+      "error": "Something went wrong — please email us directly.",
+      "full": "Need to attach drawings or documents? Full quote request →"
+    }
   },
   "footer": {
     "support": "SUPPORT",

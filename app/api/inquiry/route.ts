@@ -32,6 +32,7 @@ type InquiryBody = {
   message?: string;
   page?: string;
   locale?: string;
+  source?: string; // which form/widget produced this (e.g. "product_quick")
   attachments?: string[]; // filenames only (files themselves go via email)
   _gotcha?: string; // honeypot: bots fill hidden fields; humans never do
 };
@@ -79,6 +80,28 @@ async function sendFeishu(text: string): Promise<boolean> {
     );
     const data = (await res.json()) as { code?: number };
     return data.code === 0;
+  } catch {
+    return false;
+  }
+}
+
+// Zero-config Feishu capture via a group custom-bot incoming webhook. This is
+// the simplest robust channel: it needs ONE env var (FEISHU_INQUIRY_WEBHOOK, the
+// full webhook URL from the Feishu group bot) and NO app id/secret, so it keeps
+// working even if the app-token path above is unconfigured. We try BOTH Feishu
+// paths — the lead is captured if either (or email) accepts it.
+async function sendFeishuWebhook(text: string): Promise<boolean> {
+  const url = process.env.FEISHU_INQUIRY_WEBHOOK;
+  if (!url) return false;
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      body: JSON.stringify({ msg_type: "text", content: { text } }),
+    });
+    // Custom-bot returns {"code":0,...} or legacy {"StatusCode":0,...} on success.
+    const data = (await res.json()) as { code?: number; StatusCode?: number };
+    return data.code === 0 || data.StatusCode === 0;
   } catch {
     return false;
   }
@@ -133,6 +156,7 @@ function fmtAlert(b: InquiryBody, iso: string): string {
     b.company ? `公司: ${b.company}` : null,
     b.country ? `国家: ${b.country}` : null,
     b.page ? `来源页: ${b.page}${b.locale ? ` (${b.locale})` : ""}` : null,
+    b.source ? `入口: ${b.source}` : null,
     b.attachments && b.attachments.length
       ? `附件: ${b.attachments.length} 个（走邮件通道）`
       : null,
@@ -161,17 +185,22 @@ export async function POST(request: Request) {
 
   const iso = new Date().toISOString().replace("T", " ").slice(0, 19) + " UTC";
 
-  // Feishu is the guaranteed capture; email is best-effort. Run in parallel.
-  const [feishuOk, emailOk] = await Promise.all([
-    sendFeishu(fmtAlert(b, iso)),
+  // Feishu is the guaranteed capture; email is best-effort. Run every channel in
+  // parallel so no single slow/broken one delays the visitor's response. Two
+  // Feishu paths for resilience: the app-token IM push AND a zero-config group
+  // custom-bot webhook — whichever is configured captures the lead.
+  const alert = fmtAlert(b, iso);
+  const [feishuOk, webhookOk, emailOk] = await Promise.all([
+    sendFeishu(alert),
+    sendFeishuWebhook(alert),
     sendEmail(b),
   ]);
 
-  // The lead is "captured" if EITHER durable channel accepted it. Feishu is the
-  // one we control; if both fail we tell the visitor so they can email directly.
-  const ok = feishuOk || emailOk;
+  // The lead is "captured" if ANY durable channel accepted it. If all fail we
+  // tell the visitor so they can email directly.
+  const ok = feishuOk || webhookOk || emailOk;
   return Response.json(
-    { ok, channels: { feishu: feishuOk, email: emailOk } },
+    { ok, channels: { feishu: feishuOk, webhook: webhookOk, email: emailOk } },
     { status: ok ? 200 : 502 },
   );
 }

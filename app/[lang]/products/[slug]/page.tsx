@@ -11,6 +11,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import ProductGallery from "./ProductGallery";
 import ProductSizer from "./ProductSizer";
+import QuickInquiry from "./QuickInquiry";
 
 export function generateStaticParams() {
   const params: { lang: string; slug: string }[] = [];
@@ -201,6 +202,13 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <p className="font-bold text-gray-900 mb-1">{d.products.marketTitle}</p>
             <p className="text-sm text-gray-600 leading-relaxed">{d.products.marketLine1}</p>
             <p className="text-sm text-gray-600 leading-relaxed">{d.products.marketLine2}</p>
+          </div>
+
+          {/* First-screen one-step quick inquiry: minimal fields, submits in
+              place (no page jump). The full attachment-capable form stays linked
+              inside it and via the CTA below. */}
+          <div className="mb-8">
+            <QuickInquiry locale={locale} model={product.model} t={d.contact.quickInquiry} />
           </div>
 
           {description && (
