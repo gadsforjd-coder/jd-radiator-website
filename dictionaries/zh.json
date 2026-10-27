@@ -334,7 +334,19 @@
     "formTooLarge": "文件总大小超过 10MB，请删除或压缩部分文件后再发送。",
     "formSending": "提交中…",
     "formError": "提交失败，请直接邮件联系我们。",
-    "formSuccess": "感谢您！我们将在 24 小时内回复。"
+    "formSuccess": "感谢您！我们将在 24 小时内回复。",
+    "quickInquiry": {
+      "title": "快速询价 — 24 小时内回复",
+      "lead": "告诉我们您的需求，一句话即可，我们会尽快回复报价与细节。",
+      "name": "您的姓名",
+      "contact": "邮箱或 WhatsApp",
+      "requirement": "型号、数量或市场（一句话）",
+      "submit": "获取报价",
+      "sending": "提交中…",
+      "success": "感谢您！我们将在 24 小时内回复。",
+      "error": "提交失败，请直接邮件联系我们。",
+      "full": "需要附上图纸或文件？完整询盘表单 →"
+    }
   },
   "footer": {
     "support": "支持服务",
