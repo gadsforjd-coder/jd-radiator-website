@@ -38,7 +38,7 @@ const metaByLocale: Record<string, { title: string; description: string }> = {
   zh: {
     title: "Jiuding Radiator | 钢制散热器制造商与OEM合作伙伴",
     description:
-      "2002年成立的钢制散热器制造商，符合 EN 442 与 GOST 标准。设计款、柱式、板式散热器及电热毛巾架，面向欧洲、俄罗斯及中亚市场提供OEM/ODM，立即获取报价。",
+      "2002年成立的钢制暖气片制造厂家,产品符合 EN 442 与 GOST 标准,涵盖设计款、柱式、板式散热器及电热毛巾架,面向欧洲、俄罗斯及中亚市场提供 OEM/ODM 代工,欢迎来询报价。",
   },
   ru: {
     title: "Jiuding Radiator | Производитель стальных радиаторов и OEM-партнёр",
