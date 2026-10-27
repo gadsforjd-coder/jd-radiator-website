@@ -81,9 +81,9 @@ export const blogPosts: BlogPost[] = [
     date: "2026-06-11",
     content: {
       ru: {
-        title: "Почему низ радиатора холодный: причины и решения",
+        title: "Радиатор холодный снизу: 5 причин и как исправить",
         excerpt:
-          "Холодный низ радиатора — не всегда неисправность. Разбираем, когда это нормальная физика отопления, а когда — признак шлама, разбалансировки или ошибок подключения, и что делать в каждом случае.",
+          "Радиатор тёплый сверху, но холодный снизу? Иногда это норма, иногда — шлам, воздух или разбалансировка. Разбираем 5 причин, диагностику за 5 шагов и что делать в каждом случае.",
         body: [
           "Тёплый верх и заметно более холодный низ радиатора — одна из самых частых жалоб на систему отопления. Хорошая новость: во многих случаях это не поломка, а нормальная работа прибора. Плохая: в остальных причиной оказываются шлам, ошибки подключения или разбалансировка системы, которые со временем заметно снижают теплоотдачу. Разберём, как отличить одно от другого.",
           "## Когда холодный низ — это норма",
@@ -105,9 +105,9 @@ export const blogPosts: BlogPost[] = [
         ],
       },
       en: {
-        title: "Why Is the Bottom of a Radiator Cold? Causes and Solutions",
+        title: "Radiator Cold at the Bottom? 5 Causes and How to Fix It",
         excerpt:
-          "A cold radiator bottom is not always a fault. We explain when it is normal heating physics — and when it signals sludge, poor balancing or piping errors, and what to do in each case.",
+          "Warm at the top but cold at the bottom? Sometimes it's normal, sometimes it's sludge, air or poor balancing. 5 causes, a 5-step diagnosis, and what to do in each case.",
         body: [
           "A warm top and a noticeably colder bottom is one of the most common complaints about heating systems. The good news: in many cases it is not a defect but normal operation. The bad news: in the remaining cases the cause is sludge, piping errors or an unbalanced system, all of which gradually reduce heat output. Here is how to tell them apart.",
           "## When a cold bottom is normal",
@@ -129,7 +129,7 @@ export const blogPosts: BlogPost[] = [
         ],
       },
       mn: {
-        title: "Радиаторын доод хэсэг яагаад хүйтэн байдаг вэ: шалтгаан ба шийдэл",
+        title: "Радиатор доороо хүйтэн байна уу? 5 шалтгаан ба засах арга",
         excerpt:
           "Радиаторын доод хэсэг хүйтэн байх нь үргэлж гэмтэл биш. Хэзээ хэвийн үзэгдэл, хэзээ лаг хуримтлал, тэнцвэргүй систем эсвэл буруу холболтын шинж болохыг, тус бүрд нь юу хийхийг тайлбарлав.",
         body: [
@@ -153,9 +153,9 @@ export const blogPosts: BlogPost[] = [
         ],
       },
       es: {
-        title: "¿Por qué la parte inferior del radiador está fría? Causas y soluciones",
+        title: "Radiador frío por abajo: 5 causas y cómo solucionarlo",
         excerpt:
-          "Que la parte baja del radiador esté fría no siempre es una avería. Explicamos cuándo es física normal de la calefacción y cuándo indica lodos, desequilibrio hidráulico o errores de conexión, y qué hacer en cada caso.",
+          "¿El radiador calienta arriba pero está frío por abajo? A veces es normal, a veces son lodos, aire o desequilibrio hidráulico. 5 causas, diagnóstico en 5 pasos y qué hacer en cada caso.",
         body: [
           "> **Respuesta rápida:** que la parte inferior del radiador esté algo más fría que la superior suele ser normal (el agua entra caliente por arriba y sale más fría por abajo). Solo indica avería si la zona fría es amplia y persistente, normalmente por lodos/óxido acumulado, desequilibrio hidráulico o una conexión invertida. **Solución:** purgar el aire, hacer un lavado químico si hay lodos y equilibrar el caudal con los detentores.",
           "Una parte superior caliente y una inferior notablemente más fría es una de las quejas más habituales sobre los sistemas de calefacción. La buena noticia: en muchos casos no es un defecto, sino funcionamiento normal. La mala: en el resto, la causa son lodos, errores de conexión o un sistema desequilibrado, que reducen gradualmente la emisión de calor. Veamos cómo distinguirlos.",
@@ -178,7 +178,7 @@ export const blogPosts: BlogPost[] = [
         ],
       },
       zh: {
-        title: "散热器底部为什么是凉的？原因与解决方案",
+        title: "暖气片下面不热？5个原因和解决办法",
         excerpt:
           "散热器底部发凉并不一定是故障。我们将解释何时属于正常的供暖物理现象，何时则预示着水垢淤泥、水力失衡或连接错误，以及每种情况应如何处理。",
         body: [

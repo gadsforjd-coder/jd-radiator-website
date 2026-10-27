@@ -73,14 +73,14 @@ export const PAGE_SEO: Record<string, Partial<Record<Locale, Meta>>> = {
         "九鼎散热器涵盖5大品类30多款型号:设计款、钢制柱式、钢制板式、铜铝复合散热器及电热毛巾架,全系通过 CE/EN 442 认证,支持 RAL 色卡定制与 OEM 贴牌,适配住宅、酒店与工程采购。",
     },
     ru: {
-      title: "Продукция — стальные, дизайнерские радиаторы и полотенцесушители",
+      title: "Стальные панельные радиаторы — 30+ моделей от производителя",
       description:
-        "Более 30 моделей в 5 категориях: дизайнерские радиаторы, стальные колончатые, панельные, биметаллические медь-алюминий и полотенцесушители. Сертификат CE/EN442, цвета по RAL на заказ.",
+        "Стальные панельные, колончатые, дизайнерские и биметаллические радиаторы медь-алюминий, а также полотенцесушители — более 30 моделей в 5 категориях. Сертификат CE/EN442, цвета по RAL на заказ.",
     },
     mn: {
-      title: "Бүтээгдэхүүн — ган радиатор, дизайнер радиатор, алчуур хатаагч",
+      title: "Ган панель радиатор — 30+ загвар, үйлдвэрийн үнэ",
       description:
-        "5 ангиллын 30 гаруй загвар: дизайнер радиатор, ган баганат, хавтгай, зэс-хөнгөн цагаан биметалл радиатор, цахилгаан алчуур хатаагч. CE/EN442 гэрчилгээтэй, RAL өнгөөр захиалгаар.",
+        "Jiuding ган панель, баганат, дизайнер, зэс-хөнгөн цагаан радиатор — 5 ангилал, 30+ загвар. EN442/CE гэрчилгээтэй, RAL өнгөөр захиалгаар. Монгол, ОХУ, Төв Азийн дистрибьютерүүдэд.",
     },
     es: {
       title: "Productos — Radiadores de acero, de diseño y toalleros",
@@ -200,7 +200,7 @@ export const PAGE_SEO: Record<string, Partial<Record<Locale, Meta>>> = {
     en: {
       title: "FAQ — Certifications, OEM, Export & More",
       description:
-        "Frequently asked questions about Jiuding radiators: certifications, production capacity, OEM/ODM services, MOQ, export markets, lead times, and distributor partnerships.",
+        "Frequently asked questions about Jiuding radiators: certifications, OEM/ODM services, MOQ, export markets, lead times, and distributor partnerships.",
     },
     zh: {
       title: "常见问题 — 认证、OEM、出口及更多",
@@ -210,17 +210,17 @@ export const PAGE_SEO: Record<string, Partial<Record<Locale, Meta>>> = {
     ru: {
       title: "Частые вопросы — сертификаты, OEM, экспорт и др.",
       description:
-        "Ответы на частые вопросы о радиаторах Jiuding: сертификаты, производственные мощности, услуги OEM/ODM, MOQ, экспортные рынки, сроки и партнёрство с дистрибьюторами.",
+        "Ответы на частые вопросы о радиаторах Jiuding: сертификаты, услуги OEM/ODM, MOQ, экспортные рынки, сроки и партнёрство с дистрибьюторами.",
     },
     mn: {
       title: "Түгээмэл асуулт — гэрчилгээ, OEM, экспорт",
       description:
-        "Jiuding радиаторын талаарх түгээмэл асуултууд: гэрчилгээ, үйлдвэрлэлийн хүчин чадал, OEM/ODM үйлчилгээ, MOQ, экспортын зах зээл, хүргэх хугацаа, дистрибьютерийн хамтын ажиллагаа.",
+        "Jiuding радиаторын талаарх түгээмэл асуултууд: гэрчилгээ, OEM/ODM үйлчилгээ, MOQ, экспортын зах зээл, хүргэх хугацаа, дистрибьютерийн хамтын ажиллагаа.",
     },
     es: {
       title: "Preguntas frecuentes — certificaciones, OEM, exportación",
       description:
-        "Preguntas frecuentes sobre los radiadores Jiuding: certificaciones, capacidad de producción, servicios OEM/ODM, MOQ, mercados de exportación, plazos y alianzas con distribuidores.",
+        "Preguntas frecuentes sobre los radiadores Jiuding: certificaciones, servicios OEM/ODM, MOQ, mercados de exportación, plazos y alianzas con distribuidores.",
     },
   },
   calculator: {
