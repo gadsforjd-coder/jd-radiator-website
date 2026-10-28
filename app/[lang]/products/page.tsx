@@ -8,6 +8,7 @@ import { locales, languageAlternates } from "@/lib/i18n";
 import { BASE_URL } from "@/lib/constants";
 import Link from "next/link";
 import Image from "next/image";
+import QuickInquiry from "./[slug]/QuickInquiry";
 
 export async function generateMetadata({
   params,
@@ -85,6 +86,16 @@ export default async function ProductsPage({ params }: { params: Promise<{ lang:
         </div>
       </div>
       <div className="py-16 px-6 lg:px-14">
+
+      {/* First-screen quick inquiry — the products LISTING page is where paid
+          traffic actually lands (/ru/products accounts for ~100% of ad
+          sessions), yet the lead form previously lived only on detail pages, so
+          paid visitors never saw a form (inquiries stuck at 0). Generic model
+          (no single product here); location="list" splits attribution from the
+          detail-page form (Umami form_location=list + source=products_list_quick). */}
+      <div className="max-w-3xl mx-auto mb-14">
+        <QuickInquiry locale={locale} model="products-listing" t={d.contact.quickInquiry} location="list" />
+      </div>
 
       {coldBottomTitle && (
         <Link href={`/${locale}/blog/radiator-cold-at-bottom`} className="inline-flex items-center gap-2 text-sm text-[var(--jd-red)] font-semibold hover:underline mb-10">

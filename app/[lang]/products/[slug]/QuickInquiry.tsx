@@ -22,10 +22,18 @@ export default function QuickInquiry({
   locale,
   model,
   t,
+  location = "detail",
 }: {
   locale: Locale;
   model: string;
   t: Dictionary["contact"]["quickInquiry"];
+  // Where this form instance is rendered. Drives attribution so the two
+  // placements never merge: the products LISTING page (first screen, where paid
+  // traffic actually lands) vs. a product DETAIL page. Store二 needs per-page
+  // conversion, so we tag the Umami "inquiry" event with form_location AND split
+  // the server-side payload source. Defaults to "detail" to keep the existing
+  // detail-page usage byte-for-byte unchanged.
+  location?: "list" | "detail";
 }) {
   const [status, setStatus] = useState<Status>("idle");
 
@@ -53,7 +61,8 @@ export default function QuickInquiry({
       message: ((raw.get("requirement") as string) || "").trim(),
       page: path,
       locale: path.split("/")[1] || locale,
-      source: `product_quick:${model}`,
+      source:
+        location === "list" ? "products_list_quick" : `product_quick:${model}`,
     };
 
     setStatus("sending");
@@ -73,8 +82,12 @@ export default function QuickInquiry({
     if (captured) {
       try {
         (
-          window as unknown as { umami?: { track: (n: string) => void } }
-        ).umami?.track("inquiry");
+          window as unknown as {
+            umami?: {
+              track: (n: string, data?: Record<string, unknown>) => void;
+            };
+          }
+        ).umami?.track("inquiry", { form_location: location });
       } catch {}
       try {
         (
@@ -140,7 +153,7 @@ export default function QuickInquiry({
         type="submit"
         disabled={status === "sending"}
         data-umami-event="quick_inquiry_submit"
-        data-umami-event-src="product"
+        data-umami-event-src={location === "list" ? "products_list" : "product"}
         className="w-full h-12 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-orange-700 transition-colors disabled:opacity-60"
       >
         {status === "sending" ? t.sending : t.submit}
