@@ -46,7 +46,7 @@ export default async function ProductsPage({ params }: { params: Promise<{ lang:
 
   return (
     <div>
-      <div className="relative h-[320px] lg:h-[400px] overflow-hidden bg-[#1C1310]">
+      <div className="relative h-[240px] lg:h-[400px] overflow-hidden bg-[#1C1310]">
         <Image src="/assets/ai-images/stock-panel-radiator.jpg" alt="Panel radiator" fill className="object-cover opacity-40" sizes="100vw" priority />
         <div className="absolute inset-0 flex items-end px-6 lg:px-14 pb-8 lg:pb-12">
           <div className="max-w-4xl w-full">
@@ -85,7 +85,7 @@ export default async function ProductsPage({ params }: { params: Promise<{ lang:
           </div>
         </div>
       </div>
-      <div className="py-16 px-6 lg:px-14">
+      <div className="pt-8 pb-16 px-6 lg:px-14">
 
       {/* First-screen quick inquiry — the products LISTING page is where paid
           traffic actually lands (/ru/products accounts for ~100% of ad
@@ -93,7 +93,7 @@ export default async function ProductsPage({ params }: { params: Promise<{ lang:
           paid visitors never saw a form (inquiries stuck at 0). Generic model
           (no single product here); location="list" splits attribution from the
           detail-page form (Umami form_location=list + source=products_list_quick). */}
-      <div className="max-w-3xl mx-auto mb-14">
+      <div id="quick-inquiry" className="scroll-mt-24 max-w-3xl mx-auto mb-14">
         <QuickInquiry locale={locale} model="products-listing" t={d.contact.quickInquiry} location="list" />
       </div>
 
