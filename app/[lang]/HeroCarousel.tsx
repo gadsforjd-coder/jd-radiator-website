@@ -13,6 +13,11 @@ type CTA = {
   // When true, render as a real external anchor (target=_blank) instead of <Link>
   // — required for off-site links like WhatsApp under this Next config.
   external?: boolean;
+  // Same-page fragment target (e.g. "#quick-inquiry"). When set, the CTA renders
+  // as a plain in-page <a href="#…"> so the browser smooth-scrolls to the anchor
+  // (html{scroll-behavior:smooth} in globals.css) instead of a Next route change
+  // — keeps the visitor ON the page. `href` is ignored when `anchor` is set.
+  anchor?: string;
 };
 
 export type HeroSlide = {
@@ -142,7 +147,9 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
                   </ul>
                 )}
                 <div className="flex gap-2.5 lg:gap-4 mt-4 lg:mt-10 flex-wrap justify-end">
-                  {slide.cta1.external ? (
+                  {slide.cta1.anchor ? (
+                    <a href={slide.cta1.anchor} tabIndex={active ? 0 : -1} data-umami-event={slide.cta1.event} data-umami-event-src={slide.cta1.eventSrc} className="inline-flex h-11 lg:h-14 items-center px-5 lg:px-8 text-sm lg:text-base bg-[var(--jd-red)] text-white font-extrabold rounded-sm hover:bg-orange-700 transition-all hover:shadow-[0_0_30px_rgba(234,88,12,0.4)]">{slide.cta1.label}</a>
+                  ) : slide.cta1.external ? (
                     <a href={slide.cta1.href} target="_blank" rel="noopener" tabIndex={active ? 0 : -1} data-umami-event={slide.cta1.event} data-umami-event-src={slide.cta1.eventSrc} className="inline-flex h-11 lg:h-14 items-center px-5 lg:px-8 text-sm lg:text-base bg-[var(--jd-red)] text-white font-extrabold rounded-sm hover:bg-orange-700 transition-all hover:shadow-[0_0_30px_rgba(234,88,12,0.4)]">{slide.cta1.label}</a>
                   ) : (
                     <Link href={slide.cta1.href} tabIndex={active ? 0 : -1} data-umami-event={slide.cta1.event} data-umami-event-src={slide.cta1.eventSrc} className="inline-flex h-11 lg:h-14 items-center px-5 lg:px-8 text-sm lg:text-base bg-[var(--jd-red)] text-white font-extrabold rounded-sm hover:bg-orange-700 transition-all hover:shadow-[0_0_30px_rgba(234,88,12,0.4)]">{slide.cta1.label}</Link>

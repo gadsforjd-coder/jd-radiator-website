@@ -11,6 +11,7 @@ import HeroCarousel, { type HeroSlide } from "./HeroCarousel";
 import { VRTour } from "./VRTour";
 import { vrTourUrl } from "@/lib/vr";
 import CustomerMap from "./CustomerMap";
+import QuickInquiry from "./products/[slug]/QuickInquiry";
 
 // Small line icons paired with the homepage stat metrics.
 const ICON = "w-5 h-5";
@@ -84,12 +85,17 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   const locale = lang as Locale;
   const d = await getDictionary(locale);
 
-  // Conversion-sprint hero CTAs (variant B, locked 2026-08-20): primary → contact
-  // (talk to an engineer), secondary → WhatsApp. Both tracked under src=home_hero
-  // so umami can separate hero clicks from footer (wa_click) / contact page.
+  // Conversion-sprint hero CTAs: primary → same-page #quick-inquiry short form
+  // (keeps paid visitors ON the homepage instead of sending them to /contact,
+  // where they dropped off before submitting), secondary → WhatsApp. Both tracked
+  // under src=home_hero so umami can separate hero clicks from footer (wa_click) /
+  // contact page. `anchor` makes it a plain in-page <a> that smooth-scrolls
+  // (html{scroll-behavior:smooth}); the hero_quote_click event is kept so the
+  // existing hero-exit measurement continues uninterrupted.
   const heroCta1: HeroSlide["cta1"] = {
     label: d.hero.cta1,
     href: `/${locale}/contact`,
+    anchor: "#quick-inquiry",
     event: "hero_quote_click",
     eventSrc: "home_hero",
   };
@@ -419,6 +425,18 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         subtitle={d.customerMap.subtitle}
         countries={d.customerMap.countries}
       />
+
+      {/* Quick inquiry — low-friction in-place short form. The hero primary CTA
+          smooth-scrolls here (#quick-inquiry) instead of sending paid visitors to
+          the full /contact page, where they dropped off before submitting. The
+          form POSTs to /api/inquiry in place (no page jump) and is attributed with
+          location="home". scroll-mt-24 clears the fixed 96px header on landing. */}
+      <section id="quick-inquiry" className="scroll-mt-24 py-24 px-6 lg:px-14 bg-white">
+        <div className="max-w-2xl mx-auto">
+          <p className="text-center text-[var(--jd-red)] uppercase tracking-[0.3em] font-extrabold text-sm mb-6">{d.contact.kicker}</p>
+          <QuickInquiry locale={locale} model="general" t={d.contact.quickInquiry} location="home" />
+        </div>
+      </section>
 
       {/* Contact CTA — signature orange block with white text */}
       <section className="py-24 px-6 lg:px-14 bg-[#FFF7ED]">

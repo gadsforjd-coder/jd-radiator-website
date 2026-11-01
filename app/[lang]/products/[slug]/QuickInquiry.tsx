@@ -27,13 +27,14 @@ export default function QuickInquiry({
   locale: Locale;
   model: string;
   t: Dictionary["contact"]["quickInquiry"];
-  // Where this form instance is rendered. Drives attribution so the two
+  // Where this form instance is rendered. Drives attribution so the
   // placements never merge: the products LISTING page (first screen, where paid
-  // traffic actually lands) vs. a product DETAIL page. Store二 needs per-page
-  // conversion, so we tag the Umami "inquiry" event with form_location AND split
-  // the server-side payload source. Defaults to "detail" to keep the existing
-  // detail-page usage byte-for-byte unchanged.
-  location?: "list" | "detail";
+  // traffic actually lands) vs. a product DETAIL page vs. the HOMEPAGE hero
+  // #quick-inquiry section. Store二 needs per-page conversion, so we tag the
+  // Umami "inquiry" event with form_location AND split the server-side payload
+  // source. Defaults to "detail" to keep the existing detail-page usage
+  // byte-for-byte unchanged.
+  location?: "list" | "detail" | "home";
 }) {
   const [status, setStatus] = useState<Status>("idle");
 
@@ -62,7 +63,11 @@ export default function QuickInquiry({
       page: path,
       locale: path.split("/")[1] || locale,
       source:
-        location === "list" ? "products_list_quick" : `product_quick:${model}`,
+        location === "list"
+          ? "products_list_quick"
+          : location === "home"
+            ? "home_quick"
+            : `product_quick:${model}`,
     };
 
     setStatus("sending");
@@ -153,7 +158,13 @@ export default function QuickInquiry({
         type="submit"
         disabled={status === "sending"}
         data-umami-event="quick_inquiry_submit"
-        data-umami-event-src={location === "list" ? "products_list" : "product"}
+        data-umami-event-src={
+          location === "list"
+            ? "products_list"
+            : location === "home"
+              ? "home"
+              : "product"
+        }
         className="w-full h-12 bg-[var(--jd-red)] text-white font-extrabold rounded hover:bg-orange-700 transition-colors disabled:opacity-60"
       >
         {status === "sending" ? t.sending : t.submit}
