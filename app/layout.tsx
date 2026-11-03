@@ -56,7 +56,7 @@ export default function RootLayout({
   return (
     <>
       {children}
-      {/* Google Analytics 4 (gtag.js) — site-wide across all locales */}
+      {/* Google tag (gtag.js) — GA4 (G-K580G43DWH) + Google Ads (AW-18553135774), site-wide across all locales */}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-K580G43DWH"
         strategy="afterInteractive"
@@ -65,7 +65,8 @@ export default function RootLayout({
         {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-K580G43DWH');`}
+gtag('config', 'G-K580G43DWH');
+gtag('config', 'AW-18553135774');`}
       </Script>
       {/* Yandex.Metrica — site-wide across all locales */}
       <Script id="yandex-metrica" strategy="afterInteractive">
