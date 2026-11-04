@@ -143,8 +143,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const depthMm = panelDepth[slug];
   // RU/MN use Cyrillic unit symbols (matches localizeSpecValue convention).
   const u = locale === "ru" || locale === "mn"
-    ? { mm: "мм", w: "Вт", kg: "кг" }
-    : { mm: "mm", w: "W", kg: "kg" };
+    ? { mm: "мм", w: "Вт", kg: "кг", l: "л" }
+    : { mm: "mm", w: "W", kg: "kg", l: "L" };
 
   const specRows = [
     { label: d.products.profile, value: product.specs.profile },
@@ -242,6 +242,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                       <th className="py-2 px-3 font-semibold text-gray-700">{d.products.depth} ({u.mm})</th>
                       <th className="py-2 px-3 font-semibold text-gray-700">{d.products.heatOutput} ({u.w})</th>
                       <th className="py-2 px-3 font-semibold text-gray-700">{d.products.weight} ({u.kg})</th>
+                      <th className="py-2 px-3 font-semibold text-gray-700">{d.products.waterContent} ({u.l})</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -252,6 +253,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                         <td className="py-2 px-3 text-gray-600">{s.d}</td>
                         <td className="py-2 px-3 text-gray-600">{s.q}</td>
                         <td className="py-2 px-3 text-gray-600">{s.w}</td>
+                        <td className="py-2 px-3 text-gray-600">{s.v}</td>
                       </tr>
                     ))}
                   </tbody>
