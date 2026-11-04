@@ -112,6 +112,16 @@ export default async function LangLayout({
         />
       </head>
       <body className="text-[var(--jd-dark)] bg-white overflow-x-hidden">
+        {/* Google Tag Manager (noscript) — container GTM-MQHC2PRP. Must sit
+            immediately after <body>; the head loader is in app/layout.tsx. */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-MQHC2PRP"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         {/* Header */}
         <header className="h-[96px] fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-xl flex items-center justify-between px-6 lg:px-14 z-50 border-b border-[#F1E7DC] shadow-[0_1px_12px_rgba(30,41,59,0.05)]">
           <Link href={`/${locale}`} className="flex items-center gap-3 shrink-0">

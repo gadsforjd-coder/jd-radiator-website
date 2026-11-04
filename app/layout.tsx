@@ -56,6 +56,14 @@ export default function RootLayout({
   return (
     <>
       {children}
+      {/* Google Tag Manager — container GTM-MQHC2PRP, site-wide across all
+          locales. The <body> noscript fallback lives in app/[lang]/layout.tsx.
+          Note: GA4 and Google Ads below also fire directly via gtag.js; if a
+          given tag is later migrated into the GTM container, remove its direct
+          gtag line here to avoid double-counting. */}
+      <Script id="gtm-base" strategy="afterInteractive">
+        {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MQHC2PRP');`}
+      </Script>
       {/* Google tag (gtag.js) — GA4 (G-K580G43DWH) + Google Ads (AW-18553135774), site-wide across all locales */}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-K580G43DWH"
