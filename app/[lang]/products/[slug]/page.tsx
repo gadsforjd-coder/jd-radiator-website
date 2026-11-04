@@ -145,6 +145,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const u = locale === "ru" || locale === "mn"
     ? { mm: "мм", w: "Вт", kg: "кг", l: "л" }
     : { mm: "mm", w: "W", kg: "kg", l: "L" };
+  // Chinese residential heating design index (采暖热指标, W/m²): heated area ≈ q / index.
+  const HEAT_INDEX_CN = 60;
 
   const specRows = [
     { label: d.products.profile, value: product.specs.profile },
@@ -243,6 +245,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                       <th className="py-2 px-3 font-semibold text-gray-700">{d.products.heatOutput} ({u.w})</th>
                       <th className="py-2 px-3 font-semibold text-gray-700">{d.products.weight} ({u.kg})</th>
                       <th className="py-2 px-3 font-semibold text-gray-700">{d.products.waterContent} ({u.l})</th>
+                      <th className="py-2 px-3 font-semibold text-gray-700">{d.products.heatedAreaCn}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -254,6 +257,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                         <td className="py-2 px-3 text-gray-600">{s.q}</td>
                         <td className="py-2 px-3 text-gray-600">{s.w}</td>
                         <td className="py-2 px-3 text-gray-600">{s.v}</td>
+                        <td className="py-2 px-3 text-gray-600">≈ {Math.round(s.q / HEAT_INDEX_CN)}</td>
                       </tr>
                     ))}
                   </tbody>
