@@ -58,13 +58,14 @@ export default function RootLayout({
       {children}
       {/* Google Tag Manager — container GTM-MQHC2PRP, site-wide across all
           locales. The <body> noscript fallback lives in app/[lang]/layout.tsx.
-          Note: GA4 and Google Ads below also fire directly via gtag.js; if a
-          given tag is later migrated into the GTM container, remove its direct
-          gtag line here to avoid double-counting. */}
+          Google Ads (AW-18553135774) is now managed inside this GTM container,
+          so it is no longer configured in the direct gtag.js block below (that
+          would double-count conversions). GA4 (G-K580G43DWH) still fires
+          directly via gtag.js; migrate it into GTM too if ever desired. */}
       <Script id="gtm-base" strategy="afterInteractive">
         {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MQHC2PRP');`}
       </Script>
-      {/* Google tag (gtag.js) — GA4 (G-K580G43DWH) + Google Ads (AW-18553135774), site-wide across all locales */}
+      {/* Google tag (gtag.js) — GA4 (G-K580G43DWH) only, site-wide across all locales. Google Ads moved to the GTM container above. */}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-K580G43DWH"
         strategy="afterInteractive"
@@ -73,8 +74,7 @@ export default function RootLayout({
         {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-K580G43DWH');
-gtag('config', 'AW-18553135774');`}
+gtag('config', 'G-K580G43DWH');`}
       </Script>
       {/* Yandex.Metrica — site-wide across all locales */}
       <Script id="yandex-metrica" strategy="afterInteractive">
