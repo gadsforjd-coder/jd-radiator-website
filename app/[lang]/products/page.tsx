@@ -44,6 +44,18 @@ export default async function ProductsPage({ params }: { params: Promise<{ lang:
   const coldBottomGuide = getPostBySlug("radiator-cold-at-bottom");
   const coldBottomTitle = coldBottomGuide?.content[locale]?.title ?? coldBottomGuide?.content.en.title;
 
+  // Certification badge strip (运营 copy B1 — landing-copy-fixes_2026-11-06_V1).
+  // The products listing is the primary paid-traffic landing page yet carried no
+  // compliance signal; this surfaces trust above the category grid. Badge set
+  // matches the homepage CertMarquee (includes ISO 14001). Authored locales only
+  // (en/ru/mn); ru/mn use the Cyrillic ГОСТ per the operations copy.
+  const certStrips: Partial<Record<Locale, { label: string; badges: string[] }>> = {
+    en: { label: "Certified:", badges: ["CE (EN 442)", "GOST", "ISO 9001", "ISO 14001"] },
+    ru: { label: "Сертификаты:", badges: ["CE (EN 442)", "ГОСТ", "ISO 9001", "ISO 14001"] },
+    mn: { label: "Гэрчилгээ:", badges: ["CE (EN 442)", "ГОСТ", "ISO 9001", "ISO 14001"] },
+  };
+  const certStrip = certStrips[locale];
+
   return (
     <div>
       <div className="relative h-[240px] lg:h-[400px] overflow-hidden bg-[#1C1310]">
@@ -101,6 +113,17 @@ export default async function ProductsPage({ params }: { params: Promise<{ lang:
         <Link href={`/${locale}/blog/radiator-cold-at-bottom`} className="inline-flex items-center gap-2 text-sm text-[var(--jd-red)] font-semibold hover:underline mb-10">
           <span aria-hidden="true">📘</span>{coldBottomTitle} →
         </Link>
+      )}
+
+      {certStrip && (
+        <div className="mb-14 rounded-xl border border-[#F1E7DC] bg-[#FFF7ED] px-5 py-4">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2.5">
+            <span className="text-[var(--jd-red)] uppercase tracking-[0.18em] font-extrabold text-xs">{certStrip.label}</span>
+            {certStrip.badges.map((b) => (
+              <span key={b} className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white border border-[#F1E7DC] text-[var(--jd-red)] font-black text-xs">{b}</span>
+            ))}
+          </div>
+        </div>
       )}
 
       {categories.map((cat) => {
