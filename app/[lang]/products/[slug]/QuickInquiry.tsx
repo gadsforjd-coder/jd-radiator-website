@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { phoneOnlyHint } from "@/lib/phone-only-hint";
 import type { Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionary";
 
@@ -37,6 +38,7 @@ export default function QuickInquiry({
   location?: "list" | "detail" | "home";
 }) {
   const [status, setStatus] = useState<Status>("idle");
+  const [hint, setHint] = useState("");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -79,7 +81,9 @@ export default function QuickInquiry({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      captured = res.ok && ((await res.json()) as { ok?: boolean }).ok === true;
+      const j = (await res.json()) as { ok?: boolean; phoneOnly?: boolean };
+      captured = res.ok && j.ok === true;
+      setHint(captured && j.phoneOnly ? phoneOnlyHint(payload.locale) : "");
     } catch {
       captured = false;
     }
@@ -112,6 +116,7 @@ export default function QuickInquiry({
         <p className="text-base font-semibold text-[var(--jd-dark)]">
           {t.success}
         </p>
+        {hint && <p className="text-sm text-gray-600 mt-2">{hint}</p>}
       </div>
     );
   }

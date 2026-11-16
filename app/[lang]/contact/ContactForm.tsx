@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Dictionary } from "@/lib/dictionary";
+import { phoneOnlyHint } from "@/lib/phone-only-hint";
 
 // Inquiries POST to our OWN server route first (same-origin → we can read the
 // REAL result). That route guarantees capture by pushing the lead to Feishu the
@@ -61,6 +62,7 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
   const [status, setStatus] = useState<Status>("idle");
   const [images, setImages] = useState<File[]>([]);
   const [docs, setDocs] = useState<File[]>([]);
+  const [hint, setHint] = useState("");
 
   async function onAddImages(e: React.ChangeEvent<HTMLInputElement>) {
     const picked = Array.from(e.target.files ?? []);
@@ -115,7 +117,9 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(text),
       });
-      captured = res.ok && ((await res.json()) as { ok?: boolean }).ok === true;
+      const j = (await res.json()) as { ok?: boolean; phoneOnly?: boolean };
+      captured = res.ok && j.ok === true;
+      setHint(captured && j.phoneOnly ? phoneOnlyHint(text.locale) : "");
     } catch {
       captured = false;
     }
@@ -165,7 +169,10 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
   if (status === "success") {
     return (
       <div className="bg-gray-50 p-8 lg:p-12 flex items-center justify-center min-h-[300px]">
-        <p className="text-lg font-semibold text-[var(--jd-dark)] text-center">{t.formSuccess}</p>
+        <div className="text-center">
+          <p className="text-lg font-semibold text-[var(--jd-dark)]">{t.formSuccess}</p>
+          {hint && <p className="text-sm text-gray-600 mt-3">{hint}</p>}
+        </div>
       </div>
     );
   }

@@ -146,9 +146,20 @@ async function sendEmail(b: InquiryBody): Promise<boolean> {
   }
 }
 
-function fmtAlert(b: InquiryBody, iso: string): string {
+// Inquiry ID for tracking/handoff: INQ-YYYYMMDD-HHmmss-XX (UTC, XX = random
+// base36 pair so two submissions in the same second stay distinct).
+function makeInquiryId(d: Date): string {
+  const p = (n: number) => String(n).padStart(2, "0");
+  const rnd = Math.floor(Math.random() * 1296).toString(36).toUpperCase().padStart(2, "0");
+  return `INQ-${d.getUTCFullYear()}${p(d.getUTCMonth() + 1)}${p(d.getUTCDate())}-${p(d.getUTCHours())}${p(d.getUTCMinutes())}${p(d.getUTCSeconds())}-${rnd}`;
+}
+
+function fmtAlert(b: InquiryBody, iso: string, id: string): string {
+  const phoneOnly = !b.email && !!b.phone;
   const lines = [
     "📨 官网新询盘 / New website inquiry",
+    `询盘ID: ${id}`,
+    phoneOnly ? "【仅电话·无邮箱】" : null,
     `时间: ${iso}`,
     b.name ? `姓名: ${b.name}` : null,
     b.email ? `邮箱: ${b.email}` : null,
@@ -163,6 +174,8 @@ function fmtAlert(b: InquiryBody, iso: string): string {
     "———",
     "留言:",
     (b.message || "(无留言)").trim(),
+    "———",
+    "待办: @销售助理 请登记并通知鲁楠;24小时内无人认领,日报标「待跟进」。",
   ].filter(Boolean);
   return lines.join("\n");
 }
@@ -183,13 +196,15 @@ export async function POST(request: Request) {
     return Response.json({ ok: false, error: "no_contact" }, { status: 422 });
   }
 
-  const iso = new Date().toISOString().replace("T", " ").slice(0, 19) + " UTC";
+  const now = new Date();
+  const iso = now.toISOString().replace("T", " ").slice(0, 19) + " UTC";
+  const inquiryId = makeInquiryId(now);
 
   // Feishu is the guaranteed capture; email is best-effort. Run every channel in
   // parallel so no single slow/broken one delays the visitor's response. Two
   // Feishu paths for resilience: the app-token IM push AND a zero-config group
   // custom-bot webhook — whichever is configured captures the lead.
-  const alert = fmtAlert(b, iso);
+  const alert = fmtAlert(b, iso, inquiryId);
   const [feishuOk, webhookOk, emailOk] = await Promise.all([
     sendFeishu(alert),
     sendFeishuWebhook(alert),
@@ -200,7 +215,12 @@ export async function POST(request: Request) {
   // tell the visitor so they can email directly.
   const ok = feishuOk || webhookOk || emailOk;
   return Response.json(
-    { ok, channels: { feishu: feishuOk, webhook: webhookOk, email: emailOk } },
+    {
+      ok,
+      id: inquiryId,
+      phoneOnly: !b.email && !!b.phone,
+      channels: { feishu: feishuOk, webhook: webhookOk, email: emailOk },
+    },
     { status: ok ? 200 : 502 },
   );
 }
